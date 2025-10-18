@@ -1,0 +1,68 @@
+body {
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    user-select: none;
+    font-family: 'Jost', sans-serif; // Fallback font
+    background-color: white;
+}
+
+html, body {
+    touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+  
+
+@font-face {
+    font-family: 'Jost';
+    src: url('./assets/fonts/Jost-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('./assets/fonts/Jost-Medium.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('./assets/fonts/Jost-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Nanum Pen Script';
+    src: url('./assets/fonts/NanumPenScript-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Josefin Slab';
+    src: url('./assets/fonts/JosefinSlab-VariableFont_wght.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Indie Flower";
+    src: url('./assets/fonts/IndieFlower-Regular.ttf');
+    font-weight: 400;
+  }
+
+  .camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+    pointer-events: auto;
+    z-index: 1000;
+}
+

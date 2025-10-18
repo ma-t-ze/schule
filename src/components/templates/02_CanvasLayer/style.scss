@@ -1,0 +1,36 @@
+.canvas {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 10;
+  }
+  
+  .darken-container {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+  }
+  
+  .img-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .background {
+    position: absolute;
+    width: 100vw;
+    height: auto;
+  }
+
+  .logo {
+    position: absolute;
+    width: 25vw;
+    left: 10vh;
+    top: 5vh;
+    /* Adjust the percentage as needed */
+    height: auto;
+    z-index: 5000;
+    /* Maintain the aspect ratio */
+  }

@@ -1,0 +1,28 @@
+.counter {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-family: jost;
+    font-weight: 300;
+    font-size: 40px;
+    color: white;
+    z-index: 200;
+    left: 110vw;
+}
+
+.counter-description {
+    width: 500px;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.counter-time {
+    font-size: 60px;
+    margin-bottom: 50px;
+}

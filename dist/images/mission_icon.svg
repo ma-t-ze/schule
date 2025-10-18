@@ -1,0 +1,33 @@
+<svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="31.1485" cy="33.4997" rx="21" ry="24.5" transform="rotate(-34.2594 31.1485 33.4997)" fill="#CC8111"/>
+<path d="M20.4895 12.6638C29.7895 6.32937 43.4393 9.94225 50.9432 20.9594C58.4472 31.9765 56.8106 46.0012 47.5106 52.3356C38.2106 58.67 24.5608 55.0571 17.0569 44.04C9.55291 33.0228 11.1895 18.9981 20.4895 12.6638Z" fill="url(#paint0_linear_341_402)" stroke="black"/>
+<path d="M24.0064 10.5C17.0069 11.5 2.12267 26.1877 13.5 44C24.9973 62 41.5067 57.5 50.0061 50.5" stroke="black"/>
+<path d="M22.6089 15.2702C30.5208 9.88127 42.1511 12.9478 48.552 22.3455C54.953 31.7432 53.5475 43.6885 45.6356 49.0775C37.7237 54.4664 26.0934 51.3999 19.6924 42.0022C13.2916 32.6045 14.6971 20.6592 22.6089 15.2702Z" fill="#F2A93C" stroke="black"/>
+<path d="M29.5 13.5017C39.5439 10.0314 60.7959 27.8156 48.5103 45.7295C52.0103 29.2303 38.1073 14.9353 29.5 13.5017Z" fill="#D17E32"/>
+<path d="M9.51654 30.5571L12.2429 29.745" stroke="black"/>
+<path d="M9.34467 28.2065L12.0711 27.3944" stroke="black"/>
+<path d="M9.95404 25.6821L12.6804 24.87" stroke="black"/>
+<path d="M10.8212 23.0708L13.5476 22.2587" stroke="black"/>
+<path d="M12.2119 19.7622L14.9382 18.9501" stroke="black"/>
+<path d="M9.82889 33.4794L12.1358 32.7247" stroke="black"/>
+<path d="M10.3981 36.2978L13.0354 35.6179" stroke="black"/>
+<path d="M11.009 39.0828L13.6015 38.2484" stroke="black"/>
+<path d="M12.2277 41.4744L14.8203 40.64" stroke="black"/>
+<path d="M13.2668 43.6863L15.8593 42.8519" stroke="black"/>
+<path d="M15.3918 46.4842L17.9843 45.6498" stroke="black"/>
+<path d="M17.5558 48.8758L20.1484 48.0414" stroke="black"/>
+<path d="M19.3242 51.0876L22.4671 50.0032" stroke="black"/>
+<path d="M21.3007 52.7057L24.4436 51.6213" stroke="black"/>
+<path d="M23.8242 54.1266L26.9671 53.0422" stroke="black"/>
+<path d="M26.8242 55.3893L29.9671 54.3049" stroke="black"/>
+<path d="M30.2226 56.3473L33.3655 55.2629" stroke="black"/>
+<defs>
+<linearGradient id="paint0_linear_341_402" x1="15" y1="44.5" x2="58.5" y2="22" gradientUnits="userSpaceOnUse">
+<stop offset="0.16358" stop-color="#F5D462"/>
+<stop offset="0.276562" stop-color="#FFFD87"/>
+<stop offset="0.44813" stop-color="#ECAB3B"/>
+<stop offset="0.632551" stop-color="#FFFE88"/>
+<stop offset="0.793269" stop-color="#F2A93C"/>
+</linearGradient>
+</defs>
+</svg>

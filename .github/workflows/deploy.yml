@@ -1,0 +1,28 @@
+name: Deploy to Web Space
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SECRET_SSH }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+
+    - name: Test SSH Connection
+      run: |
+        ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no matthiasheckel.com@ssh.strato.de exit
+
+    - name: Deploy to Web Space
+      run: |
+        rsync -av --delete -e "ssh -i ~/.ssh/id_ed25519" $GITHUB_WORKSPACE/dist/ matthiasheckel.com@ssh.strato.de:karlsvision_next/
