@@ -11,13 +11,14 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4  # Aktuelle Version, v2 ist veraltet
 
     - name: Set up SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.SECRET_SSH }}" > ~/.ssh/id_ed25519
+        echo "${{ secrets.SECRET_SSH }}" | base64 -d > ~/.ssh/id_ed25519  # Base64-Dekodierung ist wichtig!
         chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -t ed25519 ssh.strato.de >> ~/.ssh/known_hosts  # Host-Key automatisch akzeptieren
 
     - name: Test SSH Connection
       run: |
@@ -25,4 +26,4 @@ jobs:
 
     - name: Deploy to Web Space
       run: |
-        rsync -av --delete -e "ssh -i ~/.ssh/id_ed25519" $GITHUB_WORKSPACE/dist/ matthiasheckel.com@ssh.strato.de:karlsvision_next/visualizer
+        rsync -avz --delete -e "ssh -i ~/.ssh/id_ed25519" ./dist/ matthiasheckel.com@ssh.strato.de:visualizer/
