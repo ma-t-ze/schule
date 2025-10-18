@@ -4,7 +4,7 @@ import vueDevtools from 'vite-plugin-vue-devtools';
 import path from 'path'; // Import the 'path' module to work with file paths
 
 export default defineConfig({
-  base: 'https://karlsvision-next.matthiasheckel.com/', // Set the base URL
+  base: 'https://visualizer.matthiasheckel.com/', // Set the base URL
   plugins: [
     vue(),
     vueDevtools()
