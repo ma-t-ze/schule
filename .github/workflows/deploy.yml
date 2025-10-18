@@ -25,4 +25,4 @@ jobs:
 
     - name: Deploy to Web Space
       run: |
-        rsync -av --delete -e "ssh -i ~/.ssh/id_ed25519" $GITHUB_WORKSPACE/dist/ matthiasheckel.com@ssh.strato.de:karlsvision_next/
+        rsync -av --delete -e "ssh -i ~/.ssh/id_ed25519" $GITHUB_WORKSPACE/dist/ matthiasheckel.com@ssh.strato.de:karlsvision_next/visualizer
