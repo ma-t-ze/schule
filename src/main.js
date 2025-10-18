@@ -21,7 +21,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // Check if the route requires authentication
-  if (to.meta.requiresAuth && !isLoggedIn() && to.query.prinzmax !== '1') {
+  if (to.meta.requiresAuth && !isLoggedIn() && to.query.parameter !== '1') {
     // Redirect to login page if not authenticated
     next('/login'); // Redirect to the login page
   } else {

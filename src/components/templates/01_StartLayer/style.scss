@@ -1,175 +1,26 @@
-.img-container {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  left: 0px;
 
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: white;
 }
 
-/* Define styles for stats mode */
-.terminal {
-  background-color: black;
-  color: green;
-
-  .description {
-    color: lightgreen;
-  }
-}
-
-.description {
-  position: absolute;
-  right: 4vw;
-  top: 4vw;
-  font-family: "Josefin Slab";
-  font-weight: 300;
-  line-height: 130%;
-  font-size: 70px;
-  width: 18vw;
-  color: rgba(0, 66, 90);
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 80px;
-  z-index: 13;
-
-}
-
-.start-game {
-  position: absolute;
-  top: 82vh;
-  left: 7vw;
-  z-index: 12;
-  /* Ensure it is below the button */
-}
-
-button {
-  position: absolute;
+.center-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Josefin Slab";
-  font-weight: 400;
-  font-style: normal;
-  font-size: 60px;
-  height: 160px;
-  border-radius: 80px;
-  width: 1200px;
-  background-color: rgba(0, 66, 90, 1);
-
-
-  color: white;
-  z-index: 13;
-  // border: none;
-  border: 7px double white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
-.free {
-  top: 0px;
 
-  // border: 0px solid #e6b800;
-  //   background: linear-gradient(
-  //   -45deg,
-  //   #ffd700 0%,      /* helles Gold links */
-  //   #ad7b0e 20%,     /* weißlich-goldene Mitte */
-  //   #e6b800 50%,     /* satter Goldton */
-  //   #c99700 80%,     /* dunkleres Gold */
-  //   #fff3b0 100%     /* heller Ausklang rechts */
-  // );
-}
-
-.mission {
-  left: 72vw;
-  color: black;
-  border: 7px double black;
-  width: 1100px;
-  border-radius: 80px;
-  background: linear-gradient(
-    -45deg,
-    #ffd700 0%,      /* helles Gold links */
-    #ad7b0e 20%,     /* weißlich-goldene Mitte */
-    #e6b800 50%,     /* satter Goldton */
-    #c99700 80%,     /* dunkleres Gold */
-    #fff3b0 100%     /* heller Ausklang rechts */
-  );
-}
-
-.mission img {
-  width: 120px;
-  padding-right: 30px;
-  margin-left: -290px;
-  margin-top: -6px;
-}
-
-button img {
-  width: 60px;
-  padding-right: 60px;
-  margin-top: -6px;
-}
-
-button:active {
-  background-color: gray;
-}
-
-.castle-container {
-  position: absolute;
-  width: 105%;
-  height: 100%;
-  left: 27vw;
-  top: 100px;
-  transition: left 0.5s ease;
-  z-index: 9;
-}
-
-.castle-container img {
-  position: absolute;
-  // z-index: 13 !important;
-}
-
-.castle {
-  width: 72%;
-
-  filter: brightness(1.4) contrast(1) saturate(1.4);
-}
-
-.green-container {
-  position: absolute;
-  width: 105%;
-  height: 100%;
-  left: 20vw;
-  top: -240px;
-  transition: left 0.5s ease;
-  transform: rotate(-2deg);
-  z-index: 12 !important;
-}
-
-.green-container img {
+#flyAroundElements > *{
   position: absolute;
 }
 
-.green {
-  width: 85%;
-  filter: brightness(1.4) contrast(1) saturate(1.4);
 
-}
 
-.faecher-container {
-  position: absolute;
-  width: 80vw;
-  /* Adjust as needed */
-  height: auto;
-  /* Maintain aspect ratio */
-  left: 8vw;
-  top: -24vh;
-  z-index: 9;
-}
-
-.faecher {
-  position: absolute;
-  ;
-  width: 200%;
-  /* Adjust the percentage to scale the image */
-  height: auto;
-  /* Maintain the aspect ratio */
-  left: 300px;
-  top: -1000px;
-  opacity: 1;
-}
+  

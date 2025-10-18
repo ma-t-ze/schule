@@ -8,7 +8,7 @@
     <InactivityTimer v-if="isInactivityTimer" />
     <WalkingLayerSection v-if="isWalkingLayerSection" />
     <LightsOnSection v-if="isLightsOnSection"/>
-    <BarometerPhraseSection/>
+    <BarometerPhraseSection v-if="isBarometerPhraseSection"/>
 
 </template>
 
@@ -35,12 +35,13 @@ export default {
     },
     data() {
         return {
-            isCanvasLayer: true,
-            isToolbarSection: true,
+            isCanvasLayer: false,
+            isToolbarSection: false,
             isStartLayer: true,
-            isInactivityTimer: true,
-            isWalkingLayerSection: true,
+            isInactivityTimer: false,
+            isWalkingLayerSection: false,
             isLightsOnSection: false,
+            isBarometerPhraseSection: false
         };
     },
     mounted() {
