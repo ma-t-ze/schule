@@ -16,7 +16,15 @@ html, body {
     touch-action: manipulation;
     overscroll-behavior: none;
   }
-  
+
+@font-face {
+  font-family: "Gabonza";
+  src: url("./assets/fonts/GabonzaVF.woff2") format("woff2-variations");
+  font-weight: 1 200;       /* Variable Gewichtsspanne */
+  font-stretch: 1% 1000%;    /* falls die Font eine Width-Achse hat */
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
     font-family: 'Jost';

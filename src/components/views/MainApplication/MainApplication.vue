@@ -1,47 +1,22 @@
 <!-- MainApplication.vue -->
 
 <template>
-
-    <StartLayer v-if="isStartLayer" />
-    <CanvasLayer v-if="isCanvasLayer" />
-    <ToolbarSection v-if="isToolbarSection" />
-    <InactivityTimer v-if="isInactivityTimer" />
-    <WalkingLayerSection v-if="isWalkingLayerSection" />
-    <LightsOnSection v-if="isLightsOnSection"/>
-    <BarometerPhraseSection v-if="isBarometerPhraseSection"/>
-
+    <div class="links">
+        <router-link class="chaos-link" :to="{ name: 'chaos' }">Gesetz der Nähe</router-link>
+        <router-link class="chaos-link" :to="{ name: 'variablefont' }">Variable Font</router-link>
+    </div>
 </template>
 
 <script>
 
-import StartLayer from '@/components/templates/01_StartLayer/StartLayer.vue'
-import CanvasLayer from '@/components/templates/02_CanvasLayer/CanvasLayer.vue'
-import ToolbarSection from '@/components/templates/03_ToolbarSection/ToolbarSection.vue'
-import InactivityTimer from '@/components/templates/partials/InactivityTimer/InactivityTimer.vue'
-import WalkingLayerSection from '@/components/templates/03_ToolbarSection/05_WalkingLayer/WalkingLayerSection.vue';
-import BarometerPhraseSection from '@/components/templates/04_FeelGoodBarometer/02_BarometerPhrase/BarometerPhraseSection.vue';
-import LightsOnSection from '@/components/templates/05_LightsOn/LightsOnSection.vue'
 
 export default {
     name: 'MainApplication',
     components: {
-        CanvasLayer,
-        ToolbarSection,
-        StartLayer,
-        InactivityTimer,
-        WalkingLayerSection,
-        LightsOnSection,
-        BarometerPhraseSection
     },
     data() {
         return {
-            isCanvasLayer: false,
-            isToolbarSection: false,
-            isStartLayer: true,
-            isInactivityTimer: false,
-            isWalkingLayerSection: false,
-            isLightsOnSection: false,
-            isBarometerPhraseSection: false
+
         };
     },
     mounted() {
@@ -53,4 +28,31 @@ export default {
 
 <style scoped lang="scss">
 @import './style.scss';
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10vh;
+    height: 100%;
+    /* or: 100vh, depending on layout */
+}
+
+.chaos-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    font-family: jost;
+    font-weight: 400;
+    font-size: 30px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.chaos-link:hover {
+    background: #333;
+}
 </style>

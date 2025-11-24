@@ -8,9 +8,13 @@ import store from './store';
 const app = createApp(App);
 
 import LoginPage from './components/views/LoginPage/LoginPage.vue';
+import ChaosPage from './components/views/ChaosPage/ChaosPage.vue';
+import VariableFontPage from './components/views/VariableFontPage/VariableFontPage.vue';
 
 const routes = [
   { path: '/login', name: 'LoginPage', component: LoginPage },
+  { path: '/chaos', name: 'chaos', component: ChaosPage, meta: { requiresAuth: false } },
+  { path: '/variablefont', name: 'variablefont', component: VariableFontPage, meta: { requiresAuth: false } },
   { path: '/', name: 'home', component: () => import('./components/views/MainApplication/MainApplication.vue'), meta: { requiresAuth: true } },
 ];
 
