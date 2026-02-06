@@ -62,6 +62,18 @@ html, body {
     font-weight: 400;
   }
 
+  @font-face {
+    font-family: "Anton";
+    src: url('./assets/fonts/Anton-Regular.ttf');
+    font-weight: 400;
+  }
+
+   @font-face {
+    font-family: "Permanent";
+    src: url('./assets/fonts/PermanentMarker-Regular.ttf');
+    font-weight: 400;
+  }
+
   .camera-overlay {
     position: absolute;
     top: 0;

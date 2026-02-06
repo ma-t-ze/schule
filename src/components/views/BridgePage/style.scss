@@ -1,0 +1,103 @@
+  .text {
+      width: 100vw;
+      //   border: 1px solid black;
+      margin-top: 20px;
+          display: flex;           // ← HINZUFÜGEN!
+  flex-direction: column;  // ← HINZUFÜGEN!
+  align-items: center;     // ← Jetzt funktioniert es!
+  }
+
+  /* Sichtfenster für den Lauftext */
+  .gmt-wrapper {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+  }
+
+  /* Eigentliche laufende Schrift */
+  .gmt {
+      display: inline-block;
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+      animation: gmt-loop 30s linear infinite;
+      background-color: #EC6623;
+      padding-left: 40px;
+      padding-right: 40px;
+  }
+
+  /* Animation: von links nach rechts durchlaufen */
+  @keyframes gmt-loop {
+      0% {
+          transform: translateX(-100%);
+      }
+
+      100% {
+          transform: translateX(100%);
+      }
+  }
+
+  .gmt {
+      font-family: Jost;
+      font-weight: 200;
+      font-size: 40px;
+  }
+
+  .logo {
+    padding-top: 10px;
+  }
+
+  .top {
+      font-family: Permanent;
+      font-size: 60px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      margin-top: 40px;
+      //   border: 1px solid black;
+  }
+
+
+
+  .columns {
+      display: flex;
+      justify-content: space-between;
+      width: 1000px;
+      gap: 40px;
+      font-family: Jost;
+      font-weight: 400;
+      margin-bottom: 20px;
+      font-size: 22px;
+
+  }
+
+  .column {
+      flex: 1;
+      text-align: center;
+      padding: 0px;
+  }
+
+  .column-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .column-icon {
+      margin-top: 10px;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+  }
+
+  .weight {
+    padding-top: 340px;
+      text-align: center;
+      font-family: Permanent;
+      font-size: 36px;
+
+  }
+
+  .text {
+      position: absolute;
+  }
