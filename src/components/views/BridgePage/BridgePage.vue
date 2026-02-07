@@ -1,14 +1,18 @@
 <template>
     <div class="text">
         <div class="gmt-wrapper">
-            <div class="gmt">GESTALTUNGS- UND MEDIENTECHNIK | TG  &nbsp;&nbsp;   <img src="/images/challange/chs.svg" class="logo" alt="DIN A3" />   &nbsp;&nbsp; GESTALTUNGS- UND MEDIENTECHNIK | TG
-                &nbsp;&nbsp; <img src="/images/challange/chs.svg" class="logo" alt="DIN A3" /> &nbsp;&nbsp; GESTALTUNGS- UND MEDIENTECHNIK | TG</div>
+            <div class="gmt">GESTALTUNGS- UND MEDIENTECHNIK | TG  &nbsp;&nbsp;   
+                <img src="/images/challange/chs.svg" class="logo" alt="DIN A3" />   &nbsp;&nbsp; GESTALTUNGS- UND MEDIENTECHNIK | TG &nbsp;&nbsp;
+                <img src="/images/challange/chs.svg" class="logo" alt="DIN A3" /> &nbsp;&nbsp; GESTALTUNGS- UND MEDIENTECHNIK | TG &nbsp;&nbsp;
+                <img src="/images/challange/chs.svg" class="logo" alt="DIN A3" /> &nbsp;&nbsp; GESTALTUNGS- UND MEDIENTECHNIK | TG &nbsp;&nbsp;
+                <img src="/images/challange/chs.svg" class="logo" alt="DIN A3" /> &nbsp;&nbsp; GESTALTUNGS- UND MEDIENTECHNIK | TG &nbsp;&nbsp;
+            </div>
         </div>
-        <div class="top">CHALLANGE</div>
+        <div class="top">CHALLENGE</div>
         <div class="columns">
             <div class="column">
                 <div class="column-content">
-                    1 × DIN A3
+                    2 × DIN A3
                     <img src="/images/challange/paper.svg" class="column-icon" alt="DIN A3" />
                 </div>
             </div>
