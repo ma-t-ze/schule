@@ -3,7 +3,7 @@
         <div v-if="showSplash" class="splash" :class="{ 'splash--fade-out': splashFadeOut }">
             <div class="splash__content">
                 <div class="splash__title-wrap">
-                    <h1 class="splash__title">Designplattform</h1>
+                    <h1 class="splash__title">Grafik & Design</h1>
                     <p class="splash__subtitle">Carl-Hofer-Schule Karlsruhe</p>
                 </div>
 
@@ -13,10 +13,10 @@
             </div>
         </div>
 
-        <header class="header header--large" :class="{ 'is-hidden': isScrolled }">
-            <div class="header__inner">
+        <header class="header" :class="{ 'is-hidden': isScrolled }">
+            <div class="header__inner" :style="{ width: `${layoutWidth}px` }">
                 <div class="header__left">
-                    <h1 class="header__title">Design-Plattform</h1>
+                    <h1 class="header__title">Grafik & Design</h1>
                     <p class="header__subtitle">Carl-Hofer-Schule Karlsruhe</p>
                 </div>
 
@@ -30,28 +30,37 @@
             </div>
         </header>
 
-        <header class="header header--small" :class="{ 'is-visible': isScrolled }">
-            <div class="header__inner header__inner--small">
-                <div class="header__left">
-                    <p class="header__subtitle__small">Carl-Hofer-Schule Karlsruhe</p>
-                </div>
+        <div class="filters">
+            <div class="filters__inner" :style="{ width: `${layoutWidth}px` }">
+                <button class="filter">
+                    <img src="/images/bkgd/down.svg" class="filter__icon" alt="" />
+                    <span>Jahrgang</span>
+                </button>
 
-                <div class="header__right">
-                    <a href="#faqs" class="header__link__small">FAQs</a>
-                </div>
+                <button class="filter">
+                    <img src="/images/bkgd/down.svg" class="filter__icon" alt="" />
+                    <span>Fachbereich</span>
+                </button>
             </div>
-        </header>
+        </div>
+
+        <div class="floating-blobs" :class="{ 'is-visible': blobsVisible }" :style="floatingBlobsStyle">
+            <span class="floating-blobs__blob floating-blobs__blob--1"></span>
+            <span class="floating-blobs__blob floating-blobs__blob--2"></span>
+            <span class="floating-blobs__blob floating-blobs__blob--3"></span>
+        </div>
+
+        <div class="back-to-top" :class="{ 'is-visible': isScrolled }"
+            :style="{ left: `calc(50% + ${gridWidth / 2}px)` }">
+            <button class="back-to-top__button" @click="scrollToTop">
+                <img src="/images/bkgd/top.svg" class="back-to-top__icon" alt="Back to top" />
+            </button>
+        </div>
 
         <div class="grid" :style="{ gridTemplateColumns: 'repeat(' + columns + ', 300px)' }">
             <div v-for="(image, index) in tileImages" :key="index" class="tile"
-                :style="{ animationDelay: tileDelays[index] }" @mouseenter="onTileEnter(index)"
-                @mouseleave="onTileLeave(index)">
-                <div class="tile__blobs">
-                    <span class="tile__blob tile__blob--1"></span>
-                    <span class="tile__blob tile__blob--2"></span>
-                    <span class="tile__blob tile__blob--3"></span>
-                </div>
-
+                :style="{ animationDelay: tileDelays[index] }" @mouseenter="onTileEnter(index, $event)"
+                @mouseleave="onTileLeave">
                 <img :src="image" :alt="'Tile Bild ' + (index + 1)" class="tile__image" />
 
                 <div class="tile__label" :class="{ 'is-visible': hoverActive[index] }">
@@ -61,7 +70,7 @@
         </div>
 
         <div class="load-more-wrap">
-            <button class="load-more-button" @click="loadMore">
+            <button class="load-more-button">
                 Mehr laden
             </button>
         </div>
@@ -90,6 +99,14 @@ export default {
             ticking: false,
             showSplash: true,
             splashFadeOut: false,
+
+            blobsVisible: false,
+            activeTileIndex: null,
+            blobX: 0,
+            blobY: 0,
+            homeBlobX: 0,
+            homeBlobY: 0,
+
             namesPool: [
                 "Leon Schneider",
                 "Mia Fischer",
@@ -108,6 +125,20 @@ export default {
     computed: {
         totalTiles() {
             return this.columns * this.rows
+        },
+
+        gridWidth() {
+            return this.columns * this.tileWidth
+        },
+
+        layoutWidth() {
+            return this.gridWidth + 200
+        },
+
+        floatingBlobsStyle() {
+            return {
+                transform: `translate(${this.blobX}px, ${this.blobY}px)`
+            }
         }
     },
 
@@ -121,11 +152,21 @@ export default {
 
         setTimeout(() => {
             this.splashFadeOut = true
-        }, 4000)
+        }, 2000)
 
         setTimeout(() => {
             this.showSplash = false
-        }, 4600)
+        }, 2600)
+
+        this.$nextTick(() => {
+            this.setBlobHomePosition()
+
+            const introDuration = 2000 + (this.totalTiles - 1) * 180 + 700
+
+            setTimeout(() => {
+                this.blobsVisible = true
+            }, 2600)
+        })
     },
 
     beforeUnmount() {
@@ -134,6 +175,13 @@ export default {
     },
 
     methods: {
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            })
+        },
+
         updateColumns() {
             const screenWidth = window.innerWidth
             const columns = Math.floor(screenWidth / this.tileWidth)
@@ -153,7 +201,7 @@ export default {
         getDelaySequence(tileCount) {
             return Array.from(
                 { length: tileCount },
-                (_, index) => `${4000 + index * 180}ms`
+                (_, index) => `${2000 + index * 180}ms`
             )
         },
 
@@ -200,6 +248,10 @@ export default {
 
             this.rows += additionalRows
             this.appendTiles(additionalTiles)
+
+            this.$nextTick(() => {
+                this.setBlobHomePosition()
+            })
         },
 
         handleResize() {
@@ -209,6 +261,10 @@ export default {
             if (this.columns !== oldColumns) {
                 this.generateTileImages()
             }
+
+            this.$nextTick(() => {
+                this.setBlobHomePosition()
+            })
         },
 
         onScroll() {
@@ -226,13 +282,43 @@ export default {
             this.isScrolled = y > 50
         },
 
-        onTileEnter(index) {
-            this.hoverNames[index] = this.getRandomName()
-            this.hoverActive[index] = true
+        setBlobHomePosition() {
+            const logoWrap = this.$el.querySelector(".header__center")
+            if (!logoWrap) return
+
+            const rect = logoWrap.getBoundingClientRect()
+
+            this.homeBlobX = rect.left + rect.width / 2
+            this.homeBlobY = rect.top + rect.height / 2
+
+            if (this.activeTileIndex === null) {
+                this.blobX = this.homeBlobX
+                this.blobY = this.homeBlobY
+            }
         },
 
-        onTileLeave(index) {
-            this.hoverActive[index] = false
+        moveBlobsToTile(event) {
+            const tile = event.currentTarget
+            if (!tile) return
+
+            const rect = tile.getBoundingClientRect()
+
+            this.blobX = rect.left + rect.width / 2
+            this.blobY = rect.top + rect.height / 2
+        },
+
+        onTileEnter(index, event) {
+            this.hoverNames[index] = this.getRandomName()
+            this.hoverActive[index] = true
+            this.activeTileIndex = index
+            this.moveBlobsToTile(event)
+        },
+
+        onTileLeave() {
+            this.hoverActive = this.hoverActive.map(() => false)
+            this.activeTileIndex = null
+            this.blobX = this.homeBlobX
+            this.blobY = this.homeBlobY
         }
     }
 }
@@ -240,4 +326,8 @@ export default {
 
 <style scoped lang="scss">
 @import "./style.scss";
+@import "./style-splash-screen.scss";
+@import "./style-tiles.scss";
+@import "./style-footer.scss";
+@import "./style-header.scss";
 </style>
