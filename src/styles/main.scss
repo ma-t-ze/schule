@@ -5,8 +5,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    overflow: hidden;
+    bottom: 0; 
+    // overflow: hidden;
     user-select: none;
     font-family: 'Jost', sans-serif; // Fallback font
     background-color: white;
@@ -16,6 +16,20 @@ html, body {
     touch-action: manipulation;
     overscroll-behavior: none;
   }
+
+// html,
+// body {
+//     padding: 0;
+//     margin: 0;
+//     overflow-x: hidden;
+//     overflow-y: auto;
+//     touch-action: manipulation;
+//     overscroll-behavior: none;
+// }
+
+body {
+  position: static;
+}
 
 @font-face {
   font-family: "Gabonza";
@@ -72,6 +86,18 @@ html, body {
     font-family: "Permanent";
     src: url('./assets/fonts/PermanentMarker-Regular.ttf');
     font-weight: 400;
+  }
+
+  @font-face {
+    font-family: "Graphit";
+    src: url('./assets/fonts/Graphit-Regular.ttf');
+    font-weight: 400;
+  }
+
+  @font-face {
+    font-family: "Graphit";
+    src: url('./assets/fonts/Graphit-Light.ttf');
+    font-weight: 200;
   }
 
   .camera-overlay {
