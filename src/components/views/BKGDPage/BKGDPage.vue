@@ -1,5 +1,14 @@
 <template>
     <div class="page">
+        <!-- <GlassLayer /> -->
+        <!-- <LiquidCursorBlobs /> -->
+        <LiquidCursorThree
+    :target-x="blobX"
+    :target-y="blobY"
+    :is-visible="blobsVisible"
+    :hover-key="activeTileIndex"
+/>
+
         <div v-if="showSplash" class="splash" :class="{ 'splash--fade-out': splashFadeOut }">
             <div class="splash__content">
                 <div class="splash__title-wrap">
@@ -44,11 +53,11 @@
             </div>
         </div>
 
-        <div class="floating-blobs" :class="{ 'is-visible': blobsVisible }" :style="floatingBlobsStyle">
+        <!-- <div class="floating-blobs" :class="{ 'is-visible': blobsVisible }" :style="floatingBlobsStyle">
             <span class="floating-blobs__blob floating-blobs__blob--1"></span>
             <span class="floating-blobs__blob floating-blobs__blob--2"></span>
             <span class="floating-blobs__blob floating-blobs__blob--3"></span>
-        </div>
+        </div> -->
 
         <div class="back-to-top" :class="{ 'is-visible': isScrolled }"
             :style="{ left: `calc(50% + ${gridWidth / 2}px)` }">
@@ -82,9 +91,22 @@
     </div>
 </template>
 
+
+
 <script>
+import GlassLayer from "@/components/templates/GlassLayer/GlassLayer.vue"
+import LiquidCursorBlobs from "@/components/templates/GlassLayer/LiquidCursorBlobs.vue"
+import LiquidCursorThree from "@/components/templates/GlassLayer/LiquidCursorThree.vue"
+
+
 export default {
     name: "BKGDPage",
+
+    components: {
+        GlassLayer,
+        LiquidCursorBlobs,
+        LiquidCursorThree
+    },
 
     data() {
         return {
