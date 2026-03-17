@@ -2,12 +2,8 @@
     <div class="page">
         <!-- <GlassLayer /> -->
         <!-- <LiquidCursorBlobs /> -->
-        <LiquidCursorThree
-    :target-x="blobX"
-    :target-y="blobY"
-    :is-visible="blobsVisible"
-    :hover-key="activeTileIndex"
-/>
+        <LiquidCursorThree :target-x="blobX" :target-y="blobY" :is-visible="blobsVisible"
+            :hover-key="activeTileIndex" />
 
         <div v-if="showSplash" class="splash" :class="{ 'splash--fade-out': splashFadeOut }">
             <div class="splash__content">
@@ -73,7 +69,12 @@
                 <img :src="image" :alt="'Tile Bild ' + (index + 1)" class="tile__image" />
 
                 <div class="tile__label" :class="{ 'is-visible': hoverActive[index] }">
-                    {{ hoverNames[index] }}
+                    <span class="tile__label-line tile__label-line-one">
+                        {{ hoverNames[index].split('\n')[0] }}
+                    </span>
+                    <span class="tile__label-line tile__label-line-two">
+                        {{ hoverNames[index].split('\n')[1] }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -130,16 +131,16 @@ export default {
             homeBlobY: 0,
 
             namesPool: [
-                "Leon Schneider",
-                "Mia Fischer",
-                "Noah Wagner",
-                "Emma Becker",
-                "Luca Hoffmann",
-                "Lina Keller",
-                "Jonas Hartmann",
-                "Sophie Braun",
-                "Ben Neumann",
-                "Hannah Vogel"
+                "Leon\nSchneider",
+                "Mia\nFischer",
+                "Noah\nWagner",
+                "Emma\nBecker",
+                "Luca\nHoffmann",
+                "Lina\nKeller",
+                "Jonas\nHartmann",
+                "Sophie\nBraun",
+                "Ben\nNeumann",
+                "Hannah\nVogel"
             ]
         }
     },
