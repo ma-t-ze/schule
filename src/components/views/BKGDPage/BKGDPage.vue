@@ -27,7 +27,7 @@
                         'Berufskolleg Grafikdesign',
                         'Gestaltungs- und Medientechnik | TG',
                         'Berufskolleg Foto',
-                        'Berufsfachschule Druck- und Medientechnik'
+                        'BF Druck- und Medientechnik'
                     ]" />
                 </div>
                 <div class="header__right">
