@@ -88,6 +88,12 @@ body {
     font-weight: 400;
   }
 
+    @font-face {
+    font-family: "Graphit";
+    src: url('./assets/fonts/Graphit-Bold.ttf');
+    font-weight: 600;
+  }
+
   @font-face {
     font-family: "Graphit";
     src: url('./assets/fonts/Graphit-Regular.ttf');

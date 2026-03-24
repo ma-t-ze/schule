@@ -4,12 +4,14 @@
 
 <script>
 import * as THREE from "three"
-import TWEEN from 'tween.js/src/tween.js';
+import TWEEN from "tween.js/src/tween.js"
 import { markRaw } from "vue"
 
 const RENDER_SIZE = 800
 const DISPLAY_SIZE = 1000
 const DISPLAY_OFFSET = DISPLAY_SIZE / 2
+
+const DEFAULT_PALETTE = ["#FFBC8F", "#FFBC8F", "#FFBC8F", "#FFBC8F"]
 
 export default {
     name: "LiquidCursorThree",
@@ -40,7 +42,8 @@ export default {
             lastX: 0,
             lastY: 0,
             rafId: null,
-            startTime: 0
+            startTime: 0,
+            idleTimeout: null
         }
     },
 
@@ -54,16 +57,37 @@ export default {
 
     watch: {
         targetX() {
-            this.startMoveTween()
+            if (this.hoverKey === null) return
+            this.startMoveTween(this.targetX, this.targetY)
         },
 
         targetY() {
-            this.startMoveTween()
+            if (this.hoverKey === null) return
+            this.startMoveTween(this.targetX, this.targetY)
         },
 
         hoverKey(newValue, oldValue) {
-            if (newValue === null || newValue === oldValue) return
+            if (newValue === oldValue) return
+
+            if (this.idleTimeout) {
+                clearTimeout(this.idleTimeout)
+                this.idleTimeout = null
+            }
+
+            if (newValue === null) {
+                this.startPaletteTweenTo(DEFAULT_PALETTE)
+
+                this.idleTimeout = setTimeout(() => {
+                    if (this.hoverKey === null) {
+                        this.moveToIdlePosition()
+                    }
+                }, 120)
+
+                return
+            }
+
             this.startPaletteTween()
+            this.startMoveTween(this.targetX, this.targetY)
         }
     },
 
@@ -78,7 +102,6 @@ export default {
         this.lastPaletteIndex = -1
 
         this.colorPalettes = [
-            ["#FF8C40", "#FFBC8F", "#FF6F00", "#F35203"],
             ["#1A237E", "#3949AB", "#64B5F6", "#E3F2FD"],
             ["#0D47A1", "#1E88E5", "#90CAF9", "#E1F5FE"],
             ["#1F2937", "#6B7280", "#D1D5DB", "#F3F4F6"],
@@ -87,28 +110,18 @@ export default {
             ["#FFE4E6", "#FFC1CC", "#FFB6C1", "#FFA6B0"]
         ]
 
-        const [hex1, hex2, hex3, hex4] = this.colorPalettes[0]
-
-        const c1 = new THREE.Color(hex1)
-        const c2 = new THREE.Color(hex2)
-        const c3 = new THREE.Color(hex3)
-        const c4 = new THREE.Color(hex4)
-
-        this.currentPaletteState = {
-            c1r: c1.r, c1g: c1.g, c1b: c1.b,
-            c2r: c2.r, c2g: c2.g, c2b: c2.b,
-            c3r: c3.r, c3g: c3.g, c3b: c3.b,
-            c4r: c4.r, c4g: c4.g, c4b: c4.b
-        }
+        this.currentPaletteState = this.createPaletteState(DEFAULT_PALETTE)
     },
 
     mounted() {
-        this.currentX = this.targetX
-        this.currentY = this.targetY
-        this.lastX = this.targetX
-        this.lastY = this.targetY
+        this.currentX = window.innerWidth / 2
+        this.currentY = 100
+
+        this.lastX = this.currentX
+        this.lastY = this.currentY
 
         this.initThree()
+        this.setPalette(DEFAULT_PALETTE)
         this.applyPaletteStateToUniforms()
 
         window.addEventListener("resize", this.handleResize, { passive: true })
@@ -165,6 +178,26 @@ export default {
             }
         },
 
+        createPaletteState(palette) {
+            const [hex1, hex2, hex3, hex4] = palette
+
+            const c1 = this.hexToRgbObject(hex1)
+            const c2 = this.hexToRgbObject(hex2)
+            const c3 = this.hexToRgbObject(hex3)
+            const c4 = this.hexToRgbObject(hex4)
+
+            return {
+                c1r: c1.r, c1g: c1.g, c1b: c1.b,
+                c2r: c2.r, c2g: c2.g, c2b: c2.b,
+                c3r: c3.r, c3g: c3.g, c3b: c3.b,
+                c4r: c4.r, c4g: c4.g, c4b: c4.b
+            }
+        },
+
+        setPalette(palette) {
+            this.currentPaletteState = this.createPaletteState(palette)
+        },
+
         getRandomPalette() {
             if (!this.colorPalettes.length) return null
 
@@ -208,28 +241,20 @@ export default {
         },
 
         startPaletteTween() {
-            if (!this.material) return
-
             const palette = this.getRandomPalette()
             if (!palette) return
+
+            this.startPaletteTweenTo(palette)
+        },
+
+        startPaletteTweenTo(palette) {
+            if (!this.material || !palette) return
 
             if (this.paletteTween) {
                 this.paletteTween.stop()
             }
 
-            const [hex1, hex2, hex3, hex4] = palette
-
-            const c1 = this.hexToRgbObject(hex1)
-            const c2 = this.hexToRgbObject(hex2)
-            const c3 = this.hexToRgbObject(hex3)
-            const c4 = this.hexToRgbObject(hex4)
-
-            const targetState = {
-                c1r: c1.r, c1g: c1.g, c1b: c1.b,
-                c2r: c2.r, c2g: c2.g, c2b: c2.b,
-                c3r: c3.r, c3g: c3.g, c3b: c3.b,
-                c4r: c4.r, c4g: c4.g, c4b: c4.b
-            }
+            const targetState = this.createPaletteState(palette)
 
             this.paletteTween = new TWEEN.Tween(this.currentPaletteState)
                 .to(targetState, 700)
@@ -452,7 +477,7 @@ export default {
 <style lang="scss">
 .liquid-cursor-three {
     position: fixed;
-    top: 0;
+    top: 0px;
     left: 0;
     width: 1000px;
     height: 1000px;
@@ -471,6 +496,6 @@ export default {
 .liquid-cursor-three canvas {
     display: block;
     filter: blur(20px) saturate(1.4);
-    transform: scale(0.5);
+    transform: scale(0.6);
 }
 </style>

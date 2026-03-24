@@ -8,8 +8,8 @@
         <div v-if="showSplash" class="splash" :class="{ 'splash--fade-out': splashFadeOut }">
             <div class="splash__content">
                 <div class="splash__title-wrap">
-                    <h1 class="splash__title">Grafik & Design</h1>
-                    <p class="splash__subtitle">Carl-Hofer-Schule Karlsruhe</p>
+                    <h1 class="splash__title">Schülerarbeiten</h1>
+                    <p class="splash__subtitle">Carl-Hofer-Schule Karlsruhe </p>
                 </div>
 
                 <div class="splash__loader">
@@ -21,16 +21,17 @@
         <header class="header" :class="{ 'is-hidden': isScrolled }">
             <div class="header__inner" :style="{ width: `${layoutWidth}px` }">
                 <div class="header__left">
-                    <h1 class="header__title">Grafik & Design</h1>
-                    <p class="header__subtitle">Carl-Hofer-Schule Karlsruhe</p>
+                    <h1 class="header__title">Carl-Hofer-Schule Karlsruhe</h1>
+                    <h2 class="header__subtitle">Schülerarbeiten</h2>
+                    <HeaderTypeAnimation class="header__animation" :texts="[
+                        'Berufskolleg Grafikdesign',
+                        'Gestaltungs- und Medientechnik | TG',
+                        'Berufskolleg Foto',
+                        'Berufsfachschule Druck- und Medientechnik'
+                    ]" />
                 </div>
-
-                <div class="header__center">
-                    <img src="/images/bkgd/logo.svg" class="logo" alt="chs logo" />
-                </div>
-
                 <div class="header__right">
-                    <a href="#faqs" class="header__link">FAQs</a>
+                    <a href="#faqs" class="header__link">FAQs ________></a>
                 </div>
             </div>
         </header>
@@ -69,11 +70,8 @@
                 <img :src="image" :alt="'Tile Bild ' + (index + 1)" class="tile__image" />
 
                 <div class="tile__label" :class="{ 'is-visible': hoverActive[index] }">
-                    <span class="tile__label-line tile__label-line-one">
-                        {{ hoverNames[index].split('\n')[0] }}
-                    </span>
-                    <span class="tile__label-line tile__label-line-two">
-                        {{ hoverNames[index].split('\n')[1] }}
+                    <span class="tile__label-line">
+                        {{ hoverNames[index] }}
                     </span>
                 </div>
             </div>
@@ -98,6 +96,7 @@
 import GlassLayer from "@/components/templates/GlassLayer/GlassLayer.vue"
 import LiquidCursorBlobs from "@/components/templates/GlassLayer/LiquidCursorBlobs.vue"
 import LiquidCursorThree from "@/components/templates/GlassLayer/LiquidCursorThree.vue"
+import HeaderTypeAnimation from "@/components/templates/GlassLayer/HeaderTypeAnimation.vue"
 
 
 export default {
@@ -106,7 +105,8 @@ export default {
     components: {
         GlassLayer,
         LiquidCursorBlobs,
-        LiquidCursorThree
+        LiquidCursorThree,
+        HeaderTypeAnimation
     },
 
     data() {
@@ -131,16 +131,16 @@ export default {
             homeBlobY: 0,
 
             namesPool: [
-                "Leon\nSchneider",
-                "Mia\nFischer",
-                "Noah\nWagner",
-                "Emma\nBecker",
-                "Luca\nHoffmann",
-                "Lina\nKeller",
-                "Jonas\nHartmann",
-                "Sophie\nBraun",
-                "Ben\nNeumann",
-                "Hannah\nVogel"
+                "Leon Schneider",
+                "Mia Fischer",
+                "Noah Wagner",
+                "Emma Becker",
+                "Luca Hoffmann",
+                "Lina Keller",
+                "Jonas Hartmann",
+                "Sophie Braun",
+                "Ben Neumann",
+                "Hannah Vogel"
             ]
         }
     },
@@ -208,7 +208,7 @@ export default {
         updateColumns() {
             const screenWidth = window.innerWidth
             const columns = Math.floor(screenWidth / this.tileWidth)
-            this.columns = Math.max(1, Math.min(columns, 5))
+            this.columns = Math.max(1, Math.min(columns, 7))
         },
 
         getRandomImage() {
