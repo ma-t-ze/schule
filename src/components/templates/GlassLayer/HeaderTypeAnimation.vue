@@ -16,7 +16,7 @@ export default {
         "BKGD Berufskolleg Grafikdesign",
         "Gestaltungs- und Medientechnik | TG",
         "Berufskolleg Foto",
-        "Berufsfachschule Druck- und Medientechnik"
+        "BF Druck- und Medientechnik"
       ]
     },
     typingSpeed: {

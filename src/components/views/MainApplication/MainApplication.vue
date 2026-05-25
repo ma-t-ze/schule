@@ -6,6 +6,7 @@
         <router-link class="chaos-link" :to="{ name: 'variablefont' }">Variable Font</router-link>
         <router-link class="chaos-link" :to="{ name: 'bridgepage' }">Paperbridge</router-link>
         <router-link class="chaos-link" :to="{ name: 'bkgdpage' }">BKGD Plattform</router-link>
+        <router-link class="chaos-link" :to="{ name: 'conversepage' }">Converse</router-link>
     </div>
 </template>
 

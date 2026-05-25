@@ -12,6 +12,7 @@ import ChaosPage from './components/views/ChaosPage/ChaosPage.vue';
 import VariableFontPage from './components/views/VariableFontPage/VariableFontPage.vue';
 import BridgePage from './components/views/BridgePage/BridgePage.vue';
 import BKGDPage from './components/views/BKGDPage/BKGDPage.vue';
+import ConversePage from './components/views/ConversePage/ConversePage.vue';
 
 const routes = [
   { path: '/login', name: 'LoginPage', component: LoginPage },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/variablefont', name: 'variablefont', component: VariableFontPage, meta: { requiresAuth: false } },
   { path: '/bridgepage', name: 'bridgepage', component: BridgePage, meta: { requiresAuth: false } },
   { path: '/bkgdpage', name: 'bkgdpage', component: BKGDPage, meta: { requiresAuth: false } },
+  { path: '/conversepage', name: 'conversepage', component: ConversePage, meta: { requiresAuth: false } },
   { path: '/', name: 'home', component: () => import('./components/views/MainApplication/MainApplication.vue'), meta: { requiresAuth: true } },
 ];
 
