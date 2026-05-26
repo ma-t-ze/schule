@@ -1,25 +1,32 @@
 .text {
     position: absolute;
-    width: 540px;
-    height: auto;
-    margin-top: 100px;
 
     left: 50%;
     transform: translateX(-50%);
 
-    display: flex;
+    margin-top: 100px;
+
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
 
+    padding-left: 50px;
+    padding-right: 50px;
+
+    width: fit-content;
+
     pointer-events: none;
     z-index: 2;
-    background-color: rgba(255,255,255,0.5);
+
+    background-color: rgba(255, 255, 255, 0.8);
+
+    box-sizing: border-box;
 }
 
 .top {
     font-family: jost;
-    font-weight: 400;
-    font-size: 80px;
+    font-weight: 600;
+    font-size: 50px;
     margin-bottom: -20px;
     color: black;
     text-align: center;
@@ -36,8 +43,8 @@
 
 .name {
     font-family: jost;
-    font-weight: 400;
-    font-size: 80px;
+    font-weight: 600;
+    font-size: 50px;
     text-align: center;
     color: black;
     padding-bottom: 40px;
@@ -103,4 +110,47 @@ html {
     color: inherit;
     cursor: pointer;
     pointer-events: auto;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    pointer-events: none;
+}
+
+.background-current {
+    z-index: 0;
+    opacity: 1;
+}
+
+.background-white {
+    z-index: 0;
+    opacity: 0;
+    background: white;
+}
+
+.infoContainer {
+    position: absolute;
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 0px;
+    font-family: jost;
+    font-weight: 400;
+    font-size: 26px;
+    padding: 50px;
+    z-index: 100;
+    margin-bottom: 0px;
+    text-align: center;
+
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.info-logo {
+    width: 200px; // nach Bedarf anpassen
+    height: auto;
+    margin-bottom: 40px;
+    display: block;
 }

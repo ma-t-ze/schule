@@ -2,6 +2,19 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import TWEEN from "tween.js/src/tween.js"
 
+const extractDataFromPath = (texturePath) => {
+    const fileName = texturePath.split('/').pop()
+    const nameWithoutExtension = fileName.replace('.png', '')
+    const parts = nameWithoutExtension.split('_')
+
+    return {
+        name: `${parts[0]} ${parts[1]}`,
+        title: parts[2],
+        color1: `#${parts[3]}`,
+        color2: `#${parts[4]}`,
+    }
+}
+
 export const loadShoeModel = ({ scene, onModelLoaded }) => {
     const loader = new GLTFLoader()
     const textureLoader = new THREE.TextureLoader()
@@ -11,19 +24,20 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
         (gltf) => {
             const shoeGroup = new THREE.Group()
             const shoes = []
+            const shoeNames = []
+            const shoeTitles = []
+            const shoeColors1 = []
+            const shoeColors2 = []
 
             const texturePaths = [
-                '/textures/shoes/texture_1.png',
-                '/textures/shoes/texture_2.png',
-                '/textures/shoes/texture_3.png',
-                '/textures/shoes/texture_4.png',
+                '/textures/shoes/Antal_Alexandra_Gachiakuta - Verse Rudo Edition_D6B4B4_802626_01.png',
+                '/textures/shoes/Apostoloska_Mirela_VicVerse_FFE0EC_FFBDDA_02.png',
+                '/textures/shoes/Bluschke_Sofia_The SWAGers_4E6291_9C2323_05.png',
             ]
 
             const baseShoe = gltf.scene
-            baseShoe.scale.set(1, 1, 1)
-            baseShoe.position.set(0, 0, 0)
 
-            const prepareShoeMaterials = (shoe, texture = null) => {
+            const prepareShoeMaterials = (shoe, texture) => {
                 shoe.traverse((child) => {
                     if (!child.isMesh) return
 
@@ -39,7 +53,7 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
 
                         const clonedMaterial = material.clone()
 
-                        if (texture && clonedMaterial.map) {
+                        if (clonedMaterial.map) {
                             clonedMaterial.map = texture
                         }
 
@@ -55,24 +69,26 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
                 })
             }
 
-            prepareShoeMaterials(baseShoe)
-
-            shoeGroup.add(baseShoe)
-            shoes.push(baseShoe)
-
             texturePaths.forEach((texturePath, index) => {
-                const clonedShoe = baseShoe.clone(true)
+                const shoe = baseShoe.clone(true)
+                const shoeData = extractDataFromPath(texturePath)
 
-                clonedShoe.position.set((index + 1) * 40, 0, 0)
+                shoe.scale.set(1, 1, 1)
+                shoe.position.set(index * 40, 0, 0)
 
                 const texture = textureLoader.load(texturePath)
                 texture.flipY = false
                 texture.colorSpace = THREE.SRGBColorSpace
 
-                prepareShoeMaterials(clonedShoe, texture)
+                prepareShoeMaterials(shoe, texture)
 
-                shoeGroup.add(clonedShoe)
-                shoes.push(clonedShoe)
+                shoeGroup.add(shoe)
+                shoes.push(shoe)
+
+                shoeNames.push(shoeData.name)
+                shoeTitles.push(shoeData.title)
+                shoeColors1.push(shoeData.color1)
+                shoeColors2.push(shoeData.color2)
             })
 
             scene.add(shoeGroup)
@@ -85,7 +101,7 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
                             y: shoeGroup.position.y,
                             z: shoeGroup.position.z,
                         },
-                        2500
+                        5000
                     )
                     .easing(TWEEN.Easing.Elastic.Out)
                     .start()
@@ -94,12 +110,14 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
             if (onModelLoaded) {
                 onModelLoaded({
                     shoes,
+                    shoeNames,
+                    shoeTitles,
+                    shoeColors1,
+                    shoeColors2,
                     shoeGroup,
                     moveShoesLeft,
                 })
             }
-
-            console.log('Original und 4 geklonte Schuhe geladen')
         },
         undefined,
         (error) => {

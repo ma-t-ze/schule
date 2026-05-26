@@ -1,8 +1,21 @@
 <template>
-    <div class="text">
-        <div class="top">Chuck 70</div>
+    <div ref="backgroundCurrent" class="background background-current"></div>
+    <div ref="backgroundWhite" class="background background-white"></div>
+
+    <div ref="textContainer" class="text">
+        <div class="top">{{ currentTitle }}</div>
         <div class="by">von</div>
-        <div class="name">Juna Keller</div>
+        <div class="name">{{ currentName }}</div>
+    </div>
+
+    <div ref="infoContainer" class="infoContainer">
+        <img src="/images/logo.svg" alt="Logo" class="info-logo" />
+
+        <div class="info-text">
+            Im Fach Grafikdesign gestalteten die Schülerinnen und Schüler des Berufskollegs Grafikdesign einen Converse-Schuh zum Thema Farbe.
+
+            Lehrkraft: M. Heckel | Carl-Hofer-Schule Karlsruhe
+        </div>
     </div>
 
     <div ref="canvasContainer" class="canvas-container"></div>
@@ -15,11 +28,27 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 import { loadShoeModel } from './utils/loadShoeModel'
 import { loadCameraPath } from './utils/loadCameraPath'
+import { moveCameraAlongPath } from './utils/moveCameraAlongPath'
 
 export default {
     name: 'ConversePage',
     setup() {
         const canvasContainer = ref(null)
+        const backgroundCurrent = ref(null)
+        const backgroundWhite = ref(null)
+        const textContainer = ref(null)
+
+        const currentName = ref('')
+        const currentTitle = ref('')
+
+        const timeBeforeCameraFlight = 3000
+        const timeAfterCameraFlight = 3000
+
+        const backgroundFadeDuration = 3000
+        const whiteHoldDuration = 2000
+
+        const textMoveDuration = 500
+        const textHiddenDuration = 3000
 
         let scene
         let camera
@@ -27,8 +56,154 @@ export default {
         let animationId
 
         let shoes = []
+        let shoeNames = []
+        let shoeTitles = []
+        let shoeColors1 = []
+        let shoeColors2 = []
+        let currentShoeIndex = 0
+
         let moveShoesLeft
         let cameraPathPoints = null
+        let sequenceTimeout = null
+        let isDestroyed = false
+        let isSequenceRunning = false
+
+        const wait = (duration) => {
+            return new Promise((resolve) => {
+                sequenceTimeout = setTimeout(resolve, duration)
+            })
+        }
+
+        const getCurrentGradient = () => {
+            const color1 = shoeColors1[currentShoeIndex] || '#fde002'
+            const color2 = shoeColors2[currentShoeIndex] || '#e40a6f'
+
+            return `linear-gradient(to top, ${color1} 0%, ${color2} 100%)`
+        }
+
+        const setInitialBackground = () => {
+            if (!backgroundCurrent.value || !backgroundWhite.value) return
+
+            backgroundCurrent.value.style.background = getCurrentGradient()
+            backgroundCurrent.value.style.opacity = '1'
+
+            backgroundWhite.value.style.background = '#DDDDDD'
+            backgroundWhite.value.style.opacity = '0'
+            backgroundWhite.value.style.transition = `opacity ${backgroundFadeDuration}ms ease`
+        }
+
+        const showText = async () => {
+            if (!textContainer.value) return
+
+            textContainer.value.style.transition =
+                `transform ${textMoveDuration}ms ease, opacity ${textMoveDuration}ms ease`
+
+            textContainer.value.style.transform = 'translateX(-50%) translateY(0)'
+            textContainer.value.style.opacity = '1'
+
+            await wait(textMoveDuration)
+        }
+
+        const hideText = async () => {
+            if (!textContainer.value) return
+
+            textContainer.value.style.transition =
+                `transform ${textMoveDuration}ms ease, opacity ${textMoveDuration}ms ease`
+
+            textContainer.value.style.transform = 'translateX(-50%) translateY(-160%)'
+            textContainer.value.style.opacity = '0'
+
+            await wait(textMoveDuration)
+        }
+
+        const fadeToWhite = async () => {
+            if (!backgroundWhite.value) return
+
+            backgroundWhite.value.style.transition = `opacity ${backgroundFadeDuration}ms ease`
+            backgroundWhite.value.style.opacity = '1'
+
+            await wait(backgroundFadeDuration)
+        }
+
+        const holdWhite = async () => {
+            await wait(whiteHoldDuration)
+        }
+
+        const switchShoeUnderWhite = () => {
+            if (!shoeNames.length) return
+
+            currentShoeIndex += 1
+
+            if (currentShoeIndex >= shoeNames.length) {
+                currentShoeIndex = 0
+            }
+
+            if (moveShoesLeft) {
+                moveShoesLeft()
+            }
+
+            currentName.value = shoeNames[currentShoeIndex]
+            currentTitle.value = shoeTitles[currentShoeIndex]
+
+            if (backgroundCurrent.value) {
+                backgroundCurrent.value.style.background = getCurrentGradient()
+            }
+        }
+
+        const fadeWhiteOut = async () => {
+            if (!backgroundWhite.value) return
+
+            backgroundWhite.value.style.transition = `opacity ${backgroundFadeDuration}ms ease`
+            backgroundWhite.value.style.opacity = '0'
+
+            await wait(backgroundFadeDuration)
+        }
+
+        const runCameraFlight = () => {
+            return new Promise((resolve) => {
+                moveCameraAlongPath({
+                    camera,
+                    cameraPathPoints,
+                    callback: resolve,
+                })
+            })
+        }
+
+        const runSequence = async () => {
+            if (isSequenceRunning) return
+            isSequenceRunning = true
+
+            while (!isDestroyed) {
+                await wait(timeBeforeCameraFlight)
+                if (isDestroyed) return
+
+                await runCameraFlight()
+                if (isDestroyed) return
+
+                await wait(timeAfterCameraFlight)
+                if (isDestroyed) return
+
+                await fadeToWhite()
+                if (isDestroyed) return
+
+                await holdWhite()
+                if (isDestroyed) return
+
+                await hideText()
+                if (isDestroyed) return
+
+                switchShoeUnderWhite()
+                if (isDestroyed) return
+
+                await wait(textHiddenDuration)
+                if (isDestroyed) return
+
+                await fadeWhiteOut()
+                if (isDestroyed) return
+
+                await showText()
+            }
+        }
 
         const initThree = () => {
             scene = new THREE.Scene()
@@ -51,9 +226,6 @@ export default {
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
             container.appendChild(renderer.domElement)
 
-            camera.position.set(0, 10, 35)
-            camera.lookAt(new THREE.Vector3(0, 2, 0))
-
             const ambientLight = new THREE.AmbientLight(0xffffff, 1.2)
             scene.add(ambientLight)
 
@@ -65,7 +237,16 @@ export default {
                 scene,
                 onModelLoaded: (loadedData) => {
                     shoes = loadedData.shoes
+                    shoeNames = loadedData.shoeNames
+                    shoeTitles = loadedData.shoeTitles
+                    shoeColors1 = loadedData.shoeColors1
+                    shoeColors2 = loadedData.shoeColors2
                     moveShoesLeft = loadedData.moveShoesLeft
+
+                    currentName.value = shoeNames[0] || ''
+                    currentTitle.value = shoeTitles[0] || ''
+
+                    setInitialBackground()
                 },
             })
 
@@ -83,61 +264,6 @@ export default {
             animate()
 
             window.addEventListener('resize', onWindowResize)
-        }
-
-        const moveCameraAlongPath = (camera, cameraPathPoints, callback) => {
-            if (!cameraPathPoints) {
-                console.error('Path not loaded yet!')
-                return
-            }
-
-            const pathCurve = new THREE.CatmullRomCurve3(cameraPathPoints)
-            pathCurve.curveType = 'centripetal'
-
-            const duration = 20000
-            const lookAtPoint = new THREE.Vector3(0, 2, 0)
-
-            let startTime = null
-
-            const animateCamera = (time) => {
-                if (!startTime) startTime = time
-
-                const elapsed = time - startTime
-                const t = Math.min(elapsed / duration, 1)
-
-                const position = pathCurve.getPointAt(t)
-
-                camera.position.copy(position)
-                camera.lookAt(lookAtPoint)
-
-                if (t < 1) {
-                    requestAnimationFrame(animateCamera)
-                } else if (callback) {
-                    callback()
-                }
-            }
-
-            requestAnimationFrame(animateCamera)
-        }
-
-        const onKeyDown = (event) => {
-            if (event.code === 'Space') {
-                event.preventDefault()
-
-                if (moveShoesLeft) {
-                    moveShoesLeft()
-                }
-
-                setTimeout(() => {
-                    startCameraFlight()
-                }, 1000)
-            }
-        }
-
-        const startCameraFlight = () => {
-            moveCameraAlongPath(camera, cameraPathPoints, () => {
-                console.log('Kameraflug beendet')
-            })
         }
 
         const animate = () => {
@@ -163,14 +289,15 @@ export default {
 
         onMounted(() => {
             initThree()
-            window.addEventListener('keydown', onKeyDown)
         })
 
         onBeforeUnmount(() => {
+            isDestroyed = true
+
             if (animationId) cancelAnimationFrame(animationId)
+            if (sequenceTimeout) clearTimeout(sequenceTimeout)
 
             window.removeEventListener('resize', onWindowResize)
-            window.removeEventListener('keydown', onKeyDown)
 
             if (renderer) {
                 renderer.dispose()
@@ -181,27 +308,13 @@ export default {
             }
         })
 
-        const runSequence = () => {
-            if (moveShoesLeft) {
-                moveShoesLeft()
-            }
-
-            setTimeout(() => {
-                moveCameraAlongPath(
-                    camera,
-                    cameraPathPoints,
-                    () => {
-                        setTimeout(() => {
-                            runSequence()
-                        }, 1000)
-                    }
-                )
-            }, 1000)
-        }
-
         return {
             canvasContainer,
-            startCameraFlight,
+            backgroundCurrent,
+            backgroundWhite,
+            textContainer,
+            currentName,
+            currentTitle,
         }
     },
 }
