@@ -1,3 +1,4 @@
+```vue
 <template>
     <div ref="backgroundCurrent" class="background background-current"></div>
     <div ref="backgroundWhite" class="background background-white"></div>
@@ -23,7 +24,7 @@
 
 <script>
 import * as THREE from 'three'
-import TWEEN from "tween.js/src/tween.js"
+import TWEEN from 'tween.js/src/tween.js'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 import { loadShoeModel } from './utils/loadShoeModel'
@@ -32,6 +33,7 @@ import { moveCameraAlongPath } from './utils/moveCameraAlongPath'
 
 export default {
     name: 'ConversePage',
+
     setup() {
         const canvasContainer = ref(null)
         const backgroundCurrent = ref(null)
@@ -50,6 +52,10 @@ export default {
         const textMoveDuration = 500
         const textHiddenDuration = 3000
 
+        const shoeDistance = 40
+        const manualMoveDuration = 400
+        const autoMoveDuration = 5000
+
         let scene
         let camera
         let renderer
@@ -62,9 +68,10 @@ export default {
         let shoeColors2 = []
         let currentShoeIndex = 0
 
-        let moveShoesLeft
+        let shoeGroup = null
         let cameraPathPoints = null
         let sequenceTimeout = null
+
         let isDestroyed = false
         let isSequenceRunning = false
 
@@ -79,6 +86,31 @@ export default {
             const color2 = shoeColors2[currentShoeIndex] || '#e40a6f'
 
             return `linear-gradient(to top, ${color1} 0%, ${color2} 100%)`
+        }
+
+        const updateTextAndBackground = () => {
+            currentName.value = shoeNames[currentShoeIndex] || ''
+            currentTitle.value = shoeTitles[currentShoeIndex] || ''
+
+            if (backgroundCurrent.value) {
+                backgroundCurrent.value.style.background = getCurrentGradient()
+            }
+        }
+
+        const moveToCurrentShoe = (duration = autoMoveDuration) => {
+            if (!shoeGroup) return
+
+            new TWEEN.Tween(shoeGroup.position)
+                .to(
+                    {
+                        x: -currentShoeIndex * shoeDistance,
+                        y: shoeGroup.position.y,
+                        z: shoeGroup.position.z,
+                    },
+                    duration
+                )
+                .easing(TWEEN.Easing.Elastic.Out)
+                .start()
         }
 
         const setInitialBackground = () => {
@@ -138,16 +170,8 @@ export default {
                 currentShoeIndex = 0
             }
 
-            if (moveShoesLeft) {
-                moveShoesLeft()
-            }
-
-            currentName.value = shoeNames[currentShoeIndex]
-            currentTitle.value = shoeTitles[currentShoeIndex]
-
-            if (backgroundCurrent.value) {
-                backgroundCurrent.value.style.background = getCurrentGradient()
-            }
+            moveToCurrentShoe(autoMoveDuration)
+            updateTextAndBackground()
         }
 
         const fadeWhiteOut = async () => {
@@ -205,6 +229,36 @@ export default {
             }
         }
 
+        const goToShoe = (direction) => {
+            if (!shoeNames.length || !shoeGroup) return
+
+            currentShoeIndex += direction
+
+            if (currentShoeIndex < 0) {
+                currentShoeIndex = shoeNames.length - 1
+            }
+
+            if (currentShoeIndex >= shoeNames.length) {
+                currentShoeIndex = 0
+            }
+
+            TWEEN.removeAll()
+            moveToCurrentShoe(manualMoveDuration)
+            updateTextAndBackground()
+        }
+
+        const onKeyDown = (event) => {
+            if (event.code === 'ArrowRight') {
+                event.preventDefault()
+                goToShoe(1)
+            }
+
+            if (event.code === 'ArrowLeft') {
+                event.preventDefault()
+                goToShoe(-1)
+            }
+        }
+
         const initThree = () => {
             scene = new THREE.Scene()
 
@@ -226,10 +280,10 @@ export default {
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
             container.appendChild(renderer.domElement)
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.5)
             scene.add(ambientLight)
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5)
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
             directionalLight.position.set(1, 1, 1)
             scene.add(directionalLight)
 
@@ -241,10 +295,14 @@ export default {
                     shoeTitles = loadedData.shoeTitles
                     shoeColors1 = loadedData.shoeColors1
                     shoeColors2 = loadedData.shoeColors2
-                    moveShoesLeft = loadedData.moveShoesLeft
+                    shoeGroup = loadedData.shoeGroup
 
-                    currentName.value = shoeNames[0] || ''
-                    currentTitle.value = shoeTitles[0] || ''
+                    currentShoeIndex = 0
+                    updateTextAndBackground()
+
+                    if (shoeGroup) {
+                        shoeGroup.position.x = 0
+                    }
 
                     setInitialBackground()
                 },
@@ -264,10 +322,13 @@ export default {
             animate()
 
             window.addEventListener('resize', onWindowResize)
+            window.addEventListener('keydown', onKeyDown)
         }
 
         const animate = () => {
             animationId = requestAnimationFrame(animate)
+
+            if (!renderer || !scene || !camera) return
 
             TWEEN.update()
 
@@ -294,10 +355,18 @@ export default {
         onBeforeUnmount(() => {
             isDestroyed = true
 
-            if (animationId) cancelAnimationFrame(animationId)
-            if (sequenceTimeout) clearTimeout(sequenceTimeout)
+            if (animationId) {
+                cancelAnimationFrame(animationId)
+            }
+
+            if (sequenceTimeout) {
+                clearTimeout(sequenceTimeout)
+            }
 
             window.removeEventListener('resize', onWindowResize)
+            window.removeEventListener('keydown', onKeyDown)
+
+            TWEEN.removeAll()
 
             if (renderer) {
                 renderer.dispose()
@@ -323,3 +392,4 @@ export default {
 <style lang="scss">
 @import './style.scss';
 </style>
+```

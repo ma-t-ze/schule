@@ -1,58 +1,96 @@
-// main.js
+import { createApp } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import App from './App.vue'
+import store from './store'
 
-import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router'; // Import createWebHashHistory for hash mode
-import App from './App.vue';
-import store from './store';
-
-const app = createApp(App);
-
-import LoginPage from './components/views/LoginPage/LoginPage.vue';
-import ChaosPage from './components/views/ChaosPage/ChaosPage.vue';
-import VariableFontPage from './components/views/VariableFontPage/VariableFontPage.vue';
-import BridgePage from './components/views/BridgePage/BridgePage.vue';
-import BKGDPage from './components/views/BKGDPage/BKGDPage.vue';
-import ConversePage from './components/views/ConversePage/ConversePage.vue';
+const app = createApp(App)
 
 const routes = [
-  { path: '/login', name: 'LoginPage', component: LoginPage },
-  { path: '/chaos', name: 'chaos', component: ChaosPage, meta: { requiresAuth: false } },
-  { path: '/variablefont', name: 'variablefont', component: VariableFontPage, meta: { requiresAuth: false } },
-  { path: '/bridgepage', name: 'bridgepage', component: BridgePage, meta: { requiresAuth: false } },
-  { path: '/bkgdpage', name: 'bkgdpage', component: BKGDPage, meta: { requiresAuth: false } },
-  { path: '/conversepage', name: 'conversepage', component: ConversePage, meta: { requiresAuth: false } },
-  { path: '/', name: 'home', component: () => import('./components/views/MainApplication/MainApplication.vue'), meta: { requiresAuth: true } },
-];
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: () => import('./components/views/LoginPage/LoginPage.vue')
+  },
+
+  {
+    path: '/chaos',
+    name: 'chaos',
+    component: () => import('./components/views/ChaosPage/ChaosPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/variablefont',
+    name: 'variablefont',
+    component: () => import('./components/views/VariableFontPage/VariableFontPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/bridgepage',
+    name: 'bridgepage',
+    component: () => import('./components/views/BridgePage/BridgePage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/bkgdpage',
+    name: 'bkgdpage',
+    component: () => import('./components/views/BKGDPage/BKGDPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/conversepage',
+    name: 'conversepage',
+    component: () => import('./components/views/ConversePage/ConversePage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/3dprintgame',
+    name: '3dprintgame',
+    component: () => import('./components/views/ThreeDPrintGame/ThreeDPrintGame.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/',
+    name: 'home',
+    component: () =>
+      import('./components/views/MainApplication/MainApplication.vue'),
+    meta: { requiresAuth: true }
+  }
+]
 
 const router = createRouter({
-  history: createWebHistory(), // Use createWebHashHistory for hash mode
-  routes,
-});
+  history: createWebHistory(),
+  routes
+})
 
 router.beforeEach((to, from, next) => {
-  // Check if the route requires authentication
-  if (to.meta.requiresAuth && !isLoggedIn() && to.query.parameter !== '1') {
-    // Redirect to login page if not authenticated
-    next('/login'); // Redirect to the login page
+  if (
+    to.meta.requiresAuth &&
+    !isLoggedIn() &&
+    to.query.parameter !== '1'
+  ) {
+    next('/login')
   } else {
-    // Continue to the requested route
-    next();
+    next()
   }
-});
+})
 
 function isLoggedIn() {
-  const isAuthenticated = store.getters.isAuthenticated;
-  console.log('isAuthenticated:', isAuthenticated);
-  return isAuthenticated;
+  const isAuthenticated = store.getters.isAuthenticated
+  console.log('isAuthenticated:', isAuthenticated)
+  return isAuthenticated
 }
 
-app.use(router);
-app.use(store);
+app.use(router)
+app.use(store)
 
-app.mount('#app'); // Mount the app to the DOM element with id 'app'
+app.mount('#app')
 
-window.addEventListener('gesturestart', e => e.preventDefault());
-window.addEventListener('gesturechange', e => e.preventDefault());
-window.addEventListener('gestureend', e => e.preventDefault());
-
-
+window.addEventListener('gesturestart', e => e.preventDefault())
+window.addEventListener('gesturechange', e => e.preventDefault())
+window.addEventListener('gestureend', e => e.preventDefault())

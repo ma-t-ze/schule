@@ -5,16 +5,22 @@ import TWEEN from "tween.js/src/tween.js"
 const extractDataFromPath = (texturePath) => {
     const fileName = texturePath.split('/').pop()
     const nameWithoutExtension = fileName.replace('.png', '')
-    const parts = nameWithoutExtension.split('_')
+    const parts = nameWithoutExtension.split('_').filter(part => part !== '')
+
+    const color2 = parts.pop()
+    const color1 = parts.pop()
+
+    const firstName = parts.shift()
+    const lastName = parts.shift()
+    const title = parts.join(' ')
 
     return {
-        name: `${parts[0]} ${parts[1]}`,
-        title: parts[2],
-        color1: `#${parts[3]}`,
-        color2: `#${parts[4]}`,
+        name: `${firstName} ${lastName}`,
+        title,
+        color1: `#${color1}`,
+        color2: `#${color2}`,
     }
 }
-
 export const loadShoeModel = ({ scene, onModelLoaded }) => {
     const loader = new GLTFLoader()
     const textureLoader = new THREE.TextureLoader()
@@ -30,9 +36,19 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
             const shoeColors2 = []
 
             const texturePaths = [
-                '/textures/shoes/Antal_Alexandra_Gachiakuta - Verse Rudo Edition_D6B4B4_802626_01.png',
-                '/textures/shoes/Apostoloska_Mirela_VicVerse_FFE0EC_FFBDDA_02.png',
-                '/textures/shoes/Bluschke_Sofia_The SWAGers_4E6291_9C2323_05.png',
+                '/textures/shoes/Alexandra_Antal_Gachiakuta Rudo Version_D6B4B4_802626.png',
+                '/textures/shoes/Apostoloska_Mirela_VicVerse_FFE0EC_FFBDDA.png',
+                '/textures/shoes/Bluschke_Sofia_Swagers_333F4B_AAAAAA.png',
+                '/textures/shoes/Charmeyn_Ho_Berryse_DF3B3D_FFECB3.png',
+                '/textures/shoes/Christin_Hoerschgen_Der Schatz der Karibik_1B1B1B_F0CFAD.png',
+                '/textures/shoes/Daniel_Steblau_BapeVerse_A19EFF_302BE5.png',
+                '/textures/shoes/Evelin_Frick_Tiger_EEE9CD_7AE9EF.png',
+                '/textures/shoes/Helen_Ibrahim_Evil Mint Choco_7AE9EF_EFE998.png',
+                '/textures/shoes/Lili_Bankos_Autismus_00A1FF_FF00D4.png',
+                '/textures/shoes/Lucille_Badayei_Starfall_84659E_F7EFE0.png',
+                '/textures/shoes/Marcel_Radtke_Aero_5663C4_5F50A9.png',
+                '/textures/shoes/Rayen_Neubauer_Surebrec-verse_000000_FF0000.png',
+                '/textures/shoes/Sayavong_Nalinthip_GreenShoe_849F6F_D4B415.png',
             ]
 
             const baseShoe = gltf.scene
