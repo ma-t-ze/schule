@@ -7,7 +7,7 @@
         <router-link class="chaos-link" :to="{ name: 'bridgepage' }">Paperbridge</router-link>
         <router-link class="chaos-link" :to="{ name: 'bkgdpage' }">BKGD Plattform</router-link>
         <router-link class="chaos-link" :to="{ name: 'conversepage' }">Converse</router-link>
-        <router-link class="chaos-link" :to="{ name: '3dprintgame' }">3DPrintGame</router-link>
+        <router-link class="chaos-link" :to="{ name: '3dprint' }">3DPrint</router-link>
     </div>
 </template>
 

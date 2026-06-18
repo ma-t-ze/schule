@@ -48,9 +48,50 @@ const routes = [
   },
 
   {
-    path: '/3dprintgame',
-    name: '3dprintgame',
-    component: () => import('./components/views/ThreeDPrintGame/ThreeDPrintGame.vue'),
+    path: '/3dprint',
+    name: '3dprint',
+    component: () =>
+      import('./components/views/ThreeDPrint/ThreeDPrint.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/game',
+    name: 'game',
+    component: () =>
+      import('./components/views/ThreeDPrint/GamePage/GamePage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/fdm',
+    name: 'fdm',
+    component: () =>
+      import('./components/views/ThreeDPrint/FDMPage/FDMPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/sla',
+    name: 'sla',
+    component: () =>
+      import('./components/views/ThreeDPrint/SLAPage/SLAPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/sls',
+    name: 'sls',
+    component: () =>
+      import('./components/views/ThreeDPrint/SLSPage/SLSPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/results',
+    name: 'results',
+    component: () =>
+      import('./components/views/ThreeDPrint/ResultsPage/ResultsPage.vue'),
     meta: { requiresAuth: false }
   },
 

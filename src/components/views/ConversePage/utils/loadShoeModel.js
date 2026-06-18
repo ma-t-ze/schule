@@ -49,6 +49,7 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
                 '/textures/shoes/Marcel_Radtke_Aero_5663C4_5F50A9.png',
                 '/textures/shoes/Rayen_Neubauer_Surebrec-verse_000000_FF0000.png',
                 '/textures/shoes/Sayavong_Nalinthip_GreenShoe_849F6F_D4B415.png',
+                '/textures/shoes/Wenz_Ana_Veng Ace_D9D9D9_FFFFFF.png'
             ]
 
             const baseShoe = gltf.scene
