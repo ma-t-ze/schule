@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <main class="content">
-      <h1>Schichtverfahren – Sneaker Puzzle</h1>
+      <h1>Puzzle</h1>
 
       <p>
         Bringe die Schichten des Sneakers in die richtige Reihenfolge.
@@ -34,8 +34,8 @@
       </section>
 
       <div class="actions">
-        <RouterLink to="/3dprint" class="button">
-          Zurück
+        <RouterLink to="/3dprint?overview=true&gruppenpuzzle=true" class="button">
+          Weiter
         </RouterLink>
       </div>
 

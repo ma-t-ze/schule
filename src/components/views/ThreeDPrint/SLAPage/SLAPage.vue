@@ -8,7 +8,7 @@
           Die Stereolithografie ist das älteste 3D-Druckverfahren. Das
           3D-Objekt entsteht aus einem zähflüssigen lichtempfindlichen Polymer
           (Photopolymer). Das Polymer wird an den gewünschten Stellen Schicht
-          für Schicht mit Hilfe eines Lasers ausgehärtet.
+          für Schicht mit Hilfe von UV-Licht ausgehärtet.
         </p>
 
         <p>
@@ -26,6 +26,8 @@
           immer mehr den herkömmlichen manuellen Modellbau.
         </p>
       </section>
+
+      <img src="/images/bkgd/process/sla.png" alt="SLA-Prozess" class="process-image" />
 
       <section class="task">
         <h2>Aufgabe 1</h2>
@@ -235,6 +237,11 @@ export default {
 
 .intro {
   text-align: left;
+}
+
+.process-image {
+  width: 100%;
+  margin-top: 0px;
 }
 
 h1 {

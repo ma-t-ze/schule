@@ -23,6 +23,8 @@
         </p>
       </section>
 
+      <img src="/images/bkgd/process/fdm.png" alt="FDM-Prozess" class="process-image" />
+
       <section class="task">
         <h2>Aufgabe 1</h2>
         <p>Ordne die Prozessschritte in der richtigen Reihenfolge.</p>
@@ -298,6 +300,11 @@ export default {
 
 .intro {
   text-align: left;
+}
+
+.process-image {
+  width: 100%;
+  margin-top: 0px;
 }
 
 h1 {
