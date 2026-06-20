@@ -106,7 +106,15 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior() {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+    return { top: 0, left: 0, behavior: 'instant' }
+  }
 })
 
 router.beforeEach((to, from, next) => {

@@ -5,14 +5,9 @@
 
       <p>
         Bringe die Schichten des Sneakers in die richtige Reihenfolge.
-        Die erste und die letzte Schicht bleiben fest.
       </p>
 
       <section class="puzzle">
-        <div class="slice fixed">
-          <img :src="firstSlice.src" alt="Schicht 1" />
-        </div>
-
         <draggable
           v-model="middleSlices"
           item-key="id"
@@ -27,10 +22,6 @@
             </div>
           </template>
         </draggable>
-
-        <div class="slice fixed">
-          <img :src="lastSlice.src" alt="Schicht 10" />
-        </div>
       </section>
 
       <div class="actions">
@@ -60,16 +51,6 @@ export default {
 
   data() {
     return {
-      firstSlice: {
-        id: 1,
-        src: '/images/sneakergame/sneaker_1.png'
-      },
-
-      lastSlice: {
-        id: 10,
-        src: '/images/sneakergame/sneaker_10.png'
-      },
-
       middleSlices: [
         { id: 6, src: '/images/sneakergame/sneaker_6.png' },
         { id: 5, src: '/images/sneakergame/sneaker_5.png' },
@@ -85,6 +66,7 @@ export default {
       successTimeout: null
     }
   },
+
 
   beforeUnmount() {
     clearTimeout(this.successTimeout)
@@ -115,7 +97,6 @@ export default {
 <style scoped>
 .page {
   min-height: 100vh;
-  padding: 40px;
 
   display: flex;
   justify-content: center;
@@ -126,7 +107,7 @@ export default {
 }
 
 h1 {
-  margin-bottom: 12px;
+  margin-bottom: 0px;
 }
 
 p {
@@ -135,7 +116,7 @@ p {
 }
 
 .puzzle {
-  margin-top: 30px;
+  margin-top: 0px;
   padding: 20px;
 
   background: #f5f5f5;
