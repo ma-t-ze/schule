@@ -20,7 +20,7 @@
 
     <div class="burger-overlay" :class="{ open: showBurger }">
       <button class="burger-close" @click="showBurger = false">✕</button>
-      <RouterLink to="/game" class="burger-item" @click="showBurger = false">Game</RouterLink>
+      <button class="burger-item" @click="goToGame">Game</button>
       <button class="burger-item" @click="showBurger = false; showOverlay = true">Gruppenpuzzle</button>
       <button class="burger-item burger-item--secondary" @click="restart">Neu starten</button>
     </div>
@@ -162,14 +162,29 @@ export default {
   },
 
   methods: {
+    goToGame() {
+      this.showBurger = false
+      this.showOverlay = false
+      const overlay = this.$el.querySelector('.overlay')
+      const content = this.$el.querySelector('.overlay-content')
+      if (overlay) overlay.scrollTop = 0
+      if (content) content.scrollTop = 0
+      this.$router.push('/game')
+    },
+
     restart() {
       this.showBurger = false
       this.$router.push('/3dprint')
     },
 
     startGame() {
+      document.activeElement?.blur()
+      window.scrollTo(0, 0)
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+
       if (this.gameCode === 'gmt') {
-        this.$router.push('/game')
+        window.location.href = '/game'
       } else if (this.gameCode === 'test') {
         this.$router.push('/3dprint?overview=true')
       }

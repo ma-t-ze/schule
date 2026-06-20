@@ -14,6 +14,7 @@
           class="slice-list"
           ghost-class="ghost"
           animation="200"
+          :scroll="false"
           @change="checkSolution"
         >
           <template #item="{ element }">
@@ -25,7 +26,7 @@
       </section>
 
       <div class="actions">
-        <RouterLink to="/3dprint?overview=true&gruppenpuzzle=true" class="button">
+        <RouterLink to="/3dprint?overview=true&gruppenpuzzle=true" class="button" tabindex="-1">
           Weiter
         </RouterLink>
       </div>
@@ -68,6 +69,11 @@ export default {
   },
 
 
+  mounted() {
+    this.$el.scrollTop = 0
+    this.$nextTick(() => { this.$el.scrollTop = 0 })
+  },
+
   beforeUnmount() {
     clearTimeout(this.successTimeout)
   },
@@ -96,7 +102,10 @@ export default {
 
 <style scoped>
 .page {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   display: flex;
   justify-content: center;
@@ -107,7 +116,7 @@ export default {
 }
 
 h1 {
-  margin-bottom: 0px;
+  margin-bottom: 5px;
 }
 
 p {
@@ -116,7 +125,7 @@ p {
 }
 
 .puzzle {
-  margin-top: 0px;
+  margin-top: 5px;
   padding: 20px;
 
   background: #f5f5f5;
