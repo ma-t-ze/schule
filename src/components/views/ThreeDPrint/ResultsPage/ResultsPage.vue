@@ -172,9 +172,10 @@ export default {
   mounted() {
     this._dbRef = ref(db, 'session/solutionPushed')
     this._unsubscribe = onValue(this._dbRef, (snapshot) => {
-      console.log('Firebase value:', snapshot.val())
-      if (snapshot.val() === true) {
+      if (snapshot.val()) {
         this.unlocked = { fdm: true, sla: true, sls: true }
+      } else {
+        this.unlocked = { fdm: false, sla: false, sls: false }
       }
     })
   },
@@ -209,16 +210,13 @@ export default {
     },
 
     async pushSolution() {
-      await set(ref(db, 'session/solutionPushed'), true)
+      await set(ref(db, 'session/solutionPushed'), Date.now())
       this.pushConfirm = true
       setTimeout(() => { this.pushConfirm = false }, 3000)
     },
 
     async resetSolution() {
-      await set(ref(db, 'session/solutionPushed'), false)
-      this.unlocked.fdm = false
-      this.unlocked.sla = false
-      this.unlocked.sls = false
+      await set(ref(db, 'session/solutionPushed'), null)
     }
   }
 }
