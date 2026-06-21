@@ -172,10 +172,9 @@ export default {
   mounted() {
     this._dbRef = ref(db, 'session/solutionPushed')
     this._unsubscribe = onValue(this._dbRef, (snapshot) => {
+      console.log('Firebase value:', snapshot.val())
       if (snapshot.val() === true) {
-        this.unlocked.fdm = true
-        this.unlocked.sla = true
-        this.unlocked.sls = true
+        this.unlocked = { fdm: true, sla: true, sls: true }
       }
     })
   },
