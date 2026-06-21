@@ -1,186 +1,4 @@
-<template>
-  <div class="page">
-    <main class="content">
-      <RouterLink to="/3dprint?overview=true" class="back-button">
-        Zurück
-      </RouterLink>
-
-      <section class="task">
-        <h2>Arbeitsauftrag</h2>
-        <ol class="task-list">
-          <li>Erklärt euch gegenseitig die Verfahren – nutzt dazu am besten die schematische Darstellung auf den Expertenseiten.</li>
-          <li>Beantwortet gemeinsam auf Basis eures erlernten Wissens die Transferfragen.</li>
-        </ol>
-      </section>
-
-      <h1>Ergebnisse</h1>
-
-      <div class="code-area">
-        <input
-          v-model="code"
-          type="text"
-          placeholder="Code eingeben"
-          @keyup.enter="unlockResult"
-        />
-
-        <button @click="unlockResult">
-          Freischalten
-        </button>
-      </div>
-
-      <h2>Merkmale</h2>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Merkmal</th>
-            <th>FDM</th>
-            <th>SLA</th>
-            <th>SLS</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for="feature in features" :key="feature.key">
-            <td>{{ feature.label }}</td>
-            <td>{{ unlocked.fdm ? results.fdm[feature.key] : '' }}</td>
-            <td>{{ unlocked.sla ? results.sla[feature.key] : '' }}</td>
-            <td>{{ unlocked.sls ? results.sls[feature.key] : '' }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p v-if="message" class="message">
-        {{ message }}
-      </p>
-
-      <section class="transfer">
-        <h2>Transferfragen</h2>
-
-        <div
-          v-for="question in transferQuestions"
-          :key="question.id"
-          class="question"
-        >
-          <label :for="`question-${question.id}`">
-            {{ question.id }}. {{ question.text }}
-          </label>
-
-          <textarea
-            :id="`question-${question.id}`"
-            v-model="question.answer"
-            rows="4"
-            placeholder="Antwort eingeben"
-          />
-
-          <div v-if="showSolutions" class="solution">
-            <strong>Lösungshorizont:</strong> {{ question.solution }}
-          </div>
-        </div>
-      </section>
-
-      <button class="download-button" @click="downloadPDF">
-        Als PDF downloaden
-      </button>
-
-      <div class="teacher-area">
-        <input v-model="teacherCode" class="teacher-input" placeholder="Code" @keyup.enter="printTeacherView" />
-        <button class="download-button" @click="printTeacherView">
-          Für Lehrkraft
-        </button>
-      </div>
-
-    </main>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'ResultsPage',
-
-  data() {
-    return {
-      code: '',
-      message: '',
-      teacherCode: '',
-
-      unlocked: {
-        fdm: false,
-        sla: false,
-        sls: false
-      },
-
-      features: [
-        { key: 'material', label: 'Ausgangsmaterial' },
-        { key: 'principle', label: 'Funktionsprinzip' },
-        { key: 'detail', label: 'Detailgenauigkeit' },
-        { key: 'surface', label: 'Oberflächenqualität' },
-        { key: 'support', label: 'Stützstrukturen' },
-        { key: 'costs', label: 'Kosten' },
-        { key: 'application', label: 'Typische Anwendung' }
-      ],
-
-      results: {
-        fdm: {
-          material: 'Kunststoffdraht',
-          principle: 'Material wird geschmolzen und abgelegt',
-          detail: 'mittel',
-          surface: 'sichtbare Schichten',
-          support: 'meist erforderlich',
-          costs: 'vergleichsweise gering',
-          application: 'Prototypen und Hobbybereich'
-        },
-        sla: {
-          material: 'flüssiges Photopolymer',
-          principle: 'Material wird mit Licht ausgehärtet',
-          detail: 'sehr hoch',
-          surface: 'sehr glatt',
-          support: 'meist erforderlich',
-          costs: 'mittel',
-          application: 'Präsentationsmodelle und detailreiche Modelle'
-        },
-        sls: {
-          material: 'Kunststoffpulver',
-          principle: 'Pulver wird mit Laser verschmolzen',
-          detail: 'hoch',
-          surface: 'leicht rau',
-          support: 'durch Pulver gestützt',
-          costs: 'hoch',
-          application: 'industrielle Funktionsbauteile'
-        }
-      },
-
-      showSolutions: false,
-
-      transferQuestions: [
-        {
-          id: 1,
-          text: 'Eine Schule verfügt über ein begrenztes Budget und möchte sich einen 3D-Drucker anschaffen, um Prototypen kostengünstig herzustellen. Welches Verfahren empfehlt ihr? Begründet eure Entscheidung.',
-          solution: 'FDM – Das Schmelzschichtverfahren ist die kostengünstigste Option. Die Geräte- und Materialkosten sind vergleichsweise gering, und das Verfahren eignet sich gut für einfache Prototypen. Für eine Schule mit begrenztem Budget ist FDM daher die sinnvollste Wahl.',
-          answer: ''
-        },
-        {
-          id: 2,
-          text: 'Ein Ersatzteil soll stabil sein und in kleiner Stückzahl hergestellt werden. Welches Verfahren ist besonders geeignet? Begründet eure Auswahl.',
-          solution: 'SLS – Das Lasersintern eignet sich besonders für funktionale Bauteile mit hoher Stabilität. Das Pulver stützt das Bauteil während des Drucks, sodass keine Stützstrukturen nötig sind. Die hohe Detailgenauigkeit und die Materialstärke machen SLS ideal für industrielle Ersatzteile in kleiner Stückzahl.',
-          answer: ''
-        },
-        {
-          id: 3,
-          text: 'Ein Zahnarzt möchte ein hochpräzises Modell eines Gebisses mit sehr glatter Oberfläche herstellen. Welches Verfahren empfehlt ihr? Begründet eure Entscheidung.',
-          solution: 'SLA – Die Stereolithografie erreicht eine sehr hohe Detailgenauigkeit und erzeugt sehr glatte Oberflächen. Für ein präzises Zahnmodell, bei dem es auf feine Details ankommt, ist SLA das geeignetste Verfahren.',
-          answer: ''
-        }
-      ]
-    }
-  },
-
-  methods: {
-    printTeacherView() {
-      if (this.teacherCode.trim() !== '4793') return
-      const origin = window.location.origin
-
-      const html = `<!DOCTYPE html>
+import{j as x,w as l,t as e,J as D,bz as w,I as p,bB as u,bq as g,bC as m,F as f,aR as b,b5 as d,v,aT as z,aK as L,aH as y,aG as a}from"./index-B4rRG77X.js";const A={name:"ResultsPage",data(){return{code:"",message:"",teacherCode:"",unlocked:{fdm:!1,sla:!1,sls:!1},features:[{key:"material",label:"Ausgangsmaterial"},{key:"principle",label:"Funktionsprinzip"},{key:"detail",label:"Detailgenauigkeit"},{key:"surface",label:"Oberflächenqualität"},{key:"support",label:"Stützstrukturen"},{key:"costs",label:"Kosten"},{key:"application",label:"Typische Anwendung"}],results:{fdm:{material:"Kunststoffdraht",principle:"Material wird geschmolzen und abgelegt",detail:"mittel",surface:"sichtbare Schichten",support:"meist erforderlich",costs:"vergleichsweise gering",application:"Prototypen und Hobbybereich"},sla:{material:"flüssiges Photopolymer",principle:"Material wird mit Licht ausgehärtet",detail:"sehr hoch",surface:"sehr glatt",support:"meist erforderlich",costs:"mittel",application:"Präsentationsmodelle und detailreiche Modelle"},sls:{material:"Kunststoffpulver",principle:"Pulver wird mit Laser verschmolzen",detail:"hoch",surface:"leicht rau",support:"durch Pulver gestützt",costs:"hoch",application:"industrielle Funktionsbauteile"}},showSolutions:!1,transferQuestions:[{id:1,text:"Eine Schule verfügt über ein begrenztes Budget und möchte sich einen 3D-Drucker anschaffen, um Prototypen kostengünstig herzustellen. Welches Verfahren empfehlt ihr? Begründet eure Entscheidung.",solution:"FDM – Das Schmelzschichtverfahren ist die kostengünstigste Option. Die Geräte- und Materialkosten sind vergleichsweise gering, und das Verfahren eignet sich gut für einfache Prototypen. Für eine Schule mit begrenztem Budget ist FDM daher die sinnvollste Wahl.",answer:""},{id:2,text:"Ein Ersatzteil soll stabil sein und in kleiner Stückzahl hergestellt werden. Welches Verfahren ist besonders geeignet? Begründet eure Auswahl.",solution:"SLS – Das Lasersintern eignet sich besonders für funktionale Bauteile mit hoher Stabilität. Das Pulver stützt das Bauteil während des Drucks, sodass keine Stützstrukturen nötig sind. Die hohe Detailgenauigkeit und die Materialstärke machen SLS ideal für industrielle Ersatzteile in kleiner Stückzahl.",answer:""},{id:3,text:"Ein Zahnarzt möchte ein hochpräzises Modell eines Gebisses mit sehr glatter Oberfläche herstellen. Welches Verfahren empfehlt ihr? Begründet eure Entscheidung.",solution:"SLA – Die Stereolithografie erreicht eine sehr hohe Detailgenauigkeit und erzeugt sehr glatte Oberflächen. Für ein präzises Zahnmodell, bei dem es auf feine Details ankommt, ist SLA das geeignetste Verfahren.",answer:""}]}},methods:{printTeacherView(){if(this.teacherCode.trim()!=="4793")return;const i=window.location.origin,s=`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -246,7 +64,7 @@ export default {
       <p>Bei der Schmelzschichtung (Fused Deposition Modeling) wird im Extruder des Druckkopfs ein Kunststoffdraht (Thermoplast) geschmolzen und durch die Düse gepresst. Der Druckkopf verfährt in der x- und y-Richtung. So entsteht eine Schicht des Bauteils. Anschließend fahren der Druckkopf und die Bauplatte um eine Schichtstärke auseinander. Der 3D-Druck entsteht Schicht für Schicht in senkrechter Richtung.</p>
       <p>Die erreichbare Detailgenauigkeit liegt im mittleren Bereich. Überhänge benötigen meist Stützstrukturen. Die vergleichsweise geringen Kosten machen FDM zur bevorzugten Wahl für Prototypen und den Hobbybereich.</p>
     </div>
-    <img src="${origin}/images/3dprint/process/fdm.png" alt="FDM" />
+    <img src="${i}/images/3dprint/process/fdm.png" alt="FDM" />
   </div>
   <h3>Aufgabe 1 – Richtige Reihenfolge</h3>
   <div class="step step-correct">1. Kunststoffdraht wird im Extruder geschmolzen</div>
@@ -275,7 +93,7 @@ export default {
       <p>Die Stereolithografie ist das älteste 3D-Druckverfahren. Das Objekt entsteht aus einem lichtempfindlichen Polymer (Photopolymer), das Schicht für Schicht mit UV-Licht ausgehärtet wird.</p>
       <p>Das Verfahren erreicht eine sehr hohe Detailgenauigkeit und sehr glatte Oberflächen. Für Überhänge sind meist Stützstrukturen erforderlich. Die Kosten liegen im mittleren Bereich. SLA eignet sich besonders für Präsentationsmodelle und detailreiche Modelle.</p>
     </div>
-    <img src="${origin}/images/3dprint/process/sla.png" alt="SLA" />
+    <img src="${i}/images/3dprint/process/sla.png" alt="SLA" />
   </div>
   <h3>Aufgabe 1 – Richtige Reihenfolge</h3>
   <div class="step step-correct">1. Die Bauplattform wird in das flüssige Photopolymer abgesenkt</div>
@@ -304,7 +122,7 @@ export default {
       <p>Beim selektiven Lasersintern wird eine dünne Pulverschicht auf eine Trägerplatte aufgebracht. Ein Laserstrahl verschmilzt das Pulver an den gewünschten Stellen. Anschließend wird die Trägerplatte abgesenkt und eine neue Schicht aufgebracht – Schicht für Schicht.</p>
       <p>Das ungebundene Pulver stützt das Bauteil, sodass keine Stützstrukturen nötig sind. Das Verfahren erreicht hohe Detailgenauigkeit bei leicht rauer Oberfläche. Aufgrund der hohen Kosten eignet sich SLS vor allem für industrielle Funktionsbauteile.</p>
     </div>
-    <img src="${origin}/images/3dprint/process/sls.png" alt="SLS" />
+    <img src="${i}/images/3dprint/process/sls.png" alt="SLS" />
   </div>
   <h3>Aufgabe 1 – Richtige Reihenfolge</h3>
   <div class="step step-correct">1. Eine dünne Pulverschicht wird auf die Trägerplatte aufgebracht</div>
@@ -356,21 +174,7 @@ export default {
   </div>
 
 </body>
-</html>`
-
-      const blob = new Blob([html], { type: 'text/html' })
-      const url = URL.createObjectURL(blob)
-      const win = window.open(url, '_blank')
-      win.addEventListener('load', () => {
-        win.print()
-        URL.revokeObjectURL(url)
-      })
-    },
-
-    downloadPDF() {
-      const origin = window.location.origin
-
-      const html = `<!DOCTYPE html>
+</html>`,c=new Blob([s],{type:"text/html"}),h=URL.createObjectURL(c),r=window.open(h,"_blank");r.addEventListener("load",()=>{r.print(),URL.revokeObjectURL(h)})},downloadPDF(){const i=window.location.origin,s=`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -420,7 +224,7 @@ export default {
       <p>Bei der Schmelzschichtung (Fused Deposition Modeling) wird im Extruder des Druckkopfs ein Kunststoffdraht (Thermoplast) geschmolzen und durch die Düse gepresst. Der Druckkopf verfährt in der x- und y-Richtung. So entsteht eine Schicht des Bauteils. Anschließend fahren der Druckkopf und die Bauplatte um eine Schichtstärke auseinander. Der 3D-Druck entsteht Schicht für Schicht in senkrechter Richtung.</p>
       <p>Die erreichbare Detailgenauigkeit liegt im mittleren Bereich. Überhänge benötigen meist Stützstrukturen. Die vergleichsweise geringen Kosten machen FDM zur bevorzugten Wahl für Prototypen und den Hobbybereich.</p>
     </div>
-    <img src="${origin}/images/3dprint/process/fdm.png" alt="FDM" />
+    <img src="${i}/images/3dprint/process/fdm.png" alt="FDM" />
   </div>
 
   <h2>Lichthärtungsverfahren (SLA)</h2>
@@ -429,7 +233,7 @@ export default {
       <p>Die Stereolithografie ist das älteste 3D-Druckverfahren. Das Objekt entsteht aus einem lichtempfindlichen Polymer (Photopolymer), das Schicht für Schicht mit UV-Licht ausgehärtet wird.</p>
       <p>Das Verfahren erreicht eine sehr hohe Detailgenauigkeit und sehr glatte Oberflächen. Für Überhänge sind meist Stützstrukturen erforderlich. Die Kosten liegen im mittleren Bereich. SLA eignet sich besonders für Präsentationsmodelle und detailreiche Modelle.</p>
     </div>
-    <img src="${origin}/images/3dprint/process/sla.png" alt="SLA" />
+    <img src="${i}/images/3dprint/process/sla.png" alt="SLA" />
   </div>
 
   <h2>Laserverschmelzung von Pulver (SLS)</h2>
@@ -438,7 +242,7 @@ export default {
       <p>Beim selektiven Lasersintern wird eine dünne Pulverschicht auf eine Trägerplatte aufgebracht. Ein Laserstrahl verschmilzt das Pulver an den gewünschten Stellen. Anschließend wird die Trägerplatte abgesenkt und eine neue Schicht aufgebracht – Schicht für Schicht.</p>
       <p>Das ungebundene Pulver stützt das Bauteil, sodass keine Stützstrukturen nötig sind. Das Verfahren erreicht hohe Detailgenauigkeit bei leicht rauer Oberfläche. Aufgrund der hohen Kosten eignet sich SLS vor allem für industrielle Funktionsbauteile.</p>
     </div>
-    <img src="${origin}/images/3dprint/process/sls.png" alt="SLS" />
+    <img src="${i}/images/3dprint/process/sls.png" alt="SLS" />
   </div>
 
   <h2>Merkmale im Vergleich</h2>
@@ -458,234 +262,11 @@ export default {
   </table>
 
   <h2>Transferfragen</h2>
-  ${this.transferQuestions.map(q => `
+  ${this.transferQuestions.map(n=>`
   <div class="question">
-    <div class="question-text">${q.id}. ${q.text}</div>
-    <div class="answer">${q.answer || ''}</div>
-  </div>`).join('')}
+    <div class="question-text">${n.id}. ${n.text}</div>
+    <div class="answer">${n.answer||""}</div>
+  </div>`).join("")}
 
 </body>
-</html>`
-
-      const blob = new Blob([html], { type: 'text/html' })
-      const url = URL.createObjectURL(blob)
-      const win = window.open(url, '_blank')
-      win.addEventListener('load', () => {
-        win.print()
-        URL.revokeObjectURL(url)
-      })
-    },
-
-    unlockResult() {
-      const normalizedCode = this.code.trim().toLowerCase()
-
-      if (normalizedCode === 'gmt solve all lehrer') {
-        this.showSolutions = true
-        this.message = 'Lösungshorizont freigeschaltet.'
-      } else if (normalizedCode === 'gmt solve all') {
-        this.unlocked.fdm = true
-        this.unlocked.sla = true
-        this.unlocked.sls = true
-        this.message = 'Alle Verfahren wurden freigeschaltet.'
-      } else if (normalizedCode === 'gmt33') {
-        this.unlocked.fdm = true
-        this.message = 'FDM wurde freigeschaltet.'
-      } else if (normalizedCode === 'gmt34') {
-        this.unlocked.sla = true
-        this.message = 'SLA wurde freigeschaltet.'
-      } else if (normalizedCode === 'gmt89') {
-        this.unlocked.sls = true
-        this.message = 'SLS wurde freigeschaltet.'
-      } else {
-        this.message = 'Der Code ist nicht korrekt.'
-      }
-
-      this.code = ''
-    }
-  }
-}
-</script>
-
-<style scoped>
-.page {
-  min-height: 100vh;
-  padding: 48px;
-  display: flex;
-  justify-content: center;
-}
-
-.content {
-  width: min(100%, 1200px);
-}
-
-h1 {
-  margin-bottom: 24px;
-  font-size: 36px;
-}
-
-h2 {
-  margin-top: 40px;
-  margin-bottom: 16px;
-  font-size: 28px;
-}
-
-.assignment {
-  margin-bottom: 32px;
-  padding: 24px;
-  background: #f5f5f5;
-  border-radius: 12px;
-}
-
-.assignment p {
-  margin: 0;
-  font-size: 20px;
-  line-height: 1.5;
-}
-
-.code-area {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-
-input,
-textarea {
-  padding: 12px 16px;
-  font-family: inherit;
-  font-size: 18px;
-  border: 1px solid #999;
-  border-radius: 8px;
-}
-
-textarea {
-  width: 100%;
-  margin-top: 10px;
-  box-sizing: border-box;
-  resize: vertical;
-}
-
-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #222;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid #999;
-  padding: 14px;
-  text-align: left;
-  vertical-align: top;
-}
-
-th {
-  background: #f5f5f5;
-  font-size: 20px;
-}
-
-td:first-child {
-  font-weight: bold;
-  width: 220px;
-}
-
-.message {
-  margin-top: 24px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.transfer {
-  margin-top: 48px;
-}
-
-.question {
-  margin-top: 28px;
-}
-
-.question label {
-  display: block;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1.4;
-}
-
-.task {
-  margin-top: 0;
-  margin-bottom: 32px;
-}
-
-.task h2 {
-  margin-top: 16px;
-}
-
-.task-list {
-  padding-left: 20px;
-}
-
-.task-list li {
-  font-size: 17px;
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
-
-.task-list li:last-child {
-  margin-bottom: 0;
-}
-
-.solution {
-  margin-top: 12px;
-  padding: 14px 16px;
-  background: #dcfce7;
-  border-left: 4px solid #16a34a;
-  border-radius: 8px;
-  font-size: 17px;
-  line-height: 1.5;
-  color: #14532d;
-}
-
-.download-button {
-  margin-top: 40px;
-  margin-bottom: 48px;
-}
-
-.teacher-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: -32px;
-  margin-bottom: 48px;
-}
-
-.teacher-input {
-  width: 140px;
-  padding: 12px 16px;
-  font-size: 18px;
-  border: 1px solid #999;
-  border-radius: 8px;
-}
-
-.teacher-area .download-button {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.back-button {
-  display: inline-block;
-  margin-bottom: 24px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  background: #222;
-  color: white;
-  font-size: 16px;
-  text-decoration: none;
-}
-</style>
+</html>`,c=new Blob([s],{type:"text/html"}),h=URL.createObjectURL(c),r=window.open(h,"_blank");r.addEventListener("load",()=>{r.print(),URL.revokeObjectURL(h)})},unlockResult(){const i=this.code.trim().toLowerCase();i==="gmt solve all lehrer"?(this.showSolutions=!0,this.message="Lösungshorizont freigeschaltet."):i==="gmt solve all"?(this.unlocked.fdm=!0,this.unlocked.sla=!0,this.unlocked.sls=!0,this.message="Alle Verfahren wurden freigeschaltet."):i==="gmt33"?(this.unlocked.fdm=!0,this.message="FDM wurde freigeschaltet."):i==="gmt34"?(this.unlocked.sla=!0,this.message="SLA wurde freigeschaltet."):i==="gmt89"?(this.unlocked.sls=!0,this.message="SLS wurde freigeschaltet."):this.message="Der Code ist nicht korrekt.",this.code=""}}},o=i=>(L("data-v-6992a759"),i=i(),y(),i),P={class:"page"},M={class:"content"},F=o(()=>e("section",{class:"task"},[e("h2",null,"Arbeitsauftrag"),e("ol",{class:"task-list"},[e("li",null,"Erklärt euch gegenseitig die Verfahren – nutzt dazu am besten die schematische Darstellung auf den Expertenseiten."),e("li",null,"Beantwortet gemeinsam auf Basis eures erlernten Wissens die Transferfragen.")])],-1)),B=o(()=>e("h1",null,"Ergebnisse",-1)),E={class:"code-area"},V=o(()=>e("h2",null,"Merkmale",-1)),T=o(()=>e("thead",null,[e("tr",null,[e("th",null,"Merkmal"),e("th",null,"FDM"),e("th",null,"SLA"),e("th",null,"SLS")])],-1)),R={key:0,class:"message"},_={class:"transfer"},K=o(()=>e("h2",null,"Transferfragen",-1)),O=["for"],C=["id","onUpdate:modelValue"],U={key:0,class:"solution"},W=o(()=>e("strong",null,"Lösungshorizont:",-1)),q={class:"teacher-area"};function G(i,s,c,h,r,n){const k=z("RouterLink");return a(),l("div",P,[e("main",M,[D(k,{to:"/3dprint?overview=true",class:"back-button"},{default:w(()=>[p(" Zurück ")]),_:1}),F,B,e("div",E,[u(e("input",{"onUpdate:modelValue":s[0]||(s[0]=t=>r.code=t),type:"text",placeholder:"Code eingeben",onKeyup:s[1]||(s[1]=m((...t)=>n.unlockResult&&n.unlockResult(...t),["enter"]))},null,544),[[g,r.code]]),e("button",{onClick:s[2]||(s[2]=(...t)=>n.unlockResult&&n.unlockResult(...t))}," Freischalten ")]),V,e("table",null,[T,e("tbody",null,[(a(!0),l(f,null,b(r.features,t=>(a(),l("tr",{key:t.key},[e("td",null,d(t.label),1),e("td",null,d(r.unlocked.fdm?r.results.fdm[t.key]:""),1),e("td",null,d(r.unlocked.sla?r.results.sla[t.key]:""),1),e("td",null,d(r.unlocked.sls?r.results.sls[t.key]:""),1)]))),128))])]),r.message?(a(),l("p",R,d(r.message),1)):v("",!0),e("section",_,[K,(a(!0),l(f,null,b(r.transferQuestions,t=>(a(),l("div",{key:t.id,class:"question"},[e("label",{for:`question-${t.id}`},d(t.id)+". "+d(t.text),9,O),u(e("textarea",{id:`question-${t.id}`,"onUpdate:modelValue":S=>t.answer=S,rows:"4",placeholder:"Antwort eingeben"},null,8,C),[[g,t.answer]]),r.showSolutions?(a(),l("div",U,[W,p(" "+d(t.solution),1)])):v("",!0)]))),128))]),e("button",{class:"download-button",onClick:s[3]||(s[3]=(...t)=>n.downloadPDF&&n.downloadPDF(...t))}," Als PDF downloaden "),e("div",q,[u(e("input",{"onUpdate:modelValue":s[4]||(s[4]=t=>r.teacherCode=t),class:"teacher-input",placeholder:"Code",onKeyup:s[5]||(s[5]=m((...t)=>n.printTeacherView&&n.printTeacherView(...t),["enter"]))},null,544),[[g,r.teacherCode]]),e("button",{class:"download-button",onClick:s[6]||(s[6]=(...t)=>n.printTeacherView&&n.printTeacherView(...t))}," Für Lehrkraft ")])])])}const H=x(A,[["render",G],["__scopeId","data-v-6992a759"]]);export{H as default};

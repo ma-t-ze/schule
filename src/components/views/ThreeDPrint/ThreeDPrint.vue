@@ -144,7 +144,7 @@
 
         <div v-if="expertGroups.length" class="generator-row" style="margin-top: 16px;">
           <input v-model="weiterCode" class="code-input-small" placeholder="Code" />
-          <button class="generate-button" @click="weiterCode === '4' && goToOverview()">
+          <button class="generate-button" @click="weiterCode === 'gmt59' && goToOverview()">
             Weiter
           </button>
         </div>
@@ -245,7 +245,7 @@ export default {
 
       if (this.gameCode === 'gmt') {
         window.location.href = '/game'
-      } else if (this.gameCode === 'test') {
+      } else if (this.gameCode === 'uebersicht') {
         this.$router.push('/3dprint?overview=true')
       }
     },

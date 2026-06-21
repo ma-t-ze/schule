@@ -200,7 +200,7 @@ export default {
 
   methods: {
     submitCode() {
-      if (this.checkCode === 'gmt-solve') {
+      if (this.checkCode === 'gmt solve') {
         this.steps = [
           { id: 1, text: 'Kunststoffdraht wird im Extruder geschmolzen' },
           { id: 2, text: 'Material wird durch die Düse gepresst' },
@@ -212,7 +212,7 @@ export default {
         this.$nextTick(() => this.checkSolution())
         return
       }
-      if (this.checkCode === 'gmt-fdm') {
+      if (this.checkCode === 'gmt33') {
         this.checkSolution()
       }
     },
@@ -247,7 +247,7 @@ export default {
       this.isCorrect = stepsCorrect && featuresComplete && featuresCorrect
 
       this.feedback = this.isCorrect
-        ? 'Gut gemacht! Du bist bereit, das Verfahren in deiner Stammgruppe zu erklären. Gehe in den Bereich Ergebnisse und gib dort den Code "gmt-fdm" ein.'
+        ? 'Gut gemacht! Du bist bereit, das Verfahren in deiner Stammgruppe zu erklären. Gehe in den Bereich Ergebnisse und gib dort den Code "gmt solve all" ein.'
         : 'Es hat sich ein Fehler eingeschlichen. Diskutiert eure Lösung noch einmal. Falls ihr den Fehler nicht findet, wendet euch an die Lehrkraft.'
     }
   }

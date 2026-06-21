@@ -110,7 +110,7 @@ export default {
         { id: 12, src: '/images/3dprint/sneakergame/sneaker_12.png' }
       ]
       this.solved = true
-      this.exitCode = 'adidas'
+      this.exitCode = 'gmt2'
     }
   },
 
@@ -139,7 +139,7 @@ export default {
         this.$nextTick(() => this.checkSolution())
         return
       }
-      if (this.exitCode === 'adidas') {
+      if (this.exitCode === 'gmt2') {
         window.location.href = '/3dprint?overview=true&gruppenpuzzle=true'
       }
     },

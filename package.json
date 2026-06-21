@@ -15,7 +15,6 @@
     "@tweenjs/tween.js": "^25.0.0",
     "cannon-es": "^0.20.0",
     "cannon-es-debugger": "^1.0.0",
-    "firebase": "^12.15.0",
     "html2canvas": "^1.4.1",
     "lottie-web": "^5.12.2",
     "matter-js": "^0.20.0",

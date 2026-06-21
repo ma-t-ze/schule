@@ -189,7 +189,7 @@ export default {
 
   methods: {
     submitCode() {
-      if (this.checkCode === 'gmt-solve') {
+      if (this.checkCode === 'gmt solve') {
         this.steps = [
           { id: 1, text: 'Eine dünne Pulverschicht wird auf die Trägerplatte aufgebracht' },
           { id: 2, text: 'Der Laser verschmilzt das Pulver an den gewünschten Stellen' },
@@ -201,7 +201,7 @@ export default {
         this.$nextTick(() => this.checkSolution())
         return
       }
-      if (this.checkCode === 'gmt-sls') {
+      if (this.checkCode === 'gmt89') {
         this.checkSolution()
       }
     },
@@ -231,7 +231,7 @@ export default {
       this.isCorrect = stepsCorrect && featuresComplete && featuresCorrect
 
       this.feedback = this.isCorrect
-        ? 'Gut gemacht! Du bist bereit, das Verfahren in deiner Stammgruppe zu erklären. Gehe in den Bereich Ergebnisse und gib dort den Code "gmt-sls" ein.'
+        ? 'Gut gemacht! Du bist bereit, das Verfahren in deiner Stammgruppe zu erklären. Gehe in den Bereich Ergebnisse und gib dort den Code "gmt solve all" ein.'
         : 'Es hat sich ein Fehler eingeschlichen. Diskutiert eure Lösung noch einmal. Falls ihr den Fehler nicht findet, wendet euch an die Lehrkraft.'
     }
   }
