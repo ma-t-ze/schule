@@ -91,8 +91,7 @@
 </template>
 
 <script>
-import { db } from '../../../../firebase.js'
-import { ref, onValue, set } from 'firebase/database'
+import { db, ref, get, set } from '../../../../firebase.js'
 
 export default {
   name: 'ResultsPage',
@@ -170,18 +169,20 @@ export default {
   },
 
   mounted() {
-    this._dbRef = ref(db, 'session/solutionPushed')
-    this._unsubscribe = onValue(this._dbRef, (snapshot) => {
+    const poll = async () => {
+      const snapshot = await get(ref(db, 'session/solutionPushed'))
       if (snapshot.val()) {
         this.unlocked = { fdm: true, sla: true, sls: true }
       } else {
         this.unlocked = { fdm: false, sla: false, sls: false }
       }
-    })
+    }
+    poll()
+    this._interval = setInterval(poll, 2000)
   },
 
   unmounted() {
-    if (this._unsubscribe) this._unsubscribe()
+    clearInterval(this._interval)
   },
 
   methods: {
@@ -211,12 +212,14 @@ export default {
 
     async pushSolution() {
       await set(ref(db, 'session/solutionPushed'), Date.now())
+      this.unlocked = { fdm: true, sla: true, sls: true }
       this.pushConfirm = true
       setTimeout(() => { this.pushConfirm = false }, 3000)
     },
 
     async resetSolution() {
       await set(ref(db, 'session/solutionPushed'), null)
+      this.unlocked = { fdm: false, sla: false, sls: false }
     }
   }
 }
