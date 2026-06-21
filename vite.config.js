@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue';
 import vueDevtools from 'vite-plugin-vue-devtools';
 import path from 'path'; // Import the 'path' module to work with file paths
 
-export default defineConfig({
-  base: 'https://visualizer.matthiasheckel.com/', // Set the base URL
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? 'https://visualizer.matthiasheckel.com/' : '/',
   plugins: [
     vue(),
     vueDevtools()
@@ -15,12 +15,13 @@ export default defineConfig({
     }
   },
   server: {
+    allowedHosts: 'all',
     proxy: {
       '/api': {
-        target: 'http://localhost', // Change this to the URL of your PHP server
+        target: 'http://localhost',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // Remove the '/api' prefix
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
-});
+}));

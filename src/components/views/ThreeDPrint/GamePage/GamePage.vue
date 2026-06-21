@@ -1,10 +1,12 @@
 <template>
   <div class="page">
     <main class="content">
+      <RouterLink to="/3dprint" class="button back-button">Zurück</RouterLink>
+
       <h1>Puzzle</h1>
 
       <p>
-        Bringe die Schichten des Sneakers in die richtige Reihenfolge.
+        Bringe die Streifen durch Verschieben in die richtige Reihenfolge.
       </p>
 
       <section class="puzzle">
@@ -25,15 +27,29 @@
         </draggable>
       </section>
 
-      <div class="actions">
-        <RouterLink to="/3dprint?overview=true&gruppenpuzzle=true" class="button" tabindex="-1">
-          Weiter
-        </RouterLink>
+      <div v-if="solved" class="questions">
+        <p>1. Schaue dir die Struktur des Schuhes an, erkennst du wie er gemacht wurde?</p>
+        <p>2. Was hat das mit dem Thema Modellbau zu tun?</p>
       </div>
+
+      <div class="actions" style="margin-bottom:0">
+        <input
+          v-model="exitCode"
+          class="code-input"
+          placeholder="Code"
+          @keyup.enter="goNext"
+        />
+        <button v-if="solved" class="button" @click="goNext">
+          Weiter
+        </button>
+      </div>
+
+      <div v-if="solved" style="height: 100px"></div>
 
       <transition name="success">
         <div v-if="showSuccess" class="success-overlay">
-          Gut gemacht!
+          <div class="success-title">Gut gemacht!</div>
+          <div class="success-hint">Mache dir nun Gedanken zu den Fragen unter dem Bild.</div>
         </div>
       </transition>
     </main>
@@ -53,18 +69,24 @@ export default {
   data() {
     return {
       middleSlices: [
-        { id: 6, src: '/images/sneakergame/sneaker_6.png' },
-        { id: 5, src: '/images/sneakergame/sneaker_5.png' },
-        { id: 9, src: '/images/sneakergame/sneaker_9.png' },
-        { id: 8, src: '/images/sneakergame/sneaker_8.png' },
-        { id: 2, src: '/images/sneakergame/sneaker_2.png' },
-        { id: 4, src: '/images/sneakergame/sneaker_4.png' },
-        { id: 7, src: '/images/sneakergame/sneaker_7.png' },
-        { id: 3, src: '/images/sneakergame/sneaker_3.png' }
+        { id: 6,  src: '/images/3dprint/sneakergame/sneaker_6.png' },
+        { id: 11, src: '/images/3dprint/sneakergame/sneaker_11.png' },
+        { id: 3,  src: '/images/3dprint/sneakergame/sneaker_3.png' },
+        { id: 8,  src: '/images/3dprint/sneakergame/sneaker_8.png' },
+        { id: 1,  src: '/images/3dprint/sneakergame/sneaker_1.png' },
+        { id: 5,  src: '/images/3dprint/sneakergame/sneaker_5.png' },
+        { id: 12, src: '/images/3dprint/sneakergame/sneaker_12.png' },
+        { id: 2,  src: '/images/3dprint/sneakergame/sneaker_2.png' },
+        { id: 9,  src: '/images/3dprint/sneakergame/sneaker_9.png' },
+        { id: 4,  src: '/images/3dprint/sneakergame/sneaker_4.png' },
+        { id: 7,  src: '/images/3dprint/sneakergame/sneaker_7.png' },
+        { id: 10, src: '/images/3dprint/sneakergame/sneaker_10.png' }
       ],
 
       showSuccess: false,
-      successTimeout: null
+      successTimeout: null,
+      solved: false,
+      exitCode: ''
     }
   },
 
@@ -72,6 +94,24 @@ export default {
   mounted() {
     this.$el.scrollTop = 0
     this.$nextTick(() => { this.$el.scrollTop = 0 })
+    if (this.$route.query.solved) {
+      this.middleSlices = [
+        { id: 1,  src: '/images/3dprint/sneakergame/sneaker_1.png' },
+        { id: 2,  src: '/images/3dprint/sneakergame/sneaker_2.png' },
+        { id: 3,  src: '/images/3dprint/sneakergame/sneaker_3.png' },
+        { id: 4,  src: '/images/3dprint/sneakergame/sneaker_4.png' },
+        { id: 5,  src: '/images/3dprint/sneakergame/sneaker_5.png' },
+        { id: 6,  src: '/images/3dprint/sneakergame/sneaker_6.png' },
+        { id: 7,  src: '/images/3dprint/sneakergame/sneaker_7.png' },
+        { id: 8,  src: '/images/3dprint/sneakergame/sneaker_8.png' },
+        { id: 9,  src: '/images/3dprint/sneakergame/sneaker_9.png' },
+        { id: 10, src: '/images/3dprint/sneakergame/sneaker_10.png' },
+        { id: 11, src: '/images/3dprint/sneakergame/sneaker_11.png' },
+        { id: 12, src: '/images/3dprint/sneakergame/sneaker_12.png' }
+      ]
+      this.solved = true
+      this.exitCode = 'adidas'
+    }
   },
 
   beforeUnmount() {
@@ -79,8 +119,33 @@ export default {
   },
 
   methods: {
+    goNext() {
+      if (this.exitCode === 'solve') {
+        this.middleSlices = [
+          { id: 1,  src: '/images/3dprint/sneakergame/sneaker_1.png' },
+          { id: 2,  src: '/images/3dprint/sneakergame/sneaker_2.png' },
+          { id: 3,  src: '/images/3dprint/sneakergame/sneaker_3.png' },
+          { id: 4,  src: '/images/3dprint/sneakergame/sneaker_4.png' },
+          { id: 5,  src: '/images/3dprint/sneakergame/sneaker_5.png' },
+          { id: 6,  src: '/images/3dprint/sneakergame/sneaker_6.png' },
+          { id: 7,  src: '/images/3dprint/sneakergame/sneaker_7.png' },
+          { id: 8,  src: '/images/3dprint/sneakergame/sneaker_8.png' },
+          { id: 9,  src: '/images/3dprint/sneakergame/sneaker_9.png' },
+          { id: 10, src: '/images/3dprint/sneakergame/sneaker_10.png' },
+          { id: 11, src: '/images/3dprint/sneakergame/sneaker_11.png' },
+          { id: 12, src: '/images/3dprint/sneakergame/sneaker_12.png' }
+        ]
+        this.exitCode = ''
+        this.$nextTick(() => this.checkSolution())
+        return
+      }
+      if (this.exitCode === 'adidas') {
+        window.location.href = '/3dprint?overview=true&gruppenpuzzle=true'
+      }
+    },
+
     checkSolution() {
-      const correctOrder = [2, 3, 4, 5, 6, 7, 8, 9]
+      const correctOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
       const isCorrect = this.middleSlices.every(
         (slice, index) => slice.id === correctOrder[index]
@@ -89,12 +154,13 @@ export default {
       if (!isCorrect) return
 
       this.showSuccess = true
+      this.solved = true
 
       clearTimeout(this.successTimeout)
 
       this.successTimeout = setTimeout(() => {
         this.showSuccess = false
-      }, 2000)
+      }, 4000)
     }
   }
 }
@@ -113,10 +179,16 @@ export default {
 
 .content {
   width: min(100%, 1000px);
+  padding-bottom: 100px;
+}
+
+.back-button {
+  margin-top: 24px;
 }
 
 h1 {
-  margin-bottom: 5px;
+  margin-bottom: -20px;
+  user-select: none;
 }
 
 p {
@@ -126,15 +198,14 @@ p {
 
 .puzzle {
   margin-top: 5px;
-  padding: 20px;
-
-  background: #f5f5f5;
-  border-radius: 12px;
 }
 
 .slice-list {
   display: flex;
   flex-direction: column;
+  width: 77%;
+  background: #f5f5f5;
+  border-radius: 12px;
 }
 
 .slice img {
@@ -155,15 +226,52 @@ p {
   opacity: 0.3;
 }
 
+.questions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.questions p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
 .actions {
   margin-top: 30px;
+  margin-bottom: 100px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.code-input {
+  width: 160px;
+  padding: 12px 16px;
+  font-size: 18px;
+  color: #999;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.code-input::placeholder {
+  color: #bbb;
+}
+
+.code-input:focus {
+  border-color: #999;
+  color: #222;
 }
 
 .button {
   display: inline-block;
   padding: 12px 20px;
-
+  border: 2px solid transparent;
   border-radius: 8px;
+  font-size: 18px;
 
   background: #222;
   color: white;
@@ -179,17 +287,26 @@ p {
 
   transform: translate(-50%, -50%);
 
-  padding: 20px 40px;
+  padding: 24px 40px;
 
   background: #22c55e;
   color: white;
 
   border-radius: 12px;
-
-  font-size: 28px;
-  font-weight: bold;
+  text-align: center;
 
   z-index: 1000;
+}
+
+.success-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.success-hint {
+  margin-top: 8px;
+  font-size: 16px;
+  opacity: 0.9;
 }
 
 .success-enter-active,

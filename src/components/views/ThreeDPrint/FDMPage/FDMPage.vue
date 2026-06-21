@@ -1,41 +1,49 @@
 <template>
   <div class="page">
     <main class="content">
-      <section class="intro">
-        <h1>Fused Deposition Modeling (FDM)</h1>
+      <RouterLink to="/3dprint?overview=true" class="back-button">
+        Zurück
+      </RouterLink>
 
-        <p>
-          Bei der Schmelzschichtung (Fused Deposition Modeling) wird im Extruder
-          des Druckkopfs ein Kunststoffdraht (Thermoplast) geschmolzen und durch
-          die Düse gepresst. Der Druckkopf verfährt in der x- und y-Richtung. So
-          entsteht eine Schicht des Bauteils. Anschließend fahren der Druckkopf
-          und die Bauplatte um eine Schichtstärke auseinander. Die nächste
-          Schicht kann aufgebaut werden. Der 3D-Druck entsteht so Schicht für
-          Schicht in senkrechter Richtung.
-        </p>
-
-        <p>
-          Um auch Hohlräume erzeugen zu können, kommt ein zweiter Extruder mit
-          Stützmaterial zum Einsatz. Dieses kann später leicht entfernt werden.
-          FDM-Drucker kommen wegen ihrer vergleichsweise geringen Kosten auch im
-          Hobbybereich zum Einsatz. Geräteabhängig können verschiedene
-          Thermoplaste eingesetzt werden.
-        </p>
+      <section class="task">
+        <h2>Aufgabenbeschreibung</h2>
+        <ol class="task-list">
+          <li>Lies den Text aufmerksam und analysiere die schematische Darstellung des Druckverfahrens.</li>
+          <li>Löse Aufgabe 1 und Aufgabe 2. Vergleicht eure Ergebnisse anschließend in der Gruppe. Bei Fragen wendet euch zunächst an eure Expertengruppe, erst dann an die Lehrkraft.</li>
+          <li>Wenn ihr überzeugt seid, alle Aufgaben korrekt gelöst zu haben, holt euch den Prüfungscode bei der Lehrkraft ab.</li>
+          <li>Kehrt in eure Stammgruppe zurück und erklärt das Verfahren anhand der schematischen Darstellung – stellt dabei die wichtigsten Merkmale kurz vor.</li>
+        </ol>
       </section>
 
-      <img src="/images/bkgd/process/fdm.png" alt="FDM-Prozess" class="process-image" />
+      <h1>Fused Deposition Modeling (FDM)</h1>
+
+      <div class="intro-row">
+        <section class="intro">
+          <p>
+            Bei der Schmelzschichtung (Fused Deposition Modeling) wird im Extruder
+            des Druckkopfs ein Kunststoffdraht (Thermoplast) geschmolzen und durch
+            die Düse gepresst. Der Druckkopf verfährt in der x- und y-Richtung. So
+            entsteht eine Schicht des Bauteils. Anschließend fahren der Druckkopf
+            und die Bauplatte um eine Schichtstärke auseinander. Die nächste
+            Schicht kann aufgebaut werden. Der 3D-Druck entsteht so Schicht für
+            Schicht in senkrechter Richtung.
+          </p>
+
+          <p>
+            Die erreichbare Detailgenauigkeit liegt im mittleren Bereich. Überhänge benötigen meist
+            Stützstrukturen, die nach dem Druck entfernt werden. Die vergleichsweise geringen Geräte- und Materialkosten
+            machen FDM-Drucker zur bevorzugten Wahl für Prototypen und den Hobbybereich.
+          </p>
+        </section>
+
+        <img src="/images/3dprint/process/fdm.png" alt="FDM-Prozess" class="process-image" />
+      </div>
 
       <section class="task">
         <h2>Aufgabe 1</h2>
         <p>Ordne die Prozessschritte in der richtigen Reihenfolge.</p>
 
-        <draggable
-          v-model="steps"
-          item-key="id"
-          class="steps"
-          ghost-class="ghost"
-          animation="200"
-        >
+        <draggable v-model="steps" item-key="id" class="steps" ghost-class="ghost" animation="200">
           <template #item="{ element }">
             <div class="step-button">
               {{ element.text }}
@@ -49,23 +57,15 @@
         <p>Wähle zu jedem Merkmal die passende Beschreibung aus.</p>
 
         <div class="feature-table">
-          <div
-            v-for="feature in features"
-            :key="feature.id"
-            class="feature-row"
-          >
+          <div v-for="feature in features" :key="feature.id" class="feature-row">
             <div class="feature-name">
               {{ feature.label }}
             </div>
 
             <div class="feature-options">
               <template v-if="feature.selected === null">
-                <button
-                  v-for="option in feature.options"
-                  :key="option"
-                  class="option-button"
-                  @click="selectOption(feature.id, option)"
-                >
+                <button v-for="option in feature.options" :key="option" class="option-button"
+                  @click="selectOption(feature.id, option)">
                   {{ option }}
                 </button>
               </template>
@@ -75,10 +75,7 @@
                   {{ feature.selected }}
                 </button>
 
-                <button
-                  class="edit-button"
-                  @click="editOption(feature.id)"
-                >
+                <button class="edit-button" @click="editOption(feature.id)">
                   bearbeiten
                 </button>
               </template>
@@ -88,40 +85,22 @@
       </section>
 
       <section class="task">
-        <button class="check-button" @click="checkSolution">
-          Lösung prüfen
-        </button>
+        <div class="check-row">
+          <input v-model="checkCode" class="code-input" placeholder="Code" @keyup.enter="submitCode" />
+          <button class="check-button" @click="submitCode">
+            Lösung prüfen
+          </button>
+        </div>
 
-        <p
-          v-if="feedback"
-          class="feedback"
-          :class="{ success: isCorrect, error: !isCorrect }"
-        >
+        <p v-if="feedback" class="feedback" :class="{ success: isCorrect, error: !isCorrect }">
           {{ feedback }}
         </p>
+
+        <RouterLink v-if="isCorrect" to="/results" class="results-button">
+          Zur Ergebnisseite
+        </RouterLink>
       </section>
 
-      <button class="back-button" @click="showLeaveWarning = true">
-        Zurück
-      </button>
-
-      <div v-if="showLeaveWarning" class="overlay">
-        <div class="modal">
-          <p>
-            Achtung, beim Verlassen dieser Seite gehen alle Eingaben verloren.
-          </p>
-
-          <div class="modal-actions">
-            <RouterLink to="/3dprint" class="leave-button">
-              Seite verlassen
-            </RouterLink>
-
-            <button class="cancel-button" @click="showLeaveWarning = false">
-              Abbrechen
-            </button>
-          </div>
-        </div>
-      </div>
     </main>
   </div>
 </template>
@@ -138,28 +117,26 @@ export default {
 
   data() {
     return {
-      showLeaveWarning: false,
-
       steps: [
-        {
-          id: 1,
-          text: 'Kunststoffdraht wird im Extruder geschmolzen'
-        },
-        {
-          id: 2,
-          text: 'Material wird durch die Düse gepresst'
-        },
         {
           id: 3,
           text: 'Druckkopf verfährt in x- und y-Richtung'
+        },
+        {
+          id: 5,
+          text: 'Druckkopf und Bauplatte bewegen sich um eine Schichtstärke auseinander'
+        },
+        {
+          id: 1,
+          text: 'Kunststoffdraht wird im Extruder geschmolzen'
         },
         {
           id: 4,
           text: 'Eine Schicht des Bauteils entsteht'
         },
         {
-          id: 5,
-          text: 'Druckkopf und Bauplatte bewegen sich um eine Schichtstärke auseinander'
+          id: 2,
+          text: 'Material wird durch die Düse gepresst'
         }
       ],
 
@@ -169,86 +146,77 @@ export default {
           label: 'Ausgangsmaterial',
           selected: null,
           correct: 'Kunststoffdraht',
-          options: [
-            'Kunststoffdraht',
-            'flüssiges Harz',
-            'Kunststoffpulver'
-          ]
+          options: ['flüssiges Harz', 'Kunststoffdraht', 'Kunststoffpulver']
         },
         {
           id: 2,
           label: 'Funktionsprinzip',
           selected: null,
           correct: 'Material wird geschmolzen und abgelegt',
-          options: [
-            'Material wird geschmolzen und abgelegt',
-            'Material wird mit Licht ausgehärtet',
-            'Pulver wird mit Laser verschmolzen'
-          ]
+          options: ['Pulver wird mit Laser verschmolzen', 'Material wird mit Licht ausgehärtet', 'Material wird geschmolzen und abgelegt']
         },
         {
           id: 3,
           label: 'Detailgenauigkeit',
           selected: null,
           correct: 'mittel',
-          options: [
-            'mittel',
-            'sehr hoch',
-            'hoch'
-          ]
+          options: ['hoch', 'mittel', 'sehr hoch']
         },
         {
           id: 4,
           label: 'Oberflächenqualität',
           selected: null,
           correct: 'sichtbare Schichten',
-          options: [
-            'sichtbare Schichten',
-            'sehr glatt',
-            'leicht rau'
-          ]
+          options: ['sehr glatt', 'leicht rau', 'sichtbare Schichten']
         },
         {
           id: 5,
           label: 'Stützstrukturen',
           selected: null,
           correct: 'meist erforderlich',
-          options: [
-            'meist erforderlich',
-            'durch Pulver gestützt',
-            'nie erforderlich'
-          ]
+          options: ['nie erforderlich', 'meist erforderlich', 'durch Pulver gestützt']
         },
         {
           id: 6,
           label: 'Kosten',
           selected: null,
           correct: 'vergleichsweise gering',
-          options: [
-            'vergleichsweise gering',
-            'mittel',
-            'hoch'
-          ]
+          options: ['mittel', 'vergleichsweise gering', 'hoch']
         },
         {
           id: 7,
           label: 'Typische Anwendung',
           selected: null,
           correct: 'Prototypen und Hobbybereich',
-          options: [
-            'Prototypen und Hobbybereich',
-            'Präsentationsmodelle',
-            'industrielle Funktionsbauteile'
-          ]
+          options: ['industrielle Funktionsbauteile', 'Prototypen und Hobbybereich', 'Präsentationsmodelle']
         }
       ],
 
       feedback: '',
-      isCorrect: false
+      isCorrect: false,
+      checkCode: ''
     }
   },
 
   methods: {
+    submitCode() {
+      if (this.checkCode === 'gmt-solve') {
+        this.steps = [
+          { id: 1, text: 'Kunststoffdraht wird im Extruder geschmolzen' },
+          { id: 2, text: 'Material wird durch die Düse gepresst' },
+          { id: 3, text: 'Druckkopf verfährt in x- und y-Richtung' },
+          { id: 4, text: 'Eine Schicht des Bauteils entsteht' },
+          { id: 5, text: 'Druckkopf und Bauplatte bewegen sich um eine Schichtstärke auseinander' }
+        ]
+        this.features.forEach(f => { f.selected = f.correct })
+        this.$nextTick(() => this.checkSolution())
+        return
+      }
+      if (this.checkCode === 'gmt-fdm') {
+        this.checkSolution()
+      }
+    },
+
     selectOption(featureId, option) {
       const feature = this.features.find(item => item.id === featureId)
       feature.selected = option
@@ -298,13 +266,24 @@ export default {
   width: min(100%, 950px);
 }
 
+.intro-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
 .intro {
+  flex: 1;
   text-align: left;
 }
 
+.intro p:first-child {
+  margin-top: 0;
+}
+
 .process-image {
-  width: 100%;
-  margin-top: 0px;
+  width: 50%;
+  flex-shrink: 0;
 }
 
 h1 {
@@ -318,7 +297,7 @@ h2 {
 }
 
 p {
-  font-size: 20px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
@@ -385,7 +364,8 @@ p {
 .check-button,
 .back-button,
 .leave-button,
-.cancel-button {
+.cancel-button,
+.results-button {
   padding: 12px 16px;
   border: none;
   border-radius: 8px;
@@ -406,6 +386,25 @@ p {
 .edit-button {
   background: #ddd;
   color: #222;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.code-input {
+  padding: 12px 16px;
+  font-size: 18px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  width: 160px;
+}
+
+.code-input:focus {
+  border-color: #999;
 }
 
 .check-button {
@@ -431,8 +430,34 @@ p {
   color: #991b1b;
 }
 
+.back-button,
+.results-button {
+  text-decoration: none;
+  display: inline-block;
+}
+
 .back-button {
-  margin-top: 32px;
+  margin-bottom: 16px;
+  background: #222;
+  color: white;
+}
+
+.task-list {
+  padding-left: 20px;
+}
+
+.task-list li {
+  font-size: 17px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.task-list li:last-child {
+  margin-bottom: 0;
+}
+
+.results-button {
+  margin-top: 24px;
   background: #222;
   color: white;
 }

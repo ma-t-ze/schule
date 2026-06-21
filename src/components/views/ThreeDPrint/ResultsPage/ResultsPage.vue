@@ -1,6 +1,10 @@
 <template>
   <div class="page">
     <main class="content">
+      <RouterLink to="/3dprint?overview=true" class="back-button">
+        Zurück
+      </RouterLink>
+
       <h1>Ergebnisse</h1>
 
       <section class="assignment">
@@ -25,29 +29,7 @@
         </button>
       </div>
 
-      <h2>Prozessschritte</h2>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Schritt</th>
-            <th>FDM</th>
-            <th>SLA</th>
-            <th>SLS</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for="index in 5" :key="index">
-            <td>{{ index }}</td>
-            <td>{{ unlocked.fdm ? processSteps.fdm[index - 1] : '' }}</td>
-            <td>{{ unlocked.sla ? processSteps.sla[index - 1] : '' }}</td>
-            <td>{{ unlocked.sls ? processSteps.sls[index - 1] : '' }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h2>Merkmale</h2>
+<h2>Merkmale</h2>
 
       <table>
         <thead>
@@ -94,32 +76,24 @@
         </div>
       </section>
 
-      <button class="back-button" @click="showLeaveWarning = true">
-        Zurück
-      </button>
-
-      <div v-if="showLeaveWarning" class="overlay">
-        <div class="modal">
-          <p>
-            Achtung, beim Verlassen dieser Seite gehen alle Eingaben verloren.
-          </p>
-
-          <div class="modal-actions">
-            <RouterLink to="/3dprint" class="leave-button">
-              Seite verlassen
-            </RouterLink>
-
-            <button class="cancel-button" @click="showLeaveWarning = false">
-              Abbrechen
-            </button>
-          </div>
-        </div>
+      <div class="push-area">
+        <button class="push-button" @click="pushSolution">
+          Lösung pushen
+        </button>
+        <button class="reset-button" @click="resetSolution">
+          Zurücksetzen
+        </button>
+        <span v-if="pushConfirm" class="push-confirm">Lösung wurde an alle gepusht.</span>
       </div>
+
     </main>
   </div>
 </template>
 
 <script>
+import { db } from '../../../../firebase.js'
+import { ref, onValue, set } from 'firebase/database'
+
 export default {
   name: 'ResultsPage',
 
@@ -127,36 +101,12 @@ export default {
     return {
       code: '',
       message: '',
-      showLeaveWarning: false,
+      pushConfirm: false,
 
       unlocked: {
         fdm: false,
         sla: false,
         sls: false
-      },
-
-      processSteps: {
-        fdm: [
-          'Kunststoffdraht wird im Extruder geschmolzen',
-          'Material wird durch die Düse gepresst',
-          'Druckkopf verfährt in x- und y-Richtung',
-          'Eine Schicht des Bauteils entsteht',
-          'Druckkopf und Bauplatte bewegen sich um eine Schichtstärke auseinander'
-        ],
-        sla: [
-          'Die Bauplattform wird in das flüssige Photopolymer abgesenkt',
-          'Der Laser härtet die erste Schicht des Polymers aus',
-          'Die Bauplattform bewegt sich um eine Schichtstärke',
-          'Die nächste Schicht wird mit dem Laser ausgehärtet',
-          'Das Bauteil wird nach dem Druck gereinigt und mit UV-Licht nachgehärtet'
-        ],
-        sls: [
-          'Eine dünne Pulverschicht wird auf die Trägerplatte aufgebracht',
-          'Der Laser verschmilzt das Pulver an den gewünschten Stellen',
-          'Die Trägerplatte wird um eine Schichtstärke abgesenkt',
-          'Eine neue Pulverschicht wird aufgetragen',
-          'Der Laser verschmilzt die nächste Schicht mit dem Bauteil'
-        ]
       },
 
       features: [
@@ -202,7 +152,7 @@ export default {
       transferQuestions: [
         {
           id: 1,
-          text: 'Ein Zahnarzt möchte ein sehr genaues Modell eines Gebisses herstellen. Welches Verfahren würdet ihr empfehlen? Begründet eure Entscheidung.',
+          text: 'Eine Schule verfügt über ein begrenztes Budget und möchte sich einen 3D-Drucker anschaffen, um Prototypen kostengünstig herzustellen. Welches Verfahren empfehlt ihr? Begründet eure Entscheidung.',
           answer: ''
         },
         {
@@ -212,23 +162,38 @@ export default {
         },
         {
           id: 3,
-          text: 'Für ein günstiges Modell im Unterricht soll ein einfacher Prototyp hergestellt werden. Welches Verfahren passt am besten? Begründet eure Entscheidung.',
-          answer: ''
-        },
-        {
-          id: 4,
-          text: 'Warum ist es wichtig, vor dem Druck das passende 3D-Druckverfahren auszuwählen? Bezieht euch auf mindestens zwei Merkmale aus der Tabelle.',
+          text: 'Ein Zahnarzt möchte ein hochpräzises Modell eines Gebisses mit sehr glatter Oberfläche herstellen. Welches Verfahren empfehlt ihr? Begründet eure Entscheidung.',
           answer: ''
         }
       ]
     }
   },
 
+  mounted() {
+    this._dbRef = ref(db, 'session/solutionPushed')
+    this._unsubscribe = onValue(this._dbRef, (snapshot) => {
+      if (snapshot.val() === true) {
+        this.unlocked.fdm = true
+        this.unlocked.sla = true
+        this.unlocked.sls = true
+      }
+    })
+  },
+
+  unmounted() {
+    if (this._unsubscribe) this._unsubscribe()
+  },
+
   methods: {
     unlockResult() {
       const normalizedCode = this.code.trim().toLowerCase()
 
-      if (normalizedCode === 'gmt-fdm') {
+      if (normalizedCode === 'gmt solve all') {
+        this.unlocked.fdm = true
+        this.unlocked.sla = true
+        this.unlocked.sls = true
+        this.message = 'Alle Verfahren wurden freigeschaltet.'
+      } else if (normalizedCode === 'gmt-fdm') {
         this.unlocked.fdm = true
         this.message = 'FDM wurde freigeschaltet.'
       } else if (normalizedCode === 'gmt-sla') {
@@ -242,6 +207,19 @@ export default {
       }
 
       this.code = ''
+    },
+
+    async pushSolution() {
+      await set(ref(db, 'session/solutionPushed'), true)
+      this.pushConfirm = true
+      setTimeout(() => { this.pushConfirm = false }, 3000)
+    },
+
+    async resetSolution() {
+      await set(ref(db, 'session/solutionPushed'), false)
+      this.unlocked.fdm = false
+      this.unlocked.sla = false
+      this.unlocked.sls = false
     }
   }
 }
@@ -368,69 +346,41 @@ td:first-child {
   line-height: 1.4;
 }
 
-.back-button {
-  margin-top: 32px;
-  background: #222;
-  color: white;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-
+.push-area {
+  margin-top: 48px;
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 1000;
-}
-
-.modal {
-  width: min(90%, 520px);
-  padding: 32px;
-
-  background: white;
-  border-radius: 16px;
-
-  text-align: center;
-}
-
-.modal p {
-  margin: 0;
-
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1.4;
-}
-
-.modal-actions {
-  margin-top: 28px;
-
-  display: flex;
-  justify-content: center;
   gap: 16px;
 }
 
-.leave-button,
-.cancel-button {
-  padding: 12px 16px;
-
-  border: none;
-  border-radius: 8px;
-
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.leave-button {
-  background: #222;
+.push-button {
+  background: #16a34a;
   color: white;
-  text-decoration: none;
+  font-size: 18px;
+  padding: 14px 24px;
 }
 
-.cancel-button {
+.reset-button {
   background: #ddd;
   color: #222;
+  font-size: 18px;
+  padding: 14px 24px;
+}
+
+.push-confirm {
+  font-size: 17px;
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
 }
 </style>

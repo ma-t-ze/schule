@@ -1,15 +1,20 @@
 <template>
   <div class="page">
     <div v-if="!$route.query.overview" class="start-overlay">
-      <input
-        v-model="gameCode"
-        class="code-input"
-        placeholder="Code"
-        @keyup.enter="startGame"
-      />
-      <button class="start-button" @click="startGame">
-        Start
-      </button>
+      <div class="start-inner">
+        <div class="start-row">
+          <input
+            v-model="gameCode"
+            class="code-input"
+            placeholder="Code"
+            @keyup.enter="startGame"
+          />
+          <button class="start-button" @click="startGame">
+            Start
+          </button>
+        </div>
+        <p class="start-hint">Nutze im weiteren Verlauf nur die Navigationselemente der Anwendung – nicht den Zurück-Button des Browsers.</p>
+      </div>
     </div>
 
     <button v-if="$route.query.overview" class="burger-button" @click="showBurger = true">
@@ -28,6 +33,8 @@
     <div v-if="showBurger" class="burger-backdrop" @click="showBurger = false"></div>
 
     <div class="menu">
+      <h1 class="menu-title">Die wichtigsten 3D-Druckverfahren</h1>
+      <h2 class="menu-subtitle">Tippt entsprechend eurer Rolle auf ein Thema (z. B. Schmelzschichtverfahren (FDM) für die Rolle FDM-1) und folgt der Aufgabenbeschreibung.</h2>
       <RouterLink to="/fdm" class="button">Schmelzschichtverfahren (FDM)</RouterLink>
       <RouterLink to="/sla" class="button">Lichthärtungsverfahren (SLA)</RouterLink>
       <RouterLink to="/sls" class="button">Laserverschmelzung von Pulver (SLS)</RouterLink>
@@ -36,36 +43,32 @@
 
     <div class="overlay" :class="{ open: showOverlay }">
       <div class="overlay-content">
-        <button class="close-button" @click="showOverlay = false">
+        <button v-if="!$route.query.gruppenpuzzle" class="close-button" @click="showOverlay = false">
           Schließen
         </button>
 
-        <h1>Gruppenpuzzle – 3D-Druckverfahren</h1>
+        <RouterLink to="/game?solved=true" class="generate-button back-to-game">Zurück</RouterLink>
+
+        <h1>Gruppenpuzzle zum Thema 3D-Druckverfahren</h1>
 
         <p>
           Beim Gruppenpuzzle werdet ihr zunächst in Stammgruppen eingeteilt und
           bekommt je eine Expertenrolle. Dann wechselt ihr
           in eure Expertengruppen und erarbeitet dort euer Thema. Anschließend
           kehrt ihr in eure Stammgruppen zurück und erklärt euch gegenseitig
-          eure Ergebnisse und beantwortet Transferfragen. 
-        </p>
-
-        <p>
-          Ziel ist, dass jedes Gruppenmitglied am Ende alle Verfahren kennt.
+          euer Thema und beantwortet Transferfragen. 
         </p>
 
         <h2>Stammgruppen generieren</h2>
 
         <div class="generator">
-          <label for="student-count">
-            Anzahl der Schülerinnen und Schüler
-          </label>
+          <div class="generator-row">
+            <input id="student-count" v-model.number="studentCount" type="number" min="1" placeholder="Anzahl SuS" />
 
-          <input id="student-count" v-model.number="studentCount" type="number" min="1" placeholder="z. B. 24" />
-
-          <button class="generate-button" @click="generateGroups">
-            generieren
-          </button>
+            <button class="generate-button" @click="generateGroups">
+              generieren
+            </button>
+          </div>
         </div>
 
         <div ref="pdfContent">
@@ -75,7 +78,14 @@
             <div class="group-list">
               <div v-for="group in groups" :key="group.id" class="group-card">
                 <strong>Gruppe {{ group.id }}</strong>
-                <span v-for="member in group.members" :key="member.label" class="member-tag">
+                <span class="group-size">{{ group.size }} Pers.</span>
+                <span
+                  v-for="member in group.members"
+                  :key="member.label"
+                  class="member-tag"
+                  :class="{ selected: selectedMember === member.label }"
+                  @click="toggleMember(member.label)"
+                >
                   {{ member.label }}
                 </span>
               </div>
@@ -83,33 +93,38 @@
 
             <p class="instruction">Geht nun wie folgt vor:</p>
             <p class="instruction">1. Findet euch in Gruppen dieser Größe zusammen.</p>
+            <p class="instruction">2. Vergebt die Rollen in eurer Gruppe.</p>
+            <p class="instruction">3. Tippt eure Rolle auf dem Tablet an.</p>
+            <p class="instruction">4. Tippt auf „Expertengruppen erstellen".</p>
+            <p class="instruction">5. Schaut, in welcher Expertengruppe ihr seid, und tippt dann auf „Deine Expertengruppe finden".</p>
+            <p class="instruction">6. Hebt euer Tablet hoch und findet eure Expertengruppe.</p>
 
-            <button v-if="instructionStep < 2" class="generate-button" @click="instructionStep = 2">
-              Weiter
-            </button>
 
-            <template v-if="instructionStep >= 2">
-              <p class="instruction">2. Notiert euch eure Rollenbezeichnung auf einen Zettel.</p>
-
-              <button class="generate-button" @click="generateExpertGroups">
+            <div class="generator-row">
+              <button class="generate-button" @click="generateExpertGroups()">
                 Expertengruppen erstellen
               </button>
-            </template>
+            </div>
           </div>
 
           <div v-if="expertGroups.length" class="result">
             <h2>Expertengruppen</h2>
 
-            <div v-for="topic in ['FDM', 'SLA', 'SLS']" :key="topic">
-              <h3>{{ topic }}</h3>
-              <div class="group-list">
+            <div class="expert-columns">
+              <div v-for="topic in ['FDM', 'SLA', 'SLS']" :key="topic" class="expert-column">
+                <h3 class="expert-topic">{{ topic }}</h3>
                 <div
                   v-for="group in expertGroups.filter(g => g.topic === topic)"
                   :key="group.id"
                   class="group-card"
                 >
                   <strong>{{ group.id }}</strong>
-                  <span v-for="member in group.members" :key="member" class="member-tag">
+                  <span
+                    v-for="member in group.members"
+                    :key="member"
+                    class="member-tag"
+                    :class="{ selected: selectedMember === member }"
+                  >
                     {{ member }}
                   </span>
                 </div>
@@ -118,13 +133,38 @@
           </div>
         </div>
 
-        <button v-if="groups.length" class="generate-button pdf-button" @click="downloadPDF">
-          Als PDF downloaden
-        </button>
+        <div v-if="expertGroups.length" class="generator-row" style="margin-top: 24px;">
+          <button class="generate-button pdf-button" @click="downloadPDF">
+            Als PDF downloaden
+          </button>
+          <button class="generate-button" @click="showExpertenOverlay = true">
+            Deine Expertengruppe finden
+          </button>
+        </div>
+
+        <div v-if="expertGroups.length" class="generator-row" style="margin-top: 16px;">
+          <input v-model="weiterCode" class="code-input-small" placeholder="Code" />
+          <button class="generate-button" @click="weiterCode === '4' && goToOverview()">
+            Weiter
+          </button>
+        </div>
 
         <p v-if="errorMessage" class="error-message">
           {{ errorMessage }}
         </p>
+      </div>
+    </div>
+
+    <div v-if="showExpertenOverlay" class="experten-backdrop" @click="showExpertenOverlay = false"></div>
+    <div v-if="showExpertenOverlay" class="experten-overlay">
+      <button class="experten-close" @click="showExpertenOverlay = false">✕ Schließen</button>
+
+      <div v-if="expertenGroup" class="experten-content">
+        <span class="experten-label">{{ expertenGroup.id }}</span>
+      </div>
+
+      <div v-else class="experten-content">
+        <p>Wähle zuerst eine Rolle aus den Stammgruppen aus.</p>
       </div>
     </div>
   </div>
@@ -143,6 +183,10 @@ export default {
       groups: [],
       expertGroups: [],
       instructionStep: 1,
+      selectedMember: null,
+      showExpertenOverlay: false,
+      stammCode: '',
+      weiterCode: '',
       errorMessage: ''
     }
   },
@@ -152,6 +196,13 @@ export default {
       if (val) {
         setTimeout(() => { this.showBurger = false }, 2000)
       }
+    }
+  },
+
+  computed: {
+    expertenGroup() {
+      if (!this.selectedMember) return null
+      return this.expertGroups.find(g => g.members.includes(this.selectedMember)) || null
     }
   },
 
@@ -177,6 +228,15 @@ export default {
       this.$router.push('/3dprint')
     },
 
+    toggleMember(label) {
+      this.selectedMember = this.selectedMember === label ? null : label
+    },
+
+    goToOverview() {
+      this.showOverlay = false
+      this.$router.push('/3dprint?overview=true')
+    },
+
     startGame() {
       document.activeElement?.blur()
       window.scrollTo(0, 0)
@@ -195,6 +255,7 @@ export default {
       this.groups = []
       this.expertGroups = []
       this.instructionStep = 1
+      this.stammCode = ''
 
       if (!this.studentCount || this.studentCount < 3) {
         this.errorMessage = 'Bitte gib mindestens 3 Schülerinnen und Schüler ein.'
@@ -413,11 +474,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
 
   background: white;
 
   transition: transform 0.5s ease;
+}
+
+.start-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.start-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 
@@ -460,6 +533,29 @@ export default {
   opacity: 0.85;
 }
 
+.start-hint {
+  font-size: 22px;
+  color: #2563eb;
+  text-align: center;
+  margin: 0;
+  max-width: 50%;
+}
+
+.menu-title {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.menu-subtitle {
+  font-size: 20px;
+  font-weight: normal;
+  color: #555;
+  margin-bottom: 24px;
+  text-align: center;
+  max-width: 50%;
+}
 
 .button {
   width: 340px;
@@ -501,12 +597,12 @@ export default {
 .overlay-content {
   width: min(100%, 1000px);
   margin: 0 auto;
-  padding: 48px;
+  padding: 32px;
 }
 
 .close-button,
 .generate-button {
-  padding: 12px 20px;
+  padding: 8px 16px;
 
   border: none;
   border-radius: 8px;
@@ -514,96 +610,210 @@ export default {
   background: #222;
   color: white;
 
-  font-size: 18px;
+  font-size: 17px;
   cursor: pointer;
 }
 
+.back-to-game {
+  display: inline-block;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
 h1 {
-  margin-top: 40px;
-  font-size: 42px;
+  margin-top: 24px;
+  font-size: 28px;
 }
 
 h2 {
-  margin-top: 40px;
-  font-size: 30px;
+  margin-top: 24px;
+  font-size: 22px;
 }
 
 h3 {
-  margin-top: 28px;
-  font-size: 22px;
+  margin-top: 16px;
+  font-size: 18px;
 }
 
 p {
-  font-size: 22px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
 .generator {
-  margin-top: 40px;
-  padding: 24px;
-
-  background: #f5f5f5;
-  border-radius: 16px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-label {
-  font-size: 22px;
-  font-weight: bold;
-}
-
-input {
-  width: 240px;
-  padding: 14px;
-
-  font-size: 22px;
-  border: 1px solid #999;
-  border-radius: 8px;
-}
-
-.group-list {
-  margin-top: 20px;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-}
-
-.group-card {
-  padding: 18px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-top: 24px;
+  padding: 16px;
 
   background: #f5f5f5;
   border-radius: 12px;
 
-  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.generator-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.code-input-small {
+  width: 160px;
+  padding: 10px;
+  font-size: 17px;
+  color: #999;
+  border: 1px solid #999;
+  border-radius: 8px;
+  outline: none;
+}
+
+.code-input-small::placeholder {
+  color: #bbb;
+}
+
+.code-input-small:focus {
+  border-color: #555;
+  color: #222;
+}
+
+label {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+input {
+  width: 200px;
+  padding: 10px;
+
+  font-size: 17px;
+  border: 1px solid #999;
+  border-radius: 8px;
+}
+
+.expert-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.expert-column {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expert-topic {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.group-list {
+  margin-top: 12px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.group-card {
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  background: white;
+  border-radius: 10px;
+
+  font-size: 17px;
+}
+
+.group-size {
+  font-size: 15px;
+  color: #666;
 }
 
 .member-tag {
-  padding: 4px 10px;
+  padding: 3px 8px;
 
   background: #222;
   color: white;
   border-radius: 6px;
 
-  font-size: 16px;
+  font-size: 14px;
   font-family: monospace;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.member-tag.selected {
+  background: #86efac;
+  color: #14532d;
 }
 
 .instruction {
-  margin-top: 28px;
+  margin-top: 16px;
   font-weight: bold;
 }
 
 .error-message {
-  margin-top: 24px;
+  margin-top: 16px;
   color: #b91c1c;
   font-weight: bold;
+}
+
+.experten-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1999;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.experten-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  z-index: 2000;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.experten-close {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+
+  padding: 10px 16px;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.experten-content {
+  text-align: center;
+}
+
+.experten-label {
+  font-size: 24vw;
+  font-weight: bold;
+  line-height: 1;
 }
 </style>
