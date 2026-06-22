@@ -20,6 +20,10 @@
           v-model="code"
           type="text"
           placeholder="Code eingeben"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
           @keyup.enter="unlockResult"
         />
 
@@ -84,7 +88,7 @@
       </button>
 
       <div class="teacher-area">
-        <input v-model="teacherCode" class="teacher-input" placeholder="Code" @keyup.enter="printTeacherView" />
+        <input v-model="teacherCode" class="teacher-input" placeholder="Code" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" @keyup.enter="printTeacherView" />
         <button class="download-button" @click="printTeacherView">
           Für Lehrkraft
         </button>

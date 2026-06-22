@@ -91,7 +91,7 @@
 
       <section class="task">
         <div class="check-row">
-          <input v-model="checkCode" class="code-input" placeholder="Code" @keyup.enter="submitCode" />
+          <input v-model="checkCode" class="code-input" placeholder="Code" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" @keyup.enter="submitCode" />
           <button class="check-button" @click="submitCode">
             Lösung prüfen
           </button>

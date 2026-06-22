@@ -37,6 +37,10 @@
           v-model="exitCode"
           class="code-input"
           placeholder="Code"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
           @keyup.enter="goNext"
         />
         <button v-if="solved" class="button" @click="goNext">

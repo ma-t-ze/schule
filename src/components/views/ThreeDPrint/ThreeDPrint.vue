@@ -7,6 +7,10 @@
             v-model="gameCode"
             class="code-input"
             placeholder="Code"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="none"
+            spellcheck="false"
             @keyup.enter="startGame"
           />
           <button class="start-button" @click="startGame">
@@ -143,7 +147,7 @@
         </div>
 
         <div v-if="expertGroups.length" class="generator-row" style="margin-top: 16px;">
-          <input v-model="weiterCode" class="code-input-small" placeholder="Code" />
+          <input v-model="weiterCode" class="code-input-small" placeholder="Code" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" />
           <button class="generate-button" @click="weiterCode === 'gmt59' && goToOverview()">
             Weiter
           </button>
