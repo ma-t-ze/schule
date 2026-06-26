@@ -3,7 +3,7 @@
         <!-- <GlassLayer /> -->
         <!-- <LiquidCursorBlobs /> -->
         <LiquidCursorThree :target-x="blobX" :target-y="blobY" :is-visible="blobsVisible"
-            :hover-key="activeTileIndex" />
+            :hover-key="activeTileIndex" :palette-key="activeTileIndex" />
 
         <div v-if="showSplash" class="splash" :class="{ 'splash--fade-out': splashFadeOut }">
             <div class="splash__content">
@@ -31,22 +31,62 @@
                     ]" />
                 </div>
                 <div class="header__right">
-                    <a href="#faqs" class="header__link">FAQs ________></a>
+                    <button class="header__link" type="button" @click="openFaqs">FAQs ________></button>
                 </div>
             </div>
         </header>
 
-        <div class="filters">
-            <div class="filters__inner" :style="{ width: `${layoutWidth}px` }">
-                <button class="filter">
-                    <img src="/images/bkgd/down.svg" class="filter__icon" alt="" />
-                    <span>Jahrgang</span>
+        <div class="faq-overlay" :class="{ 'is-visible': faqsVisible }" @click.self="closeFaqs">
+            <section class="faq-panel" aria-label="FAQs">
+                <button class="faq-panel__close" type="button" aria-label="FAQs schließen" @click="closeFaqs">
+                    ×
                 </button>
 
-                <button class="filter">
-                    <img src="/images/bkgd/down.svg" class="filter__icon" alt="" />
-                    <span>Fachbereich</span>
-                </button>
+                <div class="faq-panel__content">
+                    <article v-for="faq in faqs" :key="faq.question" class="faq-item">
+                        <h3>{{ faq.question }}</h3>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <div class="filters">
+            <div class="filters__inner" :style="{ width: `${layoutWidth}px` }">
+                <div class="filter-wrap">
+                    <button class="filter" type="button" :class="{ 'is-open': yearDropdownOpen }"
+                        @click="toggleYearDropdown">
+                        <img src="/images/bkgd/down.svg" class="filter__icon" alt="" />
+                        <span>{{ selectedYear || 'Jahrgang' }}</span>
+                    </button>
+
+                    <div class="filter-dropdown" :class="{ 'is-open': yearDropdownOpen }">
+                        <button class="filter-dropdown__item" type="button" @click="selectYear(null)">
+                            Alle Jahrgänge
+                        </button>
+                        <button v-for="year in years" :key="year" class="filter-dropdown__item" type="button"
+                            @click="selectYear(year)">
+                            {{ year }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filter-wrap">
+                    <button class="filter" type="button" :class="{ 'is-open': departmentDropdownOpen }"
+                        @click="toggleDepartmentDropdown">
+                        <img src="/images/bkgd/down.svg" class="filter__icon" alt="" />
+                        <span>{{ selectedDepartment || 'Fachbereich' }}</span>
+                    </button>
+
+                    <div class="filter-dropdown" :class="{ 'is-open': departmentDropdownOpen }">
+                        <button class="filter-dropdown__item" type="button" @click="selectDepartment(null)">
+                            Alle Fachbereiche
+                        </button>
+                        <button v-for="department in departments" :key="department" class="filter-dropdown__item"
+                            type="button" @click="selectDepartment(department)">
+                            {{ department }}
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -64,7 +104,7 @@
         </div>
 
         <div class="grid" :style="{ gridTemplateColumns: 'repeat(' + columns + ', 300px)' }">
-            <div v-for="(image, index) in tileImages" :key="index" class="tile"
+            <RouterLink v-for="(image, index) in tileImages" :key="index" class="tile" :to="portfolioRoute(index)"
                 :style="{ animationDelay: tileDelays[index] }" @mouseenter="onTileEnter(index, $event)"
                 @mouseleave="onTileLeave">
                 <img :src="image" :alt="'Tile Bild ' + (index + 1)" class="tile__image" />
@@ -74,18 +114,21 @@
                         {{ hoverNames[index] }}
                     </span>
                 </div>
-            </div>
+            </RouterLink>
         </div>
 
         <div class="load-more-wrap">
-            <button class="load-more-button">
+            <button class="load-more-button" type="button" @click="loadMore">
                 Mehr laden
             </button>
         </div>
 
         <footer class="footer">
-            <a href="/datenschutz" class="footer__link">Datenschutz</a>
-            <a href="/impressum" class="footer__link">Impressum</a>
+            <div class="footer__links">
+                <a href="/datenschutz" class="footer__link">Datenschutz</a>
+                <a href="/impressum" class="footer__link">Impressum</a>
+            </div>
+            <img src="/images/bkgd/logo_chs.svg" class="footer__logo" alt="Carl-Hofer-Schule Karlsruhe" />
         </footer>
     </div>
 </template>
@@ -122,6 +165,11 @@ export default {
             ticking: false,
             showSplash: true,
             splashFadeOut: false,
+            faqsVisible: false,
+            yearDropdownOpen: false,
+            selectedYear: null,
+            departmentDropdownOpen: false,
+            selectedDepartment: null,
 
             blobsVisible: false,
             activeTileIndex: null,
@@ -141,6 +189,59 @@ export default {
                 "Sophie Braun",
                 "Ben Neumann",
                 "Hannah Vogel"
+            ],
+
+            years: [
+                2023,
+                2024,
+                2025,
+                2026,
+                2027,
+                2028,
+                2029,
+                2030
+            ],
+
+            departments: [
+                "Berufskolleg Grafikdesign",
+                "Gestaltungs- und Medientechnik | TG",
+                "Berufskolleg Foto",
+                "BF Druck- und Medientechnik"
+            ],
+
+            faqs: [
+                {
+                    question: "Wie kann ich mich an der CHS bewerben?",
+                    answer: "Informationen zur Bewerbung findest du auf der Website der Carl-Hofer-Schule und direkt über das Sekretariat."
+                },
+                {
+                    question: "Wo finde ich weitere Informationen zu den Schularten?",
+                    answer: "Auf der CHS Website findest du Übersichten zu allen Schularten, Aufnahmebedingungen und Ansprechpartnerinnen und Ansprechpartnern."
+                },
+                {
+                    question: "Welche Arbeiten werden auf dieser Seite gezeigt?",
+                    answer: "Hier werden ausgewählte Schülerarbeiten aus unterschiedlichen Fachbereichen und Jahrgängen präsentiert."
+                },
+                {
+                    question: "Kann ich die Portfolios einzelner Schülerinnen und Schüler ansehen?",
+                    answer: "Ja, durch einen Klick auf eine Arbeit gelangst du zum jeweiligen Portfolio."
+                },
+                {
+                    question: "Welche Fachbereiche gibt es an der CHS?",
+                    answer: "Die Plattform zeigt unter anderem Arbeiten aus Grafikdesign, Foto, Mediengestaltung und Druck- und Medientechnik."
+                },
+                {
+                    question: "Wann ist der richtige Zeitpunkt für eine Bewerbung?",
+                    answer: "Die Fristen können je nach Schulart unterschiedlich sein. Prüfe die aktuellen Termine bitte auf der offiziellen CHS Website."
+                },
+                {
+                    question: "Brauche ich eine Mappe für die Bewerbung?",
+                    answer: "Für gestalterische Bildungsgänge kann eine Mappe oder Arbeitsprobe relevant sein. Details findest du bei der jeweiligen Schulart."
+                },
+                {
+                    question: "An wen kann ich mich bei Fragen wenden?",
+                    answer: "Bei konkreten Fragen helfen das Sekretariat und die Beratungsangebote der Carl-Hofer-Schule weiter."
+                }
             ]
         }
     },
@@ -195,9 +296,48 @@ export default {
     beforeUnmount() {
         window.removeEventListener("resize", this.handleResize)
         window.removeEventListener("scroll", this.onScroll)
+        window.removeEventListener("keydown", this.onKeydown)
     },
 
     methods: {
+        openFaqs() {
+            this.faqsVisible = true
+            window.addEventListener("keydown", this.onKeydown)
+        },
+
+        closeFaqs() {
+            this.faqsVisible = false
+            window.removeEventListener("keydown", this.onKeydown)
+        },
+
+        onKeydown(event) {
+            if (event.key === "Escape") {
+                this.closeFaqs()
+                this.yearDropdownOpen = false
+                this.departmentDropdownOpen = false
+            }
+        },
+
+        toggleYearDropdown() {
+            this.yearDropdownOpen = !this.yearDropdownOpen
+            this.departmentDropdownOpen = false
+        },
+
+        selectYear(year) {
+            this.selectedYear = year
+            this.yearDropdownOpen = false
+        },
+
+        toggleDepartmentDropdown() {
+            this.departmentDropdownOpen = !this.departmentDropdownOpen
+            this.yearDropdownOpen = false
+        },
+
+        selectDepartment(department) {
+            this.selectedDepartment = department
+            this.departmentDropdownOpen = false
+        },
+
         scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -208,7 +348,7 @@ export default {
         updateColumns() {
             const screenWidth = window.innerWidth
             const columns = Math.floor(screenWidth / this.tileWidth)
-            this.columns = Math.max(1, Math.min(columns, 7))
+            this.columns = Math.max(1, Math.min(columns, 6))
         },
 
         getRandomImage() {
@@ -266,7 +406,7 @@ export default {
         },
 
         loadMore() {
-            const additionalRows = 4
+            const additionalRows = 3
             const additionalTiles = this.columns * additionalRows
 
             this.rows += additionalRows
@@ -275,6 +415,18 @@ export default {
             this.$nextTick(() => {
                 this.setBlobHomePosition()
             })
+        },
+
+        portfolioRoute(index) {
+            return {
+                name: "bkgdportfolio",
+                params: {
+                    name: this.hoverNames[index] || this.getRandomName()
+                },
+                query: {
+                    blob: index
+                }
+            }
         },
 
         handleResize() {
@@ -353,4 +505,5 @@ export default {
 @import "./style-tiles.scss";
 @import "./style-footer.scss";
 @import "./style-header.scss";
+@import "./style-faq.scss";
 </style>

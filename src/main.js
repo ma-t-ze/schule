@@ -41,6 +41,20 @@ const routes = [
   },
 
   {
+    path: '/bkgdpage/portfolio/:name',
+    name: 'bkgdportfolio',
+    component: () => import('./components/views/BKGDPage/PortfolioPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
+    path: '/bkgdpage/portfolio/:name/illustration-wueste',
+    name: 'bkgdprojectwueste',
+    component: () => import('./components/views/BKGDPage/WuesteProjectPage.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
     path: '/conversepage',
     name: 'conversepage',
     component: () => import('./components/views/ConversePage/ConversePage.vue'),

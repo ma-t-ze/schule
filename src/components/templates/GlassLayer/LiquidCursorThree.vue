@@ -32,6 +32,14 @@ export default {
         hoverKey: {
             type: [Number, String],
             default: null
+        },
+        paletteKey: {
+            type: [Number, String],
+            default: null
+        },
+        displayScale: {
+            type: Number,
+            default: 0.6
         }
     },
 
@@ -50,7 +58,8 @@ export default {
     computed: {
         rootStyle() {
             return {
-                transform: `translate3d(${this.currentX - 400}px, ${this.currentY - 400}px, 0)`
+                transform: `translate3d(${this.currentX - 400}px, ${this.currentY - 400}px, 0)`,
+                "--liquid-scale": this.displayScale
             }
         }
     },
@@ -86,8 +95,13 @@ export default {
                 return
             }
 
-            this.startPaletteTween()
+            this.startPaletteTween(this.paletteKey ?? newValue)
             this.startMoveTween(this.targetX, this.targetY)
+        },
+
+        paletteKey(newValue) {
+            if (this.hoverKey === null) return
+            this.startPaletteTween(newValue)
         }
     },
 
@@ -122,6 +136,15 @@ export default {
 
         this.initThree()
         this.setPalette(DEFAULT_PALETTE)
+
+        if (this.hoverKey !== null) {
+            this.currentX = this.targetX
+            this.currentY = this.targetY
+            this.lastX = this.currentX
+            this.lastY = this.currentY
+            this.setPalette(this.getPaletteForKey(this.paletteKey ?? this.hoverKey))
+        }
+
         this.applyPaletteStateToUniforms()
 
         window.addEventListener("resize", this.handleResize, { passive: true })
@@ -198,6 +221,19 @@ export default {
             this.currentPaletteState = this.createPaletteState(palette)
         },
 
+        getPaletteForKey(key) {
+            if (!this.colorPalettes.length) return null
+
+            const normalizedKey = String(key ?? 0)
+            const paletteIndex = normalizedKey
+                .split("")
+                .reduce((sum, character) => sum + character.charCodeAt(0), 0) % this.colorPalettes.length
+
+            this.lastPaletteIndex = paletteIndex
+
+            return this.colorPalettes[paletteIndex]
+        },
+
         getRandomPalette() {
             if (!this.colorPalettes.length) return null
 
@@ -240,8 +276,8 @@ export default {
             )
         },
 
-        startPaletteTween() {
-            const palette = this.getRandomPalette()
+        startPaletteTween(key = null) {
+            const palette = key === null ? this.getRandomPalette() : this.getPaletteForKey(key)
             if (!palette) return
 
             this.startPaletteTweenTo(palette)
@@ -496,6 +532,6 @@ export default {
 .liquid-cursor-three canvas {
     display: block;
     filter: blur(20px) saturate(1.4);
-    transform: scale(0.6);
+    transform: scale(var(--liquid-scale, 0.6));
 }
 </style>

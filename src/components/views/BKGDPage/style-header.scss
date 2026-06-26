@@ -66,6 +66,7 @@
 }
 
 .header__link {
+    border: none;
     font-family: Graphit;
     width: auto;
     padding: 20px 40px 20px 40px;
@@ -76,6 +77,7 @@
     color: black;
     background-color: white;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 .header__link:hover {

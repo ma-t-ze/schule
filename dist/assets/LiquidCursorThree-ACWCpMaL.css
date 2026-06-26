@@ -1,0 +1,1 @@
+.liquid-cursor-three{position:fixed;top:0;left:0;width:1000px;height:1000px;pointer-events:none;z-index:2;will-change:transform;overflow:hidden;opacity:0;transition:opacity .4s ease}.liquid-cursor-three.is-visible{opacity:1}.liquid-cursor-three canvas{display:block;filter:blur(20px) saturate(1.4);transform:scale(var(--liquid-scale, .6))}
