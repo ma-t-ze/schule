@@ -34,6 +34,13 @@ const routes = [
   },
 
   {
+    path: '/gestaltgesetze',
+    name: 'gestaltgesetze',
+    component: () => import('./components/views/Gestaltgesetze/Gestaltgesetze.vue'),
+    meta: { requiresAuth: false }
+  },
+
+  {
     path: '/bkgdpage',
     name: 'bkgdpage',
     component: () => import('./components/views/BKGDPage/BKGDPage.vue'),

@@ -3,6 +3,7 @@
 <template>
     <div class="links">
         <router-link class="chaos-link" :to="{ name: 'chaos' }">Gesetz der Nähe</router-link>
+        <router-link class="chaos-link" :to="{ name: 'gestaltgesetze' }">Gestaltgesetze</router-link>
         <router-link class="chaos-link" :to="{ name: 'variablefont' }">Variable Font</router-link>
         <router-link class="chaos-link" :to="{ name: 'bridgepage' }">Paperbridge</router-link>
         <router-link class="chaos-link" :to="{ name: 'bkgdpage' }">BKGD Plattform</router-link>

@@ -38,17 +38,21 @@ export const loadShoeModel = ({ scene, onModelLoaded }) => {
             const texturePaths = [
                 '/textures/shoes/Alexandra_Antal_Gachiakuta Rudo Version_D6B4B4_802626.png',
                 '/textures/shoes/Apostoloska_Mirela_VicVerse_FFE0EC_FFBDDA.png',
+                '/textures/shoes/Bela_Haplatka_BiblicallyAccurate_F7E8C8_E9C258.png',
                 '/textures/shoes/Bluschke_Sofia_Swagers_333F4B_AAAAAA.png',
                 '/textures/shoes/Charmeyn_Ho_Berryse_DF3B3D_FFECB3.png',
                 '/textures/shoes/Christin_Hoerschgen_Der Schatz der Karibik_1B1B1B_F0CFAD.png',
                 '/textures/shoes/Daniel_Steblau_BapeVerse_A19EFF_302BE5.png',
                 '/textures/shoes/Evelin_Frick_Tiger_EEE9CD_7AE9EF.png',
                 '/textures/shoes/Helen_Ibrahim_Evil Mint Choco_7AE9EF_EFE998.png',
+                '/textures/shoes/Hu_Xinyu_Honigkaramel_853C01_FFF3B9.png',
                 '/textures/shoes/Lili_Bankos_Autismus_00A1FF_FF00D4.png',
                 '/textures/shoes/Lucille_Badayei_Starfall_84659E_F7EFE0.png',
                 '/textures/shoes/Marcel_Radtke_Aero_5663C4_5F50A9.png',
+                '/textures/shoes/Nalinthip_Sayavong_GreenShoe_849F6F_D4B415.png',
                 '/textures/shoes/Rayen_Neubauer_Surebrec-verse_000000_FF0000.png',
                 '/textures/shoes/Sayavong_Nalinthip_GreenShoe_849F6F_D4B415.png',
+                '/textures/shoes/Stanislav_Honchar_Solaire_FFD000_000000.png',
                 '/textures/shoes/Wenz_Ana_Veng Ace_D9D9D9_FFFFFF.png'
             ]
 
