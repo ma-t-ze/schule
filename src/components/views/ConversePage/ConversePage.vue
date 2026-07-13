@@ -13,7 +13,8 @@
         <img src="/images/logo.svg" alt="Logo" class="info-logo" />
 
         <div class="info-text">
-            Im Fach Grafikdesign gestalteten die Schülerinnen und Schüler des Berufskollegs Grafikdesign einen Converse-Schuh zum Thema Farbe.
+            Die Schülerinnen und Schüler der Eingangsklasse des Berufskollegs Grafikdesign entwarfen einen individuell gestalteten Converse-Schuh zum Thema Farbe.
+
 
         <br/>Lehrkraft: M. Heckel | Carl-Hofer-Schule Karlsruhe
         </div>
