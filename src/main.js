@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/pruefung-schulrecht-schulorganisation',
+    name: 'pruefung-schulrecht',
+    component: () => import('./components/views/PruefungSchulrecht/PruefungSchulrecht.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/login',
     name: 'LoginPage',
     component: () => import('./components/views/LoginPage/LoginPage.vue')

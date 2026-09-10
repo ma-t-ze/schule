@@ -1,0 +1,1999 @@
+[
+  {
+    "id": "cluster-1",
+    "title": "Rechtliche Grundlagen und Bildungsauftrag",
+    "topics": [
+      {
+        "title": "Verfassung und staatliche Prinzipien",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "1-2",
+            "page": 1
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "1",
+            "page": 1
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-1",
+            "document": "Schulrecht",
+            "page": 1,
+            "question": "Beschreiben sie anhand von Beispielen die rechtlichen Grundlagen des Schulwesens.",
+            "answer": "1. Grundgesetz (GG)\n\nenthält die verfassungsrechtlichen Grundlagen der Rechtsordnung\n\nRechtsstaatsprinzip\n\nstaatliches Handeln ist an Recht und Gesetz gebunden\n\nSchule darf nicht willkürlich handeln\n\nBeispiel: E&O-Maßnahmen → § 90 SchG\n\nDemokratieprinzip\n\ndemokratische Mitwirkung\n\nz. B. SMV, Elternvertretung, Schulkonferenz\n\nSozialstaatsprinzip\n\nChancengleichheit, Förderung und Unterstützung\n\nBundesstaatsprinzip\n\nstaatliche Aufgaben sind zwischen Bund und Ländern verteilt\n\n→ Schulwesen grundsätzlich Ländersache\n\nSpezielle schulrechtliche Regelungen im GG\n\nArt. 6 GG → Elternrecht\n\nPflege und Erziehung der Kinder sind Recht und Pflicht der Eltern\n\nwichtig für Schule, weil dem Erziehungsrecht der Eltern der staatliche Bildungs- und Erziehungsauftrag gegenübersteht\n\nArt. 7 GG → Schulwesen\n\ndas gesamte Schulwesen steht unter Aufsicht des Staates\n\nbildet die verfassungsrechtliche Grundlage für den staatlichen Bildungs- und Erziehungsauftrag\n\nregelt außerdem grundlegende Fragen, z. B. Religionsunterricht und Privatschulen\n\nKurz:\n\nArt. 6 GG → Eltern haben Erziehungsrecht.\n\nArt. 7 GG → Staat hat Verantwortung für das Schulwesen.\n\n2. Verfassung des Landes Baden-Württemberg (LV)\n\nsteht nach Denig direkt nach dem Grundgesetz\n\nArt. 11 LV → Recht auf Erziehung und Ausbildung\n\nArt. 12 LV → Grundsätze der Erziehung\n\nArt. 14 LV → Schulpflicht, Schulgeldfreiheit\n\nArt. 15 LV → Schulform, Rechte der Eltern\n\nArt. 17 LV → Schulaufsicht, Mitwirkung der Eltern\n\n„Näheres regelt ein Gesetz“ → Schulgesetz\n\n3. Schulgesetz Baden-Württemberg (SchG)\n\nkonkretisiert die Vorgaben von GG und Landesverfassung\n\nBeispiele:\n\n§ 1 SchG → Bildungs- und Erziehungsauftrag\n\n§ 23 SchG → Rechtsstellung der Schule\n\n§ 41 SchG → Aufgaben der Schulleitung\n\n§ 90 SchG → Erziehungs- und Ordnungsmaßnahmen\n\n4. Weitere rechtliche Regelungen\n\nRechtsverordnungen\n\naufgrund einer gesetzlichen Ermächtigung\n\nBeispiel: NVO\n\nVerwaltungsvorschriften (VwV)\n\nverwaltungsinterne Vorgaben\n\ngrundsätzlich keine unmittelbare Außenwirkung\n\nUnterhalb des GG steht die Verfassung des Landes Baden-Württemberg.\n\nArt. 11 Recht auf Erziehung und Ausbildung, Art. 12 Erziehungsgrundsätze, Art. 14 Schulpflicht und Schulgeldfreiheit, Art. 15 Schulform und Elternrechte sowie Art. 17 u. a. Schulaufsicht und Elternvertretung.\n\nDarunter kommt das Schulgesetz (SchG). Das ist für unseren Schulalltag die zentrale gesetzliche Grundlage.\n\n§ 1 Bildungs- und Erziehungsauftrag, § 23 Rechtsstellung der Schule, § 41 Aufgaben der Schulleitung, § 90 Erziehungs- und Ordnungsmaßnahmen usw."
+          },
+          {
+            "id": "schulrecht-2",
+            "document": "Schulrecht",
+            "page": 2,
+            "question": "Wie zeigen sich die Umsetzung von Rechtsstaatsprinzip, Demokratieprinzip, Sozialstaatsprinzip und Bundesstaatsprinzip im Schulwesen?",
+            "answer": "Rechtsstaatsprinzip\n\nDie Schule ist an Recht und Gesetz gebunden. Insbesondere Eingriffe von besonderer Intensität in die Rechte von Schülern benötigen eine gesetzliche Grundlage.\n\nDemokratieprinzip\n\nBeteiligung und Mitwirkung der am Schulleben beteiligten Gruppen an Entscheidungen.\n\nSozialstaatsprinzip\n\nDer Staat ermöglicht Bildung unabhängig von den wirtschaftlichen und sozialen Voraussetzungen und unterstützt bzw. fördert Schüler, die Unterstützung benötigen.\n\nBundesstaatsprinzip\n\nDas Schulwesen ist grundsätzlich Ländersache. Deshalb hat Baden-Württemberg ein eigenes Schulgesetz."
+          },
+          {
+            "id": "schulorganisation-1",
+            "document": "Schulorganisation",
+            "page": 1,
+            "question": "Welche zentralen Inhalte regelt Art. 7 GG?",
+            "answer": "Art. 7 GG → staatliche Schulaufsicht, Religionsunterricht und Privatschulen\n\nArt. 7 GG regelt nur bestimmte zentrale Bereiche des Schulwesens:\n\ndas gesamte Schulwesen steht unter staatlicher Aufsicht,\n\nRegelungen zum Religionsunterricht,\n\ndas Recht zur Errichtung von Privatschulen und die Voraussetzungen dafür.\n\nWichtig: Das Grundgesetz regelt nicht die konkrete Schulorganisation. Diese liegt aufgrund der Kulturhoheit grundsätzlich bei den Ländern (Art. 30, 70 ff. GG). Ein bundesweites Schulgesetz gibt es deshalb nicht.\n\nDie Unterlagen betonen außerdem, dass „staatliche Aufsicht“ mehr bedeutet als bloße Kontrolle: Der Staat besitzt eine umfassende Schulhoheit und bestimmt unter anderem Schulpflicht, Organisation und Inhalte.\n\nFragen: Besonderes pädagogisches Interesse in Absatz 5, Vorschulen bleiben aufgehoben in 6"
+          },
+          {
+            "id": "schulorganisation-18",
+            "document": "Schulorganisation",
+            "page": 6,
+            "question": "Für welche Bereiche hat das Grundgesetz Gültigkeit im Schulwesen? Nennen Sie drei und erläutern Sie Absicht und Einfluss.",
+            "answer": "Drei besonders wichtige Bereiche aus Art. 7 GG:\n\n1. Staatliche Schulaufsicht\n\nDer Staat trägt Verantwortung für das Schulwesen.\n\n2. Religionsunterricht\n\nDas GG enthält besondere Garantien und Regelungen für Religionsunterricht.\n\n3. Privatschulen\n\nDas Recht zur Errichtung privater Schulen wird geschützt, zugleich gelten\n\nGenehmigungsvoraussetzungen.\n\nDie Präsentation fasst Art. 7 genau mit diesen drei Bereichen zusammen:\n\nStaatsaufsicht – Religionsunterricht – Privatschulen."
+          }
+        ]
+      },
+      {
+        "title": "Normen und Verwaltungshandeln",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "1-4",
+            "page": 1
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "4",
+            "page": 4
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-3",
+            "document": "Schulrecht",
+            "page": 2,
+            "question": "Was versteht man unter der Normenpyramide?",
+            "answer": "Die Normenpyramide stellt die Rangordnung der Rechtsnormen dar. Niederrangiges Recht darf höherrangigem Recht nicht widersprechen.\n\nEine Rechtsnorm ist eine einzelne rechtlich verbindliche Regel.\n\nEin Gesetz ist ein Regelwerk, das viele solcher Rechtsnormen enthält.\n\nBeispiel Schulgesetz Baden-Württemberg:\n\nDas Schulgesetz (SchG) ist das Gesetz, darin stehen viele einzelne Rechtsnormen, z. B.:\n\n§ 1 SchG → Erziehungs- und Bildungsauftrag\n\n§ 41 SchG → Aufgaben des Schulleiters\n\n§ 90 SchG → Erziehungs- und Ordnungsmaßnahmen\n\nGrundgesetz\n\nformelles Gesetz mit Bundesverfassungsrang\n\nLandesverfassung Baden Württemberg (SchG)\n\nformelles Gesetz mit Landesverfassungsrang\n\nSchulgesetz BW (SchG)\n\nformelles, einfaches Landesgesetz\n\nRechtsverordnungen (VO)\n\nz.B. Notenbildungsverordnung (NVO)\n\nVerwaltungsvorschriften (VwV)\n\nverwaltungsinterne Regelungen, z.B. Verwaltungsvorschriften des Kultusministeriums"
+          },
+          {
+            "id": "schulrecht-4",
+            "document": "Schulrecht",
+            "page": 3,
+            "question": "Unterscheiden Sie Gesetze, Rechtsverordnungen und Verwaltungsvorschriften",
+            "answer": "Gesetz\n\nbeschlossen durch Parlament / Legislative\n\nnach außen verbindlich\n\nBeispiel: Schulgesetz (SchG)\n\nRechtsverordnung (VO)\n\nerlassen durch Exekutive, z. B. Kultusministerium\n\naufgrund einer gesetzlichen Ermächtigung\n\nkonkretisiert gesetzliche Regelungen\n\nnach außen verbindlich\n\nBeispiel: Notenbildungsverordnung (NVO)\n\nVerwaltungsvorschrift (VwV)\n\nerlassen durch Verwaltungsbehörde, z. B. Kultusministerium\n\nregelt, wie die Verwaltung handeln soll\n\ngrundsätzlich nur verwaltungsintern verbindlich\n\ngrundsätzlich keine unmittelbaren Ansprüche für Schüler/Eltern\n\nBeispiel: KM gibt Schulen Vorgaben zur Stundenplangestaltung\n\nSchüler kann daraus grundsätzlich keinen Anspruch auf einen bestimmten Stundenplan ableiten\n\nMerksatz:\n\nGesetz → Parlament | Rechtsverordnung → Exekutive + gesetzliche Ermächtigung | VwV → interne Vorgabe für die Verwaltung."
+          },
+          {
+            "id": "schulrecht-5",
+            "document": "Schulrecht",
+            "page": 3,
+            "question": "Was ist ein Verwaltungsakt? Grenzen Sie dies ab zu „schlichtem Verwaltungshandeln“.",
+            "answer": "§ 35 LVwVfG → Verwaltungsakt\n\nhoheitliche Maßnahme einer Behörde\n\nRegelung eines Einzelfalls\n\nauf dem Gebiet des öffentlichen Rechts\n\nmit unmittelbarer Rechtswirkung nach außen\n\nBeispiele Schule:\n\nNichtversetzung\n\nE&O-Maßnahmen nach § 90 SchG\n\nDenig → Eingriffsintensität\n\npraktische Abgrenzung: Wie stark wird in die Rechtsstellung des Schülers eingegriffen?\n\nstärkere, verbindliche Regelung → Verwaltungsakt\n\nSchlichtes Verwaltungshandeln\n\nkeine entsprechende rechtliche Regelungswirkung\n\nalltägliches pädagogisches/tatsächliches Handeln\n\nz. B.:\n\nKlassenbucheintrag\n\npädagogische Zusatzaufgabe\n\nSitzplatzänderung\n\nMerksatz:\n\nVerwaltungsakt → Rechtsstellung wird verbindlich geregelt.\n\nSchlichtes Verwaltungshandeln → pädagogisches/tatsächliches Handeln ohne solche Regelungswirkung."
+          },
+          {
+            "id": "schulrecht-6",
+            "document": "Schulrecht",
+            "page": 4,
+            "question": "Welche Bedeutung hat die Bezeichnung „nicht rechtsfähige Anstalt“ für eine Schule?",
+            "answer": "§ 23 Abs. 1 SchG → öffentliche Schule\n\nöffentliche Schulen sind „nicht rechtsfähige öffentliche Anstalten“\n\nAnstalt → Denig\n\ndauerhafte öffentliche Einrichtung\n\nerfüllt eine öffentliche Aufgabe\n\n→ insbesondere Bildungs- und Erziehungsauftrag\n\nNicht rechtsfähig\n\nSchule besitzt keine eigene Rechtspersönlichkeit\n\nist rechtlich nicht selbstständig\n\nhinter ihr stehen deshalb die jeweiligen Rechtsträger\n\nRechtsträger\n\n→ Lehrkräfte / pädagogischer Bereich (Land Baden-Württemberg)\n\n→ Gebäude / Ausstattung / Sachkosten (Schulträger, z. B. Stadt Karlsruhe)\n\nMerksatz:\n\nAnstalt = öffentliche Einrichtung mit Aufgabe.\n\nNicht rechtsfähig = keine eigene Rechtspersönlichkeit → Rechtsträger stehen hinter der Schule."
+          },
+          {
+            "id": "schulorganisation-13",
+            "document": "Schulorganisation",
+            "page": 4,
+            "question": "Wie ist die Normenpyramide im Schulrecht aufgebaut?",
+            "answer": "Höheres Recht schlägt niedrigeres Recht.\n\nVereinfacht:\n\nGrundgesetz\n\n↓\n\nLandesverfassung Baden-Württemberg\n\n↓\n\nGesetze, z. B. Schulgesetz\n\n↓\n\nRechtsverordnungen, z. B. NVO\n\n↓\n\nVerwaltungsvorschriften\n\n↓\n\nschulinterne Regelungen\n\nEine untergeordnete Regel darf einer höherrangigen Norm nicht widersprechen.\n\nJe höher eine Norm steht, desto stärker ist ihre rechtliche Bindungswirkung. Niedrigeres Recht darf höherem Recht nicht widersprechen."
+          },
+          {
+            "id": "schulorganisation-37",
+            "document": "Schulorganisation",
+            "page": 10,
+            "question": "Warum tauchen nicht alle beruflichen Schularten im Schulgesetz auf?",
+            "answer": "Schulgesetz → Grundstruktur\n\nVerordnungen → konkrete Bildungsgänge\n\nDas Schulgesetz regelt die grundlegende Struktur.\n\nKonkrete Ausgestaltungen einzelner Bildungsgänge wie Berufliches Gymnasium oder AV/AVdual werden teilweise durch Rechtsverordnungen bzw. weitere Regelungen konkretisiert.\n\nDeshalb muss nicht jeder einzelne Bildungsgang als eigene Schulart im Schulgesetz aufgeführt sein."
+          },
+          {
+            "id": "schulorganisation-102",
+            "document": "Schulorganisation",
+            "page": 27,
+            "question": "Schulgesetz: Nennen Sie Beispiele, wann es zum Tragen kommt.",
+            "answer": "Schulgesetz → grundlegende schulrechtliche Fragen\n\nDie Musterlösung nennt insbesondere:\n\nSchulpflicht,\n\nAufnahme in Schularten,\n\nVersetzung,\n\nOrdnungsmaßnahmen,\n\nRechte und Pflichten der Schülerinnen und Schüler.\n\nDas Schulgesetz bildet damit die gesetzliche Grundlage. Einzelheiten können anschließend durch Rechtsverordnungen konkretisiert werden.\n\nMerksatz:\n\nSchG → Grundregeln des Schulwesens."
+          }
+        ]
+      },
+      {
+        "title": "Bildung und Erziehung im Unterricht",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "7",
+            "page": 7
+          },
+          {
+            "document": "Schulrecht",
+            "pages": "14",
+            "page": 14
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "1-3",
+            "page": 1
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "7-8",
+            "page": 7
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-16",
+            "document": "Schulrecht",
+            "page": 7,
+            "question": "Welche grundsätzlichen Aufgaben hat die Schule?",
+            "answer": "§ 1 SchG → Bildungs- und Erziehungsauftrag\n\nBildungsauftrag → Vermittlung von Kenntnissen, Fähigkeiten und Fertigkeiten\n\nErziehungsauftrag → Vermittlung von Werten und Wertvorstellungen"
+          },
+          {
+            "id": "schulorganisation-2",
+            "document": "Schulorganisation",
+            "page": 1,
+            "question": "Welche Bildungs- und Erziehungsziele nennt § 1 Schulgesetz BW?",
+            "answer": "§ 1 SchG → Erziehungs- und Bildungsauftrag der Schule\n\nDie Schule soll den in der Landesverfassung verankerten Erziehungs- und Bildungsauftrag verwirklichen.\n\nZentral sind insbesondere:\n\nAchtung vor der Würde des Menschen,\n\nVerantwortungsbewusstsein,\n\nAnerkennung der freiheitlich-demokratischen Grundordnung,\n\nAchtung vor anderen Überzeugungen,\n\nsoziale Bewährung,\n\nFörderung der Persönlichkeit und Begabungen,\n\nVorbereitung auf Beruf und gesellschaftliches Leben.\n\nMerksatz für die Prüfung:\n\nDie Schule vermittelt nicht nur Wissen, sondern hat auch einen staatlichen Erziehungsauftrag."
+          },
+          {
+            "id": "schulorganisation-4",
+            "document": "Schulorganisation",
+            "page": 2,
+            "question": "Welche Aufgaben ergeben sich für Lehrkräfte aus dem staatlichen Erziehungsauftrag?",
+            "answer": "Lehrkräfte → Bildung + Erziehung\n\nLehrkräfte sollen nicht nur Fachwissen vermitteln. Sie verwirklichen im Unterricht den staatlichen Erziehungs- und Bildungsauftrag.\n\nDazu gehören beispielsweise:\n\nfachliche Bildung,\n\nFörderung von Selbstständigkeit,\n\nVerantwortungsbewusstsein,\n\nsoziales Verhalten,\n\ndemokratische Werte,\n\nindividuelle Förderung der Schülerinnen und Schüler.\n\nPrüfung: Ein gutes Beispiel nennen:\n\nBei einer Gruppenarbeit vermittle ich nicht nur Fachkompetenz, sondern fördere gleichzeitig Kooperation, Eigenverantwortung und respektvollen Umgang."
+          },
+          {
+            "id": "schulorganisation-7",
+            "document": "Schulorganisation",
+            "page": 3,
+            "question": "Was versteht man unter dem Erziehungs- und Bildungsauftrag der Schule?",
+            "answer": "Bildung → Wissen und Kompetenzen\n\nErziehung → Persönlichkeit und gesellschaftliche Verantwortung\n\nSchule soll Schülerinnen und Schüler fachlich bilden und zugleich zu selbstständigen, verantwortungsbewussten und gesellschaftsfähigen Menschen erziehen.\n\nDer Auftrag geht deshalb deutlich über reine Wissensvermittlung hinaus."
+          },
+          {
+            "id": "schulorganisation-8",
+            "document": "Schulorganisation",
+            "page": 3,
+            "question": "Wie setzen Sie als Lehrkraft die in § 1 genannten Erziehungsziele konkret im Unterricht um?",
+            "answer": "Zum Beispiel durch\n\nrespektvolle Diskussionskultur,\n\nGruppen- und Projektarbeit,\n\nselbstständige Arbeitsphasen,\n\nÜbernahme von Verantwortung,\n\nkonstruktiven Umgang mit Fehlern,\n\ndemokratische Entscheidungsprozesse,\n\nFörderung unterschiedlicher Begabungen.\n\nPrüfungstipp: Hier nicht nur abstrakt antworten, sondern ein konkretes Beispiel aus dem eigenen Unterricht nennen.\n\nFrage: Was wäre hier ein Beispiel aus dem eigenen Unterricht"
+          },
+          {
+            "id": "schulorganisation-25",
+            "document": "Schulorganisation",
+            "page": 7,
+            "question": "Was könnte man im Unterricht machen, um Begabungen zu fördern?",
+            "answer": "Begabungsförderung → differenzieren und Freiräume schaffen\n\nZum Beispiel:\n\nanspruchsvollere Zusatzaufgaben,\n\noffene Projektaufgaben,\n\nindividuelle Themenwahl,\n\nWettbewerbe,\n\nselbstständige Vertiefung,\n\ndifferenzierte Lernangebote,\n\nbesondere Verantwortungsbereiche.\n\nDamit wird der Auftrag aus § 1 SchG praktisch umgesetzt, Schülerinnen und Schüler entsprechend ihren Begabungen und Fähigkeiten zu fördern."
+          },
+          {
+            "id": "schulorganisation-28",
+            "document": "Schulorganisation",
+            "page": 8,
+            "question": "Welche Fächer sind in der Stundentafel jeder Schulart zu finden? Nennen Sie Gründe.",
+            "answer": "Bestimmte allgemeinbildende Bereiche finden sich schulartübergreifend wieder, insbesondere Deutsch, Mathematik, gesellschaftswissenschaftliche und naturwissenschaftliche Inhalte sowie Sport und religiös-ethische Bildung.\n\nGrund: Schule soll nicht nur spezielle Fach- oder Berufskenntnisse vermitteln, sondern einen gemeinsamen Erziehungs- und Bildungsauftrag erfüllen."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-2",
+    "title": "Zuständigkeiten, Schulaufsicht und Schulentwicklung",
+    "topics": [
+      {
+        "title": "Bund, Länder und gemeinsame Gremien",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "7-10",
+            "page": 7
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-24",
+            "document": "Schulorganisation",
+            "page": 7,
+            "question": "Wie wirkt sich die Kulturhoheit der Länder auf die Einheitlichkeit des Schulwesens aus?",
+            "answer": "Kulturhoheit → jedes Land regelt sein Schulwesen\n\nNach Art. 30 und 70 ff. GG liegt die Gesetzgebungs- und Verwaltungskompetenz für das Schulwesen grundsätzlich bei den Ländern.\n\nFolge:\n\nEs gibt kein einheitliches Schulgesetz des Bundes.\n\nDadurch unterscheiden sich z. B. Schularten, Prüfungsordnungen und organisatorische Regelungen zwischen den Bundesländern.\n\nZur Koordinierung zwischen den Ländern dient insbesondere die KMK.\n\n=> Was bedeutet KMK?"
+          },
+          {
+            "id": "schulorganisation-29",
+            "document": "Schulorganisation",
+            "page": 8,
+            "question": "Wie ist die politische Zuständigkeit für Schulen und Hochschulen in Deutschland geregelt? In welchem Gesetz?",
+            "answer": "Länder → Kulturhoheit\n\nDie grundsätzliche Zuständigkeit liegt bei den Ländern.\n\nRechtsgrundlage sind insbesondere Art. 30 und Art. 70 ff. GG.\n\nDas wird in Sitzung 1 ausdrücklich hervorgehoben: Das GG verleiht den Ländern implizit die ausschließliche Gesetzgebungs- und Verwaltungskompetenz für das Schulwesen."
+          },
+          {
+            "id": "schulorganisation-30",
+            "document": "Schulorganisation",
+            "page": 8,
+            "question": "Erklären Sie den Begriff „Hamburger Abkommen“.",
+            "answer": "Hamburger Abkommen → Vereinheitlichung zwischen den Ländern\n\nDas Hamburger Abkommen war eine Vereinbarung der Länder zur Vereinheitlichung wichtiger Strukturen des Schulwesens.\n\nZiel war, trotz Kulturhoheit der Länder gemeinsame Grundstrukturen zu schaffen, beispielsweise bei Schularten, Schuljahresbeginn oder Abschlussbezeichnungen."
+          },
+          {
+            "id": "schulorganisation-35",
+            "document": "Schulorganisation",
+            "page": 9,
+            "question": "Welche Aufgaben hat die KMK (Kultusministerkonferenz)?",
+            "answer": "KMK → Koordination der Länder\n\nDie Kultusministerkonferenz koordiniert die Bildungspolitik der Länder.\n\nZiele sind insbesondere:\n\nVergleichbarkeit von Abschlüssen,\n\ngegenseitige Anerkennung,\n\ngemeinsame Standards,\n\nAbstimmung zwischen den Ländern.\n\nDamit gleicht sie Unterschiede aus, die aufgrund der Kulturhoheit entstehen."
+          },
+          {
+            "id": "schulorganisation-36",
+            "document": "Schulorganisation",
+            "page": 9,
+            "question": "Welche Aufgaben hat die GWK (Gemeinsame Wissenschaftskonferenz)?",
+            "answer": "GWK → Bund und Länder bei Wissenschaft/Forschung\n\nDie Gemeinsame Wissenschaftskonferenz koordiniert die Zusammenarbeit von Bund und Ländern insbesondere in den Bereichen:\n\nWissenschaft,\n\nForschung,\n\nHochschulen und Forschungsförderung.\n\nDamit unterscheidet sie sich von der KMK, deren Schwerpunkt stärker bei Bildung, Schule und Kultur liegt."
+          }
+        ]
+      },
+      {
+        "title": "Schulaufsicht und Schulträger",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "4",
+            "page": 4
+          },
+          {
+            "document": "Schulrecht",
+            "pages": "15",
+            "page": 15
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "8-10",
+            "page": 8
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-48",
+            "document": "Schulrecht",
+            "page": 15,
+            "question": "Wie wird das gesamte Schulwesen „beaufsichtigt“? Unterscheiden Sie Fach-, Rechts- und Dienstaufsicht.",
+            "answer": "§§ 32 ff. SchG → Schulaufsicht\n\nRechtsaufsicht\n\nKontrolle der Rechtmäßigkeit\n\nRechts- und Verwaltungsangelegenheiten\n\nLeitfrage: „Darf man das?“\n\nFachaufsicht\n\nKontrolle der fachlichen und pädagogischen Arbeit\n\nz. B. Unterricht, Methodik, Erziehung\n\nLeitfrage: „Ist das fachlich richtig und sinnvoll?“\n\nDienstaufsicht\n\nKontrolle der Dienstpflichterfüllung\n\nz. B. Pünktlichkeit, Amtsverschwiegenheit, Neutralität\n\nLeitfrage: „Erfüllt die Lehrkraft ihre Dienstpflichten?“\n\nMerksatz:\n\nRecht → Darf man das? | Fach → Macht man es richtig? | Dienst → Erfüllt man seine Pflichten?"
+          },
+          {
+            "id": "schulorganisation-5",
+            "document": "Schulorganisation",
+            "page": 2,
+            "question": "Was bedeutet staatliche Schulaufsicht?",
+            "answer": "Schulaufsicht → Staat trägt Verantwortung für das Schulwesen\n\nArt. 7 Abs. 1 GG:\n\n„Das gesamte Schulwesen steht unter der Aufsicht des Staates.“\n\nDabei ist „Aufsicht“ weit zu verstehen. Der Staat kontrolliert Schule nicht nur, sondern besitzt Schulhoheit: Er legt beispielsweise Organisation, Schulpflicht und wesentliche Inhalte des Schulwesens fest."
+          },
+          {
+            "id": "schulorganisation-27",
+            "document": "Schulorganisation",
+            "page": 8,
+            "question": "Sind wir an beruflichen Schulen von der unteren Schulaufsichtsbehörde betroffen?",
+            "answer": "Berufliche Schulen → grundsätzlich Regierungspräsidium\n\nBei beruflichen Schulen liegt die unmittelbare Schulaufsicht grundsätzlich nicht beim Staatlichen Schulamt wie etwa bei Grundschulen, sondern beim Regierungspräsidium.\n\nFür die Prüfung ist daher vor allem die Zuordnung wichtig:\n\nGrund-/Haupt-/Werkreal-/Real-/Gemeinschaftsschulen → Staatliches Schulamt\n\nGymnasien und berufliche Schulen → Regierungspräsidium\n\nFragen: Was ist das staatliche Schulamt?"
+          },
+          {
+            "id": "schulorganisation-33",
+            "document": "Schulorganisation",
+            "page": 9,
+            "question": "Erklären Sie den Begriff „Lernmittelfreiheit“.",
+            "answer": "Lernmittelfreiheit → notwendige Lernmittel grundsätzlich unentgeltlich\n\nSchülerinnen und Schüler sollen die für den Unterricht erforderlichen Lernmittel grundsätzlich zur Verfügung gestellt bekommen.\n\nDer Gedanke dahinter ist die Chancengleichheit: Bildung soll nicht davon abhängen, ob Eltern die erforderlichen Schulbücher bezahlen können."
+          },
+          {
+            "id": "schulorganisation-34",
+            "document": "Schulorganisation",
+            "page": 9,
+            "question": "Wer ist für die finanzielle Ausstattung der Schulen, wer für die personelle Ausstattung zuständig?",
+            "answer": "Schulträger → Sachkosten\n\nLand → Lehrkräfte\n\nDer kommunale Schulträger trägt grundsätzlich die sächlichen Kosten, z. B.:\n\nGebäude,\n\nAusstattung,\n\nbestimmte Lernmittel.\n\nDas Land Baden-Württemberg ist insbesondere für das Lehrpersonal verantwortlich.\n\nMerksatz:\n\nKommune baut die Schule – Land stellt die Lehrer."
+          },
+          {
+            "id": "schulorganisation-40",
+            "document": "Schulorganisation",
+            "page": 10,
+            "question": "Wie sind die Verwaltungsebenen bei Grund-/Hauptschulen, beruflichen Schulen und Gymnasien organisiert?",
+            "answer": "Kultusministerium → oberste Schulaufsicht\n\nDarunter unterscheiden sich die Zuständigkeiten:\n\nGrund-, Haupt-/Werkreal-, Real- und Gemeinschaftsschulen:\n\n→ Staatliche Schulämter als untere Schulaufsichtsbehörden.\n\nGymnasien und berufliche Schulen:\n\n→ Regierungspräsidien.\n\nDamit sollte man in der Prüfung vor allem wissen:\n\nBerufliche Schule → Regierungspräsidium, nicht Staatliches Schulamt."
+          }
+        ]
+      },
+      {
+        "title": "Qualität, Fortbildung und Reformen",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "5",
+            "page": 5
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "7-8",
+            "page": 7
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "27-29",
+            "page": 27
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-16",
+            "document": "Schulorganisation",
+            "page": 5,
+            "question": "Welche Aufgaben hat das Zentrum für Schulqualität und Lehrerbildung (ZSL)?",
+            "answer": "ZSL → Lehrkräfte und Unterricht\n\nSchwerpunkte sind insbesondere:\n\nAus- und Fortbildung von Lehrkräften,\n\nBeratung und Unterstützung,\n\nUnterrichts- und Schulentwicklung,\n\nFührungskräfteentwicklung,\n\nGesundheitsförderung.\n\nDie Sitzungsunterlagen nennen beispielsweise Fortbildungsangebote des ZSL für Personen ohne Lehramtsausbildung sowie Programme für Berufsbeginn und Wiedereinstieg."
+          },
+          {
+            "id": "schulorganisation-22",
+            "document": "Schulorganisation",
+            "page": 7,
+            "question": "Welche Instanz bietet Schulungsmöglichkeiten für Lehrer in Baden-Württemberg?",
+            "answer": "ZSL → zentrale Fortbildungsinstanz\n\nDas Zentrum für Schulqualität und Lehrerbildung bietet Fortbildungen und Unterstützungsangebote für Lehrkräfte.\n\nDaneben kommen – abhängig vom Thema – beispielsweise Seminare für Ausbildung und Fortbildung der Lehrkräfte sowie schulinterne bzw. regionale Fortbildungsangebote infrage."
+          },
+          {
+            "id": "schulorganisation-26",
+            "document": "Schulorganisation",
+            "page": 8,
+            "question": "Was ist eine typische Aufgabe des IBBW (Institut für Bildungsanalysen Baden-Württemberg)?",
+            "answer": "IBBW → Daten, Analyse und Qualitätsentwicklung\n\nDas Institut für Bildungsanalysen Baden-Württemberg beschäftigt sich insbesondere mit:\n\nBildungsmonitoring,\n\nDatenerhebung und -auswertung,\n\nEvaluation,\n\nAnalyse von Bildungsqualität.\n\nMerksatz:\n\nZSL → Menschen/Unterricht entwickeln\n\nIBBW → Daten/Qualität analysieren"
+          },
+          {
+            "id": "schulorganisation-103",
+            "document": "Schulorganisation",
+            "page": 27,
+            "question": "Nennen Sie Änderungen der vergangenen Jahre.",
+            "answer": "Sitzung 5 nennt vier Beispiele:\n\nRückkehr zu G9\n\nverbindlichere Grundschulempfehlung\n\nEinführung des Sprachförderkonzepts SprachFit mit verpflichtender Sprachförderung vor der Einschulung\n\nAusbau von Sprachbildung, Medienbildung und Demokratiebildung.\n\nDie Präsentation enthält dazu auch das Schreiben des Kultusministeriums zu den „wichtigen Weichenstellungen im Bildungssystem“ und beschreibt insbesondere die Stärkung der Sprachförderung durch SprachFit."
+          },
+          {
+            "id": "schulorganisation-105",
+            "document": "Schulorganisation",
+            "page": 28,
+            "question": "Wozu dienen DQR und GER?",
+            "answer": "DQR → Qualifikationen vergleichen\n\nGER → Sprachkenntnisse vergleichen\n\nDQR\n\nDQR steht für:\n\nDeutscher Qualifikationsrahmen\n\nEr dient dazu, unterschiedliche Qualifikationen und Abschlüsse vergleichbar zu machen.\n\nGER\n\nGER steht für:\n\nGemeinsamer Europäischer Referenzrahmen für Sprachen\n\nEr macht Sprachkompetenzen vergleichbar, beispielsweise über die bekannten Niveaus A1 bis C2.\n\nDie Sitzung fasst die gemeinsame Funktion beider Instrumente so zusammen:\n\nLeistungen sollen vergleichbar und messbar gemacht werden – auch länderübergreifend.\n\nMerksatz:\n\nDQR → Abschlussniveau\n\nGER → Sprachniveau"
+          },
+          {
+            "id": "schulorganisation-108",
+            "document": "Schulorganisation",
+            "page": 29,
+            "question": "Erklären Sie die wichtigsten Bestandteile des OES-Konzepts.",
+            "answer": "OES → mehr Eigenständigkeit + klare Ziele + Evaluation\n\nDie Musterlösung in Sitzung 5 konzentriert sich auf drei zentrale Punkte:\n\nklare Zielvereinbarungen zur Schulentwicklung,\n\nEvaluation der Ergebnisse,\n\nZielvereinbarungen zwischen Regierungspräsidium und Schule,\n\ngleichzeitig hohe Freiheitsgrade der einzelnen Schule, wie sie diese Entwicklung umsetzt.\n\nDas Prinzip lässt sich deshalb gut so merken:\n\nDer Staat gibt nicht jeden einzelnen Entwicklungsschritt vor. Schule und Schulaufsicht vereinbaren Ziele; die Schule erhält Gestaltungsspielraum bei deren Umsetzung und die Ergebnisse werden evaluiert.\n\nMerksatz:\n\nOES → Ziele vereinbaren – eigenständig umsetzen – Ergebnisse evaluieren."
+          },
+          {
+            "id": "schulorganisation-109",
+            "document": "Schulorganisation",
+            "page": 29,
+            "question": "Was haben das Startchancen-Programm und der Digitalpakt gemeinsam?",
+            "answer": "Beides → große staatlich finanzierte Förderprogramme\n\nDie Musterlösung nennt zwei wesentliche Gemeinsamkeiten:\n\n1. Finanzierung\n\nBeide werden stark durch Bund und Länder finanziell gefördert.\n\n2. Ziel\n\nBeide sollen\n\nBildungschancen verbessern und\n\nSchulen gezielt stärken.\n\nDie Unterlage charakterisiert beide als große öffentlich finanzierte Reform- bzw. Investitionsprogramme. Mittel werden dabei nicht einfach überall gleich verteilt, sondern sollen gezielt dort eingesetzt werden, wo besonderer Bedarf besteht.\n\nMerksatz:\n\nStartchancen + Digitalpakt → Bund/Länder investieren gezielt in bessere Bildungsbedingungen."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-3",
+    "title": "Mitwirkung und Verantwortung in der Schule",
+    "topics": [
+      {
+        "title": "Lehrkraft und Schulleitung",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "14",
+            "page": 14
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-44",
+            "document": "Schulrecht",
+            "page": 14,
+            "question": "Beschreiben Sie die Aufgaben eines Lehrers/einer Lehrerin?",
+            "answer": "§ 1 Abs. 2 SchG → Erziehungs- und Bildungsauftrag\n\nErziehen und Bilden der Schüler\n\n§ 38 Abs. 6 SchG → pädagogische Verantwortung der Lehrkraft\n\nUnterrichts- und Erziehungsarbeit in eigener pädagogischer Verantwortung im Rahmen der Vorschriften.\n\nZusätzlich\n\nAufsichtspflicht\n\nTeilnahme an Konferenzen\n\nPrüfungen und Leistungsfeststellungen durchführen"
+          },
+          {
+            "id": "schulrecht-45",
+            "document": "Schulrecht",
+            "page": 14,
+            "question": "Worin besteht die Freiheit einer Lehrkraft?",
+            "answer": "§ 38 Abs. 6 SchG → pädagogische Verantwortung\n\nLehrkraft trägt die unmittelbare pädagogische Verantwortung für die Erziehung und Bildung der Schüler.\n\nFreiheit bei der Gestaltung der Erziehungs- und Unterrichtsarbeit\n\ngebunden an Vorschriften und Anordnungen\n\ngebunden an Konferenzbeschlüsse\n\nAusgestaltung des Beurteilungsspielraums bei der Leistungsbewertung"
+          },
+          {
+            "id": "schulrecht-46",
+            "document": "Schulrecht",
+            "page": 14,
+            "question": "Weshalb spricht man besser von pädagogischer Verantwortung als von pädagogischer Freiheit?",
+            "answer": "Pädagogische Freiheit suggeriert weitgehend freies Handeln\n\nTreffender ist pädagogische Verantwortung:\n\neigene Entscheidungs- und Beurteilungsspielräume\n\naber gebunden an Gesetze, Bildungspläne, Weisungen und Konferenzbeschlüsse"
+          },
+          {
+            "id": "schulrecht-47",
+            "document": "Schulrecht",
+            "page": 14,
+            "question": "Welche Aufgaben hat der Schulleiter/die Schulleiterin? (exemplarisch)",
+            "answer": "§ 41 Abs. 1 SchG → Aufgaben des Schulleiters\n\nEr leitet und verwaltet die Schule\n\nträgt die Verantwortung für geordneten Schulbetrieb\n\nPraktische Aufgaben:\n\nAufnahme Entlassung Schüler\n\nAufstellung Stunden- und Aufsichtspläne\n\nVertretung der Schule nach außen\n\nWeisungsbefugnisse Lehrkräften"
+          }
+        ]
+      },
+      {
+        "title": "Lehrerkonferenzen",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "7",
+            "page": 7
+          },
+          {
+            "document": "Schulrecht",
+            "pages": "15-16",
+            "page": 15
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-49",
+            "document": "Schulrecht",
+            "page": 15,
+            "question": "Beschreiben Sie die unterschiedlichen Lehrerkonferenzen hinsichtlich des Teilnehmerkreises, Vorsitz und Aufgaben.",
+            "answer": "§ 45 Abs. 2 SchG → Gesamtlehrerkonferenz (GLK)\n\nTeilnehmer: alle Lehrkräfte\n\nVorsitz: Schulleiter\n\nAufgabe: Angelegenheiten der gesamten Schule\n\n§ 46 SchG → Klassenkonferenz\n\nTeilnehmer: Lehrkräfte der jeweiligen Klasse\n\nVorsitz: grundsätzlich Klassenlehrer\n\nAufgabe: Erziehungs- und Unterrichtsarbeit der Klasse\n\n§ 46 SchG → Fachkonferenz\n\nTeilnehmer: Lehrkräfte eines Faches/einer Fächergruppe\n\nVorsitz: bestimmte/gewählte Lehrkraft\n\nAufgabe: Angelegenheiten des Faches\n\nz. B. fachliche Grundsätze, Leistungsmessung/-bewertung\n\n§ 46 SchG → Abteilungskonferenz\n\nTeilnehmer: Lehrkräfte der jeweiligen Abteilung\n\nVorsitz: grundsätzlich Abteilungsleiter\n\nAufgabe: Angelegenheiten der Abteilung\n\nMerksatz:\n\nGLK → Schule | Klassenkonferenz → Klasse | Fachkonferenz → Fach | Abteilungskonferenz →\n\nAbteilung."
+          },
+          {
+            "id": "schulrecht-50",
+            "document": "Schulrecht",
+            "page": 16,
+            "question": "Was versteht man unter dem Beanstandungsrecht des Schulleiters im Rahmen einer Konferenz?",
+            "answer": "§ 44 SchG\n\nBeschlüsse der Lehrerkonferenz → grundsätzlich auch für Schulleiter bindend\n\nBeschluss rechtswidrig → Schulleiter muss ihn beanstanden\n\ninnerhalb von 7 Unterrichtstagen → erneute Beratung der Konferenz\n\nKonferenz bleibt bei Beschluss → Schulaufsichtsbehörde entscheidet\n\nbis zur Entscheidung → Beschluss nicht ausführen"
+          }
+        ]
+      },
+      {
+        "title": "Schulkonferenz",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "16",
+            "page": 16
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-51",
+            "document": "Schulrecht",
+            "page": 16,
+            "question": "Wie setzt sich die Schulkonferenz an Beruflichen Schulen zusammen?",
+            "answer": "§ 47 SchG → Schulkonferenz\n\ngemeinsames Organ der Schule\n\nGrößere berufliche Schulen → 16 Mitglieder\n\n4 Vertreter Schule/Lehrkräfte\n\n4 Elternvertreter\n\n4 Schülervertreter\n\n4 Vertreter der Berufserziehung / Ausbildungsbetriebe\n\n→ paritätische Besetzung\n\nVorsitz\n\nSchulleiter\n\nStellvertretender Vorsitz\n\nElternbeiratsvorsitzender"
+          },
+          {
+            "id": "schulrecht-52",
+            "document": "Schulrecht",
+            "page": 16,
+            "question": "Welche Aufgaben hat die Schulkonferenz? (exemplarisch)",
+            "answer": "§ 47 Abs. 3 → Entscheidungsrecht\n\nSchulkonferenz entscheidet selbst\n\nz. B.:\n\nUnterrichtsbeginn\n\nzusätzliche unterrichtsfreie Tage\n\nSchulpartnerschaften\n\nAnforderung von Haushaltsmitteln\n\n§ 47 Abs. 4 → Anhörungsrecht\n\nSchulkonferenz muss angehört werden\n\nz. B.:\n\nallgemeine Fragen von Erziehung und Unterricht\n\nSchulversuche\n\nÄnderung der Schulart\n\nbestimmte E&O-Maßnahmen\n\n§ 47 Abs. 5 → Einverständnis\n\nEntscheidung nur mit Einverständnis der Schulkonferenz\n\nz. B.:\n\nSchul- und Hausordnung\n\nallgemeine Regelungen zu Klassenarbeiten und Hausaufgaben\n\nGrundsätze für Klassenfahrten / außerunterrichtliche Veranstaltungen"
+          }
+        ]
+      },
+      {
+        "title": "Eltern und Schülermitverantwortung",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "17-18",
+            "page": 17
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "3",
+            "page": 3
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-53",
+            "document": "Schulrecht",
+            "page": 17,
+            "question": "Wer hat generell das Sorgerecht bei Kindern?",
+            "answer": "§§ 1626 ff. BGB → elterliche Sorge\n\nverheiratete Eltern → grundsätzlich beide gemeinsam\n\ngetrennte/geschiedene Eltern → grundsätzlich weiterhin beide gemeinsam\n\nAusnahme → Familiengericht überträgt Alleinsorge\n\n§ 1626a BGB → nicht verheiratete Eltern\n\ngemeinsame Sorge z. B. durch Sorgeerklärung, Heirat oder Familiengericht\n\nsonst grundsätzlich → Mutter allein\n\nVormundschaft\n\nelterliche Sorge → Vormund\n\nFür die Schule\n\ngrundsätzlich von gemeinsamer Sorge ausgehen, solange nichts Gegenteiliges bekannt ist"
+          },
+          {
+            "id": "schulrecht-54",
+            "document": "Schulrecht",
+            "page": 17,
+            "question": "Welche Auswirkung hat die Volljährigkeit auf das Sorgerecht?",
+            "answer": "BGB → Volljährigkeit mit 18 Jahren\n\nelterliches Sorgerecht endet\n\nSchüler entscheidet und handelt selbst\n\n§ 55 Abs. 3 SchG → schulische Mitwirkung\n\nbestimmte Mitwirkungsrechte der Eltern bleiben trotz Volljährigkeit bestehen\n\nFolge für die Schule\n\nvolljähriger Schüler nimmt Rechte und Pflichten selbst wahr\n\nz. B. Entschuldigungen, An-/Abmeldung\n\nEltern sind grundsätzlich nicht mehr die gesetzlichen Vertreter"
+          },
+          {
+            "id": "schulrecht-55",
+            "document": "Schulrecht",
+            "page": 17,
+            "question": "Wie und in welchen Gremien wirken Eltern an der schulischen Erziehung mit?",
+            "answer": "Mitwirkung der Eltern – §§ 55 ff. SchG\n\nEltern wirken an der schulischen Erziehung insbesondere über folgende Gremien mit:\n\n§ 56 SchG → Klassenpflegschaft\n\nEbene → Klasse\n\nEltern + Lehrkräfte\n\nBeratung über Erziehungs- und Unterrichtsarbeit\n\n§ 57 SchG → Elternbeirat\n\nEbene → Schule\n\nvertritt die Interessen der Eltern\n\n§ 58 SchG → Gesamtelternbeirat\n\nEbene → Schulträger\n\nVertreter der Elternbeiräte der Schulen\n\n§ 60 SchG → Landeselternbeirat\n\nEbene → Land\n\nberät das Kultusministerium\n\n§ 47 SchG → Schulkonferenz\n\nEltern wirken an wichtigen schulischen Entscheidungen mit\n\ngemeinsam mit Schulleitung, Lehrkräften und Schülern"
+          },
+          {
+            "id": "schulrecht-56",
+            "document": "Schulrecht",
+            "page": 18,
+            "question": "Wie werden Schülerinnen und Schüler an der Gestaltung des Schullebens beteiligt?",
+            "answer": "§§ 62 ff. SchG → Schülermitverantwortung (SMV)\n\nMitwirkung der Schüler am Schulleben\n\nKlassensprecher → Klassenebene\n\nSchülerrat + Schülersprecher → Schulebene\n\nVerbindungslehrer → beraten und unterstützen die SMV\n\n§ 47 SchG → Schulkonferenz\n\nBeteiligung durch Schülervertreter in der Schulkonferenz\n\nSMV-Verordnung → nähere Ausgestaltung\n\nregelt Organisation, Wahl und Aufgaben der SMV"
+          },
+          {
+            "id": "schulrecht-57",
+            "document": "Schulrecht",
+            "page": 18,
+            "question": "Wo wirkt die SMV mit?",
+            "answer": "§ 62 SchG → Aufgaben der SMV\n\nInteressen der Schüler vertreten\n\nMitwirkung bei der Gestaltung des Schullebens\n\nFörderung fachlicher, sportlicher, kultureller, sozialer und politischer Interessen der Schüler\n\n§ 47 SchG → Schulkonferenz\n\nMitwirkung durch Schülervertreter in der Schulkonferenz\n\n§ 10 SMV-VO → Lehrerkonferenzen\n\nSchülervertreter können bei bestimmten Angelegenheiten an Lehrerkonferenzen beteiligt werden"
+          },
+          {
+            "id": "schulorganisation-9",
+            "document": "Schulorganisation",
+            "page": 3,
+            "question": "Wie berücksichtigen Sie das Mitbestimmungsrecht der Eltern?",
+            "answer": "Eltern besitzen eigene Erziehungsrechte. Schule und Elternhaus haben daher unterschiedliche, aber miteinander verbundene Erziehungsaufträge.\n\nPraktisch bedeutet das beispielsweise:\n\nEltern informieren,\n\nBeratungsgespräche führen,\n\nElternvertretung beteiligen,\n\ngesetzlich vorgesehene Beteiligungsrechte beachten.\n\nDas bedeutet aber nicht, dass Eltern über Unterrichtsinhalte oder schulische Regeln individuell bestimmen können. Aufgrund der staatlichen Schulhoheit darf der Staat etwa verbindlichen Unterricht und Schulpflicht festlegen."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-4",
+    "title": "Schulpflicht und Teilnahme am Unterricht",
+    "topics": [
+      {
+        "title": "Grundbegriffe und zeitlicher Verlauf",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "18-20",
+            "page": 18
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "5-6",
+            "page": 5
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "28",
+            "page": 28
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-58",
+            "document": "Schulrecht",
+            "page": 18,
+            "question": "Was versteht man unter der Schulpflicht? Wann beginnt und endet sie bzw. wie erfüllt man sie?",
+            "answer": "§ 72 SchG → Schulpflicht\n\nPflicht zum regelmäßigen Besuch des Unterrichts\n\nTeilnahme an verbindlichen Schulveranstaltungen\n\n§ 73 SchG → Beginn\n\ngrundsätzlich mit 6 Jahren\n\nStichtag: 30. Juni\n\n§ 74 SchG → Ausnahmen\n\nRegelungen zu vorzeitiger Aufnahme / Zurückstellung\n\n§ 75 SchG → Dauer Vollzeitschulpflicht\n\nGrundschule → mindestens 4 Jahre\n\nanschließend weiterführende Schule → mindestens 5 Jahre\n\ninsgesamt grundsätzlich 9 Schuljahre\n\n§ 78 SchG → Berufsschulpflicht\n\nanschließend grundsätzlich 3 Jahre Berufsschulpflicht\n\n§ 76 SchG → Erfüllung\n\ndurch Besuch einer öffentlichen Schule\n\noder einer entsprechenden Ersatzschule"
+          },
+          {
+            "id": "schulrecht-59",
+            "document": "Schulrecht",
+            "page": 18,
+            "question": "Was ist die Berufsschulpflicht und wie erfüllt man sie?",
+            "answer": "§ 77 SchG → Berufsschulpflicht\n\nbeginnt grundsätzlich nach Ende der allgemeinen Schulpflicht\n\nbetrifft Jugendliche, die keine weiterführende allgemeinbildende oder berufliche Vollzeitschule besuchen\n\n§ 78 SchG → Dauer\n\ngrundsätzlich 3 Jahre\n\ngrundsätzlich längstens bis Ende des Schuljahres, in dem das 18. Lebensjahr vollendet wird\n\nbei Berufsausbildung → grundsätzlich bis zum Ende der Ausbildung\n\n§ 79 SchG → Erfüllung\n\ndurch Besuch der zuständigen Berufsschule\n\n§ 80 SchG → Ruhen\n\nBerufsschulpflicht kann beim Besuch bestimmter anderer Bildungseinrichtungen ruhen\n\nz. B. Berufsfachschule, Berufskolleg, Hochschule"
+          },
+          {
+            "id": "schulrecht-60",
+            "document": "Schulrecht",
+            "page": 19,
+            "question": "Worin unterscheiden sich Schulpflicht und Teilnahmepflicht?",
+            "answer": "§§ 72 ff. SchG → Schulpflicht\n\ngesetzliche Pflicht zum Schulbesuch\n\ngilt für schulpflichtige Schüler\n\n§ 1 SchulbesuchsVO → Teilnahmepflicht\n\ngilt auch für nicht mehr schulpflichtige Schüler, die eine Schule besuchen\n\nPflicht zur regelmäßigen und ordnungsgemäßen Teilnahme\n\numfasst Unterricht und verbindliche Schulveranstaltungen"
+          },
+          {
+            "id": "schulrecht-61",
+            "document": "Schulrecht",
+            "page": 20,
+            "question": "Die Schulpflicht und die Teilnahmepflicht beinhalten beide eine Verhaltenspflicht? Was steckt diesbezüglich dahinter?",
+            "answer": "§ 72 Abs. 3 SchG → schulpflichtige Schüler\n\nregelmäßiger Besuch des Unterrichts\n\nTeilnahme an verbindlichen Schulveranstaltungen\n\nSchulordnung einhalten\n\n§ 1 Abs. 1 SchulbesuchsVO → alle Schüler\n\nUnterricht und verbindliche Schulveranstaltungen regelmäßig und ordnungsgemäß besuchen\n\nSchulordnung einhalten\n\nDaraus abgeleitet → Verhaltenspflicht\n\nim Unterricht mitarbeiten\n\nHausaufgaben gewissenhaft erledigen\n\nsteht nicht ausdrücklich im Gesetz, laut Skript unbestrittene Rechtsauffassung\n\nBeispiel:\n\n§ 72 Abs. 3 SchG: Schüler müssen den Unterricht regelmäßig besuchen.\n\nWenn „besuchen“ nur körperlich anwesend sein bedeuten würde, könnte ein Schüler:\n\njeden Tag erscheinen, sich hinsetzen, jede Mitarbeit verweigern und grundsätzlich nichts tun.\n\nFormal wäre er dann anwesend – der Schulpflicht wäre aber inhaltlich kein sinnvoller Zweck mehr zu entnehmen.\n\nDeshalb wird aus der Pflicht zur Teilnahme am Unterricht abgeleitet, dass der Schüler auch das tun muss, was für eine ordnungsgemäße Teilnahme notwendig ist:"
+          },
+          {
+            "id": "schulrecht-62",
+            "document": "Schulrecht",
+            "page": 20,
+            "question": "Wer ist für die Erfüllung dieser Schulpflicht verantwortlich?",
+            "answer": "§ 85 Abs. 1 SchG\n\nminderjährige Schüler → Erziehungsberechtigte\n\nvolljährige Schüler → selbst verantwortlich\n\n§ 85 Abs. 2 SchG\n\nbei Berufsschulpflichtigen → zusätzlich Ausbildende/Arbeitgeber\n\nmüssen den Schulbesuch ermöglichen"
+          },
+          {
+            "id": "schulorganisation-14",
+            "document": "Schulorganisation",
+            "page": 5,
+            "question": "Erklären Sie die gesetzliche Regelung der Schulpflicht in Baden-Württemberg.",
+            "answer": "Schulpflicht → Pflicht zum Besuch einer Schule\n\nSie umfasst insbesondere:\n\nallgemeine Schulpflicht,\n\nBerufsschulpflicht.\n\nDavon zu unterscheiden ist die Schulbesuchspflicht: Wer schulpflichtig bzw. Schüler einer Schule ist, muss regelmäßig und ordnungsgemäß am Unterricht und den verbindlichen Veranstaltungen teilnehmen.\n\nFür die Berufsschulpflicht nennt Sitzung 2 ausdrücklich die §§ 77–81 SchG, außerdem § 85 zur Verantwortlichkeit und § 92 zu Ordnungswidrigkeiten.\n\nFragen: Nochmal genau klären unterschied Schulpflicht und Schulbesuchspflicht"
+          },
+          {
+            "id": "schulorganisation-15",
+            "document": "Schulorganisation",
+            "page": 5,
+            "question": "Wie lange dauert die allgemeine Schulpflicht und wann beginnt bzw. endet die Berufsschulpflicht?",
+            "answer": "Allgemeine Schulpflicht → grundsätzlich 9 Schuljahre\n\nAnschließend kann Berufsschulpflicht bestehen.\n\nSie betrifft insbesondere Jugendliche nach Ende der allgemeinen Schulpflicht, die eine Berufsausbildung absolvieren bzw. noch berufsschulpflichtig sind.\n\nDie detaillierten Regelungen befinden sich laut Präsentation in:\n\n§ 77 SchG – Beginn,\n\n§ 78 SchG – Dauer,\n\n§ 78a SchG – AV/AVdual statt Berufsschule,\n\n§ 79 SchG – Erfüllung,\n\n§ 80 SchG – Ruhen,\n\n§ 81 SchG – vorzeitige Beendigung.\n\nFragen: Paragrafen studieren"
+          },
+          {
+            "id": "schulorganisation-31",
+            "document": "Schulorganisation",
+            "page": 8,
+            "question": "Wie ist die Schulpflicht in Deutschland geregelt?",
+            "answer": "Schulpflicht → Landesrecht\n\nDa Schulrecht Ländersache ist, wird auch die konkrete Schulpflicht durch die Bundesländer geregelt.\n\nIn Baden-Württemberg insbesondere durch das Schulgesetz BW.\n\nDabei muss man unterscheiden:\n\nSchulpflicht = grundsätzlich eine Schule besuchen müssen.\n\nSchulbesuchspflicht = regelmäßig und ordnungsgemäß am Unterricht teilnehmen.\n\nBerufsschulpflicht = Schulpflicht nach Ende der allgemeinen Schulpflicht im beruflichen Bereich."
+          },
+          {
+            "id": "schulorganisation-104",
+            "document": "Schulorganisation",
+            "page": 28,
+            "question": "Differenzieren Sie zwischen Schulpflicht, Schulbesuchspflicht und Berufsschulpflicht.",
+            "answer": "Hier würde ich mir die drei Begriffe sehr sauber auseinanderhalten:\n\nSchulpflicht → überhaupt Schule besuchen\n\nAllgemeine Pflicht, eine Schule zu besuchen.\n\nSchulbesuchspflicht → tatsächlich teilnehmen\n\nPflicht, regelmäßig und pünktlich am Unterricht teilzunehmen.\n\nBerufsschulpflicht → nach allgemeiner Schulpflicht\n\nPflicht, nach der allgemeinen Schulpflicht eine Berufsschule bzw. einen entsprechenden beruflichen Bildungsgang zu besuchen.\n\nSitzung 2 ordnet die Berufsschulpflicht insbesondere den §§ 77–81 SchG zu.\n\nMerksatz:\n\nSchulpflicht → muss zur Schule\n\nSchulbesuchspflicht → muss tatsächlich hingehen\n\nBerufsschulpflicht → Schulpflicht im beruflichen Bereich"
+          }
+        ]
+      },
+      {
+        "title": "Fehlen, Befreiung und Beurlaubung",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "20",
+            "page": 20
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-63",
+            "document": "Schulrecht",
+            "page": 20,
+            "question": "Unterscheiden Sie Befreiung und Beurlaubung vom Unterricht. Wann entscheidet Lehrkraft – wann SL?",
+            "answer": "§ 3 SchulbesuchsVO → Befreiung\n\nBefreiung von einzelnen Unterrichtsstunden / Schulveranstaltungen\n\n1 Unterrichtsstunde → Fachlehrer\n\nSchulveranstaltung → Klassenlehrer\n\nsonst → Schulleiter\n\n§ 4 SchulbesuchsVO → Beurlaubung\n\nBefreiung vom Schulbesuch für einen bestimmten Zeitraum\n\nnur in besonders begründeten Ausnahmefällen\n\nbis 2 unmittelbar aufeinanderfolgende Unterrichtstage → Klassenlehrer\n\nbestimmte kirchliche Veranstaltungen → Klassenlehrer\n\nsonst → Schulleiter"
+          },
+          {
+            "id": "schulrecht-64",
+            "document": "Schulrecht",
+            "page": 20,
+            "question": "Welche besonderen Regelungen gelten für den Fall einer versäumten Klassenarbeit?",
+            "answer": "§ 2 SchulbesuchsVO → Entschuldigung\n\nVerhinderung unverzüglich mitteilen\n\nspätestens am 2. Tag\n\nAttest → keine generelle Pflicht, kann im Einzelfall verlangt werden\n\n§ 8 Abs. 4 NVO → entschuldigtes Fehlen\n\nFachlehrer entscheidet, ob nachgeschrieben wird\n\n§ 8 Abs. 5 NVO → unentschuldigtes Fehlen\n\nNote 6 / 0 Punkte"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-5",
+    "title": "Aufsicht, Sicherheit und Haftung",
+    "topics": [
+      {
+        "title": "Zweck und Personenkreise",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "4-5",
+            "page": 4
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-7",
+            "document": "Schulrecht",
+            "page": 4,
+            "question": "Was soll die Aufsichtspflicht an den Schulen grundsätzlich gewährleisten?",
+            "answer": "§ 1 SchG → Bildungs- und Erziehungsauftrag\n\nAufsichtspflicht = begleitende Pflicht des Lehrers\n\n„Spiegelbild zur Schulpflicht“:\n\nSchulpflicht → Schüler wird dem Einflussbereich der Eltern entzogen\n\nSchule übernimmt während dieser Zeit die Aufsicht\n\nZweck der Aufsichtspflicht → Schutz vor Schäden\n\nSchüler schützen → vor Personenschäden\n\nEigentum schützen → Eigentum der Schüler und des Schulträgers\n\nDritte schützen → vor Personen- und Sachschäden\n\nKurz:\n\nEigen-/Schülerschutz + Schutz von Eigentum + Fremdschutz"
+          },
+          {
+            "id": "schulrecht-8",
+            "document": "Schulrecht",
+            "page": 4,
+            "question": "Unterscheiden Sie den beaufsichtigten, geschützten und aufsichtspflichtigen Personenkreis",
+            "answer": "§ 1 SchG → Grundlage der schulischen Aufsichtspflicht\n\nAufsichtspflicht = begleitende Pflicht zum Bildungs- und Erziehungsauftrag\n\nBeaufsichtigter Personenkreis\n\ngrundsätzlich Schüler\n\ninsbesondere minderjährige Schüler\n\nbei Volljährigen → keine Aufsicht im klassischen Sinn, aber Fürsorge-/ Verkehrssicherungspflichten\n\nGeschützter Personenkreis\n\nSchüler selbst\n\nLehrkräfte\n\nSchulträger\n\nDritte\n\nSchutz vor Personen- und Sachschäden\n\nAufsichtspflichtiger Personenkreis\n\njeweils unterrichtende Lehrkraft\n\nvom Schulleiter zur Aufsicht eingeteilte Lehrkräfte\n\nallgemeine Aufsichtspflicht aller Lehrkräfte gegenüber allen Schülern\n\nauch Dritte möglich, z. B. Eltern/Ehepartner bei Klassenfahrten\n\nauch ältere Schüler im Rahmen des inneren Schulbetriebs\n\nMerksatz:\n\nBeaufsichtigt → auf wen passe ich auf?\n\nGeschützt → wen/was soll ich schützen?\n\nAufsichtspflichtig → wer muss aufpassen?"
+          },
+          {
+            "id": "schulrecht-12",
+            "document": "Schulrecht",
+            "page": 5,
+            "question": "Woher kommt die Aufsichtspflicht und wie wird sie gerechtfertigt?",
+            "answer": "Art. 6 Abs. 2 GG → elterliche Sorge und Aufsicht\n\n§ 72 SchG → Schulpflicht → Kind befindet sich während der Schulzeit nicht im Aufsichtsbereich der Eltern\n\nSchule muss die erforderliche Aufsicht gewährleisten."
+          }
+        ]
+      },
+      {
+        "title": "Umfang und praktische Durchführung",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "5-6",
+            "page": 5
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-9",
+            "document": "Schulrecht",
+            "page": 5,
+            "question": "In welchem zeitlichen und örtlichen Rahmen bewegt sich die Aufsichtspflicht?",
+            "answer": "Zeitlicher Rahmen\n\nUnterrichtszeit\n\nPausen\n\nangemessene Zeit vor Unterrichtsbeginn → ca. 10–15 Min.\n\nangemessene Zeit nach Unterrichtsende\n\nHohlstunden, solange SuS auf dem Schulgelände sind\n\nbei allen schulischen Veranstaltungen\n\nÖrtlicher Rahmen\n\ngesamtes Schulgelände\n\nOrte schulischer Veranstaltungen\n\nUnterrichtswege → Wege zwischen verschiedenen Orten schulischer Veranstaltungen\n\nSchulbushaltestelle, wenn in unmittelbarer Nähe der Schule\n\nnicht: normaler Schulweg\n\nnicht: Beförderung im Schulbus\n\nRechtsgrundlage nach Denig\n\nkeine einzelne Vorschrift, die diesen Umfang vollständig festlegt\n\nAufsichtspflicht = begleitende Pflicht zum Bildungs- und Erziehungsauftrag aus § 1 SchG\n\nMerksatz:\n\nZeitlich → solange Schule verantwortlich ist.\n\nÖrtlich → schulischer Verantwortungsbereich, nicht normaler Schulweg."
+          },
+          {
+            "id": "schulrecht-10",
+            "document": "Schulrecht",
+            "page": 5,
+            "question": "Was versteht man unter den Grundsätzen der Aufsichtspflicht?",
+            "answer": "Prävention\n\nGefahren vorausschauend erkennen und verhindern.\n\nKontinuität\n\nAufsicht muss grundsätzlich ununterbrochen gewährleistet sein.\n\nAktivität\n\nRegeln kontrollieren und bei Verstößen konsequent reagieren."
+          },
+          {
+            "id": "schulrecht-11",
+            "document": "Schulrecht",
+            "page": 5,
+            "question": "Welche Frage sollte man sich im Bezug auf die Aufsichtspflicht immer stellen?",
+            "answer": "Leitfrage der Aufsichtspflicht:\n\n„Habe ich in der konkreten Situation alles Zumutbare und Erforderliche getan, um vorhersehbare Schäden zu verhindern?“"
+          },
+          {
+            "id": "schulrecht-13",
+            "document": "Schulrecht",
+            "page": 6,
+            "question": "Welche Besonderheiten gilt es bei Schulausflügen und Klassenfahrten zu beachten?",
+            "answer": "Risiken vermindern durch Regeln\n\nAusgang nur in Gruppen von 3 SuS\n\nEnde des Ausgangs verbindlich festlegen\n\nggf. Verbote aussprechen\n\nKontrollfrage:\n\n→ „Kann ich bei normalem Verlauf damit rechnen, dass den SuS nichts passiert?“\n\nDritte können Aufsicht übernehmen\n\nz. B. Eltern oder Ehepartner bei Klassenfahrten/Ausflügen\n\nauf Unterrichtswegen:\n\ngeeigneten Weg auswählen\n\nSchüler belehren\n\nBelehrung im Klassenbuch vermerken\n\nGefahrenquellen beseitigen\n\nDenigs Kern:\n\nNicht Dauerüberwachung, sondern Risiken vorausschauend durch konkrete Regeln so reduzieren, dass bei normalem Verlauf nichts passiert."
+          }
+        ]
+      },
+      {
+        "title": "Rechtsfolgen und Unfallversicherung",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "6",
+            "page": 6
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-14",
+            "document": "Schulrecht",
+            "page": 6,
+            "question": "Welche grundsätzlichen Rechtsfolgen können Aufsichtspflichtverletzungen nach sich ziehen?",
+            "answer": "§ 839 BGB + Art. 34 GG → Zivilrecht\n\nSchadensersatz\n\nGrundsätzlich haftet der Staat\n\nRückgriff auf Lehrkraft bei Vorsatz / grober Fahrlässigkeit möglich\n\n§§ 229, 222 StGB → Strafrecht\n\n§ 229 StGB → fahrlässige Körperverletzung\n\n§ 222 StGB → fahrlässige Tötung\n\n§§ 1, 8 LDG → Dienstrecht\n\nAufsichtspflichtverletzung kann Dienstvergehen darstellen\n\n→ Disziplinarverfahren möglich\n\nGEW: LDG ab S. 329\n\n§ 25 LDG → mögliche Disziplinarmaßnahmen (GEW: S. 302 ff.)\n\nVerweis\n\nGeldbuße\n\nKürzung der Bezüge\n\nZurückstufung\n\nEntfernung aus dem Beamtenverhältnis\n\nDenig → Voraussetzung\n\nZusammenhang zwischen Aufsichtspflichtverletzung und Schaden\n\nFrage: Wäre der Schaden auch bei ordnungsgemäßer Aufsicht eingetreten?\n\nMerksatz\n\nZivilrecht → Schadensersatz | Strafrecht → Strafe | Dienstrecht → Disziplinarverfahren."
+          },
+          {
+            "id": "schulrecht-15",
+            "document": "Schulrecht",
+            "page": 6,
+            "question": "Was ist die sogenannte Schülerunfallversicherung und wozu gibt es sie?",
+            "answer": "S. 992 GEW.\n\n§ 2 Abs. 1 Nr. 8 SGB VII → gesetzliche Unfallversicherung\n\nSchüler sind gesetzlich unfallversichert\n\nwährend des Schulbesuchs\n\nbei schulischen Veranstaltungen\n\n§ 8 SGB VII → Wegeunfall\n\nVersicherung auf dem unmittelbaren Schulweg\n\nZweck\n\nAbsicherung der Folgen eines Schulunfalls\n\ngrundsätzlich unabhängig von Verschulden oder Aufsichtspflichtverletzung\n\nMerksatz:\n\nUnterricht + Schulveranstaltung + Schulweg → gesetzlich unfallversichert."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-6",
+    "title": "Leistungserhebung, Noten und Prüfungssituationen",
+    "topics": [
+      {
+        "title": "Grundlagen der Bewertung",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "7-9",
+            "page": 7
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-17",
+            "document": "Schulrecht",
+            "page": 7,
+            "question": "Was versteht man unter dem pädagogischen Beurteilungsfreiraum? Wie unterscheiden sich Leistungserhebung und Leistungsbewertung im Hinblick auf diesen?",
+            "answer": "NVO → pädagogischer Beurteilungsspielraum\n\nLehrer soll Kenntnisse aber auch Werte vermitteln, dazu braucht er päd. Freiraum, aber auch Beurteilungsspielraum, daher enthällt NVO nur Mindestregelungen um Chancengleichheit zu gewährleisten\n\nLeistungserhebung → Wie wird die Leistung erhoben?\n\n§ 45 SchG → GLK: Beschlüsse über allgemeine Fragen der Unterrichtsarbeit\n\n§ 47 SchG → Schulkonferenz: Mitwirkung/Zustimmung bei entsprechenden GLK-Beschlüssen\n\ndadurch können schulweit verbindliche Regelungen zur Leistungserhebung entstehen\n\n§ 56 SchG → Klassenpflegschaft: nur Unterrichtung und Aussprache, keine schulweit verbindliche Festlegung\n\nBspl: Die NVO schreibt nicht generell vor, dass auf jeder zurückgegebenen Klassenarbeit der Klassendurchschnitt angegeben werden muss.\n\nMerkkette: GLK beschließt → Schulkonferenz wirkt mit → schulweit verbindlich\n\nLeistungsbewertung → Wie wird die Leistung bewertet?\n\n§ 5 Konferenzordnung i. V. m. § 45 Abs. 2 SchG → Fachkonferenz\n\nkann Festlegungen treffen zu:\n\nNotengebung\n\nLeistungsmessung\n\nGewichtung verschiedener Leistungsarten\n\ngemeinsamen Bewertungskriterien\n\nLeistungsrückmeldung\n\nAusnahme: Weist die NVO eine Entscheidung ausdrücklich dem Fachlehrer zu → Fachkonferenz/ GLK dürfen nur Empfehlungen geben."
+          },
+          {
+            "id": "schulrecht-18",
+            "document": "Schulrecht",
+            "page": 7,
+            "question": "Wie setzt man die Vorgabe der Notentransparenz praktisch um?",
+            "answer": "Notentransparenz (§ 7 NVO)\n\nZu Beginn Gewichtung der schriftlichen, mündlichen und praktischen Leistungen bekannt geben\n\nbei Leistungsfeststellungen Bewertungskriterien bzw. Punkte- und Notenverteilung transparent machen\n\nSchriftliche und mündliche Noten auf Nachfrage offenlegen."
+          },
+          {
+            "id": "schulrecht-19",
+            "document": "Schulrecht",
+            "page": 7,
+            "question": "Wozu werden Noten erteilt?",
+            "answer": "§ 1 NVO → Zweck der Notengebung\n\nKontrolle des Lernfortschritts\n\nEntscheidungsgrundlage für den weiteren Bildungsgang\n\nBestätigung des Lernerfolges\n\nHinweise für den weiteren Lernfortgang\n\nZusätzliches Ziel der Leistungsbeurteilung nach Denig\n\nChancengleichheit\n\nChancengerechtigkeit der Schüler\n\ndabei besteht ein pädagogischer Beurteilungsspielraum der Lehrkraft."
+          },
+          {
+            "id": "schulrecht-20",
+            "document": "Schulrecht",
+            "page": 8,
+            "question": "Welche Arten von Schüler-Leistungen können festgestellt werden?",
+            "answer": "§ 7 Abs. 1 NVO → Arten der Leistungen\n\nschriftliche Leistungen\n\nmündliche Leistungen\n\npraktische Leistungen"
+          },
+          {
+            "id": "schulrecht-21",
+            "document": "Schulrecht",
+            "page": 8,
+            "question": "Was versteht man unter einer „pädagogisch-fachlichen Gesamtwertung“?",
+            "answer": "§ 7 NVO → Bildung der Fachnote\n\nFachnote ist kein rein rechnerischer Durchschnitt der Einzelnoten\n\nberücksichtigt schriftliche, mündliche und praktische Leistungen\n\neinzelne Leistungsarten werden entsprechend ihrer Gewichtung berücksichtigt\n\nLehrkraft nimmt eine pädagogisch-fachliche Gesamtwertung vor\n\ndabei besteht ein pädagogischer Beurteilungsspielraum\n\nBewertung muss leistungsbezogen und nachvollziehbar sein\n\nMerksatz:\n\nFachnote ≠ Notendurchschnitt → Gesamtwürdigung aller Leistungen durch die Fachlehrkraft."
+          },
+          {
+            "id": "schulrecht-24",
+            "document": "Schulrecht",
+            "page": 9,
+            "question": "Welchen Fragen einer juristischen Überprüfung muss eine Note standhalten?",
+            "answer": "Art. 3 Abs. 1 GG → Gleichbehandlungsgrundsatz\n\n§ 7 NVO → allgemeine Grundsätze der Leistungsbewertung\n\nJuristische Überprüfung einer Note:\n\nVerfahrensfehler\n\nz. B. zulässige Hilfsmittel wurden einzelnen Schülern nicht erlaubt.\n\nNotentransparenz wurde am Anfang des Jahres nicht mitgeteilt\n\nUnrichtige Tatsachen zugrunde gelegt\n\n0 Punkten, weil Schüler nichts geschrieben, obwohl Rückseite voll\n\nAllgemeine Bewertungsgrundsätze missachtet\n\nBei zwei inhaltlich gleichwertigen Antworten bekommt ein Schüler deutlich weniger Punkte.\n\nSachfremde Erwägungen berücksichtigt\n\nEine Note wird schlechter vergeben, weil der Schüler häufig zu spät kommt\n\nFachlich richtige/vertretbare Lösung nicht gewertet\n\nIn Mathematik löst ein Schüler die Aufgabe mit einem anderen, aber fachlich korrekten Lösungsweg; die Lehrkraft gibt trotzdem 0 Punkte, weil es nicht der erwartete Lösungsweg war.\n\nDie fachlich-pädagogische Bewertung selbst unterliegt dem Beurteilungsspielraum der Lehrkraft."
+          }
+        ]
+      },
+      {
+        "title": "Fachnoten und Kopfnoten",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "9-10",
+            "page": 9
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-25",
+            "document": "Schulrecht",
+            "page": 9,
+            "question": "Unterscheiden Sie Leistungsnoten von Kopfnoten. Gehen Sie dabei auch auf die Notenbeschreibung ein.",
+            "answer": "Leistungsnoten (§ 5 NVO): Bewerten die fachliche Leistung anhand der Anforderungen des Bildungs-/Lehrplans. Noten 1–6. Verhalten darf nicht in die Fachnote einfließen.\n\nKopfnoten (§ 6 NVO): Bewerten Verhalten und Mitarbeit. Noten sehr gut, gut, befriedigend, unbefriedigend. „Gut“ bedeutet, dass die Erwartungen erfüllt werden; „sehr gut“, dass Verhalten bzw. Mitarbeit besondere Anerkennung verdienen."
+          },
+          {
+            "id": "schulrecht-26",
+            "document": "Schulrecht",
+            "page": 9,
+            "question": "Wie kommen mündliche Noten zustande? Wie unterscheiden sie sich von der Mitarbeitsnote?",
+            "answer": "Mündliche Note (§ 7 NVO): Leistungsnote für die fachliche Qualität mündlich erbrachter Leistungen, z. B. Unterrichtsbeiträge, Abfragen oder Präsentationen.\n\nMitarbeitsnote (§ 6 NVO): Kopfnote; bewertet vor allem den Arbeitswillen und die Bereitschaft zur Mitarbeit, nicht die fachliche Qualität der Leistung."
+          },
+          {
+            "id": "schulrecht-27",
+            "document": "Schulrecht",
+            "page": 10,
+            "question": "Inwieweit können/dürfen Noten ein Sanktionsinstrument sein?",
+            "answer": "§ 5 NVO → Leistungsnoten\n\nFachnoten bewerten ausdrücklich die Leistung des Schülers.\n\nDie Notenstufen werden danach definiert, inwieweit die Leistung den Anforderungen entspricht.\n\n§ 6 NVO → Verhalten und Mitarbeit\n\nVerhalten und Mitarbeit werden davon getrennt beurteilt.\n\n„Verhalten“ umfasst ausdrücklich das Betragen und die Zusammenarbeit.\n\nDaraus folgt die saubere Trennung: Noten dürfen grundsätzlich nicht als Sanktionsinstrument eingesetzt werden, sondern müssen den Leistungsstand abbilden.\n\n§ 8 Abs. 5 NVO: Bei Verweigerung einer schriftlichen Arbeit bzw. unentschuldigtem Versäumnis wird „ungenügend“ erteilt."
+          }
+        ]
+      },
+      {
+        "title": "Schriftliche Arbeiten und Nachteilsausgleich",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "8",
+            "page": 8
+          },
+          {
+            "document": "Schulrecht",
+            "pages": "10",
+            "page": 10
+          },
+          {
+            "document": "Schulrecht",
+            "pages": "20",
+            "page": 20
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-22",
+            "document": "Schulrecht",
+            "page": 8,
+            "question": "Welche grundsätzlichen Regelungen sind im § 8 NVO festgehalten?",
+            "answer": "§ 8 Abs. 1 NVO → Klassenarbeiten\n\nüberprüfen einen größeren Unterrichtsabschnitt\n\nwerden in der Regel nach Abschluss einer Unterrichtseinheit durchgeführt\n\n§ 8 Abs. 2 NVO → Schriftliche Wiederholungsarbeiten\n\nüberprüfen einen kleineren Unterrichtsabschnitt\n\nbeziehen sich auf die unmittelbar vorausgegangenen Unterrichtsstunden\n\ndauern in der Regel bis zu 20 Minuten\n\n§ 8 Abs. 3 NVO → Verteilung der schriftlichen Arbeiten\n\nKlassenarbeiten und Wiederholungsarbeiten sollen gleichmäßig auf das Schuljahr verteilt werden\n\nbesondere Vorgaben zur zeitlichen Häufung\n\n§ 8 Abs. 4 NVO → entschuldigtes Versäumnis\n\nFachlehrer entscheidet, ob der Schüler die versäumte Leistung nachträglich erbringen muss\n\n§ 8 Abs. 5 NVO → Leistungsverweigerung / unentschuldigtes Versäumnis\n\nNote „ungenügend“\n\n§ 8 Abs. 6 NVO → Täuschung\n\nFachlehrer entscheidet über die Folgen eines Täuschungsversuchs\n\nje nach Fall: Arbeit bewerten, Notenabzug, Neuanfertigung oder bei schwerer/wiederholter Täuschung „ungenügend“\n\n§ 8 Abs. 7 NVO → mündliche und praktische Leistungen\n\nAbs. 4–6 gelten entsprechend auch für mündliche und praktische Leistungen."
+          },
+          {
+            "id": "schulrecht-23",
+            "document": "Schulrecht",
+            "page": 8,
+            "question": "Unterscheiden Sie Klassenarbeiten und schriftliche Wiederholungsarbeiten.",
+            "answer": "Klassenarbeiten (§ 8 Abs. 1 NVO)\n\nÜberprüfen einen größeren Unterrichtsbereich\n\nIst in der Regel anzukündigen.\n\nEs gibt begründete Ausnahmen\n\nSchriftliche Wiederholungsarbeiten (§ 8 Abs. 2 NVO)\n\nüberprüfen den Unterrichtserfolg der unmittelbar vorangegangenen Unterrichtsstunden\n\nIn der Regel höchstens 20 Minuten.\n\nEine Ankündigung ist für sie nicht vorgeschrieben."
+          },
+          {
+            "id": "schulrecht-28",
+            "document": "Schulrecht",
+            "page": 10,
+            "question": "Inwieweit beeinflusst ein sog. Nachteilsausgleich die Leistungsfeststellung?",
+            "answer": "Art. 3 Abs. 1 GG → Chancengleichheit\n\nNachteile von Schülern mit besonderem Förderbedarf/Behinderungen dürfen bzw. müssen ausgeglichen werden.\n\nVerwaltungsvorschrift „Kinder und Jugendliche mit besonderem Förderbedarf und Behinderungen“ → konkrete Regelung\n\nAnforderungsprofil bleibt gleich\n\nmöglichkeit zur Chancengleichheit:\n\nmehr Arbeitszeit\n\ntechnische Hilfen\n\ndidaktisch-methodische Hilfen\n\nangepasste äußere Rahmenbedingungen\n\nEntscheidung → Klassen-/Jahrgangsstufenkonferenz unter Vorsitz des Schulleiters\n\nMaßnahmen sind für Fachlehrer bindend\n\nkein Vermerk im Zeugnis\n\nMerksatz:\n\nNachteil ausgleichen ≠ Anforderungen senken."
+          },
+          {
+            "id": "schulrecht-29",
+            "document": "Schulrecht",
+            "page": 10,
+            "question": "Welche Regelungen gelten bezüglich der Abgabe von Entschuldigungen im Hinblick auf die Klassenarbeiten?",
+            "answer": "§ 8 Abs. 4 NVO → entschuldigtes Versäumnis (unverzüglich, spätestens am zweiten Tag)\n\nFachlehrer entscheidet, ob die Arbeit nachgeschrieben werden muss\n\n§ 8 Abs. 5 NVO → unentschuldigtes Versäumnis\n\nNote „ungenügend“"
+          }
+        ]
+      },
+      {
+        "title": "Täuschung und Beweisfragen",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "10-11",
+            "page": 10
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-30",
+            "document": "Schulrecht",
+            "page": 10,
+            "question": "Welche Überlegungen sollten Sie für den Umgang mit einer Täuschungshandlung bei einer Klassenarbeit anstellen?",
+            "answer": "§ 8 Abs. 6 NVO → Fachlehrer entscheidet\n\nnormale Bewertung möglich? → normal bewerten\n\nnicht möglich? → Notenabzug oder Arbeit wiederholen\n\nschwere oder wiederholte Täuschung → Note 6 möglich"
+          },
+          {
+            "id": "schulrecht-31",
+            "document": "Schulrecht",
+            "page": 10,
+            "question": "Wie unterscheidet sich die Vorgehensweise zu einer beobachteten Täuschungshandlung im Rahmen einer Prüfung?",
+            "answer": "Täuschung bei einer Prüfung (Es gilt die jeweilige Prüfungsordnung des Bildungsganges/ Viel strenger/ )\n\nTäuschung/Verdacht feststellen\n\nSachverhalt protokollieren\n\nSchüler weiterschreiben lassen\n\nzuständige Prüfungsleitung / Prüfungsausschuss entscheidet\n\nEine festgestellte Täuschung führt grundsätzlich zum Ausschluss und Nichtbestehen\n\nBereits das Mitführen unerlaubter Hilfsmittel nach Bekanntgabe der Aufgaben sowie die Beihilfe zur Täuschung gelten als Täuschungshandlung."
+          },
+          {
+            "id": "schulrecht-32",
+            "document": "Schulrecht",
+            "page": 11,
+            "question": "Wie ist mit der sogenannten Beihilfe zur Täuschungshandlung umzugehen?",
+            "answer": "§ 8 Abs. 6 NVO → normale Klassenarbeit\n\nAbschreibenlassen ≠ eigene Täuschung des Helfers\n\nggf. pädagogische/E&O-Maßnahme (§ 90 SchG)\n\nPrüfungsordnung → Prüfung\n\nBeihilfe gilt selbst als Täuschungshandlung\n\nentsprechende Prüfungssanktionen möglich"
+          },
+          {
+            "id": "schulrecht-33",
+            "document": "Schulrecht",
+            "page": 11,
+            "question": "Was versteht man unter dem Beweis des ersten Anscheins?",
+            "answer": "Wenn ein Geschehen nach allgemeiner Lebenserfahrung typischerweise auf eine bestimmte Ursache zurückzuführen ist, darf zunächst vom Vorliegen dieser Ursache ausgegangen werden.\n\nBeispiel:\n\nBei auffällig identischen Schülerlösungen kann daher eine Täuschung angenommen werden, auch wenn das Abschreiben nicht unmittelbar beobachtet wurde."
+          },
+          {
+            "id": "schulrecht-34",
+            "document": "Schulrecht",
+            "page": 11,
+            "question": "Warum spricht Denig von „Beweislastumkehr“?",
+            "answer": "Normalerweise: Schule/Lehrkraft muss die Täuschung nachweisen. Beim Anscheinsbeweis liegen aber so typische Indizien vor, dass zunächst von der Täuschung ausgegangen werden darf. Nun muss der Schüler Umstände darlegen bzw. nachweisen, die einen anderen Ablauf plausibel machen. Gelingt ihm das, muss die Täuschung wieder vollständig bewiesen werden.\n\nEin weiteres Beispiel aus Denigs Folie: Ein Schüler schreibt eine Antwort wortwörtlich wie im Schulbuch. Dann kann durch eine mündliche Nachfrage geprüft werden, ob er den Text tatsächlich auswendig beherrscht oder unerlaubt übernommen hat."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-7",
+    "title": "Pädagogische Maßnahmen und Konfliktfälle",
+    "topics": [
+      {
+        "title": "Maßnahmen unterscheiden",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "12-14",
+            "page": 12
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-35",
+            "document": "Schulrecht",
+            "page": 12,
+            "question": "Unterscheiden Sie grundsätzlich pädagogische Maßnahmen von Erziehungs- und Ordnungsmaßnahmen nach §90 SchG hinsichtlich Regelungsgrundlage, Rechtsqualität und Rechtsschutz. (Gute Übersicht §90 SchG im GEW-Handbuch. Dieses kann in der Prüfung verwendet werden.)",
+            "answer": "Pädagogische Maßnahmen (§ 23 Abs. 2 SchG) → Verwaltungshandeln\n\nSie sind nicht abschließend geregelt\n\nbleiben unterhalb der Eingriffsintensität einer E&O-Maßnahme\n\nsind rechtlich schlichtes Verwaltungshandeln.\n\nGegen sie kommt insbesondere eine Fachaufsichtsbeschwerde in Betracht.\n\nErziehungs- und Ordnungsmaßnahmen (§ 90 SchG) → Verwaltungsakt\n\nsind ausschließlich und abschließend geregelt.\n\nWegen ihres intensiveren Eingriffs in Schülerrechte haben sie die Rechtsqualität eines Verwaltungsakts.\n\nDagegen sind Widerspruch und Anfechtungsklage möglich."
+          },
+          {
+            "id": "schulrecht-43",
+            "document": "Schulrecht",
+            "page": 14,
+            "question": "Ist es möglich – und wenn ja, auf welcher rechtlichen Grundlage – SuS präventiv vom Unterricht auszuschließen?",
+            "answer": "§ 23 Abs. 2 SchG → präventive Maßnahme\n\nAusschluss vor einem befürchteten Fehlverhalten möglich\n\ndient der Aufrechterhaltung der Ordnung des Schulbetriebs bzw. Erfüllung der schulischen Aufgaben\n\nnur wenn erforderlich\n\neng auszulegen\n\n§ 90 SchG → E&O-Maßnahme\n\nsetzt grundsätzlich ein bereits erfolgtes Fehlverhalten voraus\n\ndaher nicht die Grundlage für einen rein präventiven Ausschluss\n\nMerksatz:\n\nFehlverhalten passiert → § 90 SchG\n\nGefahr vorbeugen → § 23 Abs. 2 SchG"
+          }
+        ]
+      },
+      {
+        "title": "Verhältnismäßigkeit und Zuständigkeit",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "12-13",
+            "page": 12
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-36",
+            "document": "Schulrecht",
+            "page": 12,
+            "question": "Was versteht man unter dem Grundsatz der Verhältnismäßigkeit und welche Bedeutung hat er bei E&O-Maßnahmen?",
+            "answer": "Geeignetheit → einen der Zwecke aus § 90 Abs. 1 SchG erreichen\n\nErforderlich → Ist die Maßnahme überhaupt notwendig, um den Zweck zu erreichen?\n\nmildeste Maßnahme → geringste Belastung für den Schüler\n\nAngemessenheit → Schwere der Strafe muss der Schwere des Vergehens entsprechen"
+          },
+          {
+            "id": "schulrecht-37",
+            "document": "Schulrecht",
+            "page": 12,
+            "question": "Welche E&O-Maßnahmen sind nach §90 SchG möglich? Welche kann die Lehrkraft / die SL veranlassen?",
+            "answer": "Lehrkraft\n\nNachsitzen bis 2 Unterrichtsstunden.\n\nSchulleitung\n\nNachsitzen bis 4 Unterrichtsstunden\n\nÜberweisung in Parallelklasse\n\nAndrohung Unterrichtsausschluss\n\nUnterrichtsausschluss bis 5 Unterrichtstage (berufliche Teilzeitschule: 1 Unterrichtstag)\n\nmit Zustimmung der Klassenkonferenz Unterrichtsausschluss bis 4 Wochen,\n\nAndrohung des Schulausschlusses und Schulausschluss."
+          },
+          {
+            "id": "schulrecht-39",
+            "document": "Schulrecht",
+            "page": 13,
+            "question": "Was versteht man unter Kollektivstrafen und wann dürfen sie verhängt werden?",
+            "answer": "§ 90 Abs. 2 Satz 2 SchG → Kollektivstrafen unzulässig\n\nBestrafung mehrerer Schüler, weil der tatsächlich Schuldige nicht ermittelt werden kann\n\nunzulässig\n\nkein erzieherischer Wert\n\nMaßnahmen gegen mehrere Schüler nur, wenn jedem Einzelnen eigenes Fehlverhalten nachgewiesen werden kann"
+          }
+        ]
+      },
+      {
+        "title": "Verfahren und Rechtsschutz",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "12-13",
+            "page": 12
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-38",
+            "document": "Schulrecht",
+            "page": 12,
+            "question": "Wie wird die Rechtmäßigkeit von E&O-Maßnahmen geprüft?",
+            "answer": "Materielle Rechtmäßigkeit\n\nMaßnahme muss dem Zweck des § 90 SchG dienen (§ 90 SchG Abs. 1)\n\nSchweres oder wiederholtes Fehlverhalten\n\nGrundsatz der Verhältnismäßigkeit\n\nSchuldhaftes Verhalten\n\nFormelle Rechtmäßigkeit\n\nAnhörung des Schülers vor Erlass der Maßnahme\n\nbei Schulleitermaßnahmen → formelles Anhörungsverfahren nach § 90 Abs. 7 SchG\n\n→ nur wenn materiell + formell rechtmäßig, kann die Maßnahme bestehen."
+          },
+          {
+            "id": "schulrecht-40",
+            "document": "Schulrecht",
+            "page": 13,
+            "question": "Beschreiben Sie den Verfahrensgang bei E&O-Maßnahmen?",
+            "answer": "§ 90 SchG → Erziehungs- und Ordnungsmaßnahmen\n\nBefragung des Schülers\n\nSachverhalt/Tatvorwurf aufklären\n\nnoch keine Anhörung\n\nBeabsichtigte Maßnahme festlegen\n\nGrundsatz der Verhältnismäßigkeit beachten\n\nArt der Anhörung unterscheiden\n\nNur Nachsitzen 2 h max. nachsitzen → formlose Anhörung des Schülers\n\nSchüler erhält Gelegenheit, sich zu äußern\n\nkeine formelle Einladung der Eltern zur Anhörung\n\nWeitergehende E&O-Maßnahmen → § 90 Abs. 7 SchG\n\nSchüler und bei Minderjährigen grundsätzlich auch Erziehungsberechtigte werden über die beabsichtigte Maßnahme informiert\n\nGelegenheit zur Anhörung\n\nentsprechende Einladung zur Anhörung\n\nAnhörung durchführen\n\nBetroffene können Stellung nehmen\n\nArgumente müssen vor der Entscheidung berücksichtigt werden\n\nEntscheidung\n\nerst nach der Anhörung endgültig entscheiden\n\nEntscheidung mitteilen"
+          },
+          {
+            "id": "schulrecht-41",
+            "document": "Schulrecht",
+            "page": 13,
+            "question": "Wie kann man sich gegen eine Maßnahme nach §90 SchG wehren?",
+            "answer": "Gegen eine E&O-Maßnahme nach § 90 SchG kann der Betroffene\n\nWiderspruch einlegen und anschließend\n\ngegebenenfalls Anfechtungsklage vor dem Verwaltungsgericht erheben.\n\nDies ist möglich, weil E&O-Maßnahmen Verwaltungsakte sind.\n\nKann aber nicht aufgeschoben werden"
+          },
+          {
+            "id": "schulrecht-42",
+            "document": "Schulrecht",
+            "page": 13,
+            "question": "Wie kann eine E&O-Maßnahme im Rahmen einer Klassenfahrt ausgeführt werden?",
+            "answer": "Grundlage ist § 90 SchG\n\nBei massivem Fehlverhalten während der Klassenfahrt:\n\nAusschluss von der weiteren Klassenfahrt möglich\n\nZuständig → ausschließlich Schulleiter\n\nvorzeitige Heimreise\n\nAufsichtspflicht während der Heimreise beachten\n\nKosten der Heimreise → Schüler bzw. Erziehungsberechtigte\n\nNach Rückkehr → Schüler muss in einer Parallelklasse die Schule besuchen"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-8",
+    "title": "Urheberrecht und Datenschutz",
+    "topics": [
+      {
+        "title": "Unterrichtsmaterialien verwenden",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "21",
+            "page": 21
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-65",
+            "document": "Schulrecht",
+            "page": 21,
+            "question": "Welche Interessen werden mit dem Urheberrecht geschützt?",
+            "answer": "§ 11 UrhG\n\npersönliche/geistige Interessen des Urhebers\n\nwirtschaftliche Interessen"
+          },
+          {
+            "id": "schulrecht-66",
+            "document": "Schulrecht",
+            "page": 21,
+            "question": "Warum gibt es ein Urheberrecht?",
+            "answer": "§§ 1, 11 UrhG → Schutz des Urhebers\n\nSchutz geistiger und kreativer Leistungen\n\nSchutz der persönlichen/geistigen Interessen\n\nSchutz der wirtschaftlichen Interessen\n\nKontrolle über die Nutzung des eigenen Werkes\n\nSicherung einer angemessenen Vergütung"
+          },
+          {
+            "id": "schulrecht-67",
+            "document": "Schulrecht",
+            "page": 21,
+            "question": "In welchem Umfang darf man aus Unterrichtswerken (Schulbüchern) Kopien anfertigen? Unter welchen Bedingungen ist dies erlaubt?",
+            "answer": "§ 60a UrhG → Unterricht und Lehre\n\nbis zu 15 % eines veröffentlichten Werkes\n\nfür nicht kommerzielle Unterrichtszwecke\n\nNutzung für:\n\nLehrende und Teilnehmer der jeweiligen Unterrichtsveranstaltung\n\nLehrende und Prüfer derselben Bildungseinrichtung\n\nDritte zur Präsentation des Unterrichts oder von Unterrichtsergebnissen\n\nerlaubt: vervielfältigen, verbreiten, öffentlich zugänglich machen und öffentlich wiedergeben\n\n→ praktisch z. B. Kopien, digitale Bereitstellung, Beamer/Whiteboard § 60a UrhG"
+          },
+          {
+            "id": "schulrecht-68",
+            "document": "Schulrecht",
+            "page": 21,
+            "question": "In welchem Umfang darf man aus Zeitschriften oder Zeitungen Kopien anfertigen? Unter welchen Bedingungen ist dies erlaubt?",
+            "answer": "§ 60a Abs. 2 UrhG → vollständige Nutzung\n\nvollständige Nutzung u. a. von einzelnen Beiträgen aus Fachzeitschriften oder wissenschaftlichen Zeitschriften\n\ngilt nicht allgemein für Artikel aus normalen Zeitungen/Publikumszeitschriften\n\nSonstiges:\n\n§ 63 UrhG → Quellenangabe\n\ngrundsätzlich Quelle einschließlich Urheber angeben § 63 UrhG\n\nGesamtvertrag für Schulen → vertragliche Konkretisierung\n\n→ Länder/Kultusministerien und Rechteinhaber regeln die praktische Umsetzung und Vergütung für Schulen."
+          }
+        ]
+      },
+      {
+        "title": "Personenbezogene Daten verarbeiten",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "22",
+            "page": 22
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-69",
+            "document": "Schulrecht",
+            "page": 22,
+            "question": "Welche Vorgaben gibt es zur Erfassung von personenbezogenen Daten? Was darf erfasst werden?",
+            "answer": "DSGVO → Grundsätze\n\nRechtmäßigkeit und Transparenz\n\nZweckbindung → nur für festgelegten schulischen Zweck\n\nDatenminimierung → nur notwendige Daten\n\nRichtigkeit\n\nSpeicherbegrenzung → nicht länger als nötig\n\nVertraulichkeit und Sicherheit\n\n§ 1 SchG → schulische Aufgaben\n\nDaten dürfen verarbeitet werden, soweit sie zur Erfüllung schulischer Aufgaben erforderlich sind\n\nz. B. Name, Anschrift, Kontaktdaten, Noten, Fehlzeiten\n\nkeine Datenerhebung auf Vorrat"
+          },
+          {
+            "id": "schulrecht-70",
+            "document": "Schulrecht",
+            "page": 22,
+            "question": "Wie sollte man mit personenbezogenen Daten generell umgehen?",
+            "answer": "DSGVO → allgemeine Grundsätze\n\nRechtmäßigkeit und Transparenz\n\nZweckbindung → nur für vorgesehenen Zweck\n\nDatenminimierung → nur notwendige Daten\n\nRichtigkeit\n\nSpeicherbegrenzung → Löschfristen beachten\n\nVertraulichkeit/Sicherheit → vor unbefugtem Zugriff schützen\n\nDenig → konkrete Umsetzung in der Schule\n\npersonenbezogene Daten sicher und verschlüsselt speichern\n\nprivate Geräte → nur mit Genehmigung der Schulleitung\n\nkeine unsicheren/nicht freigegebenen Cloud- oder Messenger-Dienste\n\nVertretungsplan → keine unnötigen personenbezogenen Angaben, z. B. Abwesenheitsgrund\n\nVeröffentlichung von Namen/Fotos → grundsätzlich Einwilligung bzw. entsprechende\n\nRechtsgrundlage\n\nnicht mehr benötigte Daten → löschen"
+          },
+          {
+            "id": "schulrecht-71",
+            "document": "Schulrecht",
+            "page": 22,
+            "question": "Unter welchen Voraussetzungen dürfen personenbezogene Daten weitergegeben werden?",
+            "answer": "Art. 6 DSGVO → Rechtmäßigkeit\n\nWeitergabe nur mit Rechtsgrundlage\n\nz. B. wenn sie zur Erfüllung einer öffentlichen/schulischen Aufgabe erforderlich ist\n\nalternativ → wirksame Einwilligung\n\nArt. 5 DSGVO → Zweckbindung + Datenminimierung\n\nnur für einen bestimmten zulässigen Zweck\n\nnur die erforderlichen Daten weitergeben\n\nDenig → für die Schule\n\nRecht auf informationelle Selbstbestimmung\n\nEinschränkung nur mit rechtlicher Grundlage\n\nVeröffentlichung von Schülerdaten, z. B. Name/Bild auf Website → schriftliche Einwilligung\n\nDenig betont: Daten dürfen nur verarbeitet werden, soweit dies für schulische Aufgaben\n\nerforderlich ist."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-9",
+    "title": "Beamtenrecht und Personalvertretung",
+    "topics": [
+      {
+        "title": "Zugang und Beamtenverhältnis",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "23-24",
+            "page": 23
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-72",
+            "document": "Schulrecht",
+            "page": 23,
+            "question": "Warum sind Lehrer/Innen in der Regel Beamte?",
+            "answer": "Art. 33 Abs. 4 GG\n\nDa Lehrer hoheitsrechtliche Befugnis befugnisse haben, also staatliche Befugnisse, einseitig und verbindlich gegenüber dem Bürger zu handeln sollen sie von beamten ausgeführt werden, also denjenigen, die in einem besonderen öffentlich-rechtlichen Dienst und Treueverhältnis stehen.\n\n§ 33 BeamtStG\n\nDurch das Beamtentum sollen Rechtsstaatlichkeit, verfassungstreue, Verlässlichkeit und Neutralität gesichert werden\n\nArt. 3 Abs 1 GG → allgemeiner Gleichheitssatz\n\nArt. 11 Abs. 1 LV BW → Recht auf eine der Begabung entsprechenden Erziehung und Ausbildung\n\nDurch den besonderen Bestandsschutz des Beamtenverhältnisses soll er weniger anfällig für äußeren Druck sein. Dadurch kann er Schüler eher gleich behandeln\n\n§ 33 Abs. 1 BeamtStG\n\nFortbestand der Gesellschaft → Unabhängigkeit von Interessengruppen"
+          },
+          {
+            "id": "schulrecht-73",
+            "document": "Schulrecht",
+            "page": 23,
+            "question": "Welche persönlichen Voraussetzungen muss man mitbringen, um Beamter werden zu können?",
+            "answer": "§ 7 Abs. 1 BeamtStG → Voraussetzungen für die Berufung\n\nStaatsangehörigkeit\n\n→ grundsätzlich Deutschland, EU/EWR bzw. entsprechend gleichgestellte Staaten\n\nVerfassungstreue\n\n→ Gewähr bieten, jederzeit für die freiheitliche demokratische Grundordnung einzutreten\n\nBefähigung/Vorbildung\n\n→ die für die jeweilige Laufbahn vorgeschriebene Befähigung besitzen\n\nArt. 33 Abs. 2 GG + § 11 LBG BW → gesundheitliche Eignung\n\nArt. 33 Abs. 2 GG → übergeordneter Grundsatz der Eignung\n\n§ 11 LBG BW → konkrete Feststellung der gesundheitlichen Eignung\n\n§ 48 LHO BW → Höchstaltersgrenze\n\nGrundsätzlich 42 Jahre"
+          },
+          {
+            "id": "schulrecht-74",
+            "document": "Schulrecht",
+            "page": 23,
+            "question": "Unter welchen Voraussetzungen wird die Ernennung wirksam?",
+            "answer": "§ 8 BeamtStG → Ernennung durch Aushändigung der Ernennungsurkunde\n\n§ 9 Abs. 2 LBG → Wirksamkeit\n\nEinwilligung des Beamten\n\nAushändigung der Urkunde\n\nkeine Rückwirkung\n\nMerksatz: Einwilligung + Urkunde in die Hand = Ernennung wirksam."
+          },
+          {
+            "id": "schulrecht-75",
+            "document": "Schulrecht",
+            "page": 23,
+            "question": "Welche Arten von Beamtenverhältnissen werden unterschieden?",
+            "answer": "§ 4 BeamtStG\n\nEs werden vier Arten unterschieden:\n\nBeamter auf Widerruf → vor allem für Referendariat\n\nBeamter auf Probe → Probezeit; es wird geprüft, ob sich der Beamte für eine spätere Verwendung auf Lebenszeit bewährt\n\nBeamter auf Lebenszeit → dauerhaftes Beamtenverhältnis; das ist der Regelfall\n\nBeamter auf Zeit → zeitlich befristet, z. B. Bürgermeister"
+          },
+          {
+            "id": "schulrecht-76",
+            "document": "Schulrecht",
+            "page": 24,
+            "question": "Wie lange dauert die regelmäßige Probezeit für einen Beamten? Unter welchen Bedingungen kann sie verkürzt bzw. verlängert werden?",
+            "answer": "§ 19 LBG BW - Probezeit\n\nRegelmäßige Probezeit 3 Jahre. mind. 1 Jahr, max 5 Jahre\n\nVerkürzung\n\nAnrechnung bestimmter Zeiten\n\nWehr-/ Zivildienst oder Entwicklungshilfedienst\n\nPflege-/ Elternzeiten\n\nEinschlägige berufliche Tätigkeit → frühere Berufserfahrung, die der späteren Tätigkeit in der Beamtenlaufbahn entspricht.\n\nBesondere Verkürzung\n\nWeit überdurchschnittliche Bewährung → mind. Note 1,5 (Schulleiterbeurteilung)\n\nhervorragende Laufbahnprüfung (Zweite Staatsprüfung) → mind. Note 1,4\n\njeweils Verkürzung um bis zu 1 Jahr\n\nkein Rechtsanspruch\n\nVerlängerung\n\nNichtbewährung innerhalb der regulären Probezeit\n\nz. B. Leistungsmängel oder behebbare gesundheitliche Probleme\n\nVerlängerung zur weiteren Feststellung der Bewährung\n\nMaximal 2 × 1 Jahr"
+          },
+          {
+            "id": "schulrecht-77",
+            "document": "Schulrecht",
+            "page": 24,
+            "question": "Auf welche Art und Weise kann ein Beamtenverhältnis enden?",
+            "answer": "Entlassung kraft Gesetzes (§ 22 BeamtStG)→ endet automatisch, ohne Verwaltungsakt\n\nVerlust der persönlichen Vorraussetzungen (z.B. Staatsbürgerschaft)\n\nErreichen der Altersgrenze (Aktuell 67 Jahre)\n\nEintritt in ein öffentlich-rechtliches Dienst- oder Amtsverhältnis zu einem anderen Dienstherrn\n\nEntgültiges nichtbesethen der Referendarsprüfung\n\nEntlassung durch Verwaltungsakt (§ 23 BeamtStG) → Dienstherr verfügt die Entlassung\n\nAuf eigenen Antrag\n\nFehlende Bewährung in der Probezeit\n\nVerweigerung des Diensteids\n\nVerlust der Beamtenrechte (§ 24 BeamtStG) → aufgrund bestimmter strafrechtlicher Verurteilungen\n\nVerurteilung zu min. einem Jahr wegen vorsätzlicher Tat\n\nVerurteilung zu min. 6 Monaten wegen Friedensverrate, Hochverrat, Gefährdung des demokratischen Rechtsstaates\n\nRuhestand → Ende des aktiven Dienstes\n\nErreichen der Altersgrenze → § 36 LBG\n\nZum Ende des Schuljahres, indem man 66 wird\n\nRuhestand auf Antrag → § 40 LBG\n\nab Vollendung des 63. Lebensjahres die Versetzung in den Ruhestand beantragen.\n\nDienstunfähigkeit → § 43 LBG\n\nmehr als 3 Monate Ausfall innerhalb von 6 Monaten + keine Aussicht auf volle Dienstfähigkeit innerhalb weiterer 6 Monate.\n\nWenn ein Beamter aus gesundheitlichen Gründen dauerhaft nicht mehr in der Lage ist, seine Dienstpflichten zu erfüllen.\n\nVor einer Ruhestandsversetzung wird grundsätzlich geprüft, ob eine anderweitige Verwendung oder begrenzte Dienstfähigkeit möglich ist.\n\n§§ 26–27 BeamtStG, § 43 LBG"
+          }
+        ]
+      },
+      {
+        "title": "Rechte und Pflichten",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "25",
+            "page": 25
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-78",
+            "document": "Schulrecht",
+            "page": 25,
+            "question": "Welche Rechte und Pflichten hat der Beamte im Rahmen seines Dienstverhältnisses?",
+            "answer": "Rechte\n\n§ 45 BeamtStG → Fürsorge\n\n§ 78 LBG → Beihilfe\n\n§ 71 LBG / § 44 BeamtStG → Urlaub\n\nLBeamtVGBW → Versorgung + Dienstunfallfürsorge\n\nLBesGBW → Besoldung\n\n=> Für die Prüfung ist § 45 BeamtStG – Fürsorgepflicht des Dienstherrn wahrscheinlich der zentrale Ausgangspunkt für die „Rechte des Beamten“.\n\nPflichten\n\nTreuepflicht und Verfassungstreue\n\nAktives eintreten freiheitlich-demokratische Grundordnung (BeamtstG § 33 Abs. 1)\n\nMäßigungs- und Zurückhaltungsgebot (Niemand beeinflussen) (BeamtstG § 33 Abs. 1)\n\nVolle Hingabe an den Beruf (BeamtstG § 34)\n\nBeamtinnen und Beamte haben sich mit vollem persönlichem Einsatz ihrem Beruf zu widmen.\n\nNebentätigkieten müssen angezeigt werden (§ 60 - 63 LBG BW)\n\nVerantwortung für die Rechtmäßigkeit des eigenen Handelns und Remonstrationspflicht (§ 36 BeamtStG)\n\nAmtsverschwiegenheit über dienstlich bekannt gewordene Angelegenheiten. (§ 37 BeamtStG)\n\nMehrarbeit (§ 67 LBG BW), Abordnung oder Versetzung\n\n=> Das Beamtenverhältnis ist ein gegenseitiges öffentlich-rechtliches Dienst- und Treueverhältnis. Der Staat gewährt besondere Sicherheit und Fürsorge – dafür unterliegt der Beamte besonderen Treue- und Dienstpflichten."
+          },
+          {
+            "id": "schulrecht-79",
+            "document": "Schulrecht",
+            "page": 25,
+            "question": "Wie unterscheidet sich eine Abordnung von einer Versetzung?",
+            "answer": "Versetzung → § 24 LBG\n\nAbordnung → § 25 LBG\n\nAbordnung → vorübergehend\n\nEin Beamter wird zeitlich begrenzt ganz oder teilweise bei einer anderen Dienststelle eingesetzt. Die Zugehörigkeit zur bisherigen Dienststelle bleibt grundsätzlich bestehen.\n\nVersetzung → dauerhaft\n\nEin Beamter wechselt auf Dauer zu einer anderen Dienststelle bzw. gegebenenfalls zu einem anderen Dienstherrn."
+          },
+          {
+            "id": "schulrecht-80",
+            "document": "Schulrecht",
+            "page": 25,
+            "question": "Was versteht man unter einem schweren Dienstvergehen?",
+            "answer": "BeamtStG § 47 Nichterfüllung von Pflichten\n\nDisziplinargesetz (LDG) → Regelt die Verfolgung von Dienstvergehen\n\nSchweres Dienstvergehen → besonders gravierende, schuldhafte Verletzung der Dienstpflichten\n\nDurch die Pflichtverletzung wird insbesondere das Vertrauen des Dienstherrn oder der Allgemeinheit in den Beamten erheblich beeinträchtigt."
+          }
+        ]
+      },
+      {
+        "title": "Personalrat",
+        "sources": [
+          {
+            "document": "Schulrecht",
+            "pages": "26",
+            "page": 26
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulrecht-81",
+            "document": "Schulrecht",
+            "page": 26,
+            "question": "Beschreiben Sie die Aufgaben der Personalvertretung.",
+            "answer": "GEW S. 683 Personalvertretungsgesetz (LPVG)\n\nInteressen der Beschäftigten gegenüber der Dienststelle (Schule) vertreten.\n\nDer Personalrat nimmt Beschwerden und Anregungen der Beschäftigten auf und vertritt diese gegenüber der Dienststelle.\n\nÜberwachung von Arbeitsschutzvorschriften\n\nDarüber hinaus besitzt sie je nach Angelegenheit Beteiligungsrechte in Form von Mitbestimmung, Mitwirkung und Anhörung, beispielsweise bei Beförderungen oder der Verlängerung einer Probezeit.“\n\nMitbestimmung → Beförderung eines Beamten\n\n→ Der Personalrat bestimmt mit; grundsätzlich ist seine Zustimmung erforderlich. § 75 Abs. 1 LPVG.\n\nMitbestimmung auf Antrag → Verlängerung der Probezeit\n\n→ Der Personalrat bestimmt nur mit, wenn der betroffene Beschäftigte dies beantragt. § 75 Abs. 3 Nr. 1 LPVG.\n\nMitwirkung auf Antrag → Disziplinarverfügung oder schriftliche Missbilligung gegen einen Beamten\n\n→ Der Personalrat wird auf Antrag beteiligt, kann Einwendungen erheben und Vorschläge machen; die Dienststelle ist daran aber nicht wie bei der Mitbestimmung gebunden. § 81 Abs. 2 Nr. 1 LPVG.\n\nAnhörung → Personalplanung\n\n→ Der Personalrat muss rechtzeitig informiert werden und ausreichend Gelegenheit erhalten, sich zu äußern. §§ 86, 87 Abs. 1 Nr. 1 LPVG."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-10",
+    "title": "Schulsystem, duale Ausbildung und Übergangsbereich",
+    "topics": [
+      {
+        "title": "Schularten, Stufen und Abschlüsse",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "2-4",
+            "page": 2
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "9-10",
+            "page": 9
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-3",
+            "document": "Schulorganisation",
+            "page": 2,
+            "question": "Wie ist das Schulsystem in Baden-Württemberg aufgebaut?",
+            "answer": "Primarstufe → Sekundarstufe I → Sekundarstufe II\n\nVereinfacht:\n\nPrimarstufe\n\nGrundschule.\n\nSekundarstufe I\n\nWerkreal-/Hauptschule\n\nRealschule\n\nGemeinschaftsschule\n\nGymnasium\n\nentsprechende Bildungsgänge der SBBZ.\n\nSekundarstufe II\n\ngymnasiale Oberstufe\n\nberuflichen Schulen\n\nBerufsschule\n\nBerufsfachschule\n\nBerufskolleg\n\nBerufliches Gymnasium\n\nBerufsoberschule\n\nEin wichtiges Prinzip ist dabei die Durchlässigkeit: Ein einmal eingeschlagener Bildungsweg legt den späteren Abschluss nicht endgültig fest. Die Unterlagen formulieren dazu ausdrücklich: „Alle Wege stehen offen“ und jeder Abschluss bietet grundsätzlich Anschlussmöglichkeiten."
+          },
+          {
+            "id": "schulorganisation-6",
+            "document": "Schulorganisation",
+            "page": 3,
+            "question": "Was ist der Unterschied zwischen Fachhochschulreife und fachgebundener Hochschulreife?",
+            "answer": "Fachhochschulreife → Hochschule für angewandte Wissenschaften\n\nSie berechtigt grundsätzlich zum Studium an Hochschulen für angewandte Wissenschaften/ Fachhochschulen.\n\nFachgebundene Hochschulreife → bestimmte Studienrichtungen\n\nSie ermöglicht ein Hochschulstudium, ist aber auf bestimmte Fachrichtungen beschränkt.\n\nDavon zu unterscheiden\n\nAllgemeine Hochschulreife → grundsätzlich alle Studiengänge an allen Hochschularte\n\nDie KMK-Unterlagen bestätigen beispielsweise ausdrücklich, dass ein Zeugnis der Fachhochschulreife bundesweit zum Studium an Fachhochschulen berechtigt.\n\nFragen: Beispiele für fachgebundene Hochschulreife"
+          },
+          {
+            "id": "schulorganisation-10",
+            "document": "Schulorganisation",
+            "page": 4,
+            "question": "Welche Bildungsabschlüsse können in Baden-Württemberg erworben werden?",
+            "answer": "Vom Hauptschulabschluss bis zum Abitur\n\nWesentliche schulische Abschlüsse sind:\n\nHauptschulabschluss,\n\nmittlerer Bildungsabschluss,\n\nFachhochschulreife,\n\nfachgebundene Hochschulreife,\n\nallgemeine Hochschulreife.\n\nDas berufliche Schulwesen ermöglicht dabei zahlreiche Wege zu höherwertigen Abschlüssen. Die Unterlagen betonen deshalb ausdrücklich das Prinzip „Kein Abschluss ohne Anschluss“.\n\nFrage: Was zählt alles zu mittlerem Bildungsabschluss"
+          },
+          {
+            "id": "schulorganisation-11",
+            "document": "Schulorganisation",
+            "page": 4,
+            "question": "Welche Funktion haben berufliche Schulen im Bildungssystem?",
+            "answer": "Berufliche Schulen → Ausbildung + höhere Bildungsabschlüsse\n\nSie erfüllen mehrere Funktionen:\n\nBerufsvorbereitung,\n\nschulischer Partner der dualen Ausbildung,\n\nberufliche Vollzeitausbildung,\n\nErwerb höherer Schulabschlüsse,\n\nberufliche Weiterbildung.\n\nSie ermöglichen Bildungswege von der Berufsvorbereitung bis zur allgemeinen Hochschulreife."
+          },
+          {
+            "id": "schulorganisation-12",
+            "document": "Schulorganisation",
+            "page": 4,
+            "question": "Welche Unterschiede bestehen zwischen öffentlichen und privaten Schulen?",
+            "answer": "Öffentliche Schulen → staatlich getragen\n\nPrivate Schulen → freie Trägerschaft\n\nPrivatschulen sind durch Art. 7 GG grundsätzlich geschützt.\n\nBei Ersatzschulen bestehen jedoch Genehmigungsvoraussetzungen. Die Regelungen sollen unter anderem verhindern, dass durch Privatschulen eine starke gesellschaftliche bzw. soziale Segregation entsteht. Für private Grundschulen gelten besonders hohe Anforderungen."
+          },
+          {
+            "id": "schulorganisation-17",
+            "document": "Schulorganisation",
+            "page": 5,
+            "question": "Beschreiben Sie den Aufbau des deutschen Bildungssystems anhand der Bildungsbereiche.",
+            "answer": "Elementar → Primar → Sek I → Sek II → Tertiär\n\nElementarbereich: frühkindliche Bildung.\n\nPrimarbereich: Grundschule.\n\nSekundarbereich I: weiterführende Schulen.\n\nSekundarbereich II: gymnasiale Oberstufe und berufliche Bildung.\n\nTertiärbereich: Hochschulen und bestimmte Formen höherer beruflicher Bildung.\n\nDie berufliche Bildung besitzt dabei eine wichtige Brückenfunktion zwischen Schule, Ausbildung, Weiterbildung und Studium."
+          },
+          {
+            "id": "schulorganisation-23",
+            "document": "Schulorganisation",
+            "page": 7,
+            "question": "Nennen Sie Gründe für die Komplexität des baden-württembergischen Bildungsmodells.",
+            "answer": "Vor allem:\n\nviele unterschiedliche Schularten,\n\nzahlreiche Bildungsabschlüsse,\n\nhohe Durchlässigkeit,\n\nberufliche und allgemeinbildende Bildungswege,\n\nunterschiedliche Zugangsvoraussetzungen,\n\nzahlreiche Anschlussmöglichkeiten.\n\nDie Komplexität ist damit teilweise gewollt: Unterschiedliche Begabungen und Bildungsbiografien sollen verschiedene Wege zum gleichen oder zu höheren Abschlüssen ermöglichen. Das Kultusministerium beschreibt das System ausdrücklich als keine „Einbahnstraße“."
+          },
+          {
+            "id": "schulorganisation-32",
+            "document": "Schulorganisation",
+            "page": 9,
+            "question": "Was versteht man unter der Durchlässigkeit des Schulsystems?",
+            "answer": "Durchlässigkeit → Bildungswege bleiben offen\n\nEin bestimmter Schulabschluss bzw. eine einmal gewählte Schulart legt die weitere Bildungslaufbahn nicht endgültig fest.\n\nBeispiel:\n\nHauptschulabschluss → Ausbildung/2BFS → mittlerer Bildungsabschluss → Berufskolleg/Berufliches Gymnasium → FHR/Abitur.\n\nDas Kultusministerium formuliert dazu ausdrücklich, dass jeder Abschluss eine weiterführende Anschlussmöglichkeit bietet."
+          },
+          {
+            "id": "schulorganisation-38",
+            "document": "Schulorganisation",
+            "page": 10,
+            "question": "Erklären Sie den Begriff „Schulstufen“.",
+            "answer": "Schulstufen → Gliederung nach Bildungsabschnitten\n\nZum Beispiel:\n\nPrimarstufe,\n\nSekundarstufe I,\n\nSekundarstufe II.\n\nEine Schulstufe ist also keine einzelne Schulart, sondern ein Abschnitt des Bildungssystems."
+          },
+          {
+            "id": "schulorganisation-39",
+            "document": "Schulorganisation",
+            "page": 10,
+            "question": "Erklären Sie den Begriff „Schulfremdenprüfung“.",
+            "answer": "Schulfremdenprüfung → Abschluss ohne regulären Besuch des Bildungsgangs\n\nEine Person kann unter bestimmten Voraussetzungen eine staatliche Abschlussprüfung ablegen, obwohl sie den entsprechenden Bildungsgang nicht regulär besucht hat.\n\nDadurch kann ein Schulabschluss extern erworben werden."
+          }
+        ]
+      },
+      {
+        "title": "Duale Ausbildung organisieren",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "11-13",
+            "page": 11
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "15",
+            "page": 15
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-41",
+            "document": "Schulorganisation",
+            "page": 11,
+            "question": "Welche Abschlüsse strebt ein Berufsschüler an?",
+            "answer": "Doppelter Abschluss → Schule + Beruf\n\nIm dualen System werden grundsätzlich zwei Abschlüsse erworben:\n\nBerufsschulabschlusszeugnis der Berufsschule\n\nBerufsabschluss, z. B. Gesellen-, Gehilfen- oder Facharbeiterbrief\n\nZusätzlich können je nach Voraussetzungen weitere allgemeinbildende Abschlüsse bzw. Zusatzqualifikationen erworben werden. Die Präsentation nennt Hauptschulabschluss, Fachhochschulreife, fachgebundene Hochschulreife und Abitur als mögliche zusätzliche Abschlüsse.\n\nFür die Prüfung würde ich zuerst sagen:\n\nDer Berufsschüler strebt einerseits den schulischen Berufsschulabschluss und andererseits den Berufsabschluss bei der zuständigen Kammer an."
+          },
+          {
+            "id": "schulorganisation-42",
+            "document": "Schulorganisation",
+            "page": 11,
+            "question": "Kann in der Berufsschule ein Schuljahr wiederholt werden?",
+            "answer": "Wiederholung → grundsätzlich möglich\n\nLaut Lösungskatalog kann ein Schuljahr bei Nichtversetzung grundsätzlich einmal pro Jahrgang wiederholt werden.\n\nEine zweite Wiederholung desselben Jahrgangs ist nur ausnahmsweise bei außergewöhnlichen Umständen möglich, beispielsweise längerer Krankheit.\n\nWichtig ist aber die Besonderheit der dualen Ausbildung: Die Ausbildungsdauer ist zugleich im Ausbildungsvertrag mit dem Betrieb geregelt. Der ältere Lösungsteil der Unterlagen weist genau darauf hin."
+          },
+          {
+            "id": "schulorganisation-42-zustimmung",
+            "document": "Schulorganisation",
+            "page": 11,
+            "context": "Kann in der Berufsschule ein Schuljahr wiederholt werden?",
+            "question": "Wenn ja, wer muss zustimmen?",
+            "answer": "Hier unterscheiden die Unterlagen:\n\nBei der Versetzungsentscheidung entscheidet die Klassenkonferenz auf Grundlage der schulischen Leistungen.\n\nBei einer freiwilligen Wiederholung erfolgt ein Antrag des Schülers bzw. der Erziehungsberechtigten und die Zustimmung der Schulleitung ist erforderlich.\n\nDa es sich um eine duale Ausbildung handelt, spielt außerdem der Ausbildungsbetrieb eine Rolle, weil die Ausbildungsdauer vertraglich festgelegt ist. Im älteren Lösungskatalog steht deshalb knapp:\n\n„Der Ausbildungsbetrieb.“\n\nPrüfungstauglich würde ich deshalb sagen:\n\nSchulisch entscheidet die Schule bzw. Klassenkonferenz. Da die Ausbildungsdauer aber durch den Ausbildungsvertrag bestimmt wird, muss bei einer Verlängerung auch der Ausbildungsbetrieb einbezogen werden."
+          },
+          {
+            "id": "schulorganisation-43",
+            "document": "Schulorganisation",
+            "page": 11,
+            "question": "Nennen Sie drei Vorteile der dualen Ausbildung.",
+            "answer": "Duale Ausbildung → Theorie + Praxis + geteilte Kosten\n\nDie Unterlagen nennen insbesondere:\n\nVerbindung von praktischem und theoretischem Lernen\n\nAufteilung der Ausbildungskosten\n\nAusbildungsinhalte können relativ schnell an den Bedarf der Wirtschaft angepasst werden\n\nWeitere genannte Vorteile sind:\n\nhohe Praxisnähe,\n\nbessere Jobchancen,\n\nAusbildungsvergütung,\n\neinheitliches Ausbildungsniveau.\n\nAuch die beigefügte Broschüre beschreibt die Kombination von Theorie in der Berufsschule und Praxis im Betrieb als entscheidendes Merkmal der dualen Ausbildung."
+          },
+          {
+            "id": "schulorganisation-44",
+            "document": "Schulorganisation",
+            "page": 12,
+            "question": "Erklären Sie das marktwirtschaftliche System bei der Ausbildung Jugendlicher.",
+            "answer": "Marktwirtschaftliches Modell → Betriebe bestimmen den Bedarf\n\nDie Ausbildungsbetriebe sind die Hauptakteure.\n\nSie bilden vor allem entsprechend der Nachfrage bzw. ihres eigenen Fachkräftebedarfs aus. Die Ausbildung ist:\n\nstark an der beruflichen Verwendung orientiert,\n\nproduktionsgebunden,\n\ndurch die Betriebe finanziert,\n\nvergleichsweise wenig pädagogisiert.\n\nProblematisch ist laut Unterlage, dass die Auswahl der Auszubildenden durch die Betriebe erfolgt und gesellschaftliche Ziele wie Chancengleichheit dabei nicht zwingend berücksichtigt werden.\n\nKurzform für die Prüfung:\n\nBeim marktwirtschaftlichen Modell bestimmen hauptsächlich die Betriebe, wen und in welchen Berufen sie entsprechend ihrem Bedarf ausbilden."
+          },
+          {
+            "id": "schulorganisation-45",
+            "document": "Schulorganisation",
+            "page": 12,
+            "question": "Was versteht man unter dem bürokratischen Ausbildungsmodell?",
+            "answer": "Bürokratisches Modell → Staat plant Ausbildung\n\nDas ist gewissermaßen das Gegenmodell zum marktwirtschaftlichen Modell.\n\nBerufsbildung und Ausbildungsbedarf liegen stärker in den Händen staatlicher Planung.\n\nDie Ausbildung orientiert sich nicht nur am unmittelbaren Bedarf der Betriebe, sondern auch an:\n\nindividuellen Anforderungen,\n\ngesellschaftlichen Anforderungen,\n\npädagogischen Zielsetzungen.\n\nDas Modell ist laut Sitzung 2:\n\nsystematischer,\n\nstärker pädagogisiert,\n\nöffentlich finanziert.\n\nMerksatz:\n\nMarktwirtschaftlich → Betrieb bestimmt\n\nBürokratisch → Staat plant"
+          },
+          {
+            "id": "schulorganisation-46",
+            "document": "Schulorganisation",
+            "page": 12,
+            "question": "Wie werden die Stufen in der Berufsschule genannt?",
+            "answer": "Grundstufe → Fachstufe I → Fachstufe II\n\nDie Berufsschule gliedert sich in drei Stufen:\n\nGrundstufe: 1. Ausbildungsjahr\n\nFachstufe I: 2. Ausbildungsjahr\n\nFachstufe II: 3. bzw. 4. Ausbildungsjahr\n\nDie Präsentation nennt genau diese drei Stufen.\n\nMerksatz:\n\nJahr Grundstufe – danach Fachstufen."
+          },
+          {
+            "id": "schulorganisation-47",
+            "document": "Schulorganisation",
+            "page": 12,
+            "question": "Erläutern Sie den Begriff „Blockunterricht“.",
+            "answer": "Blockunterricht → Schule mehrere Wochen am Stück\n\nBeim Blockunterricht findet der Berufsschulunterricht nicht an einzelnen Wochentagen statt, sondern gebündelt:\n\nDer Auszubildende besucht eine oder mehrere Wochen am Stück die Berufsschule und ist anschließend wieder für einen längeren Zeitraum im Betrieb.\n\nDie ergänzende Ausbildungsbroschüre bestätigt die beiden Organisationsformen: Berufsschule findet entweder an ein bis zwei Tagen pro Woche oder in mehrwöchigem Blockunterricht statt."
+          },
+          {
+            "id": "schulorganisation-48",
+            "document": "Schulorganisation",
+            "page": 13,
+            "question": "Welche Stellen sind zuständig bei der dualen Ausbildung?",
+            "answer": "Duales System → Betrieb + Berufsschule + Kammer\n\nDrei zentrale Akteure:\n\nAusbildungsbetrieb\n\nBerufsschule\n\nzuständige Kammer, z. B.\n\nIndustrie- und Handelskammer (IHK)\n\nHandwerkskammer (HWK)\n\nDabei gelten unterschiedliche Rechtsgrundlagen:\n\nBetriebliche Ausbildung:\n\nBBiG, Handwerksordnung, Ausbildungsordnung, Jugendarbeitsschutzgesetz, AEVO und Ausbildungsvertrag.\n\nSchulische Ausbildung in Baden-Württemberg:\n\nSchulgesetz, Verordnungen, Berufsschulordnung und Bildungspläne."
+          },
+          {
+            "id": "schulorganisation-49",
+            "document": "Schulorganisation",
+            "page": 13,
+            "question": "Kann ich als Schülerin entscheiden, auf welche Berufsschule ich gehe?",
+            "answer": "Berufsschule → grundsätzlich keine freie Wahl\n\nNein.\n\nNach dem Lösungskatalog wird die zuständige Berufsschule grundsätzlich zugewiesen.\n\nHintergrund ist insbesondere die Bildung von Fachklassen für bestimmte Ausbildungsberufe. Nicht jede Berufsschule bietet jeden Ausbildungsberuf an.\n\nKurz für die Prüfung:\n\nNein. Die Berufsschule ist grundsätzlich durch Ausbildungsberuf und Schulbezirk bzw. zuständige Zuweisung vorgegeben."
+          },
+          {
+            "id": "schulorganisation-56",
+            "document": "Schulorganisation",
+            "page": 15,
+            "question": "Warum spricht man von einer gemeinsamen Abschlussprüfung? Wer führt sie mit wem durch?",
+            "answer": "Gemeinsame Abschlussprüfung → Schule + Kammer verzahnt\n\nEs soll vermieden werden, dass Auszubildende dieselben Inhalte zweimal prüfen müssen.\n\nLaut Sitzung 2 werden der\n\nschriftliche Teil der Kammerprüfung\n\nund der schriftliche Teil der Berufsschulabschlussprüfung\n\nan der Berufsschule durchgeführt und korrigiert.\n\nDadurch entsteht keine Doppelprüfung.\n\nAm Ende stehen trotzdem zwei unterschiedliche Abschlüsse:\n\nBerufsschule → Berufsschulabschlusszeugnis\n\nKammer → Gesellen-, Gehilfen- oder Facharbeiterbrief\n\nDie Präsentation fasst das entsprechend als „Berufsschulabschlusszeugnis und Gesellen-, Gehilfen- oder Facharbeiterbrief (gemeinsame Abschlussprüfung)“ zusammen."
+          }
+        ]
+      },
+      {
+        "title": "Lernfelder und zusätzliche Abschlüsse",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "14",
+            "page": 14
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-53",
+            "document": "Schulorganisation",
+            "page": 14,
+            "question": "Was kennzeichnet das Lernfeldkonzept?",
+            "answer": "Lernfeld → berufliche Handlung statt klassisches Fach\n\nZentrales Merkmal ist die Handlungsorientierung.\n\nLernfelder orientieren sich an realen beruflichen Handlungsabläufen und nicht primär an der traditionellen Fächersystematik.\n\nDie Präsentation nennt:\n\nHandlungsorientierung als didaktisches Prinzip,\n\nFörderung beruflicher Handlungskompetenz,\n\nProzessorientierung,\n\nBezug zur beruflichen Realität,\n\nVermittlung von Kompetenzen,\n\nAuflösung der klassischen Fächersystematik,\n\nganzheitlich-handlungsorientierte Ausrichtung.\n\nBeispiel:\n\nFachrechnen wird nicht unbedingt isoliert als eigenes Fach behandelt, sondern dort integriert, wo die mathematische Kompetenz für eine konkrete berufliche Handlung benötigt wird.\n\nMerksatz:\n\nLernfelder orientieren sich an beruflichen Handlungen, nicht an klassischen Schulfächern."
+          },
+          {
+            "id": "schulorganisation-54",
+            "document": "Schulorganisation",
+            "page": 14,
+            "question": "Aus welchen Gründen wurde das Lernfeldkonzept in den Berufsschulen eingeführt?",
+            "answer": "Lernfeldkonzept → näher an der beruflichen Realität\n\nLaut Lösungskatalog wurde es eingeführt, um eine\n\npraxisnahe,\n\nhandlungsorientierte,\n\nkompetenzorientierte und\n\nganzheitliche\n\nberufliche Bildung zu ermöglichen.\n\nDie Präsentation ergänzt einen wichtigen Punkt:\n\nDie Orientierung an beruflichen Prozessen soll auch die berufliche Flexibilität fördern.\n\nEs geht also nicht nur darum, Faktenwissen zu vermitteln, sondern Schülerinnen und Schüler dazu zu befähigen, komplexe berufliche Situationen selbstständig zu bewältigen."
+          },
+          {
+            "id": "schulorganisation-55",
+            "document": "Schulorganisation",
+            "page": 14,
+            "question": "Was versteht man unter dem „9 + 3“-Modell?",
+            "answer": "9 + 3 → Hauptschule + Berufsausbildung = mittlerer Bildungsabschluss\n\nNach den Unterlagen ermöglicht das 9+3-Modell den Erwerb eines dem Realschulabschluss gleichwertigen mittleren Bildungsabschlusses nach:\n\n9 Jahren Schule + 3-jähriger Berufsausbildung\n\nWichtig ist also:\n\nDurch die erfolgreiche Berufsausbildung kann ein höherer allgemeinbildender Abschluss erreicht bzw. anerkannt werden.\n\nMerksatz:\n\n9 Jahre Schule + 3 Jahre Ausbildung → mittlerer Bildungsabschluss"
+          }
+        ]
+      },
+      {
+        "title": "Ausbildungsvorbereitung und Berufsfachschulen",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "6",
+            "page": 6
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "13-14",
+            "page": 13
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "16",
+            "page": 16
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-19",
+            "document": "Schulorganisation",
+            "page": 6,
+            "question": "Welche Bildungswege stehen einem 16-jährigen Schüler ohne Abschluss offen? Welcher Pflicht unterliegt er?",
+            "answer": "Kein Abschluss →\n\nberufliche Schule / Übergangsbereich\n\nMögliche Angebote sind insbesondere AV bzw. AVdual.\n\nZiel ist:\n\nberufliche Orientierung,\n\nVerbesserung der Basiskompetenzen,\n\nVorbereitung auf Ausbildung,\n\nggf. Erwerb eines dem Hauptschulabschluss gleichwertigen Bildungsstandes.\n\nDie beruflichen Schulen halten diese Angebote gerade für Jugendliche bereit, denen nach der\n\nallgemeinen Schulpflicht der direkte Übergang in eine Ausbildung nicht gelungen ist.\n\nDer Jugendliche kann daher nicht einfach zu Hause bleiben, wenn noch Berufsschulpflicht besteht.\n\nFrage: Es geht darum, dass nach der Hauptschule ohne Abschluss nicht einfach zuhause bleiben kann.\n\nDaher berufsschulpflicht. Ist nur bis 18?"
+          },
+          {
+            "id": "schulorganisation-50",
+            "document": "Schulorganisation",
+            "page": 13,
+            "question": "Welche Schulart muss ein Schüler ohne Hauptschulabschluss und ohne Lehrvertrag besuchen, um die Berufsschulpflicht zu erfüllen?",
+            "answer": "Ohne Hauptschulabschluss + ohne Ausbildung → AV/AVdual\n\nLaut Sitzung 2:\n\nAV bzw. AVdual\n\nAV steht für Ausbildungsvorbereitung.\n\nZiel ist insbesondere:\n\nberufliche Orientierung,\n\nVerbesserung von Basiskompetenzen,\n\nVorbereitung auf Ausbildung,\n\nggf. Erwerb eines dem Hauptschulabschluss entsprechenden Bildungsstands."
+          },
+          {
+            "id": "schulorganisation-51",
+            "document": "Schulorganisation",
+            "page": 13,
+            "question": "Welche Schulart muss ein Schüler mit Hauptschulabschluss und ohne Lehrvertrag besuchen, um die Berufsschulpflicht zu erfüllen?",
+            "answer": "Hauptschulabschluss + keine Ausbildung → 2BFS oder AV/AVdual\n\nLaut Lösungskatalog:\n\nzweijährige Berufsfachschule (2BFS) oder\n\nAV/AVdual.\n\nDie 2BFS hat zusätzlich den Vorteil, dass dort die Fachschulreife und damit ein mittlerer Bildungsabschluss erworben werden kann."
+          },
+          {
+            "id": "schulorganisation-52",
+            "document": "Schulorganisation",
+            "page": 14,
+            "question": "Welche Schulart muss ein Schüler mit mittlerem Bildungsabschluss und ohne Lehrvertrag besuchen, um die Berufsschulpflicht zu erfüllen?",
+            "answer": "Mittlerer Bildungsabschluss → BK oder Berufliches Gymnasium\n\nDer Fragenkatalog nennt:\n\nBerufskolleg\n\noder Berufliches Gymnasium.\n\nDamit kann gleichzeitig ein höherer Bildungsabschluss angestrebt werden."
+          },
+          {
+            "id": "schulorganisation-57",
+            "document": "Schulorganisation",
+            "page": 16,
+            "question": "Wie unterscheiden sich 1-, 2- und 3-jährige Berufsfachschulen?",
+            "answer": "1BFS → berufliche Grundbildung\n\nDie einjährige Berufsfachschule vermittelt eine berufliche Grundbildung, die dem 1. Ausbildungsjahr entsprechen kann. Alternativ kann sie zu einer Ausbildung in einem Helferberuf führen.\n\n2BFS → berufliche Grundbildung + Fachschulreife\n\nDie zweijährige Berufsfachschule vermittelt berufliche Grundbildung und führt zur Fachschulreife, also zu einem mittleren Bildungsabschluss. Daneben gibt es laut Unterlage auch 2-jährige Berufsfachschulen mit beruflicher Vollausbildung.\n\n3BFS → berufliche Vollausbildung\n\nDie dreijährige Berufsfachschule führt zu einer beruflichen Vollausbildung.\n\nMerksatz:\n\n1BFS → Grundbildung\n\n2BFS → Grundbildung + mittlerer Bildungsabschluss\n\n3BFS → Vollausbildung"
+          },
+          {
+            "id": "schulorganisation-58",
+            "document": "Schulorganisation",
+            "page": 16,
+            "question": "Wie lautet die Probezeitregelung in der 2BFS?",
+            "answer": "2BFS → erstes Halbjahr ist Probezeit\n\nDie Aufnahme in die 2BFS erfolgt grundsätzlich zunächst auf Probe.\n\nDie Probezeit umfasst das erste Schulhalbjahr. Dieses endet mit einem Halbjahreszeugnis – ausdrücklich nicht nur mit einer Halbjahresinformation.\n\nAuf Grundlage der Noten in diesem Zeugnis entscheidet die Klassenkonferenz, ob die Probezeit bestanden wurde."
+          },
+          {
+            "id": "schulorganisation-59",
+            "document": "Schulorganisation",
+            "page": 16,
+            "question": "Was passiert bei Nichtbestehen?",
+            "answer": "Grundsätzlich:\n\nProbezeit nicht bestanden → Bildungsgang muss verlassen werden.\n\nEs gibt aber eine wichtige Besonderheit:\n\nDer Schüler kann auf eigenen Wunsch bis zum Ende des Schuljahres mit allen Rechten und Pflichten weiter am Unterricht teilnehmen.\n\nAm Ende des zweiten Halbjahres kann die Klassenkonferenz dann doch noch entscheiden, dass der Schüler im Bildungsgang verbleiben darf.\n\nAußerdem ist eine erneute Anmeldung – sogar an derselben 2BFS – möglich. Allerdings werden bei der Aufnahme zunächst andere Bewerber bevorzugt.\n\nMerksatz:\n\n2BFS-Probezeit → 1. Halbjahr; Klassenkonferenz entscheidet. Nicht bestanden = grundsätzlich raus, Weiterbesuch bis Schuljahresende aber auf Wunsch möglich.",
+            "context": "Probezeit in der zweijährigen Berufsfachschule (2BFS)."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-11",
+    "title": "Berufliche Vollzeitschulen und Wege zur Hochschulreife",
+    "topics": [
+      {
+        "title": "Berufskolleg I und II",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "16-18",
+            "page": 16
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "28",
+            "page": 28
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-60",
+            "document": "Schulorganisation",
+            "page": 16,
+            "question": "Welche Zielsetzungen verfolgen Berufskollegs?",
+            "answer": "Berufskolleg → berufliche Qualifikation + höhere Allgemeinbildung\n\nDie Berufskollegs verbinden eine vertiefte allgemeine Bildung mit einer beruflichen Qualifizierung.\n\nJe nach Berufskolleg können sie auf:\n\neine berufliche Tätigkeit,\n\neinen Berufsabschluss bzw. eine Zusatzqualifikation,\n\ndie Fachhochschulreife\n\nvorbereiten.\n\nEin wichtiges Merkmal ist damit die Verbindung von allgemeiner und beruflicher Bildung.\n\nDie Unterlagen ordnen die Berufskollegs entsprechend den berufs- und studienqualifizierenden beruflichen Vollzeitschulen zu."
+          },
+          {
+            "id": "schulorganisation-61",
+            "document": "Schulorganisation",
+            "page": 17,
+            "question": "Welche Zugangsvoraussetzungen gelten in der Regel für die Berufskollegs I? Warum gibt es keine Notenvorgaben, aber dann für die Aufnahme ins BK II?",
+            "answer": "BK I → mittlerer Bildungsabschluss\n\nGrundvoraussetzung für das BK I ist in der Regel ein mittlerer Bildungsabschluss.\n\nEine bestimmte Mindestnote ist für die Aufnahme ins BK I grundsätzlich nicht erforderlich.\n\nDer entscheidende Unterschied kommt beim Übergang ins BK II:\n\nDort wird ein bestimmter Leistungsstand verlangt.\n\nWarum?\n\nDas BK I hat damit auch eine Auswahl- bzw. Orientierungsfunktion: Erst die Leistungen im BK I zeigen, ob die Voraussetzungen für den anspruchsvolleren weiterführenden Bildungsgang des BK II erfüllt sind.\n\nMerksatz:\n\nBK I → mittlerer Abschluss reicht.\n\nBK II → Leistung im BK I entscheidet."
+          },
+          {
+            "id": "schulorganisation-62",
+            "document": "Schulorganisation",
+            "page": 17,
+            "question": "Erklären Sie die Unterschiede zwischen einer Junior- und einer Übungsfirma.",
+            "answer": "Juniorfirma → reale wirtschaftliche Tätigkeit\n\nEine Juniorfirma ist ein von Schülerinnen und Schülern geführtes Unternehmen, das real am Markt tätig ist.\n\nEs gibt also beispielsweise:\n\nechte Produkte bzw. Dienstleistungen,\n\nechte Kunden,\n\nechte Einnahmen und Ausgaben.\n\nÜbungsfirma → simulierte wirtschaftliche Tätigkeit\n\nEine Übungsfirma bildet betriebliche Abläufe lediglich realitätsnah nach.\n\nGeschäftsvorgänge werden simuliert; es findet aber kein echter Waren- bzw. Geldverkehr wie bei einem realen Unternehmen statt.\n\nDie Unterlagen nennen für die Juniorfirma außerdem ausdrücklich:\n\nSchüler bzw. auch Auszubildende als Zielgruppe und dauerhafte Tätigkeit unter Schülerleitung.\n\nMerksatz:\n\nJuniorfirma → echtes Geschäft\n\nÜbungsfirma → Geschäft wird simuliert"
+          },
+          {
+            "id": "schulorganisation-63",
+            "document": "Schulorganisation",
+            "page": 17,
+            "question": "Was könnten problematische Aspekte beim BK I sein?",
+            "answer": "BK I → geringe unmittelbare Konsequenz beim Nichtbestehen der Probezeit\n\nDie Sitzung hebt hier speziell die Probezeitregelung als problematischen Aspekt hervor.\n\nWenn ein Schüler die Probezeit im BK I nicht besteht, hat dies nicht unbedingt eine unmittelbare Konsequenz:\n\nDer Schüler kann einen Antrag stellen, die Schule trotzdem bis zum Ende des Schuljahres weiter zu besuchen.\n\nDas hängt insbesondere mit der noch bestehenden Berufsschulpflicht zusammen.\n\nDas kann problematisch sein, weil Schüler damit trotz festgestellter mangelnder Eignung für den Bildungsgang zunächst weiter im BK I bleiben.\n\nPrüfungstauglich:\n\nEin Problem des BK I ist, dass das Nichtbestehen der Probezeit nicht zwingend zum sofortigen Verlassen führt. Bei bestehender Berufsschulpflicht kann der Schüler auf Antrag bis zum Schuljahresende weiter am Unterricht teilnehmen."
+          },
+          {
+            "id": "schulorganisation-64",
+            "document": "Schulorganisation",
+            "page": 18,
+            "question": "Wie lautet die Probezeitregelung im BK I, wie im BK II?",
+            "answer": "Hier ist der Unterschied wichtig.\n\nBK I\n\nBK I → Nichtbestehen bedeutet nicht zwingend sofortiges Ausscheiden\n\nAlle Schülerinnen und Schüler werden zunächst auf Probe aufgenommen.\n\nDie Probezeit umfasst das erste Halbjahr.\n\nWird sie nicht bestanden, kann der Schüler auf Antrag die Schule bis zum Ende des Schuljahres weiter besuchen. Die Unterlage begründet dies mit der Erfüllung der Berufsschulpflicht.\n\nBK II\n\nBK II → Nichtbestehen bedeutet Ausscheiden\n\nAuch hier werden zunächst alle Schüler auf Probe aufgenommen.\n\nAber:\n\nWird die Probezeit nicht bestanden, muss der Schüler die Schule verlassen.\n\nWichtigster Unterschied\n\nBK I → Weiterbesuch trotz nicht bestandener Probezeit möglich.\n\nBK II → nicht bestanden = Schule verlassen."
+          },
+          {
+            "id": "schulorganisation-65",
+            "document": "Schulorganisation",
+            "page": 18,
+            "question": "Welche Aufnahmebedingungen gelten für das BK II?",
+            "answer": "BK II → BK-I-Abschluss + Schnitt 3,0\n\nErforderlich ist ein Abschlusszeugnis des Berufskollegs I.\n\nIn den maßgeblichen Fächern\n\nDeutsch,\n\nEnglisch,\n\nMathematik,\n\nProfilfach\n\nmuss ein Durchschnitt von mindestens 3,0 erreicht werden.\n\nBei freien Schulplätzen ist laut Sitzungsunterlage eine Aufnahme bis zu einem Durchschnitt von 3,25 möglich.\n\nMerksatz:\n\nBK II → D + E + M + Profilfach ≤ 3,0; bei freien Plätzen bis 3,25."
+          },
+          {
+            "id": "schulorganisation-66",
+            "document": "Schulorganisation",
+            "page": 18,
+            "question": "Welche Abschlüsse sind im BK II möglich und wann werden diese Abschlüsse bundesweit anerkannt?",
+            "answer": "BK II → Fachhochschulreife\n\nZentraler Abschluss ist die:\n\nFachhochschulreife (FHR)\n\nDaneben können je nach Bildungsgang Zusatzqualifikationen erworben werden.\n\nFür die bundesweite Anerkennung der Fachhochschulreife müssen laut Unterlage\n\nschulischer + praktischer Teil\n\nerfüllt sein.\n\nMerksatz:\n\nFHR = schulischer Teil + praktischer Teil → bundesweit anerkannt"
+          }
+        ]
+      },
+      {
+        "title": "1BKFH und Berufsoberschule",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "18-19",
+            "page": 18
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-67",
+            "document": "Schulorganisation",
+            "page": 18,
+            "question": "Wie lauten die Aufnahmevoraussetzungen für das 1BKFH?",
+            "answer": "1BKFH → mittlerer Bildungsabschluss + Beruf\n\nDas einjährige Berufskolleg zum Erwerb der Fachhochschulreife (1BKFH) setzt zwei Dinge voraus:\n\nmittlerer Bildungsabschluss\n\nund\n\nentweder eine abgeschlossene Berufsausbildung von mindestens zwei Jahren\n\noder\n\nmindestens fünf Jahre Berufserfahrung.\n\nDas Ziel ist dann der Erwerb der Fachhochschulreife.\n\nMerksatz:\n\n1BKFH → mittlere Reife + mindestens 2-jährige Ausbildung / 5 Jahre Berufserfahrung → FHR"
+          },
+          {
+            "id": "schulorganisation-68",
+            "document": "Schulorganisation",
+            "page": 19,
+            "question": "Welche Zugangsvoraussetzungen gelten für die Oberstufe der Berufsoberschulen?",
+            "answer": "BOS → mittlere Reife + Beruf\n\nDie Sitzungsantwort nennt als Voraussetzungen:\n\neinschlägige Berufsausbildung oder\n\nfünf Jahre Berufserfahrung\n\nund\n\nmittlerer Bildungsabschluss.\n\nDie in den Unterlagen enthaltene ausführlichere Darstellung konkretisiert den mittleren Bildungsabschluss:\n\nMöglich sind beispielsweise\n\nRealschulabschluss,\n\nFachschulreife,\n\nWerkrealschulabschluss,\n\nentsprechende Versetzungszeugnisse aus dem Gymnasium bzw. der Gemeinschaftsschule.\n\nDabei wird dort grundsätzlich ein Durchschnitt von mindestens 3,0 aus Deutsch, Englisch, Mathematik und einem naturwissenschaftlichen Fach verlangt; keines dieser Fächer darf schlechter als „ausreichend“ sein.\n\nFür die mündliche Prüfung zuerst kurz:\n\nFür die BOS brauche ich grundsätzlich einen mittleren Bildungsabschluss und eine abgeschlossene einschlägige Berufsausbildung bzw. entsprechende Berufserfahrung."
+          },
+          {
+            "id": "schulorganisation-70",
+            "document": "Schulorganisation",
+            "page": 19,
+            "question": "Wie kann ein erfolgreicher BK-II-Schüler in die Berufsoberschule wechseln?",
+            "answer": "Die Kurzlösung in Sitzung 3 lautet:\n\nErfolgreicher Abschluss BK II (FHR)\n\nggf. berufliche Praxis/Ausbildung\n\n→ Zugang zur BOS möglich.\n\nDie ausführlicheren Unterlagen machen daraus einen besonders interessanten Weg:\n\nGute FHR + berufliche Qualifikation → direkter Einstieg ins 2. Jahr der BOS möglich\n\nBesonders qualifizierte Bewerber mit Fachhochschulreife und beruflicher Qualifikation können in freie Plätze im zweiten Jahr der BOS aufgenommen werden.\n\nVoraussetzungen laut Unterlage:\n\nFachhochschulreife mit einem Durchschnitt der maßgebenden Fächer von mindestens 2,5,\n\nDeutsch, Englisch, Mathematik und berufliches Schwerpunktfach jeweils besser als „ausreichend“,\n\nverpflichtendes Beratungsgespräch.\n\nDas ist für die Prüfung der interessantere Sonderfall:\n\nGute FHR + berufliche Qualifikation → unter bestimmten Voraussetzungen direkter Einstieg in Klasse 2 der BOS."
+          }
+        ]
+      },
+      {
+        "title": "Berufliches Gymnasium: Zugang",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "20-22",
+            "page": 20
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-71",
+            "document": "Schulorganisation",
+            "page": 20,
+            "question": "Welche Mindestvoraussetzungen brauchen Realschüler, Werkrealschüler oder Schüler einer Gemeinschaftsschule zum Besuch des Beruflichen Gymnasiums?",
+            "answer": "Mittlerer Bildungsabschluss + Schnitt 3,0\n\nFür die Aufnahme in das dreijährige Berufliche Gymnasium (3BG) braucht man grundsätzlich einen mittleren Bildungsabschluss.\n\nBei Realschule/Werkrealschule/Gemeinschaftsschule gilt:\n\nDurchschnitt aus Deutsch, Mathematik und erster Pflichtfremdsprache mindestens 3,0\n\nkeines dieser drei Fächer schlechter als „ausreichend“ (4).\n\nMerksatz:\n\n3BG → D + M + E/Fremdsprache ≤ 3,0 und keines schlechter als 4."
+          },
+          {
+            "id": "schulorganisation-72",
+            "document": "Schulorganisation",
+            "page": 20,
+            "question": "Wie sind diese Voraussetzungen für Schüler der allgemeinbildenden Gymnasien?",
+            "answer": "Gymnasium → Versetzung reicht\n\nFür Schülerinnen und Schüler eines allgemeinbildenden Gymnasiums ist grundsätzlich das entsprechende Versetzungszeugnis entscheidend.\n\nDie Unterlagen zum Beruflichen Gymnasium nennen als Zugang:\n\nVersetzungszeugnis am Ende der Klasse 9 oder 10 eines achtjährigen Gymnasiums,\n\nbzw. Versetzungszeugnis am Ende der Klasse 10 eines Gymnasiums.\n\nMerksatz:\n\nRealschule → Notenschnitt\n\nGymnasium → Versetzung"
+          },
+          {
+            "id": "schulorganisation-73",
+            "document": "Schulorganisation",
+            "page": 20,
+            "question": "Aus welchem Grund sind die Zugangsvoraussetzungen für Gymnasiasten nicht dieselben wie für Realschüler?",
+            "answer": "Versetzung am Gymnasium → Eignung für gymnasiales Niveau bereits festgestellt\n\nBeim Gymnasiasten zeigt die Versetzung, dass er die Anforderungen des gymnasialen Bildungsgangs erfüllt.\n\nBei Schülerinnen und Schülern anderer Schularten muss die Eignung für die gymnasiale Oberstufe dagegen über bestimmte Mindestnoten nachgewiesen werden.\n\nPrüfungstauglich:\n\nBeim Gymnasiasten bestätigt bereits die Versetzungsentscheidung die Eignung für den gymnasialen Bildungsgang. Deshalb ist kein zusätzlicher 3,0-Schnitt wie bei Realschülern erforderlich."
+          },
+          {
+            "id": "schulorganisation-74",
+            "document": "Schulorganisation",
+            "page": 20,
+            "question": "Nach welchem Schuljahr kann ein Schüler des G8 in ein Berufliches Gymnasium wechseln? Welche Dinge sind zu beachten?",
+            "answer": "G8 → nach Klasse 9 oder 10\n\nLaut den Unterlagen ist der Wechsel mit einem Versetzungszeugnis am Ende der Klasse 9 oder Klasse 10 möglich.\n\nZu beachten sind außerdem insbesondere:\n\ndie Fremdsprachenregelung,\n\ndie Altersgrenze,\n\ndie Aufnahmebedingungen des jeweiligen BG.\n\nDie Unterlagen nennen ausdrücklich als Voraussetzung, dass die Pflichtfremdsprache des mittleren Abschlusses als erste Pflichtfremdsprache weitergeführt werden können muss."
+          },
+          {
+            "id": "schulorganisation-75",
+            "document": "Schulorganisation",
+            "page": 21,
+            "question": "Nach welchem Schuljahr kann ein Schüler des G9 in ein Berufliches Gymnasium wechseln?",
+            "answer": "G9 → nach Klasse 10\n\nFür Schülerinnen und Schüler des neunjährigen Gymnasiums erfolgt der Wechsel grundsätzlich nach Klasse 10 mit entsprechender Versetzung.\n\nMerksatz:\n\nG8 → nach 9 oder 10\n\nG9 → nach 10"
+          },
+          {
+            "id": "schulorganisation-76",
+            "document": "Schulorganisation",
+            "page": 21,
+            "question": "Wie sieht der Fremdsprachenunterricht für einen Schüler aus, der bis zum mittleren Bildungsabschluss „nur“ Englisch als Fremdsprache hatte?",
+            "answer": "Nur eine Fremdsprache bisher → zweite Fremdsprache neu beginnen\n\nFür die allgemeine Hochschulreife muss eine ausreichende zweite Fremdsprache nachgewiesen werden.\n\nHat der Schüler bisher nur Englisch gelernt, muss er am Beruflichen Gymnasium eine neu beginnende zweite Fremdsprache belegen und diese entsprechend fortführen.\n\nEnglisch wird als erste Fremdsprache fortgeführt.\n\nMerksatz:\n\nNur Englisch bisher → zweite Fremdsprache am BG neu beginnen."
+          },
+          {
+            "id": "schulorganisation-77",
+            "document": "Schulorganisation",
+            "page": 21,
+            "question": "Wie sieht der Fremdsprachenunterricht für einen Schüler aus, der bis zum mittleren Bildungsabschluss Englisch und mindestens vier Jahre Französisch hatte?",
+            "answer": "Zweite Fremdsprache bereits erfüllt → keine neue Fremdsprache nötig\n\nHat der Schüler bereits eine zweite Fremdsprache ausreichend lange besucht, kann die Fremdsprachenpflicht damit erfüllt sein.\n\nEntscheidend ist, dass die Voraussetzungen hinsichtlich\n\nDauer des Unterrichts und\n\nerforderlicher Leistungen\n\nerfüllt sind.\n\nDann muss Französisch nicht zwingend weitergeführt werden.\n\nMerksatz:\n\nZweite Fremdsprache bereits ausreichend gelernt → keine neu beginnende zweite Fremdsprache erforderlich."
+          },
+          {
+            "id": "schulorganisation-81",
+            "document": "Schulorganisation",
+            "page": 22,
+            "question": "Gibt es für das Berufliche Gymnasium eine Altersgrenze?",
+            "answer": "3BG → Altersgrenze vorhanden\n\nJa.\n\nDie Sitzung nennt:\n\nBei Schuljahresbeginn darf das 19. Lebensjahr noch nicht vollendet sein.\n\nBei bereits abgeschlossener Berufsausbildung:\n\nDas 22. Lebensjahr darf noch nicht vollendet sein.\n\nMerksatz:\n\nBG → unter 19\n\nmit Ausbildung → unter 22"
+          },
+          {
+            "id": "schulorganisation-82",
+            "document": "Schulorganisation",
+            "page": 22,
+            "question": "Welche Möglichkeiten gibt es für ältere Schülerinnen und Schüler, ein Abitur zu erlangen?",
+            "answer": "Wenn die Altersgrenze des regulären 3BG überschritten ist, kommen andere Wege infrage, insbesondere Bildungswege des zweiten Bildungswegs bzw. berufliche Aufstiegswege.\n\nIn den Sitzungen wurde beispielsweise bereits die Berufsoberschule behandelt.\n\nDort kann mit entsprechender beruflicher Qualifikation die Hochschulreife erworben werden.\n\nPrüfungstauglich:\n\nFür ältere Bewerber gibt es alternative Wege wie die Berufsoberschule bzw. Angebote des zweiten Bildungswegs."
+          }
+        ]
+      },
+      {
+        "title": "Berufliches Gymnasium: Aufbau",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "21-23",
+            "page": 21
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-78",
+            "document": "Schulorganisation",
+            "page": 21,
+            "question": "Welche Profile gibt es bei den Beruflichen Gymnasien? – 6 Nennungen",
+            "answer": "Die Unterlagen unterscheiden sechs Richtungen:\n\nAgrarwissenschaftliches Gymnasium (AG)\n\nBiotechnologisches Gymnasium (BTG)\n\nErnährungswissenschaftliches Gymnasium (EG)\n\nSozial- und gesundheitswissenschaftliches Gymnasium (SGG)\n\nTechnisches Gymnasium (TG)\n\nWirtschaftsgymnasium (WG)\n\nMerksatz:\n\nAG – BTG – EG – SGG – TG – WG"
+          },
+          {
+            "id": "schulorganisation-79",
+            "document": "Schulorganisation",
+            "page": 22,
+            "question": "Erklären Sie den Begriff „Eingangsklasse“.",
+            "answer": "Eingangsklasse → erstes Jahr des dreijährigen BG\n\nDas dreijährige Berufliche Gymnasium besteht aus:\n\nEingangsklasse → Jahrgangsstufe 1 → Jahrgangsstufe 2\n\nDie Eingangsklasse dient insbesondere dazu, Schülerinnen und Schüler aus unterschiedlichen vorherigen Schularten auf ein gemeinsames Niveau zu bringen und auf die anschließende Kursstufe vorzubereiten.\n\nDie Unterlagen beschreiben das 3BG entsprechend als dreijährigen Bildungsgang aus Eingangsklasse und beiden Jahrgangsstufen.\n\nMerksatz:\n\nEK → Vorbereitung auf J1 und J2."
+          },
+          {
+            "id": "schulorganisation-83",
+            "document": "Schulorganisation",
+            "page": 23,
+            "question": "Wodurch unterscheidet sich ein Profilfach von anderen Fächern?",
+            "answer": "Profilfach → prägt die berufliche Ausrichtung des BG\n\nDas Profilfach ist das zentrale Fach der jeweiligen Richtung.\n\nBeispiele:\n\nTG → technisches Profilfach,\n\nWG → Wirtschaft,\n\nSGG → sozial-/gesundheitswissenschaftliches Profil.\n\nDas Profilfach vermittelt vertiefte berufsbezogene Kenntnisse und prägt damit das jeweilige Berufliche\n\nGymnasium.\n\nDie Unterlagen betonen gerade diese Verbindung von allgemeiner und berufsbezogener Bildung als\n\nbesonderes Merkmal des BG."
+          },
+          {
+            "id": "schulorganisation-84",
+            "document": "Schulorganisation",
+            "page": 23,
+            "question": "Welchen Aufgabenfeldern werden Religion und Sport zugewiesen?",
+            "answer": "Die gymnasiale Oberstufe unterscheidet drei Aufgabenfelder:\n\nAF I → sprachlich-literarisch-künstlerisch\n\nAF II → gesellschaftswissenschaftlich\n\nAF III → mathematisch-naturwissenschaftlich-technisch\n\nDabei gilt:\n\nReligion/Ethik → Aufgabenfeld II\n\nSport → keinem Aufgabenfeld zugeordnet\n\nDer Leitfaden zeigt diese Zuordnung ausdrücklich in seiner Übersicht der Aufgabenfelder."
+          },
+          {
+            "id": "schulorganisation-85",
+            "document": "Schulorganisation",
+            "page": 23,
+            "question": "Erklären Sie die Abkürzungen eAN und gAN und ihre Bedeutungen.",
+            "answer": "eAN → erhöhtes Anforderungsniveau\n\nHier werden über eine breite Grundbildung hinaus vertiefte und erweiterte Kenntnisse und\n\nKompetenzen verlangt.\n\ngAN → grundlegendes Anforderungsniveau\n\nHier steht die allgemeine Orientierung und breite Grundbildung im Mittelpunkt.\n\nDer Leitfaden beschreibt genau diesen Unterschied zwischen erhöhtem und grundlegendem\n\nAnforderungsniveau.\n\nMerksatz:\n\neAN → vertieft\n\ngAN → grundlegend"
+          },
+          {
+            "id": "schulorganisation-86",
+            "document": "Schulorganisation",
+            "page": 23,
+            "question": "1. Kann ein Schüler des BG die Fachhochschulreife beim vorzeitigen Verlassen der Schule erhalten?",
+            "answer": "Ja → schulischer Teil der FHR möglich\n\nBeim vorzeitigen Verlassen der gymnasialen Oberstufe kann unter bestimmten Voraussetzungen der\n\nschulische Teil der Fachhochschulreife bescheinigt werden.\n\nFür die vollständige Fachhochschulreife muss anschließend der erforderliche berufsbezogene/\n\npraktische Teil hinzukommen.\n\nDer Leitfaden enthält hierzu ausdrücklich ein eigenes Kapitel „Fachhochschulreife“.\n\nMerksatz:\n\nBG vorzeitig verlassen → schulischer Teil FHR möglich; Praxis dazu → vollständige FHR."
+          }
+        ]
+      },
+      {
+        "title": "Kursstufe und Abitur",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "24-25",
+            "page": 24
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-87",
+            "document": "Schulorganisation",
+            "page": 24,
+            "question": "Erklären Sie den Begriff „GFS“.",
+            "answer": "GFS → Gleichwertige Feststellung von Schülerleistungen\n\nEine GFS ist eine Leistung, die einer Klassenarbeit hinsichtlich der Anforderungen gleichwertig ist.\n\nMögliche Formen laut Unterlagen:\n\nHausarbeit,\n\nProjekt,\n\nReferat,\n\nterminierte mündliche Prüfung.\n\nZiel ist insbesondere:\n\nhandlungsorientierter Unterricht,\n\nFörderung von Schlüsselqualifikationen.\n\nDie GFS wird von der Fachlehrkraft koordiniert und bewertet.\n\nBei Gruppenarbeiten darf nur die individuelle Leistung bewertet werden."
+          },
+          {
+            "id": "schulorganisation-88",
+            "document": "Schulorganisation",
+            "page": 24,
+            "question": "Wie wird eine GFS in einem zweistündigen Fach verrechnet, wie in einem vierstündigen Fach?",
+            "answer": "4-/5-stündiges Fach → Klassenarbeit kann ersetzt werden\n\nIn einem vier- bzw. fünfstündigen Fach kann eine Klassenarbeit durch eine GFS ersetzt werden.\n\n2-stündiges Fach → Klassenarbeit kann nicht ersetzt werden\n\nDie dort vorgeschriebene Klassenarbeit muss trotzdem geschrieben werden.\n\nMerksatz:\n\n4/5 Stunden → GFS kann KA ersetzen\n\n2 Stunden → KA bleibt"
+          },
+          {
+            "id": "schulorganisation-89",
+            "document": "Schulorganisation",
+            "page": 24,
+            "question": "Wie viele GFS muss ein Schüler in der Kursstufe erbringen?",
+            "answer": "Kursstufe → mindestens 3 GFS\n\nLaut Sitzungsunterlage:\n\nmindestens drei GFS in der Kursstufe.\n\nZusätzlich nennt die Unterlage:\n\n1 GFS in der Eingangsklasse\n\n3 weitere GFS in den Jahrgangsstufen.\n\nMerksatz:\n\nEK 1 + Kursstufe 3"
+          },
+          {
+            "id": "schulorganisation-90",
+            "document": "Schulorganisation",
+            "page": 24,
+            "question": "Was versteht man unter dem „Seminarkurs“?",
+            "answer": "Seminarkurs → fächerübergreifende besondere Lernleistung\n\nLaut Sitzung 4:\n\nfächerübergreifender Kurs,\n\nüber zwei Halbjahre in J1,\n\ndreistündig,\n\nschriftliche Ausarbeitung/Dokumentation,\n\nabschließendes Kolloquium von etwa 20–30 Minuten.\n\nDer Seminarkurs verlangt also besonders selbstständiges, wissenschaftspropädeutisches Arbeiten.\n\nMerksatz:\n\nSeminarkurs → 2 Halbjahre + Doku + Kolloquium"
+          },
+          {
+            "id": "schulorganisation-91",
+            "document": "Schulorganisation",
+            "page": 24,
+            "question": "Wie kann das Ergebnis des Seminarkurses in die Abiturabrechnung eingebracht werden?",
+            "answer": "Sitzung 4 nennt drei Möglichkeiten:\n\nals 4. Prüfungsfach der schriftlichen Prüfung,\n\nals mündliches Prüfungsfach – mindestens 5 Punkte,\n\ndoppelte Anrechnung in Block I.\n\nMerksatz:\n\nSeminarkurs → Prüfungsfach ersetzen oder doppelt in Block I."
+          },
+          {
+            "id": "schulorganisation-92",
+            "document": "Schulorganisation",
+            "page": 25,
+            "question": "Nennen Sie für jeden Anforderungsbereich laut EPA einen Operator.",
+            "answer": "Die Unterlagen geben genau diese Beispiele:\n\nAF I → nennen\n\n→ Wissen wiedergeben.\n\nAF II → erläutern\n\n→ Zusammenhänge erklären und Wissen anwenden.\n\nAF III → bewerten\n\n→ selbstständig beurteilen und begründet Stellung nehmen.\n\nMerksatz:\n\nI nennen – II erläutern – III bewerten"
+          },
+          {
+            "id": "schulorganisation-93",
+            "document": "Schulorganisation",
+            "page": 25,
+            "question": "Aus welchen Teilen setzt sich das Endergebnis des Abiturs zusammen?",
+            "answer": "Abitur → Block I + Block II\n\nDas Endergebnis besteht aus:\n\nBlock I\n\nLeistungen aus den Kursen\n\nalso Leistungen aus der Qualifikationsphase.\n\nBlock II\n\nLeistungen aus der Abiturprüfung\n\nDer Leitfaden übernimmt genau diese Zweiteilung in seiner Darstellung der Gesamtqualifikation.\n\nMerksatz:\n\nBlock I → Kursleistungen\n\nBlock II → Abiturprüfung"
+          },
+          {
+            "id": "schulorganisation-94",
+            "document": "Schulorganisation",
+            "page": 25,
+            "question": "Welche Voraussetzungen müssen im Abiturblock für das Bestehen erbracht werden?",
+            "answer": "Block II → mindestens 100 Punkte\n\nBei maximal 300 erreichbaren Punkten und vierfacher Gewichtung verlangt die Sitzungsunterlage:\n\ninsgesamt mindestens 100 Punkte,\n\ndreimal mindestens 20 Punkte,\n\nkein Prüfungsfach mit 0 Punkten.\n\nBei 0 Punkten nennt die Unterlage eine Zwangswiederholung der mündlichen Prüfung.\n\nMerksatz:\n\n100 gesamt – 3 × 20 – keine 0"
+          },
+          {
+            "id": "schulorganisation-95",
+            "document": "Schulorganisation",
+            "page": 25,
+            "question": "Wer unterschreibt das Abiturzeugnis?",
+            "answer": "Abiturzeugnis → Schulleitung + Prüfungsvorsitz\n\nLaut Lösung in Sitzung 4:\n\nSchulleitung\n\nund Vorsitzende/r der Prüfungskommission.\n\nMerksatz:\n\nSchulleitung + Prüfungsvorsitz"
+          }
+        ]
+      },
+      {
+        "title": "Offene Stellen der Vorlage",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "19",
+            "page": 19
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "22",
+            "page": 22
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-69",
+            "document": "Schulorganisation",
+            "page": 19,
+            "question": "Welche Abschlüsse können auf der Berufsoberschule abgelegt werden, worin liegen die Unterschiede?",
+            "answer": "Hier ist in der Kurzantwort des Fragenkatalogs offenbar eine Unschärfe: Dort werden „Fachhochschulreife“ und „allgemeine Hochschulreife“ genannt.\n\nDie ausführlicheren Unterlagen in derselben Sitzung bzw. den beigefügten Materialien beschreiben die BOS dagegen genauer:\n\nOberstufe der BOS → fachgebundene oder allgemeine Hochschulreife\n\nNach zwei Jahren kann die\n\nFachgebundene Hochschulreife\n\nerworben werden.\n\nSie ermöglicht ein Hochschulstudium, aber nur in den entsprechenden Fachrichtungen.\n\nAllgemeine Hochschulreife\n\nWer zusätzlich die Voraussetzungen bezüglich einer zweiten Fremdsprache erfüllt, kann die\n\nallgemeine Hochschulreife (Abitur)\n\nerwerben.\n\nDiese ermöglicht grundsätzlich das Studium aller Fachrichtungen.\n\nBeide Abschlüsse der Oberstufe der BOS sind bundesweit anerkannt.\n\nFür die Prüfung würde ich deshalb die ausführlichere Fassung der PDF lernen:\n\nBOS → fachgebundene Hochschulreife; mit zweiter Fremdsprache → allgemeine Hochschulreife.",
+            "note": "Die Vorlage weist auf abweichende Angaben in Kurz- und Langfassung hin."
+          },
+          {
+            "id": "schulorganisation-80",
+            "document": "Schulorganisation",
+            "page": 22,
+            "question": "Welche Regelung gilt für WG/SG in der schriftlichen Abiturprüfung, wenn keine mündliche Prüfung in einer Fremdsprache stattfindet?",
+            "answer": "Hier nennt der Fragenkatalog eine besondere Fremdsprachenregelung für WG/SG.\n\nWenn keine Fremdsprache mündliches Prüfungsfach ist, muss die Fremdsprachenkompetenz im Rahmen der vorgesehenen Abiturregelungen anderweitig berücksichtigt bzw. geprüft werden.\n\nDiese Frage würde ich momentan nicht weiter konkretisieren, weil die von mir gefundenen Ausschnitte aus Sitzung 4 die genaue Lösung dazu nicht vollständig wiedergeben. Ich würde hier nicht aus allgemeinem Wissen etwas ergänzen, das möglicherweise von Herburgers konkreter Lösung abweicht.",
+            "note": "Die Vorlage enthält hier ausdrücklich keine vollständige Antwort."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cluster-12",
+    "title": "Falltraining und vernetztes Wiederholen",
+    "topics": [
+      {
+        "title": "Schullaufbahnberatung",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "26-27",
+            "page": 26
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-96",
+            "document": "Schulorganisation",
+            "page": 26,
+            "question": "Axel ist 16 Jahre alt, hat die Werkrealschule abgeschlossen, findet keinen Ausbildungsplatz und möchte zu Hause bleiben. Sein Freund Kevin ist nach Klasse 9 abgegangen, hat ein Jahr AVdual besucht und darf nun zu Hause bleiben. Was gilt für Axel?",
+            "answer": "Axel → Berufsschulpflicht besteht noch\n\nAxel kann nicht einfach zu Hause bleiben.\n\nEr ist 16 Jahre alt und unterliegt nach Abschluss der allgemeinen Schulpflicht grundsätzlich noch der\n\nBerufsschulpflicht. Er muss deshalb eine geeignete schulische oder berufliche Bildungsmaßnahme\n\nbesuchen.\n\nDie Musterlösung in Sitzung 5 nennt als Möglichkeit ein zweijähriges Berufskolleg."
+          },
+          {
+            "id": "schulorganisation-97",
+            "document": "Schulorganisation",
+            "page": 26,
+            "question": "Warum ist die Situation bei Kevin anders?",
+            "answer": "Der entscheidende Hinweis im Fall ist:\n\nKevin hat bereits ein Jahr AVdual besucht.\n\nAV bzw. AVdual kann der Erfüllung der Berufsschulpflicht dienen. In Sitzung 2 wird dies ausdrücklich im\n\nZusammenhang mit § 78a SchG behandelt.\n\nMerksatz:\n\n16 Jahre + Schule beendet ≠ automatisch keine Schulpflicht mehr.\n\nDanach kann noch Berufsschulpflicht bestehen.",
+            "context": "Axel ist 16 Jahre alt, hat die Werkrealschule abgeschlossen, findet keinen Ausbildungsplatz und möchte zu Hause bleiben. Sein Freund Kevin ist nach Klasse 9 abgegangen, hat ein Jahr AVdual besucht und darf nun zu Hause bleiben. Was gilt für Axel?"
+          },
+          {
+            "id": "schulorganisation-98",
+            "document": "Schulorganisation",
+            "page": 26,
+            "question": "Michael möchte nach der Realschule Abitur machen. Er hat Englisch 3, Mathematik 4 und Deutsch 3. Welche Wege stehen ihm offen?",
+            "answer": "Michael → direkter Zugang zum BG scheitert am Notenschnitt\n\nFür den direkten Übergang ins Berufliche Gymnasium müsste Michael in\n\nDeutsch,\n\nMathematik und\n\nerster Pflichtfremdsprache\n\neinen Durchschnitt von mindestens 3,0 erreichen.\n\nMichael hat:\n\nDeutsch 3 + Englisch 3 + Mathematik 4 = 10\n\n10 : 3 = 3,33\n\nDamit erfüllt er die Voraussetzung für den direkten Übergang ins Berufliche Gymnasium nicht.\n\nDie Musterlösung aus Sitzung 5 nennt deshalb zwei alternative Wege:\n\nWeg 1: zunächst einen anderen Bildungsgang, z. B. ein Berufskolleg, besuchen und dort die Leistungen\n\nverbessern.\n\nWeg 2: später über die Berufsoberschule das Abitur erwerben. Dafür ist allerdings eine berufliche\n\nVorbildung erforderlich. Die PDF nennt beispielsweise einen Assistentenabschluss.\n\nMerksatz:\n\n3 + 3 + 4 = Ø 3,33 → kein direkter Zugang zum BG."
+          },
+          {
+            "id": "schulorganisation-100",
+            "document": "Schulorganisation",
+            "page": 27,
+            "question": "Vanessa hat die Probezeit im 1BK2W nicht bestanden. Was ist die Folge und wie kann sie dennoch die Fachhochschulreife erwerben?",
+            "answer": "Probezeit nicht bestanden → 1BK2W verlassen\n\nVanessa muss das 1BK2W verlassen, weil sie die Probezeit nicht bestanden hat.\n\nDie Sitzung nennt anschließend zwei Möglichkeiten:\n\nMöglichkeit 1:\n\nSie kann erneut in das 1BK2W aufgenommen werden; die Musterlösung spricht von einer einmaligen Wiederholung.\n\nMöglichkeit 2:\n\nSie absolviert eine Berufsausbildung und besucht anschließend das BKFH. Auf diesem Weg kann sie ebenfalls die Fachhochschulreife erwerben.\n\nMerksatz:\n\n1BK2W Probezeit nicht bestanden → raus; Wiederholung oder später Ausbildung + BKFH → FHR."
+          },
+          {
+            "id": "schulorganisation-101",
+            "document": "Schulorganisation",
+            "page": 27,
+            "question": "Can ist 17 Jahre alt und hat die Werkrealschule mit Hauptschulabschluss abgeschlossen. Er möchte die 2BFS besuchen und anschließend Abitur auf einem Beruflichen Gymnasium machen. Woran könnte das scheitern?",
+            "answer": "Hier gibt es laut Sitzung 5 zwei mögliche Hürden.\n\n1. Noten\n\n2BFS → BG nicht automatisch\n\nNach erfolgreichem Abschluss der 2BFS besitzt Can zwar einen mittleren Bildungsabschluss.\n\nDamit ist er aber nicht automatisch für das Berufliche Gymnasium zugelassen.\n\nEr muss zusätzlich die entsprechenden Notenvoraussetzungen, insbesondere in Deutsch, Mathematik und Englisch, erfüllen.\n\n2. Alter\n\nCan ist bereits 17 Jahre alt.\n\nDie 2BFS dauert zwei Jahre. Danach wäre er etwa 19 Jahre alt.\n\nDamit kann die Altersgrenze für die Aufnahme ins Berufliche Gymnasium problematisch werden. Genau diese beiden Punkte – Notenschnitt und Altersgrenze – nennt die Musterlösung.\n\nMerksatz:\n\nCan → zwei Hürden: Noten + Alter."
+          }
+        ]
+      },
+      {
+        "title": "Bildungswege verknüpfen",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "28-29",
+            "page": 28
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-106",
+            "document": "Schulorganisation",
+            "page": 28,
+            "question": "Weshalb muss man in einigen Bildungsgängen beim Nichtbestehen der Probezeit den Bildungsgang verlassen und in anderen nicht?",
+            "answer": "Probezeit → Funktion des jeweiligen Bildungsgangs beachten\n\nDie Musterlösung unterscheidet zwei Situationen:\n\nProbezeit als echte Eignungsprüfung\n\nIn manchen Bildungsgängen soll die Probezeit feststellen, ob ein Schüler für den Bildungsgang geeignet ist.\n\nNicht bestanden → Bildungsgang verlassen.\n\nWeiterbesuch trotz nicht bestandener Probezeit\n\nIn anderen Bildungsgängen kann ein Weiterbesuch möglich sein, insbesondere weil\n\nnoch Schulpflicht besteht oder\n\neine weitere pädagogische Förderung vorgesehen ist.\n\nDie Sitzung nennt außerdem:\n\nMeist entscheidet die Schulleitung auf Grundlage einer Empfehlung der Klassenkonferenz.\n\nDas erklärt beispielsweise den Unterschied, den wir schon in Sitzung 3 hatten:\n\nBK I → Weiterbesuch teilweise möglich\n\nBK II → bei nicht bestandener Probezeit verlassen\n\nMerksatz:\n\nProbezeitregelung hängt von Eignungsfunktion und Schulpflicht ab."
+          },
+          {
+            "id": "schulorganisation-107",
+            "document": "Schulorganisation",
+            "page": 29,
+            "question": "Skizzieren Sie einen Weg, wie man seine Verweildauer in der Schule maximieren kann.",
+            "answer": "Hier gibt Sitzung 5 tatsächlich einen konkreten „Maximalweg“ vor:\n\nHauptschule (5 Jahre)\n\n↓\n\nAVdual (1 Jahr)\n\n↓\n\n2BFS (2 Jahre)\n\n↓\n\nBK I (1 Jahr)\n\n↓\n\nBK II (1 Jahr)\n\n↓\n\nAusbildung mit Berufsschule (2–3,5 Jahre)\n\n↓\n\nBerufsoberschule (1–2 Jahre)\n\nDie Unterlage kommt damit auf:\n\n13 bis 15,5 Jahre\n\nDie Frage demonstriert vor allem die Durchlässigkeit des beruflichen Schulwesens: Man kann schrittweise immer höhere Abschlüsse erreichen."
+          }
+        ]
+      },
+      {
+        "title": "Diskussionsfragen vorbereiten",
+        "sources": [
+          {
+            "document": "Schulorganisation",
+            "pages": "6-7",
+            "page": 6
+          },
+          {
+            "document": "Schulorganisation",
+            "pages": "27-29",
+            "page": 27
+          }
+        ],
+        "questions": [
+          {
+            "id": "schulorganisation-20",
+            "document": "Schulorganisation",
+            "page": 6,
+            "question": "Ist die Verankerung des Religionsunterrichts noch zeitgemäß?",
+            "answer": "Hier erwartet die Präsentation eher eine begründete Abwägung als ein schlichtes Ja/Nein.\n\nDafür\n\nReligionsunterricht ist grundgesetzlich garantiert und ermöglicht religiöse Bildung.\n\nProblematisch\n\nDie Gesellschaft ist religiös und weltanschaulich pluraler geworden. Viele unterschiedliche\n\nReligions- und Weltanschauungsgruppen können organisatorisch zu einer zunehmenden Aufteilung\n\nder Schülerinnen und Schüler führen.\n\nDie Präsentation stellt deshalb ausdrücklich die Frage, ob viele getrennte Religionsgruppen eher\n\nTrennung statt gemeinsames Lernen fördern."
+          },
+          {
+            "id": "schulorganisation-21",
+            "document": "Schulorganisation",
+            "page": 7,
+            "question": "Inwieweit können Privatschulen der Integration entgegenwirken?",
+            "answer": "Privatschulen → Gefahr sozialer Segregation\n\nWenn sich Schülerinnen und Schüler nach sozialer Herkunft, Religion oder Weltanschauung auf unterschiedliche Schulen verteilen, kann gesellschaftliche Durchmischung abnehmen.\n\nGenau deshalb enthält Art. 7 GG Anforderungen an Ersatzschulen. Die Unterlagen betonen, dass insbesondere die Regelungen für private Grundschulen die Grundschule als gemeinsamen Lernort erhalten und Segregation verhindern sollen."
+          }
+        ]
+      }
+    ]
+  }
+]
