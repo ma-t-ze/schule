@@ -4,8 +4,9 @@ service cloud.firestore {
     match /learners/{userId}/questions/{questionId} {
       allow read: if request.auth != null && request.auth.uid == userId;
       allow create, update: if request.auth != null && request.auth.uid == userId
-        && request.resource.data.keys().hasOnly(['status', 'updatedAt'])
-        && request.resource.data.status in ['open', 'review', 'secure']
+        && request.resource.data.keys().hasOnly(['status', 'note', 'updatedAt'])
+        && (!('status' in request.resource.data) || request.resource.data.status in ['open', 'review', 'secure'])
+        && (!('note' in request.resource.data) || (request.resource.data.note is string && request.resource.data.note.size() <= 10000))
         && request.resource.data.updatedAt == request.time;
     }
   }

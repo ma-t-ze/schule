@@ -11,6 +11,9 @@ export function useLearningProgress(ids) {
   const busy = ref(false)
   const pending = ref(new Set())
   const progress = ref({})
+  const notes = ref({})
+  const noteDrafts = ref({})
+  const noteMessages = ref({})
   const message = ref('')
   const today = ref('')
   let stopAuth, stopData, timer
@@ -30,6 +33,9 @@ export function useLearningProgress(ids) {
       stopData?.()
       user.value = account
       progress.value = {}
+      notes.value = {}
+      noteDrafts.value = {}
+      noteMessages.value = {}
       loaded.value = false
       message.value = ''
       ready.value = true
@@ -37,6 +43,7 @@ export function useLearningProgress(ids) {
       stopData = onSnapshot(collection(db, 'learners', account.uid, 'questions'), { includeMetadataChanges: true }, (snapshot) => {
         if (user.value?.uid !== account.uid) return
         progress.value = Object.fromEntries(snapshot.docs.filter(d => ids.has(d.id)).map(d => [d.id, d.data().status]))
+        notes.value = Object.fromEntries(snapshot.docs.filter(d => ids.has(d.id)).map(d => [d.id, d.data().note || '']))
         loaded.value = !snapshot.metadata.fromCache
         message.value = snapshot.metadata.hasPendingWrites ? 'Änderungen werden gespeichert …' : snapshot.metadata.fromCache ? 'Warte auf Verbindung zum gespeicherten Lernstand …' : 'Lernstand mit Firebase synchronisiert.'
       }, (error) => { loaded.value = false; message.value = errorMessage(error) })
@@ -61,12 +68,34 @@ export function useLearningProgress(ids) {
     const uid = user.value.uid
     pending.value.add(id)
     try {
-      await setDoc(doc(getExamFirebase().db, 'learners', uid, 'questions', id), { status, updatedAt: serverTimestamp() })
+      await setDoc(doc(getExamFirebase().db, 'learners', uid, 'questions', id), { status, updatedAt: serverTimestamp() }, { merge: true })
     } catch (error) { if (user.value?.uid === uid) message.value = errorMessage(error) }
     finally { pending.value.delete(id) }
+  }
+  const editNote = (id, value) => {
+    noteDrafts.value[id] = value
+    noteMessages.value[id] = 'Ungespeicherte Änderung.'
+  }
+  const saveNote = async (id) => {
+    if (!user.value || !loaded.value || pending.value.has(id) || !ids.has(id)) return
+    const value = noteDrafts.value[id] ?? notes.value[id] ?? ''
+    if (value.length > 10000) return
+    const uid = user.value.uid
+    pending.value.add(id)
+    noteMessages.value[id] = 'Wird gespeichert …'
+    try {
+      await setDoc(doc(getExamFirebase().db, 'learners', uid, 'questions', id), { note: value, updatedAt: serverTimestamp() }, { merge: true })
+      if (user.value?.uid === uid) {
+        notes.value[id] = value
+        if (noteDrafts.value[id] === value) delete noteDrafts.value[id]
+        noteMessages.value[id] = 'Bemerkung gespeichert.'
+      }
+    } catch (error) {
+      if (user.value?.uid === uid) noteMessages.value[id] = 'Nicht gespeichert. ' + errorMessage(error)
+    } finally { pending.value.delete(id) }
   }
   const learned = computed(() => Object.values(progress.value).filter(s => s === 'secure').length)
   const review = computed(() => Object.values(progress.value).filter(s => s === 'review').length)
   const plan = computed(() => today.value ? learningPlan(ids.size, learned.value, today.value) : null)
-  return { user, ready, loaded, busy, pending, progress, message, today, learned, review, plan, login, logout, setStatus }
+  return { user, ready, loaded, busy, pending, progress, message, today, learned, review, plan, login, logout, setStatus, notes, noteDrafts, noteMessages, editNote, saveNote }
 }

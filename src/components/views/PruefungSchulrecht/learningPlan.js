@@ -4,9 +4,10 @@ export function learningPlan(total, learned, today) {
   const finish = dayNumber('2026-10-05') // October 5–11 reserved for revision
   const day = dayNumber(today)
   const days = Math.max(0, finish - Math.max(start, day))
-  const expected = Math.ceil(total * Math.min(1, Math.max(0, (day - start) / (finish - start))))
-  const target = Math.ceil(total * Math.min(1, Math.max(0, (day - start + 1) / (finish - start))))
+  const daily = 8
+  const expected = Math.min(total, Math.max(0, day - start) * daily)
+  const target = Math.min(total, Math.max(0, day - start + 1) * daily)
   return { days, expected, target, behind: Math.max(0, expected - learned),
-    daily: days ? Math.ceil(Math.max(0, total - learned) / days) : 0,
-    todayRemaining: Math.max(0, target - learned), remaining: Math.max(0, total - learned) }
+    daily,
+    todayRemaining: target - learned, remaining: Math.max(0, total - learned) }
 }

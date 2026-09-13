@@ -4,7 +4,7 @@ import { useLearningProgress } from './useLearningProgress'
 import clusters from './pruefung-cluster.json'
 
 const questionIds = new Set(clusters.flatMap(c => c.topics.flatMap(t => t.questions.map(q => q.id))))
-const { user, ready, loaded, busy, pending, progress, message, today, learned, review, plan, login, logout, setStatus } = useLearningProgress(questionIds)
+const { user, ready, loaded, busy, pending, progress, message, today, learned, review, plan, login, logout, setStatus, notes, noteDrafts, noteMessages, editNote, saveNote } = useLearningProgress(questionIds)
 
 const search = ref('')
 const sourceFilter = ref('')
@@ -26,6 +26,16 @@ const filteredClusters = computed(() => {
 const visibleCount = computed(() => filteredClusters.value.reduce((sum, cluster) => sum + countQuestions(cluster), 0))
 const filtering = computed(() => Boolean(search.value.trim() || sourceFilter.value))
 const countQuestions = (cluster) => cluster.topics.reduce((sum, topic) => sum + topic.questions.length, 0)
+const clusterStats = computed(() => Object.fromEntries(clusters.map(cluster => {
+  const stats = { secure: 0, open: 0, review: 0 }
+  for (const topic of cluster.topics) {
+    for (const question of topic.questions) {
+      const status = progress.value[question.id]
+      stats[status === 'secure' || status === 'review' ? status : 'open'] += 1
+    }
+  }
+  return [cluster.id, stats]
+})))
 const toggleAnswer = (id) => {
   if (revealed.value.has(id)) revealed.value.delete(id)
   else revealed.value.add(id)
@@ -54,7 +64,7 @@ const toggleAnswer = (id) => {
         <div class="plan-stats">
           <div><strong>{{ learned }} / {{ questionCount }}</strong><span>Fragen sicher</span></div>
           <div><strong>{{ review }}</strong><span>zum Wiederholen markiert</span></div>
-          <div><strong>{{ plan.days ? plan.daily : plan.remaining }}</strong><span>{{ plan.days ? 'Fragen pro Tag ab heute' : 'Fragen noch offen' }}</span></div>
+          <div><strong>{{ plan.days ? plan.daily : plan.remaining }}</strong><span>{{ plan.days ? 'Fragen pro Tag eingeplant' : 'Fragen noch offen' }}</span></div>
           <div><strong>{{ plan.todayRemaining }}</strong><span>noch bis zum heutigen Planziel</span></div>
         </div>
         <progress :value="learned" :max="questionCount" :aria-label="`${learned} von ${questionCount} Fragen sicher`"></progress>
@@ -63,7 +73,7 @@ const toggleAnswer = (id) => {
         <p v-else-if="!plan.remaining">Alle Fragen sind als sicher markiert. Nutze die restliche Zeit zum Wiederholen.</p>
         <p v-else-if="plan.behind" class="question-note">{{ plan.behind }} Fragen hinter dem Plan. Bis heute Morgen waren {{ plan.expected }} sichere Fragen vorgesehen.</p>
         <p v-else>Du liegst im Plan. Bis heute Abend sind {{ plan.target }} sichere Fragen vorgesehen.</p>
-        <p class="meta">Nur „Sicher“ zählt zum Lernziel. „Wiederholen“ nimmt eine Frage wieder aus dem sicheren Bestand. Das Tagespensum passt sich an die verbleibenden Lerntage an.</p>
+        <p class="meta">Der Plan rechnet ab dem 10.09. mit 8 Fragen täglich, bis alle Fragen erreicht sind. Ein negativer Wert bei „noch bis zum heutigen Planziel“ zeigt deinen Vorsprung, der für die nächsten Tage zählt. Nur „Sicher“ zählt zum Lernziel. „Wiederholen“ nimmt eine Frage wieder aus dem sicheren Bestand.</p>
       </template>
       <p role="status">{{ message }}</p>
     </section>
@@ -101,6 +111,13 @@ const toggleAnswer = (id) => {
           <span class="cluster-heading">
             <span class="cluster-title">{{ cluster.title }}</span>
             <span class="count">{{ cluster.topics.length }} Unterthemen · {{ countQuestions(cluster) }} Fragen</span>
+            <span v-if="user && loaded" class="cluster-stats" aria-label="Lernstand des gesamten Hauptthemas">
+              <span class="stat-secure">{{ clusterStats[cluster.id].secure }} Sicher</span>
+              <span class="stat-open">{{ clusterStats[cluster.id].open }} Offen</span>
+              <span class="stat-review">{{ clusterStats[cluster.id].review }} Wiederholen</span>
+              <span v-if="filtering" class="stats-scope">Gesamtes Hauptthema</span>
+            </span>
+            <span v-else class="count">{{ user ? 'Lernstatistik wird geladen …' : 'Für deine Lernstatistik bitte anmelden.' }}</span>
           </span>
         </summary>
         <div class="topics">
@@ -126,6 +143,13 @@ const toggleAnswer = (id) => {
                   <p class="answer-label">Antwort aus der PDF</p>
                   <p v-for="(paragraph, index) in question.answer.split('\n\n')" :key="index">{{ paragraph }}</p>
                 </div>
+                <div class="note-editor">
+                  <label :for="`note-${question.id}`">Bemerkungen</label>
+                  <textarea :id="`note-${question.id}`" :value="noteDrafts[question.id] ?? notes[question.id] ?? ''" :disabled="!user || !loaded || pending.has(question.id)" rows="3" maxlength="10000" placeholder="Eigene Merksätze, Beispiele oder offene Fragen …" @input="editNote(question.id, $event.target.value)"></textarea>
+                  <button type="button" :disabled="!user || !loaded || pending.has(question.id) || noteDrafts[question.id] === undefined" @click="saveNote(question.id)">Speichern</button>
+                  <p v-if="!user">Melde dich an, um Bemerkungen zu speichern.</p>
+                  <p role="status">{{ noteMessages[question.id] }}</p>
+                </div>
               </article>
             </div>
           </details>
@@ -136,6 +160,13 @@ const toggleAnswer = (id) => {
 </template>
 
 <style scoped>
+.note-editor { display: grid; gap: 10px; margin-top: 24px; }
+.note-editor label { font-size: 14px; font-weight: 500; }
+.note-editor textarea { box-sizing: border-box; width: 100%; min-width: 0; resize: vertical; padding: 12px; border: 1px solid #c8d2cb; border-radius: 8px; font: inherit; font-size: 16px; line-height: 1.5; }
+.note-editor textarea:focus-visible { outline: 2px solid #315e4c; outline-offset: 2px; }
+.note-editor button { justify-self: start; }
+.note-editor p { margin: 0; font-size: 13px; color: #526557; }
+
 .learning-dashboard { padding: 24px; margin: 28px 0; border: 1px solid #c8d8cc; border-radius: 12px; background: #f4f8f5; }
 .account-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .account-row h2 { margin: 0; }
@@ -164,6 +195,12 @@ summary { cursor: pointer; line-height: 1.5; }
 .cluster > summary { padding: 22px; }
 .number { display: inline-block; margin: 0 14px 0 6px; color: #718478; font-size: 14px; vertical-align: top; padding-top: 4px; }
 .cluster-heading { display: inline-block; width: calc(100% - 76px); vertical-align: top; }
+.cluster-stats { display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 12px; font-size: 13px; font-weight: 400; }
+.cluster-stats > span { padding: 3px 9px; border-radius: 6px; }
+.stat-secure { background: #e1f0e5; color: #245137; }
+.stat-open { background: #ecefed; color: #48534d; }
+.stat-review { background: #fff0cb; color: #75500e; }
+.stats-scope { color: #647367; }
 .cluster-title { display: block; font-size: 19px; font-weight: 600; }
 .count { display: block; margin-top: 5px; color: #777; font-size: 13px; }
 .cluster[open] > summary { background: #f6f8f6; border-bottom: 1px solid #e3e8e4; }
