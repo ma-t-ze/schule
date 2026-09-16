@@ -10,6 +10,7 @@
         <router-link class="chaos-link" :to="{ name: 'conversepage' }">Converse</router-link>
         <router-link class="chaos-link" :to="{ name: '3dprint' }">3DPrint</router-link>
         <router-link class="chaos-link" :to="{ name: 'pruefung-schulrecht' }">Prüfung Schulrecht und Schulorganisation</router-link>
+        <router-link class="chaos-link" :to="{ name: 'programme-medientechnik' }">Programme im ersten Jahr Medientechnik</router-link>
     </div>
 </template>
 

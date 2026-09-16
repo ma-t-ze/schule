@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/programme-medientechnik-erstes-jahr',
+    name: 'programme-medientechnik',
+    component: () => import('./components/views/MedientechnikProgramme/MedientechnikProgramme.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/pruefung-schulrecht-schulorganisation',
     name: 'pruefung-schulrecht',
     component: () => import('./components/views/PruefungSchulrecht/PruefungSchulrecht.vue'),
