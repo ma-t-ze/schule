@@ -1,10 +1,30 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, provide, nextTick, onDeactivated, onBeforeUnmount } from 'vue'
+import GlossaryText from './GlossaryText.vue'
+const termDialog = ref(null)
+const activeTerm = ref(null)
+let termTrigger = null
+let previousOverflow = ''
+const closeTerm = () => termDialog.value?.close()
+const afterClose = () => {
+  document.body.style.overflow = previousOverflow
+  termTrigger?.focus()
+}
+provide('explainMediaTerm', async (entry, trigger) => {
+  activeTerm.value = entry
+  termTrigger = trigger
+  await nextTick()
+  previousOverflow = document.body.style.overflow
+  document.body.style.overflow = 'hidden'
+  termDialog.value.showModal()
+})
+onDeactivated(closeTerm)
+onBeforeUnmount(() => { if (termDialog.value?.open) { closeTerm(); document.body.style.overflow = previousOverflow } })
 const programmes = [
-  { id: 'ps', short: 'Ps', name: 'Photoshop', field: 'Bild', verb: 'Bilder bearbeiten', color: '#176baf', tint: '#e9f3ff', symbol: '▦', intro: 'Du veränderst Fotos und setzt Bilder neu zusammen. Im Mittelpunkt stehen Pixel: viele kleine Bildpunkte, die gemeinsam ein Bild ergeben.', strengths: ['Helligkeit und Farben korrigieren', 'Motive freistellen und retuschieren', 'Mehrere Bilder zu einer Montage verbinden'], terms: 'Ebenen trennen Bildbestandteile. Mit einer Maske blendest du Bereiche aus, ohne sie zu löschen.', example: 'Für ein Schulfest entfernst du den Hintergrund eines Bandfotos und passt seine Farben an.', result: 'Ein bearbeitetes Foto oder eine Bildmontage', formats: 'PSD zum Weiterarbeiten · JPEG oder PNG zur Ausgabe', limit: 'Für ein Logo, das vom Sticker bis zum großen Banner scharf bleiben soll, sind Vektoren in Illustrator meist besser geeignet.', draw: 'Ein Foto mit sichtbaren Pixeln und darüber zwei transparente Ebenen.', memory: 'Ich verändere das Bild.' },
-  { id: 'ai', short: 'Ai', name: 'Illustrator', field: 'Grafik', verb: 'Formen konstruieren', color: '#9a480c', tint: '#fff0df', symbol: '◇', intro: 'Du zeichnest Logos, Icons und Illustrationen aus Vektoren. Ihre Formen werden durch Pfade und Ankerpunkte beschrieben.', strengths: ['Logos und Symbole entwickeln', 'Präzise Formen und Kurven zeichnen', 'Vektorgrafiken ohne Verpixeln vergrößern'], terms: 'Ein Pfad ist eine Linie oder Kontur. Ankerpunkte bestimmen ihren Verlauf; Fläche und Kontur bestimmen ihr Aussehen.', example: 'Du entwirfst das Logo für das Schulfest. Dasselbe Logo funktioniert auf einem kleinen Ticket und einem großen Banner.', result: 'Eine skalierbare Grafik', formats: 'AI zum Weiterarbeiten · SVG oder PDF zur Weitergabe', limit: 'Die Skalierbarkeit gilt für Vektorelemente. Ein platziertes Foto bleibt ein Pixelbild. Für Fotoretusche ist Photoshop geeigneter.', draw: 'Ein kleines und ein großes identisches Logo, verbunden durch einen Pfeil. Markiere seine Ankerpunkte.', memory: 'Ich zeichne die Grafik.' },
-  { id: 'id', short: 'Id', name: 'InDesign', field: 'Print-Layout', verb: 'Seiten gestalten', color: '#a02b62', tint: '#ffedf5', symbol: '▤', intro: 'Du bringst Texte, Bilder und Grafiken auf Seiten zusammen. Layout bedeutet, diese Elemente bewusst anzuordnen und eine klare Lesereihenfolge zu schaffen.', strengths: ['Broschüren, Magazine und Bücher gestalten', 'Texte mit Absatzformaten einheitlich setzen', 'Mehrseitige Dokumente für den Druck vorbereiten'], terms: 'Text- und Bildrahmen nehmen Inhalte auf. Raster helfen beim Ausrichten. Absatzformate speichern wiederkehrende Texteinstellungen.', example: 'Du platzierst Bandfoto, Logo und Programmtexte in einer mehrseitigen Broschüre für das Schulfest.', result: 'Ein gestaltetes Seitendokument', formats: 'INDD zum Weiterarbeiten · PDF für die Druckausgabe', limit: 'Das Foto bearbeitest du vorher in Photoshop, das Logo zeichnest du in Illustrator. Beim Druck-PDF müssen Vorgaben wie Beschnitt und Bildauflösung stimmen.', draw: 'Eine Doppelseite mit Spalten, Textlinien, Bildrahmen und Seitenzahlen.', memory: 'Ich ordne Inhalte auf Seiten.' },
-  { id: 'fi', short: 'Fi', name: 'Figma', field: 'Screen-Layout & Prototyp', verb: 'Oberflächen entwerfen', color: '#6244a5', tint: '#f1edff', symbol: '▣', intro: 'Du gestaltest Oberflächen für Websites und Apps. Du kannst Screens miteinander verknüpfen und so einen anklickbaren Ablauf ausprobieren.', strengths: ['Screens für Smartphone, Tablet und Desktop entwerfen', 'Wiederverwendbare Buttons und Komponenten anlegen', 'Klickwege testen und gemeinsam am Entwurf arbeiten'], terms: 'Ein Frame ist ein Gestaltungsbereich, etwa ein Handy-Screen. Ein Prototyp simuliert Interaktionen, zum Beispiel einen Klick auf einen Button.', example: 'Du entwirfst die mobile Schulfest-Website. Ein Klick auf „Programm“ führt im Prototyp zur Programmübersicht.', result: 'Ein Screen-Entwurf mit testbaren Klickwegen', formats: 'Figma-Design und geteilter Prototyp-Link · z. B. SVG/PNG für einzelne Elemente', limit: 'Ein Design-Prototyp zeigt Aussehen und Bedienabläufe. Eine echte Buchung oder Datenbank ist dadurch noch nicht umgesetzt.', draw: 'Zwei Handy-Screens mit einem Button und einem Verbindungspfeil zum nächsten Screen.', memory: 'Ich gestalte und teste die Bedienung.' }
+  { id: 'ps', short: 'Ps', name: 'Photoshop', company: 'Ein Programm der Firma Adobe.', productUrl: 'https://www.adobe.com/de/products/photoshop.html', field: 'Bild', verb: 'Bilder bearbeiten', color: '#176baf', tint: '#e9f3ff', symbol: '▦', intro: 'Du veränderst Fotos und setzt Bilder neu zusammen. Im Mittelpunkt stehen Pixel: viele kleine Bildpunkte, die gemeinsam ein Bild ergeben.', strengths: ['Helligkeit und Farben korrigieren', 'Motive freistellen und retuschieren', 'Mehrere Bilder zu einer Montage verbinden'], terms: 'Ebenen trennen Bildbestandteile. Mit einer Maske blendest du Bereiche aus, ohne sie zu löschen.', example: 'Für ein Schulfest entfernst du den Hintergrund eines Bandfotos und passt seine Farben an.', result: 'Ein bearbeitetes Foto oder eine Bildmontage', formats: 'PSD zum Weiterarbeiten · JPEG oder PNG zur Ausgabe', limit: 'Für ein Logo, das vom Sticker bis zum großen Banner scharf bleiben soll, sind Vektoren in Illustrator meist besser geeignet.', draw: 'Ein Foto mit sichtbaren Pixeln.', memory: 'Ich verändere das Bild.' },
+  { id: 'ai', short: 'Ai', name: 'Illustrator', company: 'Ein Programm der Firma Adobe.', productUrl: 'https://www.adobe.com/de/products/illustrator.html', field: 'Grafik', verb: 'Formen konstruieren', color: '#9a480c', tint: '#fff0df', symbol: '◇', intro: 'Du zeichnest Logos, Icons und Illustrationen aus Vektoren. Ihre Formen werden durch Pfade und Ankerpunkte beschrieben.', strengths: ['Logos und Symbole entwickeln', 'Präzise Formen und Kurven zeichnen', 'Vektorgrafiken ohne Verpixeln vergrößern'], terms: 'Ein Pfad ist eine Linie oder Kontur. Ankerpunkte bestimmen ihren Verlauf; Fläche und Kontur bestimmen ihr Aussehen.', example: 'Du zeichnest ein Logo für das Schulfest.', result: 'Eine skalierbare Grafik', formats: 'AI zum Weiterarbeiten · SVG oder PDF zur Weitergabe', limit: 'Die Skalierbarkeit gilt für Vektorelemente. Ein platziertes Foto bleibt ein Pixelbild. Für Fotoretusche ist Photoshop geeigneter.', draw: 'Ein Logo mit scharfen Kanten.', memory: 'Ich zeichne die Grafik.' },
+  { id: 'id', short: 'Id', name: 'InDesign', company: 'Ein Programm der Firma Adobe.', productUrl: 'https://www.adobe.com/de/products/indesign.html', field: 'Print-Layout', verb: 'Seiten gestalten', color: '#a02b62', tint: '#ffedf5', symbol: '▤', intro: 'Du bringst Texte, Bilder und Grafiken auf Seiten zusammen. Layout bedeutet, diese Elemente bewusst anzuordnen und eine klare Lesereihenfolge zu schaffen.', strengths: ['Broschüren, Magazine und Bücher gestalten', 'Texte mit Absatzformaten einheitlich setzen', 'Mehrseitige Dokumente für den Druck vorbereiten'], terms: 'Text- und Bildrahmen nehmen Inhalte auf. Raster helfen beim Ausrichten. Absatzformate speichern wiederkehrende Texteinstellungen.', example: 'Du platzierst Bandfoto, Logo und Programmtexte in einer mehrseitigen Broschüre für das Schulfest.', result: 'Ein gestaltetes Seitendokument', formats: 'INDD zum Weiterarbeiten · PDF für die Druckausgabe', limit: 'Das Foto bearbeitest du vorher in Photoshop, das Logo zeichnest du in Illustrator. Beim Druck-PDF müssen Vorgaben wie Beschnitt und Bildauflösung stimmen.', draw: 'Eine Doppelseite mit Spalten, Textlinien, Bildrahmen und Seitenzahlen.', memory: 'Ich ordne Inhalte auf Seiten.' },
+  { id: 'fi', short: 'Fi', name: 'Figma', company: 'Entwickelt von Figma, einer eigenständigen Firma.', productUrl: 'https://www.figma.com/design/', field: 'Screen-Layout & Prototyp', verb: 'Oberflächen entwerfen', color: '#6244a5', tint: '#f1edff', symbol: '▣', intro: 'Du gestaltest Oberflächen für Websites und Apps. Du kannst Screens miteinander verknüpfen und so einen anklickbaren Ablauf ausprobieren.', strengths: ['Screens für Smartphone, Tablet und Desktop entwerfen', 'Wiederverwendbare Buttons und Komponenten anlegen', 'Klickwege testen und gemeinsam am Entwurf arbeiten'], terms: 'Ein Frame ist ein Gestaltungsbereich, etwa ein Handy-Screen. Ein Prototyp simuliert Interaktionen, zum Beispiel einen Klick auf einen Button.', example: 'Du entwirfst die mobile Schulfest-Website. Ein Klick auf „Programm“ führt im Prototyp zur Programmübersicht.', result: 'Ein Screen-Entwurf mit testbaren Klickwegen', formats: 'Figma-Design und geteilter Prototyp-Link · z. B. SVG/PNG für einzelne Elemente', limit: 'Ein Design-Prototyp zeigt Aussehen und Bedienabläufe. Eine echte Buchung oder Datenbank ist dadurch noch nicht umgesetzt.', draw: 'Ein Handy-Screen.', memory: 'Ich gestalte und teste die Bedienung.' }
 ]
 const tasks = [
   { text: 'Auf einem Porträt sollen Hautunreinheiten entfernt werden.', correct: 'ps', why: 'Photoshop ist für die Bearbeitung von Fotodetails und Retusche geeignet.' },
@@ -19,67 +39,100 @@ const correctCount = computed(() => tasks.filter((task, i) => answers.value[i] =
 <template>
   <main class="media-page">
     <div class="page-shell">
-      <RouterLink to="/" class="back">← Zur Startseite</RouterLink>
+      <RouterLink to="/" class="back"><GlossaryText text="← Zur Startseite" /></RouterLink>
       <header class="hero">
-        <p class="eyebrow">MEDIENTECHNIK / ERSTES JAHR</p>
-        <h1>Vier Programme.<br><span>Vier Schwerpunkte.</span></h1>
-        <p class="lead">Ein Foto bearbeiten, ein Logo zeichnen, eine Broschüre setzen oder eine App entwerfen: Welches Werkzeug passt zu welcher Aufgabe?</p>
-        <p class="goal">Dein Ziel: Du kannst die Programme unterscheiden und ihre Stärken in einer eigenen Zeichnung erklären.</p>
-      </header>
-      <nav class="programme-nav" aria-label="Programme entdecken">
-        <a v-for="p in programmes" :key="p.id" :href="`#${p.id}`" :style="{ '--accent': p.color, '--tint': p.tint }"><span class="badge">{{ p.short }}</span><span><strong>{{ p.name }}</strong><small>{{ p.field }}</small></span><span aria-hidden="true">↗</span></a>
-      </nav>
+        <p class="eyebrow"><GlossaryText text="MEDIENTECHNIK / ERSTES JAHR" /></p>
+        <h1><GlossaryText text="Vier Programme." /><br><span><GlossaryText text="Vier Schwerpunkte." /></span></h1>
+        <p class="lead"><GlossaryText text="Ein Foto bearbeiten, ein Logo zeichnen, eine Broschüre setzen oder eine App entwerfen: Welches Werkzeug passt zu welcher Aufgabe?" /></p>
+        <p class="goal"><GlossaryText text="Dein Ziel: Du kannst die Programme unterscheiden und ihre Stärken in einer eigenen Zeichnung erklären." /></p>
+      <p class="glossary-hint">Gepunktet unterstrichene Begriffe kannst du antippen. Dann öffnet sich eine kurze Erklärung.</p></header>
+      <div class="programme-nav" role="group" aria-label="Programme im Überblick">
+        <div v-for="p in programmes" :key="p.id" class="programme-overview" :style="{ '--accent': p.color, '--tint': p.tint }"><span class="badge">{{ p.short }}</span><span><strong>{{ p.name }}</strong><small><GlossaryText :text="p.field" /></small></span></div>
+      </div>
       <section class="basics" aria-labelledby="basics-title">
-        <p class="eyebrow">01 / DIE GRUNDIDEE</p>
-        <h2 id="basics-title">Bild und Grafik sind Bausteine.<br>Ein Layout bringt sie zusammen.</h2>
+        <p class="eyebrow"><GlossaryText text="01 / DIE GRUNDIDEE" /></p>
+        <h2 id="basics-title"><GlossaryText text="Bild und Grafik sind Bausteine." /><br><GlossaryText text="Ein Layout bringt sie zusammen." /></h2>
         <div class="concept-grid">
-          <article><div class="pixel-demo" aria-hidden="true">▦ → ▦</div><h3>Pixelbild</h3><p>Ein Foto besteht aus Bildpunkten. Bei starker Vergrößerung werden sie sichtbar; die vorhandene Auflösung begrenzt die Details.</p></article>
-          <article><div class="vector-demo" aria-hidden="true">◇ → ◇</div><h3>Vektorgrafik</h3><p>Mathematisch beschriebene Linien und Flächen werden für jede Größe neu berechnet. Ihre Kanten bleiben scharf.</p></article>
-          <article><div class="layout-demo" aria-hidden="true"><span>Bild</span><span>Text<br>Text</span><span>Grafik</span></div><h3>Layout</h3><p>Texte, Bilder und Grafiken erhalten ihren Platz: auf einer gedruckten Seite oder auf einem Bildschirm.</p></article>
+          <article><div class="pixel-demo" aria-hidden="true">▦ → ▦</div><h3><GlossaryText text="Pixelbild" /></h3><p><GlossaryText text="Ein Foto besteht aus Bildpunkten. Bei starker Vergrößerung werden sie sichtbar; die vorhandene Auflösung begrenzt die Details." /></p></article>
+          <article><div class="vector-demo" aria-hidden="true">◇ → ◇</div><h3><GlossaryText text="Vektorgrafik" /></h3><p><GlossaryText text="Mathematisch beschriebene Linien und Flächen werden für jede Größe neu berechnet. Ihre Kanten bleiben scharf." /></p></article>
+          <article><div class="layout-demo" aria-hidden="true"><span>Bild</span><span>Text<br>Text</span><span>Grafik</span></div><h3><GlossaryText text="Layout" /></h3><p><GlossaryText text="Texte, Bilder und Grafiken erhalten ihren Platz: auf einer gedruckten Seite oder auf einem Bildschirm." /></p></article>
         </div>
       </section>
       <section aria-labelledby="programmes-title">
-        <p class="eyebrow">02 / DEINE WERKZEUGE</p>
-        <h2 id="programmes-title">Was macht welches Programm?</h2>
+        <p class="eyebrow"><GlossaryText text="02 / DEINE WERKZEUGE" /></p>
+        <h2 id="programmes-title"><GlossaryText text="Was macht welches Programm?" /></h2>
         <div class="programme-grid">
           <article v-for="p in programmes" :id="p.id" :key="p.id" class="programme" :style="{ '--accent': p.color, '--tint': p.tint }">
-            <div class="card-top"><span class="badge">{{ p.short }}</span><span>{{ p.field }}</span></div>
-            <h3>{{ p.name }}</h3><p class="verb">{{ p.verb }}</p><p>{{ p.intro }}</p>
-            <h4>Besonders stark darin</h4><ul><li v-for="s in p.strengths" :key="s">{{ s }}</li></ul>
-            <div class="example"><strong>Beispiel: unser Schulfest</strong><p>{{ p.example }}</p></div>
-            <details><summary>Drei Dinge für den Einstieg</summary><p>{{ p.terms }}</p><p><strong>Ergebnis:</strong> {{ p.result }}</p><p><strong>Dateien:</strong> {{ p.formats }}</p><p>{{ p.limit }}</p></details>
-            <div class="sketch"><span aria-hidden="true">{{ p.symbol }}</span><p><strong>So könntest du es zeichnen</strong><br>{{ p.draw }}</p></div>
-            <p class="memory">„{{ p.memory }}“</p>
+            <div class="card-top"><span class="badge">{{ p.short }}</span><span><GlossaryText :text="p.field" /></span></div>
+            <h3>{{ p.name }}</h3><p class="company">{{ p.company }}</p><p class="verb"><GlossaryText :text="p.verb" /></p><p><GlossaryText :text="p.intro" /></p>
+            <h4><GlossaryText text="Besonders stark darin" /></h4><ul><li v-for="s in p.strengths" :key="s"><GlossaryText :text="s" /></li></ul>
+            <div class="example"><strong><GlossaryText text="Beispiel: unser Schulfest" /></strong><p><GlossaryText :text="p.example" /></p></div>
+            <div class="sketch"><span aria-hidden="true">{{ p.symbol }}</span><p><strong><GlossaryText text="So könntest du es zeichnen" /></strong><br><GlossaryText :text="p.draw" /></p></div>
+            <p class="memory">„<GlossaryText :text="p.memory" />“</p>
+            <a class="product-link" :href="p.productUrl" target="_blank" rel="noopener noreferrer" :aria-label="`Offizielle Produktseite von ${p.name} (neuer Tab)`">Offizielle Produktseite ↗</a>
           </article>
         </div>
-        <p class="footnote">Die Programme haben Überschneidungen. Die Zuordnung zeigt ihre typischen Schwerpunkte – zum Beispiel kann InDesign auch digitale Dokumente ausgeben.</p>
+        <p class="footnote"><GlossaryText text="Die Programme haben Überschneidungen. Die Zuordnung zeigt ihre typischen Schwerpunkte – zum Beispiel kann InDesign auch digitale Dokumente ausgeben." /></p>
       </section>
       <section class="workflow" aria-labelledby="workflow-title">
-        <p class="eyebrow">03 / ZUSAMMENARBEIT</p><h2 id="workflow-title">Ein Fest. Mehrere Medien.</h2>
-        <p>Photoshop liefert das bearbeitete Foto. Illustrator liefert das Logo. Beide Bausteine können anschließend in zwei verschiedene Gestaltungswege fließen:</p>
-        <div class="flow-assets"><span>Photoshop → Foto</span><b>+</b><span>Illustrator → Logo</span></div>
-        <div class="flow-outputs"><div><span aria-hidden="true">↓</span><h3>InDesign → Broschüre</h3><p>Foto + Logo + Texte → Seitenlayout → Druck-PDF</p></div><div><span aria-hidden="true">↓</span><h3>Figma → Website-Entwurf</h3><p>Foto + Logo + Texte → Screens → Klick-Prototyp</p></div></div>
-        <p class="footnote">Du musst also nicht alle vier Programme nacheinander verwenden. Das gewünschte Ergebnis bestimmt deinen Weg.</p>
+        <p class="eyebrow">03 / ZUSAMMENARBEIT</p>
+        <h2 id="workflow-title">So arbeiten die Programme zusammen</h2>
+        <div class="scenario-grid">
+          <article class="scenario">
+            <p class="scenario-label">BEISPIEL 1 · DRUCK</p>
+            <h3><GlossaryText text="Eine Broschüre gestalten" /></h3>
+            <ul class="scenario-parts">
+              <li><strong>Photoshop</strong><GlossaryText text="Du bearbeitest ein Foto." /></li>
+              <li><strong>Illustrator</strong><GlossaryText text="Du zeichnest ein Logo." /></li>
+              <li><strong>InDesign</strong><GlossaryText text="Du setzt Foto, Logo und Texte auf die Seiten." /></li>
+            </ul>
+            <p class="scenario-result"><strong>Das Ergebnis:</strong><br><GlossaryText text="Eine Broschüre, die gedruckt werden kann." /></p>
+          </article>
+          <article class="scenario">
+            <p class="scenario-label">BEISPIEL 2 · BILDSCHIRM</p>
+            <h3><GlossaryText text="Eine Website zum Anklicken entwerfen" /></h3>
+            <ul class="scenario-parts">
+              <li><strong>Photoshop</strong><GlossaryText text="Du bearbeitest ein Foto." /></li>
+              <li><strong>Illustrator</strong><GlossaryText text="Du zeichnest ein Logo." /></li>
+              <li><strong>Figma</strong><GlossaryText text="Du ordnest Foto, Logo und Texte auf dem Bildschirm an. Du verknüpfst einen Button mit der nächsten Ansicht." /></li>
+            </ul>
+            <p class="scenario-result"><strong>Das Ergebnis:</strong><br><GlossaryText text="Ein anklickbarer Website-Entwurf, mit dem du die Bedienung ausprobieren kannst." /></p>
+          </article>
+        </div>
       </section>
       <section aria-labelledby="check-title">
-        <p class="eyebrow">04 / KURZER SELBSTCHECK</p><h2 id="check-title">Welches Programm würdest du wählen?</h2>
-        <p>Wähle den passenden Schwerpunkt. Du kannst deine Antwort jederzeit ändern.</p>
-        <div class="quiz-grid"><fieldset v-for="(task, i) in tasks" :key="task.correct"><legend>{{ i + 1 }}. {{ task.text }}</legend><div class="options"><button v-for="p in programmes" :key="p.id" type="button" :aria-pressed="answers[i] === p.id" @click="answers[i] = p.id">{{ p.name }}</button></div><p v-if="answers[i]" class="feedback" role="status">{{ answers[i] === task.correct ? 'Richtig. ' : 'Noch nicht die passendste Wahl. ' }}{{ task.why }}</p></fieldset></div>
+        <p class="eyebrow"><GlossaryText text="04 / KURZER SELBSTCHECK" /></p><h2 id="check-title"><GlossaryText text="Welches Programm würdest du wählen?" /></h2>
+        <p><GlossaryText text="Wähle den passenden Schwerpunkt. Du kannst deine Antwort jederzeit ändern." /></p>
+        <div class="quiz-grid"><fieldset v-for="(task, i) in tasks" :key="task.correct"><legend>{{ i + 1 }}. <GlossaryText :text="task.text" /></legend><div class="options"><button v-for="p in programmes" :key="p.id" type="button" :aria-pressed="answers[i] === p.id" @click="answers[i] = p.id">{{ p.name }}</button></div><p v-if="answers[i]" class="feedback" role="status">{{ answers[i] === task.correct ? 'Richtig. ' : 'Noch nicht die passendste Wahl. ' }}<GlossaryText :text="task.why" /></p></fieldset></div>
         <p class="score" role="status">{{ correctCount }} von {{ tasks.length }} richtig zugeordnet</p>
       </section>
       <section class="assignment" aria-labelledby="assignment-title">
-        <p class="eyebrow">05 / DEINE VISUALISIERUNG</p><h2 id="assignment-title">Mach aus Wissen ein Bild.</h2>
-        <p>Zeichne auf einem Blatt eine Werkzeugkarte für das Schulfest. Nutze vier Bereiche oder eine Mindmap. Die Zeichnung soll auch jemand verstehen, der die Programme noch nicht kennt.</p>
-        <ol><li><strong>Vier Programme, vier Symbole:</strong> Beschrifte die Bereiche mit Programmname und Schwerpunkt.</li><li><strong>Zeige die Arbeitsweise:</strong> Zeichne Pixel bei Photoshop, Pfade bei Illustrator, Seiten bei InDesign und verknüpfte Screens bei Figma.</li><li><strong>Mach die Stärken sichtbar:</strong> Ergänze je zwei Tätigkeiten und ein typisches Ergebnis.</li><li><strong>Verbinde die Werkzeuge:</strong> Zeige mit Pfeilen, wie Foto und Logo in eine Broschüre oder einen Screen gelangen.</li></ol>
-        <details><summary>Prüfe deine Zeichnung</summary><ul><li>Sind alle vier Programme und Schwerpunkte erkennbar?</li><li>Kann man Pixel und Vektoren unterscheiden?</li><li>Ist der Unterschied zwischen Druckseite und interaktivem Screen sichtbar?</li><li>Hat jedes Programm mindestens zwei Stärken und ein Beispiel?</li><li>Sind die Verbindungspfeile sinnvoll beschriftet?</li></ul></details>
-        <p><strong>Zum Schluss:</strong> Erkläre einer anderen Person deine Zeichnung in einer Minute. Begründe dabei, welches Programm du für welches Ergebnis wählst.</p>
+        <p class="eyebrow">05 / DEINE VISUALISIERUNG</p>
+        <h2 id="assignment-title">Visualisiere zeichnerisch die vier Programme, die du dieses Jahr lernen wirst.</h2>
+        <p>Gestalte auf einer DIN-A3-Seite eine zeichnerische Darstellung von Photoshop, Illustrator, InDesign und Figma. Stelle die Einsatzbereiche der einzelnen Programme und ihr Zusammenspiel dar. Ergänze deine Zeichnungen durch kurze Beschriftungen und Pfeile, um die Zusammenhänge zu verdeutlichen.</p>
       </section>
       <footer><h2>Weiterlesen bei den Herstellern</h2><a href="https://www.adobe.com/learn/photoshop/web/raster-vector" target="_blank" rel="noopener">Adobe: Pixel und Vektoren ↗</a><a href="https://pages.adobe.com/business/expand-what-you-can-create-illustrator-x-indesign" target="_blank" rel="noopener">Adobe: Illustrator und InDesign ↗</a><a href="https://help.figma.com/hc/en-us/articles/360040314193-Guide-to-prototyping-in-Figma" target="_blank" rel="noopener">Figma: Prototyping ↗</a></footer>
     </div>
+    <dialog ref="termDialog" class="term-dialog" aria-labelledby="term-title" @close="afterClose" @click="event => { if (event.target === termDialog) { const r = termDialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) closeTerm() } }">
+      <template v-if="activeTerm">
+        <button type="button" class="close-term" autofocus @click="closeTerm">Schließen ×</button>
+        <p class="eyebrow">EINFACH ERKLÄRT</p>
+        <h2 id="term-title">{{ activeTerm.title }}</h2>
+        <p class="term-explanation">{{ activeTerm.explanation }}</p>
+      </template>
+    </dialog>
   </main>
 </template>
 
 <style scoped>
+.company { font-size: 14px; color: #526166; margin: 6px 0 14px; }
+.product-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; color: var(--accent); text-underline-offset: 4px; font-weight: 500; }
+.glossary-hint { font-size: 14px; color: #526166; margin-top: 24px; }
+.term-dialog { position: fixed; inset: 0; margin: auto; width: min(540px, calc(100% - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; padding: 28px; border: 1px solid #c9d3cb; border-radius: 18px; background: #f8f7f3; color: #202d32; box-shadow: 0 20px 80px #102a3040; }
+.term-dialog::backdrop { background: #12221dcc; }
+.close-term { display: block; margin: 0 0 24px auto; }
+.term-explanation { font-size: 18px; line-height: 1.7; }
+
 .media-page { background: #f8f7f3; color: #202d32; min-height: 100vh; user-select: text; font-family: 'Jost', sans-serif; }
 .media-page * { box-sizing: border-box; }
 .page-shell { max-width: 1180px; padding: 32px 28px 64px; margin: auto; }
@@ -95,11 +148,11 @@ h2 { font-size: clamp(25px, 3.2vw, 38px); font-weight: 500; line-height: 1.2; ma
 h3 { font-weight: 500; }
 a { color: inherit; }
 .programme-nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.programme-nav a { display: flex; align-items: center; gap: 10px; padding: 16px 12px; border: 1px solid #d8ddd6; border-radius: 12px; text-decoration: none; background: white; }
-.programme-nav a:hover { border-color: var(--accent); }
+.programme-overview { display: flex; align-items: center; gap: 10px; padding: 16px 12px; border: 1px solid #d8ddd6; border-radius: 12px; text-decoration: none; background: white; }
+
 .programme-nav small, .programme-nav strong { display: block; }
 .programme-nav small { font-size: 12px; }
-.programme-nav a > span:last-child { margin-left: auto; }
+
 .badge { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--tint); color: var(--accent); font-weight: 500; font-size: 22px; }
 section { margin-top: 72px; scroll-margin-top: 20px; }
 .concept-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
@@ -124,10 +177,14 @@ summary { cursor: pointer; font-weight: 500; line-height: 1.5; min-height: 28px;
 .memory { color: var(--accent); font-size: 20px; font-weight: 500; margin-bottom: 0; }
 .footnote { font-size: 14px; color: #526166; }
 .workflow { padding: 32px; background: #e8eee7; border-radius: 18px; }
-.flow-assets { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
-.flow-assets span { padding: 14px 20px; background: white; border-radius: 8px; }
-.flow-outputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; text-align: center; }
-.flow-outputs span { font-size: 36px; }
+.scenario-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.scenario { padding: 24px; background: white; border-radius: 12px; }
+.scenario-label { font-size: 12px; letter-spacing: .08em; color: #526166; margin: 0; }
+.scenario h3 { font-size: 24px; line-height: 1.3; margin: 12px 0 24px; }
+.scenario-parts { list-style: none; padding: 0; margin: 0; }
+.scenario-parts li { padding: 14px 0; margin: 0; border-top: 1px solid #dce0db; }
+.scenario-parts strong { display: block; margin-bottom: 4px; }
+.scenario-result { background: #edf2eb; padding: 16px; border-radius: 8px; margin: 20px 0 0; }
 .quiz-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 fieldset { min-width: 0; margin: 0; border: 1px solid #c9d3cb; padding: 20px; border-radius: 12px; }
 legend { padding: 0 8px; font-weight: 500; line-height: 1.5; }
@@ -145,5 +202,5 @@ footer h2 { font-size: 16px; }
 footer a { display: inline-block; margin: 0 24px 14px 0; font-size: 13px; text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #3680b6; outline-offset: 4px; }
 @media (max-width: 900px) { .programme-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .page-shell { padding: 24px 18px 40px; } .hero { padding-top: 40px; } section { margin-top: 48px; } .programme-grid, .concept-grid, .quiz-grid, .flow-outputs { grid-template-columns: 1fr; } .programme, .workflow, .assignment { padding: 22px; } .programme-nav a { flex-wrap: wrap; } .programme-nav a > span:last-child { display: none; } .badge { width: 36px; height: 36px; font-size: 18px; } }
+@media (max-width: 600px) { .page-shell { padding: 24px 18px 40px; } .hero { padding-top: 40px; } section { margin-top: 48px; } .programme-grid, .concept-grid, .quiz-grid, .scenario-grid { grid-template-columns: 1fr; } .programme, .workflow, .assignment { padding: 22px; } .programme-overview { flex-wrap: wrap; }  .badge { width: 36px; height: 36px; font-size: 18px; } }
 </style>
