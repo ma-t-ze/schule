@@ -1,6 +1,6 @@
 <script setup>
 import { ref, nextTick } from 'vue'
-defineProps({ sections: { type: Array, required: true }, intro: { type: String, default: '' }, questionId: { type: String, required: true } })
+defineProps({ sections: { type: Array, required: true }, intro: { type: String, default: '' }, heading: { type: String, default: '' }, questionId: { type: String, required: true } })
 const dialog = ref(null)
 const selected = ref(null)
 let trigger = null
@@ -15,8 +15,9 @@ function restoreFocus() { trigger?.focus() }
 <template>
   <div class="keyword-answer">
     <p v-if="intro">{{ intro }}</p>
+    <h3 v-if="heading">{{ heading }}</h3>
     <section v-for="section in sections" :key="section.title">
-      <h3><strong>{{ section.title }}</strong></h3>
+      <component :is="heading ? 'h4' : 'h3'"><strong>{{ section.title }}</strong></component>
       <p v-if="section.description">{{ section.description }}</p>
       <ul><li v-for="item in section.items" :key="item.term"><button type="button" class="keyword" aria-haspopup="dialog" @click="explain(item, $event)">{{ item.term }}</button></li></ul>
     </section>
@@ -39,7 +40,7 @@ function restoreFocus() { trigger?.focus() }
 </template>
 <style scoped>
 .keyword-dialog blockquote { margin: 16px 0; padding-left: 16px; border-left: 3px solid #315e4c; line-height: 1.6; user-select: text; }
-h3 { margin: 20px 0 8px; font-size: 17px; } ul { padding-left: 22px; } li { margin: 6px 0; }
+h3, h4 { margin: 20px 0 8px; font-size: 17px; } ul { padding-left: 22px; } li { margin: 6px 0; }
 .keyword { color: #245137; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; font: inherit; text-align: left; padding: 5px 0; cursor: pointer; }
 .keyword:focus-visible { outline: 2px solid #315e4c; outline-offset: 3px; }
 .keyword-dialog { position: fixed; inset: 0; margin: auto; box-sizing: border-box; width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 40px); max-height: calc(100dvh - 40px); overflow-y: auto; padding: 28px; border: 0; border-radius: 12px; color: #24382b; background: white; font-family: 'Jost', sans-serif; }

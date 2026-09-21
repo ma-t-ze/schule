@@ -28,6 +28,13 @@ const filteredClusters = computed(() => {
 const visibleCount = computed(() => filteredClusters.value.reduce((sum, cluster) => sum + countQuestions(cluster), 0))
 const filtering = computed(() => Boolean(search.value.trim() || sourceFilter.value))
 const countQuestions = (cluster) => cluster.topics.reduce((sum, topic) => sum + topic.questions.length, 0)
+const clusterQuestionRange = (cluster) => {
+  const questions = cluster.topics.flatMap(topic => topic.questions)
+  if (!questions.length) return ''
+  const first = questionNumbers[questions[0].id]
+  const last = questionNumbers[questions[questions.length - 1].id]
+  return first === last ? `Frage ${first}` : `Fragen ${first}–${last}`
+}
 const clusterStats = computed(() => Object.fromEntries(clusters.map(cluster => {
   const stats = { secure: 0, open: 0, review: 0 }
   for (const topic of cluster.topics) {
@@ -93,11 +100,19 @@ const toggleAnswer = (id) => {
 
     <details class="source-note">
       <summary>Über die Lernunterlagen</summary>
-      <p>Fragen und Antworten stammen aus deinen PDFs. Zeilenumbrüche und Abstände sind für die Bildschirmansicht angepasst. Ähnliche Fragen aus beiden Dokumenten bleiben mit ihrer jeweiligen Antwort erhalten.</p>
-      <p>Die Antworten geben den Stand der Vorlagen wieder; sie wurden nicht auf den aktuellen Rechtsstand geprüft. Offene Angaben der Vorlage sind gekennzeichnet. Seitenangaben beziehen sich auf die PDF-Seitenzählung.</p>
+      <h3>Aufbau der Antworten</h3>
+      <p>Jede Antwort beginnt mit einer kurzen Erklärung, die einen Überblick über die Lösung gibt.</p>
+      <h4>Lösung stichwortartig</h4>
+      <p>Darunter folgen die wichtigsten Stichwörter. Klicke auf ein Stichwort, um die zugehörige Lösung in einem Overlay zu öffnen.</p>
+      <p>Das Overlay enthält eine detaillierte Erklärung. Bei Gesetzesbezügen führt ein Link zum passenden Online-Gesetzestext.</p>
+      <p>Am Ende jeder Antwort findest du einen Link zur entsprechenden Antwort im PDF.</p>
       <div class="source-links">
         <a href="/lernmaterial/Schulrecht.pdf" target="_blank" rel="noopener">Schulrecht.pdf öffnen ↗</a>
         <a href="/lernmaterial/Schulorganisation.pdf" target="_blank" rel="noopener">Schulorganisation.pdf öffnen ↗</a>
+        <a href="https://www.gesetze-im-internet.de/gg/" target="_blank" rel="noopener">Grundgesetz für die Bundesrepublik Deutschland (GG) ↗</a>
+        <a href="https://www.landesrecht-bw.de/bsbw/document/jlr-VerfBWrahmen" target="_blank" rel="noopener">Landesverfassung Baden-Württemberg (LV) ↗</a>
+        <a href="https://www.landesrecht-bw.de/bsbw/?docId=jlr-NNLBW00007DD4&amp;query=JURISLINK%3A%22SchulG+BW%22" target="_blank" rel="noopener">Schulgesetz für Baden-Württemberg (SchG) ↗</a>
+        <a href="https://www.landesrecht-bw.de/bsbw/document/jlr-NotBildVBWrahmen" target="_blank" rel="noopener">Notenbildungsverordnung Baden-Württemberg (NVO) ↗</a>
       </div>
     </details>
 
@@ -123,7 +138,7 @@ const toggleAnswer = (id) => {
           <span class="number">{{ cluster.id.split('-')[1].padStart(2, '0') }}</span>
           <span class="cluster-heading">
             <span class="cluster-title">{{ cluster.title }}</span>
-            <span class="count">{{ cluster.topics.length }} Unterthemen · {{ countQuestions(cluster) }} Fragen</span>
+            <span class="count">{{ cluster.topics.length }} Unterthemen · {{ countQuestions(cluster) }} Fragen · {{ clusterQuestionRange(cluster) }}</span>
             <span v-if="user && loaded" class="cluster-stats" aria-label="Lernstand des gesamten Hauptthemas">
               <span class="stat-secure">{{ clusterStats[cluster.id].secure }} Sicher</span>
               <span class="stat-open">{{ clusterStats[cluster.id].open }} Offen</span>
@@ -136,7 +151,7 @@ const toggleAnswer = (id) => {
         <div class="topics">
           <details v-for="topic in cluster.topics" :key="topic.title" class="topic" :open="filtering">
             <summary>
-              {{ topic.title }} <span class="count inline-count">{{ topic.questions.length }} Fragen</span>
+              {{ topic.title }} <span class="count inline-count">{{ topic.questions.length }} {{ topic.questions.length === 1 ? 'Frage' : 'Fragen' }} · {{ topic.questions.length === 1 ? 'Frage' : 'Fragen' }} {{ questionNumbers[topic.questions[0].id] }}<template v-if="topic.questions.length > 1">–{{ questionNumbers[topic.questions[topic.questions.length - 1].id] }}</template></span>
               <span v-if="user && loaded" class="cluster-stats" aria-label="Lernstand des gesamten Unterthemas">
                 <span class="stat-secure">{{ topicStats[cluster.id][topic.title].secure }} Sicher</span>
                 <span class="stat-open">{{ topicStats[cluster.id][topic.title].open }} Offen</span>
@@ -162,11 +177,12 @@ const toggleAnswer = (id) => {
                   </select>
                 </label>
                 <div v-if="revealed.has(question.id)" :id="`answer-${question.id}`" class="answer" role="region" :aria-labelledby="`question-${question.id}`">
-                  <p class="answer-label">{{ question.answerSections ? 'Stichwörter – für Erklärungen anklicken' : 'Antwort aus der PDF' }}</p>
-                  <KeywordAnswer v-if="question.answerSections" :sections="question.answerSections" :intro="question.answerIntro" :question-id="question.id" />
+                  <p v-if="!question.answerHeading" class="answer-label">{{ question.answerSections ? 'Stichwörter – für Erklärungen anklicken' : 'Antwort aus der PDF' }}</p>
+                  <KeywordAnswer v-if="question.answerSections" :sections="question.answerSections" :intro="question.answerIntro" :heading="question.answerHeading" :question-id="question.id" />
                   <template v-else>
                   <p v-for="(paragraph, index) in question.answer.split('\n\n')" :key="index">{{ paragraph }}</p>
                   </template>
+                  <a class="question-source" :href="`/lernmaterial/${question.document}.pdf#page=${question.page}`" target="_blank" rel="noopener">Antwort im PDF öffnen · {{ question.document }} · Seite {{ question.page }} ↗</a>
                 </div>
                 <div class="note-editor">
                   <label :for="`note-${question.id}`">Bemerkungen</label>
