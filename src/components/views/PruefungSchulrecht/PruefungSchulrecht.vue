@@ -2,8 +2,10 @@
 import { computed, ref } from 'vue'
 import { useLearningProgress } from './useLearningProgress'
 import clusters from './pruefung-cluster.json'
+import KeywordAnswer from './KeywordAnswer.vue'
 
 const questionIds = new Set(clusters.flatMap(c => c.topics.flatMap(t => t.questions.map(q => q.id))))
+const questionNumbers = Object.fromEntries([...questionIds].map((id, index) => [id, index + 1]))
 const { user, ready, loaded, busy, pending, progress, message, today, learned, review, plan, login, logout, setStatus, notes, noteDrafts, noteMessages, editNote, saveNote } = useLearningProgress(questionIds)
 
 const search = ref('')
@@ -36,6 +38,17 @@ const clusterStats = computed(() => Object.fromEntries(clusters.map(cluster => {
   }
   return [cluster.id, stats]
 })))
+const topicStats = computed(() => Object.fromEntries(clusters.map(cluster => [
+  cluster.id,
+  Object.fromEntries(cluster.topics.map(topic => {
+    const stats = { secure: 0, open: 0, review: 0 }
+    for (const question of topic.questions) {
+      const status = progress.value[question.id]
+      stats[status === 'secure' || status === 'review' ? status : 'open'] += 1
+    }
+    return [topic.title, stats]
+  }))
+])))
 const toggleAnswer = (id) => {
   if (revealed.value.has(id)) revealed.value.delete(id)
   else revealed.value.add(id)
@@ -122,12 +135,21 @@ const toggleAnswer = (id) => {
         </summary>
         <div class="topics">
           <details v-for="topic in cluster.topics" :key="topic.title" class="topic" :open="filtering">
-            <summary>{{ topic.title }} <span class="count inline-count">{{ topic.questions.length }} Fragen</span></summary>
+            <summary>
+              {{ topic.title }} <span class="count inline-count">{{ topic.questions.length }} Fragen</span>
+              <span v-if="user && loaded" class="cluster-stats" aria-label="Lernstand des gesamten Unterthemas">
+                <span class="stat-secure">{{ topicStats[cluster.id][topic.title].secure }} Sicher</span>
+                <span class="stat-open">{{ topicStats[cluster.id][topic.title].open }} Offen</span>
+                <span class="stat-review">{{ topicStats[cluster.id][topic.title].review }} Wiederholen</span>
+                <span v-if="filtering" class="stats-scope">Gesamtes Unterthema</span>
+              </span>
+              <span v-else class="count">{{ user ? 'Lernstatistik wird geladen …' : 'Für deine Lernstatistik bitte anmelden.' }}</span>
+            </summary>
             <div class="topic-content">
               <article v-for="question in topic.questions" :key="question.id" class="question-card">
                 <a class="question-source" :href="`/lernmaterial/${question.document}.pdf#page=${question.page}`" target="_blank" rel="noopener">{{ question.document }} · PDF-S. {{ question.page }} ↗</a>
                 <p v-if="question.context" class="case-context">{{ question.context }}</p>
-                <h2 :id="`question-${question.id}`">{{ question.question }}</h2>
+                <h2 :id="`question-${question.id}`">{{ questionNumbers[question.id] }}. {{ question.question }}</h2>
                 <p v-if="question.note" class="question-note">{{ question.note }}</p>
                 <button type="button" class="answer-button" :aria-expanded="revealed.has(question.id)" :aria-controls="`answer-${question.id}`" @click="toggleAnswer(question.id)">
                   {{ revealed.has(question.id) ? 'Antwort verbergen' : 'Antwort anzeigen' }}
@@ -140,8 +162,11 @@ const toggleAnswer = (id) => {
                   </select>
                 </label>
                 <div v-if="revealed.has(question.id)" :id="`answer-${question.id}`" class="answer" role="region" :aria-labelledby="`question-${question.id}`">
-                  <p class="answer-label">Antwort aus der PDF</p>
+                  <p class="answer-label">{{ question.answerSections ? 'Stichwörter – für Erklärungen anklicken' : 'Antwort aus der PDF' }}</p>
+                  <KeywordAnswer v-if="question.answerSections" :sections="question.answerSections" :intro="question.answerIntro" :question-id="question.id" />
+                  <template v-else>
                   <p v-for="(paragraph, index) in question.answer.split('\n\n')" :key="index">{{ paragraph }}</p>
+                  </template>
                 </div>
                 <div class="note-editor">
                   <label :for="`note-${question.id}`">Bemerkungen</label>
