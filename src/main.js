@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/rally',
+    name: 'rally',
+    component: () => import('./components/views/Rally/Rally.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/programme-medientechnik-erstes-jahr',
     name: 'programme-medientechnik',
     component: () => import('./components/views/MedientechnikProgramme/MedientechnikProgramme.vue'),
