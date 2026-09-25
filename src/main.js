@@ -6,6 +6,7 @@ import store from './store'
 const app = createApp(App)
 
 const routes = [
+  { path: '/farbmischsysteme', name: 'farbmischsysteme', component: () => import('./components/views/Farbmischsysteme/Farbmischsysteme.vue'), meta: { requiresAuth: false } },
   {
     path: '/rally',
     name: 'rally',
