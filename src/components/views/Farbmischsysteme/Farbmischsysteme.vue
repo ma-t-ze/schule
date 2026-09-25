@@ -33,6 +33,11 @@ const correctCount = computed(() => questions.filter((question, index) => choice
 <template>
   <main class="color-page">
     <nav class="top"><RouterLink to="/">← Schule</RouterLink><span>GESTALTUNG · FARBEN VERSTEHEN</span></nav>
+    <aside class="why-colors" aria-labelledby="why-colors-title">
+      <h2 id="why-colors-title">Warum ist das wichtig?</h2>
+      <p>Ob Website, Foto oder Flyer: Farben sollen zum Ergebnis passen. <strong>Bildschirme arbeiten mit RGB, der Vierfarbdruck mit CMYK.</strong> Wenn du den Unterschied kennst, kannst du deine Gestaltung passend vorbereiten und besser einschätzen, warum eine Farbe auf Papier anders aussieht als auf dem Bildschirm.</p>
+      <p>Du möchtest einen Flyer drucken lassen? Manche RGB-Farben leuchten auf dem Bildschirm stärker, als sie mit CMYK gedruckt werden können. Ist dein Projekt in RGB angelegt, können die Farben im Druck deshalb deutlich anders aussehen. <strong>Stelle dein Projekt vor dem Drucken auf CMYK um.</strong></p>
+    </aside>
     <header class="hero"><p class="eyebrow">ZWEI WEGE ZUR FARBE</p><h1>Licht an.<br><span>Farbe drauf.</span></h1><p>Warum mischt dein Bildschirm Farben anders als ein Drucker? Entdecke RGB und CMYK – und probiere es selbst aus.</p><div class="jump"><a href="#rgb">RGB entdecken ↗</a><a href="#cmyk">CMYK entdecken ↗</a></div></header>
     <section id="rgb" class="chapter rgb-section">
       <div class="explanation"><p class="eyebrow">01 · FARBIGES LICHT</p><h2>RGB: Licht kommt dazu.</h2><p>RGB steht für <strong>Rot, Grün und Blau</strong>. Dein Handy, Fernseher und Monitor erzeugen Farben mit Licht. Kleine Bildpunkte leuchten unterschiedlich stark.</p><p>Je mehr Licht zusammenkommt, desto heller wird die Mischung. Das heißt <strong>additive Farbmischung</strong>. „Addieren“ bedeutet „dazuzählen“.</p><div class="rule">Kein Licht → Schwarz<br>Alle drei Lichtfarben gleich stark und ganz hell → Weiß</div></div>
@@ -99,6 +104,10 @@ const correctCount = computed(() => questions.filter((question, index) => choice
   </main>
 </template>
 <style scoped>
+.why-colors { margin-top: 24px; padding: 20px 24px; border-left: 4px solid #6041dc; border-radius: 0 12px 12px 0; background: #e8e2fa; }
+.why-colors h2 { margin: 0 0 8px; font-size: 21px; }
+.why-colors p { margin: 0; line-height: 1.6; font-size: 16px; }
+.why-colors p + p { margin-top: 12px; }
 .color-page { --ink:#171923; --accent:#6041dc; background:#f6f4ee; color:var(--ink); font-family:jost,Arial,sans-serif; min-height:100vh; padding:0 max(20px,calc((100vw - 1180px)/2)); }
 .color-page * { box-sizing:border-box; } a { color:inherit; } .top,footer { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:26px 0; font-size:13px; } .top { border-bottom:1px solid #d8d6cf; } .top a,footer a { font-weight:600; text-decoration:none; } .top span { letter-spacing:.12em; }
 .hero { padding:76px 0 72px; max-width:820px; }.eyebrow { font-size:12px; font-weight:600; letter-spacing:.18em; margin:0 0 20px; } h1 { font-size:clamp(60px,10vw,120px); line-height:.94; letter-spacing:-.06em; margin:0 0 28px; font-weight:700; } h1 span { color:var(--accent); } .hero > p:last-of-type { max-width:590px; font-size:21px; line-height:1.6; } .jump { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; } .jump a { padding:12px 20px; border:1px solid #b8b4ad; border-radius:100px; text-decoration:none; }
