@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
-import { rallyMuted } from './rallyAudio'
+import { rallyMuted, installRallyAudioUnlock } from './rallyAudio'
 import jsQR from 'jsqr'
 import QRCode from 'qrcode'
 import IntroMonster from './IntroMonster.vue'
@@ -18,10 +18,12 @@ const testCreature = ref(false)
 const phase = ref('welcome')
 const navigatorName = ref('')
 const scannerName = ref('')
-const collectorName = ref('')
 const wheelDrawerOpen = ref(false)
 onDeactivated(() => { wheelDrawerOpen.value = false })
 const energy = ref(100)
+let removeAudioUnlock
+onMounted(() => { removeAudioUnlock = installRallyAudioUnlock() })
+onBeforeUnmount(() => removeAudioUnlock?.())
 const { state: cloudState, gameId, controlsLink, message: syncMessage, failure: syncFailure, retry: retrySync, release: saveRelease, recordScan, saveEnergy, sendHome } = useRallySync()
 const energyTaskIndex = ref(0)
 try {
@@ -48,7 +50,7 @@ watch(energy, value => {
   stopCamera()
 })
 function recordRelease(id) { if (!cloudState.value?.releasedIds.includes(id)) saveRelease(id) }
-const showRoleSidebar = computed(() => phase.value !== 'welcome' || Boolean(navigatorName.value || scannerName.value || collectorName.value))
+const showRoleSidebar = computed(() => phase.value !== 'welcome' || Boolean(navigatorName.value || scannerName.value))
 const sectionMenu = ref(null)
 const sectionToggle = ref(null)
 const sections = [
@@ -56,7 +58,6 @@ const sections = [
   { id: 'markers', label: 'Markern' },
   { id: 'navigator', label: 'Wahl des Navigators' },
   { id: 'scanner-choice', label: 'Wahl des Scanners' },
-  { id: 'collector-choice', label: 'Wahl des Sammlers' },
   { id: 'intro', label: 'Monster-Intro' },
   { id: 'clue', label: 'Scanner öffnen' },
   { id: 'scanner', label: 'QR-Code scannen' },
@@ -104,7 +105,7 @@ const introAudio = ref(null)
 const monsterAudio = ref(null)
 const musicAudio = ref(null)
 const gameMusicAudio = ref(null)
-const isSetupPhase = () => ['welcome', 'navigator', 'scanner-choice', 'collector-choice', 'markers', 'start'].includes(phase.value)
+const isSetupPhase = () => ['welcome', 'navigator', 'scanner-choice', 'markers', 'start'].includes(phase.value)
 async function playGameMusic() {
   if (!isSetupPhase() || !visible.value || !gameMusicAudio.value) return
   try {
@@ -426,7 +427,7 @@ onBeforeUnmount(() => { cancelFinale(); clearTimeout(departureTimer); pause(); d
     @play="introPlaying = true" @pause="introPaused" @ended="finishIntro"
     @error="pauseIntro(); introError = 'Die Intro-Datei konnte nicht geladen werden.'"></audio>
   <audio :muted="rallyMuted" ref="monsterAudio" src="/rally/monster.wav" preload="auto" @ended="repeatMonsterSound"></audio>
-  <audio :muted="rallyMuted" ref="musicAudio" src="/rally/guitar.wav?v=63fc19f89477" preload="auto" loop></audio>
+  <audio :muted="rallyMuted" ref="musicAudio" src="/rally/guitar-quiet.wav" preload="auto" loop></audio>
   <main v-if="phase === 'welcome'" class="mission-screen">
     <div class="mission-welcome">
       <h1 class="mission-logo"><img src="/rally/rettet_die_creaturen.png" alt="Rettet die Creaturen" fetchpriority="high" /></h1>
@@ -437,12 +438,8 @@ onBeforeUnmount(() => { cancelFinale(); clearTimeout(departureTimer); pause(); d
     <NavigatorWheel key="navigator" @selected="navigatorName = $event" @continue="phase = 'scanner-choice'" />
   </main>
   <main v-else-if="phase === 'scanner-choice'" class="mission-screen">
-    <NavigatorWheel key="scanner" title="Die Wahl des Scanners" role-name="Scanner" continue-label="Weiter zur Wahl des Sammlers"
-      @selected="scannerName = $event" @continue="phase = 'collector-choice'" />
-  </main>
-  <main v-else-if="phase === 'collector-choice'" class="mission-screen">
-    <NavigatorWheel key="collector" title="Die Wahl des Sammlers" role-name="Sammler" continue-label="Mission starten"
-      @selected="collectorName = $event" @continue="startMission" />
+    <NavigatorWheel key="scanner" title="Die Wahl des Scanners" role-name="Scanner" continue-label="Mission starten"
+      @selected="scannerName = $event" @continue="startMission" />
   </main>
   <main v-else-if="phase === 'start'" class="mission-screen">
     <button class="mission-start" @click="playIntro">Mission Monster starten</button>
