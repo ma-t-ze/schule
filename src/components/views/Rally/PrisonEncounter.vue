@@ -1,7 +1,7 @@
 <script setup>
-import { computed, ref, shallowRef, onMounted, onBeforeUnmount, watch } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { riddles, riddleAudio, isCorrectTextAnswer } from './riddles'
-import { createRallySound } from './rallyAudio'
+import { rallyMuted } from './rallyAudio'
 import IntroMonster from './IntroMonster.vue'
 import SpaceInvaders from './SpaceInvaders.vue'
 import { isCorrectFinalCode } from './stations'
@@ -14,15 +14,12 @@ const isAudioOnlyStation = computed(() => [3, 5].includes(props.station.id))
 const isSoundStation = computed(() => props.station.id === 5)
 const isFinalStation = computed(() => props.station.id === 9)
 const ready = ref(false), released = ref(false), freed = ref(false), feedback = ref('')
-const narration = shallowRef(createRallySound(riddleAudio(props.station.id), { onended: questionEnded }))
-const eggAudio = shallowRef(props.station.id === 5 ? createRallySound('/rally/egg.wav') : null)
-const doorAudio = shallowRef(props.station.id !== 9 ? createRallySound('/rally/dor.wav') : null)
-const happyAudio = shallowRef(createRallySound('/rally/happy.wav'))
-const laughAudio = shallowRef(createRallySound('/rally/monster-laughing.wav'))
-const finaleMusic = shallowRef(props.station.id === 9 ? createRallySound('/rally/game_music.wav', { loop: true }) : null)
-const stationSounds = [narration, eggAudio, doorAudio, happyAudio, laughAudio, finaleMusic]
-onMounted(() => stationSounds.forEach(sound => sound.value?.preload().catch(() => {})))
-onBeforeUnmount(() => stationSounds.forEach(sound => sound.value?.dispose()))
+const narration = ref(null)
+const eggAudio = ref(null)
+const doorAudio = ref(null)
+const happyAudio = ref(null)
+const laughAudio = ref(null)
+const finaleMusic = ref(null)
 let disposed = false
 async function playFinaleMusic() {
   const audio = finaleMusic.value
@@ -59,7 +56,7 @@ async function playQuestion() {
   clearTimeout(questionTimer)
   clearTimeout(eggTimer)
   eggAudio.value?.pause()
-  if (isSoundStation.value) narration.value.currentTime = 0
+  narration.value.currentTime = 0
   audioError.value = ''
   const audio = narration.value
   try {
@@ -142,6 +139,12 @@ function answer() {
         </form>
       </dialog>
     </Teleport>
+    <audio ref="narration" :src="riddleAudio(station.id)" :muted="rallyMuted" preload="auto" @ended="questionEnded"></audio>
+    <audio v-if="isSoundStation" ref="eggAudio" src="/rally/egg.wav" :muted="rallyMuted" preload="auto"></audio>
+    <audio v-if="!isFinalStation" ref="doorAudio" src="/rally/dor.wav" :muted="rallyMuted" preload="auto"></audio>
+    <audio ref="happyAudio" src="/rally/happy.wav" :muted="rallyMuted" preload="auto"></audio>
+    <audio ref="laughAudio" src="/rally/monster-laughing.wav" :muted="rallyMuted" preload="auto"></audio>
+    <audio v-if="isFinalStation" ref="finaleMusic" src="/rally/game_music.wav" :muted="rallyMuted" preload="auto" loop></audio>
     <div class="warning-monster" :class="{ appearing: monsterWarning }" aria-hidden="true" @animationend="monsterWarning = false">
       <IntroMonster :playing="monsterWarning" :visible="visible && monsterWarning" />
     </div>

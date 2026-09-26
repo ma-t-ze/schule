@@ -33,11 +33,10 @@ Zugriff auf diese Seite kann Freigaben erteilen und eine neue Runde starten.
 
 ## Audio und Prüfung
 
-Fragen, Tür, Jubel, Lachen, Geräusch 5 und Finalmusik nutzen einen gemeinsamen
-Web-Audio-Kontext, der durch eine Nutzeraktion auf der Rally freigeschaltet wird.
-Damit benötigen nachträglich geladene Stationen keine neuen HTML-Audio-Freigaben.
-Verzögerte Wiedergabe wird beim Verlassen oder Freigeben einer Station abgebrochen.
-Der Mute-Button steuert den gemeinsamen Audio-Ausgang.
+Die Audio-Umstellung auf einen gemeinsamen Web-Audio-Kontext wurde zurückgenommen.
+Fragen und Effekte verwenden wieder normale HTML-Audio-Elemente. Rechts unter
+**Alle Sounds einzeln abspielen** lassen sich sämtliche Dateien über die nativen
+Audio-Bedienelemente direkt starten, pausieren und erneut abspielen.
 
 `node --test src/components/views/Rally/*.test.js`
 

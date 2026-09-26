@@ -1,12 +1,13 @@
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
-import { rallyMuted, installRallyAudioUnlock } from './rallyAudio'
+import { rallyMuted } from './rallyAudio'
 import jsQR from 'jsqr'
 import QRCode from 'qrcode'
 import IntroMonster from './IntroMonster.vue'
 import PrisonEncounter from './PrisonEncounter.vue'
 import NavigatorWheel from './NavigatorWheel.vue'
 import WheelDrawer from './WheelDrawer.vue'
+import ManualSounds from './ManualSounds.vue'
 import EnergyChallenge from './EnergyChallenge.vue'
 import { energyTasks } from './energyTasks'
 import { useRallySync } from './useRallySync'
@@ -21,9 +22,6 @@ const scannerName = ref('')
 const wheelDrawerOpen = ref(false)
 onDeactivated(() => { wheelDrawerOpen.value = false })
 const energy = ref(100)
-let removeAudioUnlock
-onMounted(() => { removeAudioUnlock = installRallyAudioUnlock() })
-onBeforeUnmount(() => removeAudioUnlock?.())
 const { state: cloudState, message: syncMessage, failure: syncFailure, retry: retrySync, release: saveRelease, recordScan, saveEnergy, sendHome } = useRallySync()
 const energyTaskIndex = ref(0)
 try {
@@ -526,6 +524,7 @@ onBeforeUnmount(() => { cancelFinale(); clearTimeout(departureTimer); pause(); d
     <p>Navigator: <strong v-if="navigatorName">{{ navigatorName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
     <p>Scanner: <strong v-if="scannerName">{{ scannerName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
     <button class="open-wheel" aria-haspopup="dialog" @click="wheelDrawerOpen = true">Glücksrad einblenden</button>
+    <ManualSounds :visible="visible" />
     <details class="rally-sync"><summary>Rally-Status</summary><p role="status">{{ syncMessage }}</p><button v-if="syncFailure" class="open-wheel" @click="retrySync">Erneut verbinden</button></details>
   </aside>
   <WheelDrawer v-if="wheelDrawerOpen" @close="wheelDrawerOpen = false" />
