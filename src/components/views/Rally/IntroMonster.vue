@@ -5,6 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const props = defineProps({
   imprisoned: Boolean,
+  spaceship: Boolean,
   collectAfterRelease: Boolean,
   released: Boolean,
   playing: Boolean,
@@ -12,7 +13,7 @@ const props = defineProps({
   modelUrl: { type: String, default: '/rally/lava_monster.glb' },
   label: { type: String, default: 'Lava-Monster' }
 })
-const emit = defineEmits(['prison-ready', 'freed', 'collected'])
+const emit = defineEmits(['prison-ready', 'freed', 'collected', 'ship-departed'])
 let prisonModel, prisonMixer, doorAction
 function openDoor() {
   if (props.released && doorAction && !doorAction.isRunning() && doorAction.time === 0) doorAction.play()
@@ -59,7 +60,7 @@ onMounted(async () => {
       if (!width || !height) return
       renderer.setSize(width, height)
       camera.aspect = width / height
-      camera.zoom = props.imprisoned ? 3 : 1
+      camera.zoom = props.imprisoned ? 3 : props.spaceship ? 1.2 : 1
       camera.updateProjectionMatrix()
       const vertical = THREE.MathUtils.degToRad(camera.fov / 2)
       const horizontal = Math.atan(Math.tan(vertical) * camera.aspect)
@@ -136,13 +137,14 @@ onMounted(async () => {
       openDoor()
     }
     loading.value = false
-    let previous = performance.now(), elapsed = 0
+    let previous = performance.now(), elapsed = 0, shipDeparted = false
     function animate(now) {
       const delta = Math.min((now - previous) / 1000, 0.05); previous = now
       if (props.visible) {
         if (props.playing) { mixer.update(delta); prisonMixer?.update(delta); elapsed += delta }
         // Travel visibly around the monster: left → right → left in 10 seconds.
-        const angle = props.imprisoned ? 0 : Math.sin(elapsed * (Math.PI * 2 / 10)) * THREE.MathUtils.degToRad(28)
+        if (props.spaceship) wrapper.rotation.y = elapsed * Math.PI / 10
+        const angle = props.imprisoned || props.spaceship ? 0 : Math.sin(elapsed * (Math.PI * 2 / 10)) * THREE.MathUtils.degToRad(28)
         camera.position.set(Math.sin(angle) * distance, 0.12, Math.cos(angle) * distance)
         camera.lookAt(0, 0, 0)
         if (collectionProgress >= 0) {
@@ -161,6 +163,14 @@ onMounted(async () => {
           const miniScale = Math.min(collectionScale, (worldHeight * 80 / rect.height) / Math.max(size.x, size.y, size.z))
           wrapper.position.lerpVectors(collectionStart, target, ease)
           wrapper.scale.setScalar(THREE.MathUtils.lerp(collectionScale, miniScale, ease))
+        }
+        if (props.spaceship && elapsed >= 5) {
+          const flight = Math.min(1, (elapsed - 5) / 2)
+          wrapper.position.x = flight * flight * distance * 2
+          if (flight === 1) {
+            wrapper.visible = false
+            if (!shipDeparted) { shipDeparted = true; emit('ship-departed') }
+          }
         }
         renderer.render(scene, camera)
         if (collectionProgress === 1 && !collectionReported) {

@@ -1,11 +1,16 @@
 <script setup>
-import { ref, computed, nextTick, onMounted, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
 import { rallyMuted } from './rallyAudio'
 import jsQR from 'jsqr'
 import QRCode from 'qrcode'
 import IntroMonster from './IntroMonster.vue'
 import PrisonEncounter from './PrisonEncounter.vue'
 import NavigatorWheel from './NavigatorWheel.vue'
+import WheelDrawer from './WheelDrawer.vue'
+import EnergyChallenge from './EnergyChallenge.vue'
+import { energyTasks } from './energyTasks'
+import { useRallySync } from './useRallySync'
+import { mergeRescuedCreatures } from './rallyState'
 import { stations, stationCode, parseStationCode } from './stations'
 
 const video = ref(null)
@@ -14,22 +19,56 @@ const phase = ref('welcome')
 const navigatorName = ref('')
 const scannerName = ref('')
 const collectorName = ref('')
+const wheelDrawerOpen = ref(false)
+onDeactivated(() => { wheelDrawerOpen.value = false })
+const energy = ref(100)
+const { state: cloudState, gameId, controlsLink, message: syncMessage, failure: syncFailure, retry: retrySync, release: saveRelease, recordScan, saveEnergy, sendHome } = useRallySync()
+const energyTaskIndex = ref(0)
+try {
+  const saved = Number(localStorage.getItem(`rally-energy-task-${gameId}`))
+  if (Number.isInteger(saved) && saved >= 0) energyTaskIndex.value = saved % energyTasks.length
+} catch { /* The task sequence remains usable without storage. */ }
+let pendingEnergy = null
+function updateEnergy(value) {
+  energy.value = value
+  pendingEnergy = value
+  saveEnergy(value)
+}
+function loseEnergy() { updateEnergy(Math.max(0, energy.value - 20)) }
+function rechargeEnergy() {
+  if (energy.value > 0) return
+  updateEnergy(100)
+  energyTaskIndex.value = (energyTaskIndex.value + 1) % energyTasks.length
+  try { localStorage.setItem(`rally-energy-task-${gameId}`, String(energyTaskIndex.value)) } catch { /* Optional persistence. */ }
+}
+watch(energy, value => {
+  if (value > 0) return
+  wheelDrawerOpen.value = false
+  if (sectionMenu.value) sectionMenu.value.open = false
+  stopCamera()
+})
+function recordRelease(id) { if (!cloudState.value?.releasedIds.includes(id)) saveRelease(id) }
 const showRoleSidebar = computed(() => phase.value !== 'welcome' || Boolean(navigatorName.value || scannerName.value || collectorName.value))
 const sectionMenu = ref(null)
 const sectionToggle = ref(null)
 const sections = [
   { id: 'welcome', label: 'Rettet die Creaturen' },
-  { id: 'roles', label: 'Rollen verteilen' },
   { id: 'markers', label: 'Markern' },
   { id: 'navigator', label: 'Wahl des Navigators' },
   { id: 'scanner-choice', label: 'Wahl des Scanners' },
   { id: 'collector-choice', label: 'Wahl des Sammlers' },
-  { id: 'start', label: 'Missionsstart' },
   { id: 'intro', label: 'Monster-Intro' },
   { id: 'clue', label: 'Scanner öffnen' },
-  { id: 'scanner', label: 'QR-Code scannen / Creaturen' }
+  { id: 'scanner', label: 'QR-Code scannen' },
+  ...stations.map(station => ({
+    id: `encounter-${station.id}`,
+    label: station.id === 9 ? 'Finale · Raumschiff' : `Creatur ${station.id} · ${station.name}`
+  }))
 ]
-const currentSection = computed(() => phase.value === 'departing' ? 'intro' : phase.value)
+const currentSection = computed(() => {
+  if (phase.value === 'scanner' && active.value) return `encounter-${active.value}`
+  return phase.value === 'departing' ? 'intro' : phase.value
+})
 function closeSectionMenu() {
   if (sectionMenu.value) sectionMenu.value.open = false
   sectionToggle.value?.focus()
@@ -48,18 +87,24 @@ async function jumpToSection(id) {
   message.value = ''
   introError.value = ''
   if (introAudio.value) introAudio.value.currentTime = 0
+  const station = stations.find(station => id === `encounter-${station.id}`)
+  if (station) {
+    expectedStation.value = station.id
+    phase.value = 'clue'
+    return
+  }
+  expectedStation.value = null
   phase.value = id
   if (id === 'intro') startMission()
   else if (id === 'scanner') await openScanner()
   else if (isSetupPhase()) playGameMusic()
-  else playMusic()
 }
 const scannedThisMission = ref(false)
 const introAudio = ref(null)
 const monsterAudio = ref(null)
 const musicAudio = ref(null)
 const gameMusicAudio = ref(null)
-const isSetupPhase = () => ['welcome', 'roles', 'navigator', 'scanner-choice', 'collector-choice', 'markers', 'start'].includes(phase.value)
+const isSetupPhase = () => ['welcome', 'navigator', 'scanner-choice', 'collector-choice', 'markers', 'start'].includes(phase.value)
 async function playGameMusic() {
   if (!isSetupPhase() || !visible.value || !gameMusicAudio.value) return
   try {
@@ -111,11 +156,12 @@ function introPaused() {
 }
 
 async function playMusic() {
+  if (phase.value !== 'intro' || !visible.value) return
   const attempt = audioAttempt
   try {
     musicAudio.value.volume = 0.1
     await musicAudio.value.play()
-    if (attempt !== audioAttempt || !visible.value || isSetupPhase() || (phase.value === 'intro' && !introWaiting.value && introAudio.value?.paused)) musicAudio.value?.pause()
+    if (attempt !== audioAttempt || !visible.value || phase.value !== 'intro' || (!introWaiting.value && introAudio.value?.paused)) musicAudio.value?.pause()
   } catch {
     if (attempt === audioAttempt && phase.value === 'intro') introError.value = 'Die Hintergrundmusik konnte nicht abgespielt werden. Bitte pausiere das Intro und starte es erneut.'
   }
@@ -161,12 +207,16 @@ function finishIntro() {
   clearTimeout(introDelayTimer)
   introWaiting.value = false
   phase.value = 'departing'
+  audioAttempt++
+  musicAudio.value?.pause()
+  gameMusicAudio.value?.pause()
   introAudio.value?.pause()
   introPlaying.value = false
   stopMonsterSound()
   departureTimer = setTimeout(() => { phase.value = 'clue' }, 1200)
 }
 const active = ref(null)
+const expectedStation = ref(null)
 const cameraOn = ref(false)
 const starting = ref(false)
 const preview = ref(false)
@@ -175,15 +225,66 @@ const error = ref('')
 const message = ref('')
 const found = ref([])
 const rescued = ref([])
+const flownHome = new Set()
+const rescuedList = ref(null)
+let finaleRun = 0
+let creatureFlight
+const departingCreature = ref(null)
+function cancelFinale() {
+  finaleRun++
+  creatureFlight?.cancel()
+  creatureFlight = null
+  departingCreature.value = null
+}
+async function sendCreaturesHome() {
+  cancelFinale()
+  const run = finaleRun
+  while (rescued.value.length && run === finaleRun && phase.value === 'scanner' && active.value === 9) {
+    const station = rescued.value.at(-1)
+    const element = rescuedList.value?.querySelector(`[data-creature="${station.id}"]`)
+    if (!element) break
+    element.scrollIntoView({ block: 'nearest', behavior: 'instant' })
+    departingCreature.value = station.id
+    await nextTick()
+    if (run !== finaleRun) return
+    creatureFlight = element.animate([
+      { transform: 'translateX(0)' },
+      { transform: `translateX(${window.innerWidth + 200}px)` }
+    ], { duration: 2000, easing: 'ease-in', fill: 'forwards' })
+    if (!visible.value) creatureFlight.pause()
+    try { await creatureFlight.finished } catch { return }
+    if (run !== finaleRun) return
+    flownHome.add(station.id)
+    rescued.value = rescued.value.filter(item => item.id !== station.id)
+    sendHome(station.id)
+    creatureFlight.cancel()
+    creatureFlight = null
+    departingCreature.value = null
+    await nextTick()
+  }
+}
 function collectCreature() {
+  if (current.value) flownHome.delete(current.value.id)
   if (current.value && !rescued.value.some(station => station.id === current.value.id)) {
     rescued.value = [...rescued.value, current.value]
   }
+  expectedStation.value = null
   nextStation()
 }
 const qrImages = ref({})
 const visible = ref(true)
+watch([phase, active], () => { if (phase.value !== 'scanner' || active.value !== 9) cancelFinale() })
+watch(visible, value => { if (creatureFlight) value ? creatureFlight.play() : creatureFlight.pause() })
 const current = computed(() => stations.find(s => s.id === active.value))
+watch(cloudState, state => {
+  if (!state) return
+  if (pendingEnergy === null || state.energy === pendingEnergy) {
+    energy.value = state.energy
+    pendingEnergy = null
+  }
+  found.value = [...new Set([...found.value, ...state.foundIds])]
+  rescued.value = mergeRescuedCreatures(rescued.value, state, active.value).filter(station => !flownHome.has(station.id))
+})
 let stream, scanTimer, requestId = 0
 const scanCanvas = document.createElement('canvas')
 const context = scanCanvas.getContext('2d', { willReadFrequently: true })
@@ -196,6 +297,7 @@ function stopCamera() {
   if (video.value) video.value.srcObject = null
   cameraOn.value = false
   starting.value = false
+  starting.value = false
 }
 function pause() { visible.value = false; gameMusicAudio.value?.pause(); stopCamera(); pauseIntro() }
 function visibilityChange() {
@@ -203,9 +305,9 @@ function visibilityChange() {
   else { visible.value = true; playGameMusic() }
 }
 async function openScanner() {
+  active.value = null
   phase.value = 'scanner'
   await nextTick()
-  playMusic()
   await startCamera()
 }
 async function startCamera() {
@@ -253,7 +355,13 @@ function scan() {
       if (code) {
         const station = parseStationCode(code.data)
         if (station) {
+          if (expectedStation.value && station.id !== expectedStation.value) {
+            message.value = `Bitte scanne den QR-Code für ${stations.find(item => item.id === expectedStation.value).name}.`
+            scanTimer = setTimeout(scan, 220)
+            return
+          }
           active.value = station.id; scannedThisMission.value = true; message.value = ''; stopCamera()
+          recordScan(station.id)
           if (!found.value.includes(station.id)) {
             found.value = [...found.value, station.id]
             try { localStorage.setItem('rally-found-v1', JSON.stringify(found.value)) } catch { /* Session progress remains available. */ }
@@ -267,10 +375,6 @@ function scan() {
   }
   if (cameraOn.value) scanTimer = setTimeout(scan, 220)
 }
-function demo(station) {
-  stopCamera(); preview.value = true; active.value = station.id; error.value = ''; message.value = ''
-}
-function showTestCreature() { testCreature.value = false; demo(stations[0]) }
 function nextStation() { testCreature.value = false; stopCamera(); active.value = null; preview.value = false; message.value = ''; phase.value = 'clue' }
 function printCodes() { window.print() }
 onMounted(async () => {
@@ -287,7 +391,7 @@ onMounted(async () => {
 })
 onActivated(() => { visible.value = !document.hidden; playGameMusic() })
 onDeactivated(pause)
-onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEventListener('visibilitychange', visibilityChange) })
+onBeforeUnmount(() => { cancelFinale(); clearTimeout(departureTimer); pause(); document.removeEventListener('visibilitychange', visibilityChange) })
 </script>
 
 <template>
@@ -311,10 +415,10 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
       </button>
     </nav>
   </details>
-  <aside v-if="rescued.length" class="rescued-creatures" aria-label="Befreite Creaturen">
-    <div v-for="station in rescued" :key="station.id" class="rescued-creature">
+  <aside v-if="rescued.length" ref="rescuedList" class="rescued-creatures" :class="{ 'finale-flight': departingCreature !== null }" aria-label="Befreite Creaturen">
+    <div v-for="station in rescued" :key="station.id" :data-creature="station.id" class="rescued-creature" :class="{ departing: departingCreature === station.id }">
       <div class="rescued-model"><IntroMonster :model-url="station.modelUrl" :label="station.name" :playing="true" :visible="visible" /></div>
-      <span>{{ station.name }}</span>
+      <span>{{ station.name }}<br><strong class="creature-digit">{{ station.id }}. Ziffer: {{ station.codeDigit }}</strong></span>
     </div>
   </aside>
   <audio :muted="rallyMuted" ref="gameMusicAudio" src="/rally/game_music.wav" preload="auto" loop></audio>
@@ -325,12 +429,9 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
   <audio :muted="rallyMuted" ref="musicAudio" src="/rally/guitar.wav?v=63fc19f89477" preload="auto" loop></audio>
   <main v-if="phase === 'welcome'" class="mission-screen">
     <div class="mission-welcome">
-      <h1 class="mission-title">Rettet die <span>Creaturen</span></h1>
-      <button class="mission-start" @click="phase = 'roles'">Start</button>
+      <h1 class="mission-logo"><img src="/rally/rettet_die_creaturen.png" alt="Rettet die Creaturen" fetchpriority="high" /></h1>
+      <button class="mission-start welcome-start" @click="phase = 'navigator'">Spiel starten</button>
     </div>
-  </main>
-  <main v-else-if="phase === 'roles'" class="mission-screen">
-    <button class="mission-start" @click="phase = 'navigator'">Rollen verteilen</button>
   </main>
   <main v-else-if="phase === 'navigator'" class="mission-screen">
     <NavigatorWheel key="navigator" @selected="navigatorName = $event" @continue="phase = 'scanner-choice'" />
@@ -351,10 +452,10 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
       <IntroMonster :playing="introWaiting || introPlaying || phase === 'departing'" :visible="visible" />
     </div>
     <div v-if="phase === 'intro'" class="intro-controls">
-      <p class="intro-status" role="status">{{ introWaiting ? 'Die Mission beginnt …' : introPlaying ? 'Der Weg nach Hause.' : 'Intro pausiert' }}</p>
+      <p v-if="introWaiting || !introPlaying" class="intro-status" role="status">{{ introWaiting ? 'Die Mission beginnt …' : 'Intro pausiert' }}</p>
       <p v-if="introError" class="intro-error" role="alert">{{ introError }}</p>
-      <button v-if="!introWaiting" @click="introPlaying ? pauseIntro() : playIntro()">{{ introPlaying ? 'Intro pausieren' : 'Intro abspielen' }}</button>
       <button class="skip-intro" @click="finishIntro">Intro überspringen</button>
+      <button @click="introWaiting || introPlaying ? pauseIntro() : playIntro()">{{ introWaiting || introPlaying ? 'Intro pausieren' : 'Intro abspielen' }}</button>
     </div>
     <div v-if="phase === 'clue'" class="mission-clue">
       <div class="scanner-reticle" aria-hidden="true"><span></span></div>
@@ -372,13 +473,13 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
           <img v-if="qrImages[station.id]" :src="qrImages[station.id]" :alt="`QR-Marker für ${station.name}`" width="320" height="320" />
           <p v-else>Marker wird geladen …</p>
           <code>{{ stationCode(station.id) }}</code>
-          <button @click="phase = 'scanner'; demo(station)">Modell ansehen</button>
+          <button @click="jumpToSection(`encounter-${station.id}`)">Station scannen</button>
         </article>
       </div>
     </section>
   </main>
   <main v-else class="mission-screen scanner-screen" :class="{ 'encounter-screen': current }">
-    <PrisonEncounter v-if="current" :key="current.id" :station="current" :visible="visible" @continue="nextStation" @collected="collectCreature" />
+    <PrisonEncounter v-if="current" :key="current.id" :station="current" :visible="visible && energy > 0" :remotely-released="cloudState?.releasedIds.includes(current.id)" @released="recordRelease" @continue="nextStation" @collected="collectCreature" @wrong-answer="loseEnergy" @ship-departed="sendCreaturesHome" />
     <section v-else class="camera-stage" :class="{ 'model-stage': current || testCreature }" aria-label="Stationscode scannen">
       <video ref="video" autoplay muted playsinline aria-label="Live-Kamerabild" :class="{ live: cameraOn }"></video>
       <div v-if="!current && !testCreature" class="scan-guide"><div v-if="cameraOn" class="scan-frame"></div><p>{{ starting ? 'Kamera wird geöffnet …' : cameraOn ? 'Scanne den QR-Code auf eurem Hinweis.' : 'Kamera ist pausiert.' }}</p></div>
@@ -390,27 +491,54 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
       <p v-if="error" role="alert">{{ error }}</p>
       <p v-if="message" role="status">{{ message }}</p>
       <button v-if="!cameraOn && !starting" @click="openScanner">Kamera starten</button>
-      <button @click="nextStation">Zurück zum Hinweis</button>
-      <button @click="showTestCreature">Test</button>
+      <button @click="nextStation">Scanner Schließen</button>
     </div>
   </main>
+  <aside v-if="showRoleSidebar" class="energy-panel" aria-label="Spielenergie">
+    <span class="energy-label">Energielevel</span>
+    <div class="energy-gauge">
+    <div class="energy-track" role="progressbar" aria-label="Verbleibende Energie" :aria-valuenow="energy" aria-valuemin="0" aria-valuemax="100">
+      <div class="energy-fill" :class="{ low: energy <= 20 }" :style="{ height: `${energy}%` }"></div>
+    </div>
+    </div>
+  </aside>
   <aside v-if="showRoleSidebar" class="navigator-info" aria-label="Teamrollen" aria-live="polite">
     <p>Navigator: <strong v-if="navigatorName">{{ navigatorName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
     <p>Scanner: <strong v-if="scannerName">{{ scannerName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
-    <p>Sammler: <strong v-if="collectorName">{{ collectorName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
-    <p class="roles-note">Die Rollen wechseln während des Spiels.</p>
+    <button class="open-wheel" aria-haspopup="dialog" @click="wheelDrawerOpen = true">Glücksrad einblenden</button>
+    <details class="rally-sync"><summary>Rally verbinden</summary><a :href="controlsLink" target="_blank" rel="noopener">FreeCreatures öffnen</a><p>Spielcode: <code>{{ gameId }}</code></p><p role="status">{{ syncMessage }}</p><button v-if="syncFailure" class="open-wheel" @click="retrySync">Erneut verbinden</button></details>
   </aside>
+  <WheelDrawer v-if="wheelDrawerOpen" @close="wheelDrawerOpen = false" />
+  <EnergyChallenge v-if="energy <= 0 && visible" :task="energyTasks[energyTaskIndex]" @solved="rechargeEnergy" />
   </div>
 </template>
 
 <style scoped>
+.energy-panel { position: fixed; right: calc(220px + 5vw); top: 100px; bottom: 48px; width: 100px; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 20px; pointer-events: none; }
+.energy-label { flex: 0 0 auto; margin: 0; color: #fff; font: 500 17px/1.3 jost, sans-serif; letter-spacing: .02em; white-space: nowrap; text-align: center; }
+.energy-gauge { position: relative; flex: 1; min-height: 0; max-height: 560px; width: 58px; display: flex; justify-content: center; }
+.energy-gauge::before, .energy-gauge::after { content: ''; position: absolute; top: 12px; bottom: 12px; width: 6px; background: repeating-linear-gradient(to top, #b6ff0070 0 1px, transparent 1px 16px); }
+.energy-gauge::before { left: 0; }
+.energy-gauge::after { right: 0; }
+.energy-track { position: relative; height: 100%; width: 26px; overflow: hidden; border: 1px solid #b6ff00; border-radius: 999px; background: #b6ff000a; box-shadow: 0 0 18px #b6ff0022, inset 0 0 12px #b6ff001a; }
+.energy-track::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to top, transparent 0 calc(20% - 2px), #030509  calc(20% - 2px) 20%); pointer-events: none; }
+.energy-fill { position: absolute; bottom: 0; width: 100%; background: linear-gradient(90deg, #79b500, #caff42 50%, #79b500); box-shadow: 0 -2px 16px #b6ff00aa; transition: height .8s ease, background .8s ease; }
+.energy-fill.low { background: linear-gradient(90deg, #ac271b, #ff654d, #ac271b); box-shadow: 0 -2px 16px #ff654d99; }
+@media (max-width: 600px) { .energy-panel { right: calc(110px + 5vw); top: 88px; bottom: 32px; width: 68px; gap: 14px; } .energy-label { font-size: 11px; } .energy-gauge { width: 40px; } .energy-track { width: 20px; } }
+@media (max-height: 500px) { .energy-panel { top: 76px; bottom: 20px; gap: 12px; } }
+@media (prefers-reduced-motion: reduce) { .energy-fill { transition: none; } }
+
 .rescued-creatures { position: fixed; top: 88px; left: 16px; z-index: 6; max-height: calc(100svh - 100px); overflow-y: auto; pointer-events: auto; }
+.rescued-creatures.finale-flight { overflow: visible; }
+.rescued-creature.departing { position: relative; z-index: 10; pointer-events: none; }
+.rescued-creature.departing span { visibility: hidden; }
 .rescued-creature { display: flex; align-items: center; gap: 4px; color: #eff7ee; }
 .rescued-model { width: 96px; height: 88px; }
 .rescued-model :deep(.monster-view) { min-height: 0; }
 .rescued-creature span { font-family: jost, sans-serif; font-size: 12px; text-shadow: 0 2px 5px #000; }
-.mute-toggle { position: fixed; top: 16px; left: 74px; z-index: 21; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #a5cfa56b; border-radius: 12px; background: #14231ef2; color: #eff7ee; }
-.mute-toggle[aria-pressed="true"] { color: #f9d381; }
+.creature-digit { color: #b6ff00; font-size: 15px; }
+.mute-toggle { position: fixed; top: 16px; left: 74px; z-index: 21; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #b6ff00; border-radius: 5px; background: transparent; color: #b6ff00; box-shadow: 0 0 24px #b6ff0022; }
+.mute-toggle[aria-pressed="true"] { color: #b6ff00; }
 
 .marker-screen { padding-top: 90px !important; align-items: start; }
 .marker-overview { width: min(1100px, 100%); }
@@ -424,7 +552,8 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
 .camera-stage.model-stage { background: transparent; }
 
 .section-menu { position: fixed; top: 16px; left: 16px; z-index: 20; color: #eff7ee; font-family: jost, sans-serif; }
-.section-menu summary { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #a5cfa56b; border-radius: 12px; background: #14231ef2; cursor: pointer; list-style: none; }
+.section-menu summary { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #b6ff00; border-radius: 5px; background: transparent; color: #b6ff00; box-shadow: 0 0 24px #b6ff0022; cursor: pointer; list-style: none; }
+.mute-toggle:hover, .section-menu summary:hover { color: #caff42; border-color: #caff42; box-shadow: 0 0 33px #b6ff0044; }
 .section-menu summary::-webkit-details-marker { display: none; }
 .section-menu summary:focus-visible { outline: 3px solid #d3efb6; outline-offset: 3px; }
 .section-menu nav { width: min(340px, calc(100vw - 32px)); max-height: calc(100svh - 92px); overflow-y: auto; margin-top: 10px; padding: 16px; border: 1px solid #a5cfa54d; border-radius: 14px; background: #0c1715fa; box-shadow: 0 18px 60px #000a; }
@@ -434,20 +563,27 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
 .section-menu button.current-section { border-color: #a5cfa580; background: #253c33; color: #d3efb6; }
 .section-menu small { display: block; margin-top: 3px; font-size: 11px; }
 .mission-layout { min-height: 100svh; background: #030509; }
-.with-navigator .mission-screen { width: calc(100% - 220px); }
-.navigator-info { position: fixed; right: 0; top: 0; bottom: 0; width: 220px; padding: 32px 20px; box-sizing: border-box; border-left: 1px solid #a5cfa533; background: #0c1715; color: #eff7ee; font-family: jost, sans-serif; z-index: 5; }
-.navigator-info strong { display: block; font-size: 28px; color: #d3efb6; }
-.navigator-info p + p { margin-top: 24px; }
+.with-navigator .mission-screen { width: calc(100% - 320px - 5vw); }
+.navigator-info { position: fixed; right: 0; top: 0; bottom: 0; width: 220px; padding: 32px 20px; box-sizing: border-box; border-left: 1px solid #ffffff80; background: transparent; color: #fff; font-family: jost, sans-serif; z-index: 5; }
+.navigator-info strong { display: block; font-size: 28px; color: #fff; }
+.navigator-info p + p { margin-top: 24px; border-top: 1px solid #ffffff55; padding-top: 16px; }
 .navigator-info { overflow-y: auto; }
-.role-pending { display: block; color: #a5b5aa; font-size: 13px; margin-top: 4px; }
-.roles-note { font-size: 14px; line-height: 1.5; color: #c5d5c8; }
+.role-pending { display: block; color: #fff; font-size: 13px; margin-top: 4px; }
+.open-wheel { width: 100%; margin-top: 24px; padding: 12px 8px; border: 1px solid #b6ff00; border-radius: 5px; background: transparent; color: #b6ff00; font: inherit; font-size: 14px; overflow-wrap: anywhere; cursor: pointer; }
+.open-wheel:hover { box-shadow: 0 0 20px #b6ff0033; }
+.rally-sync { margin-top: 20px; font-size: 12px; overflow-wrap: anywhere; }
+.rally-sync a { display: block; margin-top: 12px; color: #b6ff00; }
 @media (max-width: 600px) {
-  .with-navigator .mission-screen { width: calc(100% - 110px); padding: 16px 10px; }
+  .with-navigator .mission-screen { width: calc(100% - 178px - 5vw); padding: 16px 10px; }
   .navigator-info { width: 110px; padding: 24px 10px; font-size: 13px; }
   .navigator-info strong { font-size: 20px; overflow-wrap: anywhere; }
 }
 
-.mission-welcome { width: 100%; text-align: center; }
+.mission-welcome { width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; gap: clamp(24px, 5svh, 48px); padding-top: 52px; }
+.mission-logo { width: min(100%, 1100px); margin: 0; line-height: 0; }
+.mission-logo img { display: block; width: 100%; max-height: 58svh; object-fit: contain; }
+.mission-start.welcome-start { background: transparent; color: #b6ff00; border-color: #b6ff00; padding: 16.8px 25.2px; font-size: clamp(13.2px, 2.4vw, 22.8px); border-radius: 4.8px; font-weight: 700; box-shadow: 0 0 24px #b6ff0022; }
+.mission-start.welcome-start:hover { background: transparent; color: #caff42; border-color: #caff42; box-shadow: 0 0 33px #b6ff0044; }
 .mission-title { margin: 0 0 48px; font-family: jost, sans-serif; font-size: clamp(44px, 10vw, 132px); font-weight: 900; line-height: .95; letter-spacing: -.045em; text-transform: uppercase; text-shadow: 0 4px 28px #0009; }
 .mission-title span { display: block; margin-top: .12em; color: #d3efb6; text-shadow: 0 0 48px #82bda540, 0 8px 32px #000b; }
 .test-creature { width: min(360px, 85vw); height: min(360px, 85vw); }
@@ -455,10 +591,10 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
 @keyframes monster-exit { to { transform: translateX(-110vw); opacity: 0; } }
 .mission-clue { position: relative; display: grid; place-items: center; width: min(100%, 700px); min-height: min(65svh, 540px); text-align: center; animation: clue-enter .7s ease-out; }
 .scanner-open { position: relative; z-index: 1; }
-.scanner-reticle { position: absolute; width: min(90%, 440px); aspect-ratio: 1; border: 1px solid #91e9ce66; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, #86eac416 0%, transparent 68%); box-shadow: 0 0 35px #82bda51a, inset 0 0 35px #82bda51a; }
-.scanner-reticle::before { content: ''; position: absolute; inset: 10%; border: 2px dashed #b0f4d975; border-radius: 50%; animation: reticle-orbit 40s linear infinite; }
-.scanner-reticle::after { content: ''; position: absolute; inset: -7%; background: linear-gradient(#b0f4d9, #b0f4d9) center top / 2px 15% no-repeat, linear-gradient(#b0f4d9, #b0f4d9) center bottom / 2px 15% no-repeat, linear-gradient(#b0f4d9, #b0f4d9) left center / 15% 2px no-repeat, linear-gradient(#b0f4d9, #b0f4d9) right center / 15% 2px no-repeat; opacity: .8; }
-.scanner-reticle span { position: absolute; inset: 23%; border: 1px solid #91e9ce55; transform: rotate(45deg); }
+.scanner-reticle { position: absolute; width: min(90%, 440px); aspect-ratio: 1; border: 1px solid #b6ff0080; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, #b6ff0016 0%, transparent 68%); box-shadow: 0 0 35px #b6ff0022, inset 0 0 35px #b6ff0022; }
+.scanner-reticle::before { content: ''; position: absolute; inset: 10%; border: 2px dashed #b6ff0090; border-radius: 50%; animation: reticle-orbit 40s linear infinite; }
+.scanner-reticle::after { content: ''; position: absolute; inset: -7%; background: linear-gradient(#b6ff00, #b6ff00) center top / 2px 15% no-repeat, linear-gradient(#b6ff00, #b6ff00) center bottom / 2px 15% no-repeat, linear-gradient(#b6ff00, #b6ff00) left center / 15% 2px no-repeat, linear-gradient(#b6ff00, #b6ff00) right center / 15% 2px no-repeat; opacity: .8; }
+.scanner-reticle span { position: absolute; inset: 23%; border: 1px solid #b6ff0066; transform: rotate(45deg); }
 @keyframes reticle-orbit { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .scanner-reticle::before { animation: none; } .mission-clue { animation: none; } }
 @keyframes clue-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -466,7 +602,7 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
 .mission-screen.scanner-screen.encounter-screen { height: 100svh; min-height: 0; padding: 76px 16px 12px; justify-content: flex-start; }
 .scanner-screen .camera-stage { width: min(100%, 760px); height: 72svh; min-height: 420px; }
 .scanner-controls { text-align: center; max-width: 700px; }
-.scanner-controls button { background: #253c33; border: 1px solid #a5cfa56b; border-radius: 8px; padding: 12px 18px; margin: 6px; color: #eefbe7; }
+.scanner-controls button { background: transparent; border: 1px solid #b6ff00; border-radius: 5px; padding: 12px 18px; margin: 6px; color: #b6ff00; box-shadow: 0 0 24px #b6ff0022; }
 
 .mission-screen { min-height: 100svh; width: 100%; position: relative; overflow: hidden; display: grid; place-items: center; padding: 24px; box-sizing: border-box; background: radial-gradient(ellipse at 50% 60%, #182528 0%, #090e13 42%, #030509 85%); color: #eff7ee; font-family: jost, sans-serif; isolation: isolate; }
 .mission-screen::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(115deg, transparent 25%, #779b8a08 45%, transparent 60%); box-shadow: inset 0 0 130px #000a; }
@@ -475,9 +611,11 @@ onBeforeUnmount(() => { clearTimeout(departureTimer); pause(); document.removeEv
 .intro-monster-stage { position: absolute; inset: 0 0 180px; display: grid; place-items: center; pointer-events: none; }
 .intro-glow { width: min(70vw, 460px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(ellipse, #719d7926, transparent 65%); }
 .intro-controls { align-self: end; z-index: 1; text-align: center; padding: 24px 0; }
-.intro-status { font-style: italic; color: #bacbbf; font-size: 22px; }
-.intro-controls button { padding: 12px 20px; margin: 8px; border: 1px solid #83988970; border-radius: 8px; color: #e6eee5; background: #192822; }
-.intro-controls .skip-intro { background: transparent; border-color: transparent; color: #a8b4ab; text-decoration: underline; }
+.intro-status { font-style: italic; color: #fff; font-size: 22px; }
+.intro-controls button { padding: 12px 20px; margin: 8px; border: 1px solid #b6ff00; border-radius: 5px; color: #b6ff00; background: transparent; box-shadow: 0 0 24px #b6ff0022; }
+.intro-controls button:hover { color: #caff42; border-color: #caff42; box-shadow: 0 0 33px #b6ff0044; }
+.intro-controls button:focus-visible { outline: 3px solid #caff42; outline-offset: 4px; }
+.intro-controls .skip-intro { background: transparent; border-color: #b6ff0080; color: #b6ff00; }
 .intro-error { max-width: 440px; color: #ffc4ad; }
 .rally-app { --ink: #193c32; --muted: #64796e; background: #f3f5ee; color: var(--ink); min-height: 100vh; padding: 0 5vw 48px; font-family: jost, sans-serif; }
 .rally-app * { box-sizing: border-box; }
@@ -504,4 +642,10 @@ button { font: inherit; cursor: pointer; } button:disabled { cursor: wait; opaci
 @media (max-width: 800px) { .rally-app { padding: 0 16px 32px; }.wordmark span { display: none; }.experience { grid-template-columns: 1fr; }.intro { padding-top: 24px; }.camera-stage { min-height: 560px; height: 75svh; }.codes-grid { grid-template-columns: repeat(2, 1fr); }.codes-intro { flex-direction: column; align-items: start; } }
 @page { size: A4 portrait; margin: 12mm; }
 @media print { .rally-app { padding: 0; background: white; }.topbar, .intro, .experience, .feedback, .privacy, .codes-toggle, .codes-intro { display: none; }.codes-section { border: 0; padding: 0; }.codes-content { display: block !important; }.codes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }.code-card { border: 1px solid #aaa; padding: 4mm; height: 62mm; break-inside: avoid; }.code-card img { width: 38mm; height: 38mm; }.code-card h3, .code-card p { margin: 0; }.code-card code { font-size: 8pt; } }
+.mission-start.scanner-open { background: transparent; border-color: #b6ff00; color: #b6ff00; border-radius: 5px; box-shadow: 0 0 24px #b6ff0022; }
+.mission-start.scanner-open:hover, .scanner-controls button:hover { border-color: #caff42; color: #caff42; box-shadow: 0 0 33px #b6ff0044; }
+.mission-start.scanner-open:focus-visible, .scanner-controls button:focus-visible { outline-color: #b6ff00; }
+.scanner-screen .camera-stage:not(.model-stage) { background: #b6ff000c; border: 1px solid #b6ff0066; }
+.scanner-screen .scan-frame { border-color: #b6ff00; box-shadow: 0 0 24px #b6ff0033; }
+.scanner-screen .scan-guide p { color: #b6ff00; background: #030509b3; border: 1px solid #b6ff0055; }
 </style>

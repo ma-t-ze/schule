@@ -165,4 +165,4 @@ export async function updateQuizParticipant(participantId, data) {
     })
 }
 
-export { firebaseConfigured }
+export { firebaseConfigured, db }

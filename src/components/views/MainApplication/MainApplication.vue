@@ -4,6 +4,7 @@
     <div class="links">
         <router-link class="chaos-link" :to="{ name: 'farbmischsysteme' }">Farbmischsysteme</router-link>
         <router-link class="chaos-link" :to="{ name: 'rally' }">Rally</router-link>
+        <router-link class="chaos-link" :to="{ name: 'free-creatures' }">FreeCreatures</router-link>
         <router-link class="chaos-link" :to="{ name: 'chaos' }">Gesetz der Nähe</router-link>
         <router-link class="chaos-link" :to="{ name: 'gestaltgesetze' }">Gestaltgesetze</router-link>
         <router-link class="chaos-link" :to="{ name: 'variablefont' }">Variable Font</router-link>

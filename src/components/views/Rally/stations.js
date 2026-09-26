@@ -8,7 +8,11 @@ export const stations = [
   { id: 7, name: 'Toxel', modelUrl: '/rally/marker-7.glb', habitat: 'Ein kleiner Sonnengeist', color: '#ffd36c', shape: 'sun', size: 260 },
   { id: 8, name: 'Iron Moth', modelUrl: '/rally/marker-8.glb', habitat: 'Der Hüter der Dämmerung', color: '#a999d9', shape: 'moth', size: 300 },
   { id: 9, name: 'Raumschiff', habitat: 'Der Weg nach Hause', modelUrl: '/rally/marker-9.glb', size: 300 }
-]
+].map(station => station.id <= 8 ? { ...station, codeDigit: '47295183'[station.id - 1] } : station)
+
+export function isCorrectFinalCode(value) {
+  return typeof value === 'string' && value.trim() === stations.slice(0, 8).map(station => station.codeDigit).join('')
+}
 export const stationCode = id => `RALLY:STATION:${id}`
 export function parseStationCode(value) {
   const match = /^RALLY:STATION:([1-9])$/.exec(value.trim())

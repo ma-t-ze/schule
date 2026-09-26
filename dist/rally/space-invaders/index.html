@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Space Invaders</title>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #050c09; }
+    body { display: grid; place-items: center; }
+    canvas { display: block; width: min(100vw, 80vh); height: min(100vh, 125vw); background: url('images/background.png') center / cover; touch-action: none; outline: none; }
+    canvas:focus-visible { outline: 2px solid #b6ff00; outline-offset: -2px; }
+  </style>
+</head>
+<body>
+  <canvas id="gameview" tabindex="0" aria-label="Space Invaders: Pfeiltasten zum Lenken, Leertaste zum Schießen. Mit Touch oder Maus ziehen und gedrückt halten."></canvas>
+  <script src="javascripts/Const.js"></script>
+  <script src="javascripts/SpaceShip.js"></script>
+  <script src="javascripts/CDetection.js"></script>
+  <script src="javascripts/Game.js"></script>
+  <script src="javascripts/Rally.js"></script>
+</body>
+</html>

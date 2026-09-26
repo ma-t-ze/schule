@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { rallyMuted } from './rallyAudio'
 const emit = defineEmits(['selected', 'continue'])
 defineProps({
@@ -13,8 +13,7 @@ const rotation = ref(0)
 const spinning = ref(false)
 const selected = ref('')
 const wheel = ref(null)
-const colors = ['#284d46', '#476354', '#765738']
-const background = computed(() => `conic-gradient(${names.map((_, i) => `${colors[i % colors.length]} ${i * step}deg ${(i + 1) * step}deg`).join(',')})`)
+
 let pointer = null, lastAngle = 0, lastTime = 0, velocity = 0, frame = 0
 let clickGain
 watch(rallyMuted, muted => { if (clickGain) clickGain.gain.value = muted ? 0 : 1 })
@@ -134,14 +133,15 @@ onBeforeUnmount(() => {
     <p>Dreht das Rad mit dem Finger oder der Maus.</p>
     <div class="wheel-frame">
       <div class="needle" aria-hidden="true"></div>
-      <div ref="wheel" class="wheel" :class="{ spinning }" :style="{ background, transform: `rotate(${rotation}deg)` }"
+      <div ref="wheel" class="wheel" :class="{ spinning }" :style="{ transform: `rotate(${rotation}deg)` }"
         role="button" tabindex="0" aria-label="Glücksrad drehen. Ziehen oder Enter drücken."
         @pointerdown="start" @pointermove="move" @pointerup="release" @pointercancel="release" @lostpointercapture="release" @keydown="keyboardSpin">
+        <div v-for="(_, i) in names" :key="`divider-${i}`" class="divider" :style="{ transform: `rotate(${i * step}deg)` }" aria-hidden="true"></div>
         <div v-for="(name, i) in names" :key="name" class="name-arm" :style="{ transform: `rotate(${(i + .5) * step}deg)` }"><span>{{ name }}</span></div>
         <div class="hub" aria-hidden="true">✦</div>
       </div>
     </div>
-    <p class="result" role="status">{{ spinning ? 'Das Rad entscheidet …' : selected ? `${selected} ist euer ${roleName}!` : 'Die Nadel entscheidet.' }}</p>
+    <p class="result" role="status">{{ spinning ? 'Das Rad entscheidet …' : selected ? roleName ? `${selected} ist euer ${roleName}!` : `${selected} ist dran!` : 'Die Nadel entscheidet.' }}</p>
     <div v-if="selected && !spinning" class="wheel-actions">
       <button class="continue" @click="$emit('continue')">{{ continueLabel }}</button>
     </div>
@@ -152,14 +152,17 @@ onBeforeUnmount(() => {
 h1 { font-size: clamp(30px, 5vw, 58px); line-height: 1.1; margin: 0 0 16px; }
 p { color: #c5d5c8; }
 .wheel-frame { position: relative; width: min(65svh, 100%, 530px); aspect-ratio: 1; margin: 32px auto 24px; }
-.wheel { position: relative; width: 100%; height: 100%; border-radius: 50%; border: 6px solid #b8c99d; box-shadow: 0 0 60px #82bda525, 0 12px 40px #000a; touch-action: none; user-select: none; cursor: grab; }
+.wheel { position: relative; width: 100%; height: 100%; border-radius: 50%; border: 2px solid #b6ff00; background: transparent; box-shadow: 0 0 30px #b6ff0022, inset 0 0 30px #b6ff0011; touch-action: none; user-select: none; cursor: grab; }
 .wheel:active { cursor: grabbing; }
-.wheel:focus-visible { outline: 3px solid white; outline-offset: 6px; }
-.needle { position: absolute; top: -17px; left: 50%; transform: translateX(-50%); border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 38px solid #f9d381; z-index: 2; filter: drop-shadow(0 3px 3px #0009); }
+.wheel:focus-visible { outline: 3px solid #caff42; outline-offset: 6px; }
+.needle { position: absolute; top: -17px; left: 50%; transform: translateX(-50%); border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 38px solid #b6ff00; z-index: 2; filter: drop-shadow(0 0 8px #b6ff0066); }
+.divider { position: absolute; left: calc(50% - .5px); top: 0; width: 1px; height: 42%; background: #b6ff0070; transform-origin: 50% 119.047619%; pointer-events: none; }
 .name-arm { position: absolute; inset: 0; pointer-events: none; }
-.name-arm span { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); font-size: clamp(12px, 2.5vw, 21px); font-weight: 700; color: #fff; text-shadow: 0 2px 4px #000; }
-.hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 16%; aspect-ratio: 1; display: grid; place-items: center; background: #14231e; border: 3px solid #b8c99d; border-radius: 50%; font-size: 30px; color: #f9d381; pointer-events: none; }
+.name-arm span { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); font-size: clamp(12px, 2.5vw, 21px); font-weight: 700; color: #b6ff00; text-shadow: 0 0 10px #b6ff0033; }
+.hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 16%; aspect-ratio: 1; display: grid; place-items: center; background: transparent; border: 1px solid #b6ff00; border-radius: 50%; font-size: 30px; color: #b6ff00; pointer-events: none; }
 .result { min-height: 1.5em; font-size: 20px; }
 .wheel-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
-.continue { padding: 14px 24px; border: 1px solid #a5cfa56b; border-radius: 8px; background: #253c33; color: #eefbe7; font: inherit; cursor: pointer; }
+.continue { padding: 14px 24px; border: 1px solid #b6ff00; border-radius: 5px; background: transparent; color: #b6ff00; box-shadow: 0 0 24px #b6ff0022; font: inherit; cursor: pointer; }
+.continue:hover { border-color: #caff42; color: #caff42; box-shadow: 0 0 33px #b6ff0044; }
+.continue:focus-visible { outline: 3px solid #caff42; outline-offset: 4px; }
 </style>

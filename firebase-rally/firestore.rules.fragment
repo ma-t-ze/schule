@@ -1,0 +1,33 @@
+// Add INSIDE match /databases/{database}/documents in the EXISTING rules
+// of project gestaltgesetze-ada34. Keep the existing quiz rules unchanged.
+// Do not publish this fragment as an entire rules file.
+// The random 32-character game ID is a shared access key: whoever knows it
+// can read and control that round. Collection listing is not permitted.
+match /rally_games/{gameId} {
+  function validGameId() {
+    return gameId.matches('^[a-f0-9]{32}$');
+  }
+  function validRally() {
+    let data = request.resource.data;
+    return data.keys().hasAll(['version', 'creatureNames', 'digits', 'energy', 'foundIds', 'releasedIds', 'homeIds', 'updatedAt'])
+      && data.keys().hasOnly(['version', 'creatureNames', 'digits', 'energy', 'foundIds', 'releasedIds', 'homeIds', 'updatedAt'])
+      && data.version == 1
+      && data.creatureNames == ['Corphish', 'Fuecoco', 'Shiny Feraligatr', 'Charizard', 'White Kyurem', 'Shiny Chien-Pao', 'Toxel', 'Iron Moth']
+      && data.digits == ['4', '7', '2', '9', '5', '1', '8', '3']
+      && data.energy is int && data.energy >= 0 && data.energy <= 100
+      && data.foundIds is list && data.foundIds.size() <= 9 && data.foundIds.hasOnly([1,2,3,4,5,6,7,8,9])
+      && data.releasedIds is list && data.releasedIds.size() <= 8 && data.releasedIds.hasOnly([1,2,3,4,5,6,7,8])
+      && data.homeIds is list && data.homeIds.size() <= 8 && data.homeIds.hasOnly(data.releasedIds)
+      && data.updatedAt == request.time;
+  }
+  allow get: if validGameId();
+  allow create: if validGameId() && validRally()
+    && request.resource.data.energy == 100
+    && request.resource.data.foundIds.size() == 0
+    && request.resource.data.releasedIds.size() == 0
+    && request.resource.data.homeIds.size() == 0;
+  allow update: if validGameId() && validRally()
+    && request.resource.data.foundIds.hasAll(resource.data.foundIds)
+    && request.resource.data.releasedIds.hasAll(resource.data.releasedIds)
+    && request.resource.data.homeIds.hasAll(resource.data.homeIds);
+}

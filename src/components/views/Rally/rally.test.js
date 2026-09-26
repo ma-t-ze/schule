@@ -3,8 +3,20 @@ import assert from 'node:assert/strict'
 import QRCode from 'qrcode'
 import jsQR from 'jsqr'
 import { Box3, Vector3 } from 'three'
-import { stations, stationCode, parseStationCode } from './stations.js'
+import { stations, stationCode, parseStationCode, isCorrectFinalCode } from './stations.js'
 import { createCreature, disposeCreature } from './creatures.js'
+
+test('Final code uses all eight creature digits in station order', () => {
+  const creatures = stations.filter(station => station.id !== 9)
+  assert.equal(creatures.length, 8)
+  for (const creature of creatures) assert.match(creature.codeDigit, /^[0-9]$/)
+  assert.equal(stations[8].codeDigit, undefined)
+  assert.ok(isCorrectFinalCode(creatures.map(creature => creature.codeDigit).join('')))
+  assert.ok(isCorrectFinalCode(' 47295183 '))
+  for (const wrong of ['', '4729518', '472951830', '47295182', '38159274', 'abcdefgh', null]) {
+    assert.equal(isCorrectFinalCode(wrong), false)
+  }
+})
 
 test('Nine printed station codes round-trip through the scanner', () => {
   assert.equal(stations.length, 9)

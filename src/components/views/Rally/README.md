@@ -8,7 +8,7 @@ Route: `/rally` (Link auf der Schule-Startseite).
 - „Stationscodes für die Rally“ öffnen und die acht Codes drucken oder auf einem zweiten Bildschirm anzeigen.
 - Kamera starten und einen Code scannen. Die Erkennung findet lokal mit jsQR statt.
 - Das Wesen bleibt bis „Nächste Station scannen“ sichtbar, unabhängig von Lage, Abstand und Sichtbarkeit des Codes.
-- Der Fortschritt wird lokal unter `rally-found-v1` gespeichert, ohne Benutzerkonto oder Serverübertragung.
+- Scans bleiben lokal unter `rally-found-v1` gespeichert. Zusätzlich werden Kreaturen, Codeziffern, Scans, Freigaben, Heimflüge und Energie in Firebase abgelegt. Die Seite `/freecreatures` steuert die Freigaben live. Einrichtung und Spiel-Links: [Firebase-Rally](../../../../firebase-rally/README.md).
 
 Für eine Handykamera muss die bereitgestellte Seite HTTPS verwenden. `localhost` funktioniert auf dem Entwicklungsgerät, eine unverschlüsselte LAN-IP auf einem anderen Gerät nicht. Der Browser fragt nach Kameraerlaubnis; Audio wird nicht angefordert.
 
