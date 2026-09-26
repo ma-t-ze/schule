@@ -11,9 +11,9 @@ const sounds = [
   { label: 'Türquietschen', url: '/rally/dor.wav' },
   { label: 'Jubel', url: '/rally/happy.wav' },
   { label: 'Monsterlachen', url: '/rally/monster-laughing.wav' },
-  { label: 'Monstersound', url: '/rally/monster.wav' },
+  { label: 'Monstersound', url: '/rally/monster-background.wav' },
   { label: 'Game-Musik', url: '/rally/game_music.wav' },
-  { label: 'Guitar-Musik', url: '/rally/guitar-quiet.wav' }
+  { label: 'Guitar-Musik', url: '/rally/guitar-background.wav' }
 ]
 function stopOthers(current) {
   panel.value?.querySelectorAll('audio').forEach(audio => { if (audio !== current) audio.pause() })

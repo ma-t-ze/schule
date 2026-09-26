@@ -189,6 +189,7 @@ async function playIntro() {
   const attempt = ++audioAttempt
   try {
     // Start all audio elements in the click gesture, including on mobile browsers.
+    introAudio.value.volume = 1
     const playback = introAudio.value.play()
     playMonsterSound()
     playMusic()
@@ -447,8 +448,8 @@ onBeforeUnmount(() => { cancelFinale(); clearTimeout(departureTimer); pause(); d
   <audio :muted="rallyMuted" ref="introAudio" src="/rally/intro.mp3" preload="metadata"
     @play="introPlaying = true" @pause="introPaused" @ended="finishIntro"
     @error="pauseIntro(); introError = 'Die Intro-Datei konnte nicht geladen werden.'"></audio>
-  <audio :muted="rallyMuted" ref="monsterAudio" src="/rally/monster.wav" preload="auto" @ended="repeatMonsterSound"></audio>
-  <audio :muted="rallyMuted" ref="musicAudio" src="/rally/guitar-quiet.wav" preload="auto" loop></audio>
+  <audio :muted="rallyMuted" ref="monsterAudio" src="/rally/monster-background.wav" preload="auto" @ended="repeatMonsterSound"></audio>
+  <audio :muted="rallyMuted" ref="musicAudio" src="/rally/guitar-background.wav" preload="auto" loop></audio>
   <main v-if="phase === 'welcome'" class="mission-screen">
     <div class="mission-welcome">
       <h1 class="mission-logo"><img src="/rally/rettet_die_creaturen.png" alt="Rettet die Creaturen" fetchpriority="high" /></h1>
