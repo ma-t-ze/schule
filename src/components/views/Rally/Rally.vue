@@ -24,10 +24,10 @@ const energy = ref(100)
 let removeAudioUnlock
 onMounted(() => { removeAudioUnlock = installRallyAudioUnlock() })
 onBeforeUnmount(() => removeAudioUnlock?.())
-const { state: cloudState, gameId, controlsLink, message: syncMessage, failure: syncFailure, retry: retrySync, release: saveRelease, recordScan, saveEnergy, sendHome } = useRallySync()
+const { state: cloudState, message: syncMessage, failure: syncFailure, retry: retrySync, release: saveRelease, recordScan, saveEnergy, sendHome } = useRallySync()
 const energyTaskIndex = ref(0)
 try {
-  const saved = Number(localStorage.getItem(`rally-energy-task-${gameId}`))
+  const saved = Number(localStorage.getItem('rally-energy-task-current'))
   if (Number.isInteger(saved) && saved >= 0) energyTaskIndex.value = saved % energyTasks.length
 } catch { /* The task sequence remains usable without storage. */ }
 let pendingEnergy = null
@@ -41,7 +41,7 @@ function rechargeEnergy() {
   if (energy.value > 0) return
   updateEnergy(100)
   energyTaskIndex.value = (energyTaskIndex.value + 1) % energyTasks.length
-  try { localStorage.setItem(`rally-energy-task-${gameId}`, String(energyTaskIndex.value)) } catch { /* Optional persistence. */ }
+  try { localStorage.setItem('rally-energy-task-current', String(energyTaskIndex.value)) } catch { /* Optional persistence. */ }
 }
 watch(energy, value => {
   if (value > 0) return
@@ -277,8 +277,31 @@ const visible = ref(true)
 watch([phase, active], () => { if (phase.value !== 'scanner' || active.value !== 9) cancelFinale() })
 watch(visible, value => { if (creatureFlight) value ? creatureFlight.play() : creatureFlight.pause() })
 const current = computed(() => stations.find(s => s.id === active.value))
-watch(cloudState, state => {
+watch(cloudState, (state, previous) => {
   if (!state) return
+  if (!previous || state.roundId !== previous.roundId) {
+    cancelFinale()
+    clearTimeout(departureTimer)
+    pauseIntro()
+    gameMusicAudio.value?.pause()
+    stopCamera()
+    active.value = null
+    expectedStation.value = null
+    rescued.value = []
+    found.value = []
+    flownHome.clear()
+    navigatorName.value = ''
+    scannerName.value = ''
+    wheelDrawerOpen.value = false
+    scannedThisMission.value = false
+    pendingEnergy = null
+    energyTaskIndex.value = 0
+    phase.value = 'welcome'
+    try {
+      localStorage.setItem('rally-found-v1', '[]')
+      localStorage.setItem('rally-energy-task-current', '0')
+    } catch { /* Firebase remains the source of shared progress. */ }
+  }
   if (pendingEnergy === null || state.energy === pendingEnergy) {
     energy.value = state.energy
     pendingEnergy = null
@@ -503,7 +526,7 @@ onBeforeUnmount(() => { cancelFinale(); clearTimeout(departureTimer); pause(); d
     <p>Navigator: <strong v-if="navigatorName">{{ navigatorName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
     <p>Scanner: <strong v-if="scannerName">{{ scannerName }}</strong><span v-else class="role-pending">Noch nicht gewählt</span></p>
     <button class="open-wheel" aria-haspopup="dialog" @click="wheelDrawerOpen = true">Glücksrad einblenden</button>
-    <details class="rally-sync"><summary>Rally verbinden</summary><a :href="controlsLink" target="_blank" rel="noopener">FreeCreatures öffnen</a><p>Spielcode: <code>{{ gameId }}</code></p><p role="status">{{ syncMessage }}</p><button v-if="syncFailure" class="open-wheel" @click="retrySync">Erneut verbinden</button></details>
+    <details class="rally-sync"><summary>Rally-Status</summary><p role="status">{{ syncMessage }}</p><button v-if="syncFailure" class="open-wheel" @click="retrySync">Erneut verbinden</button></details>
   </aside>
   <WheelDrawer v-if="wheelDrawerOpen" @close="wheelDrawerOpen = false" />
   <EnergyChallenge v-if="energy <= 0 && visible" :task="energyTasks[energyTaskIndex]" @solved="rechargeEnergy" />

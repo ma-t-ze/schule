@@ -1,55 +1,32 @@
 <script setup>
 import { ref } from 'vue'
 import { stations } from './stations'
-import { isRallyId } from './rallyState'
 import { useRallySync } from './useRallySync'
-const { gameId, state, connected, failure, message, rallyLink, controlsLink, retry, release } = useRallySync()
+const { state, connected, failure, pending, message, retry, release, newRound } = useRallySync()
 const busy = ref(new Set())
-const joinCode = ref('')
-const notice = ref('')
 async function free(id) {
   if (busy.value.has(id)) return
   busy.value.add(id)
   await release(id)
   busy.value.delete(id)
 }
-async function copyLink() {
-  try { await navigator.clipboard.writeText(new URL(controlsLink, window.location.origin).href); notice.value = 'Steuerungslink kopiert.' }
-  catch { notice.value = 'Kopiere den Spielcode, um die Runde auf einem anderen Gerät zu öffnen.' }
-}
-function join() {
-  let code = joinCode.value.trim()
-  try { code = new URL(code).searchParams.get('game') || code } catch { /* A plain code is valid too. */ }
-  if (!isRallyId(code)) { notice.value = 'Bitte einen gültigen Spielcode oder Spiel-Link eingeben.'; return }
-  window.location.assign(`${import.meta.env.BASE_URL}freecreatures?game=${code}`)
-}
-function newGame() {
-  window.location.assign(`${import.meta.env.BASE_URL}freecreatures?game=${crypto.randomUUID().replaceAll('-', '')}`)
-}
 </script>
 <template>
   <main class="free-creatures">
-    <nav><router-link to="/">Zur Schule</router-link><a :href="rallyLink" target="_blank" rel="noopener">Rally öffnen</a></nav>
+    <nav><router-link to="/">Zur Schule</router-link><router-link to="/rally">Rally öffnen</router-link></nav>
     <h1>FreeCreatures</h1>
     <p>Lasst die Kreaturen dieser Rally frei. Die Freigabe wird live an das Spiel übertragen.</p>
     <p role="status" :class="{ error: failure }">{{ message }}</p>
     <button v-if="failure" @click="retry">Erneut verbinden</button>
-    <details class="connection">
-      <summary>Rally auf einem anderen Gerät verbinden</summary>
-      <p>Öffne auf beiden Geräten denselben Spiel-Link. Der Spielcode steht auch rechts in der Rally.</p>
-      <p>Spielcode: <code>{{ gameId }}</code></p>
-      <button @click="copyLink">Steuerungslink kopieren</button>
-      <button @click="newGame">Neue Rally anlegen</button>
-      <form @submit.prevent="join"><label for="join-rally">Spielcode oder Link</label><input id="join-rally" v-model="joinCode" required autocomplete="off"><button>Runde öffnen</button></form>
-      <p role="status">{{ notice }}</p>
-    </details>
+    <button :disabled="!connected || pending > 0" @click="newRound">Neue Rally starten</button>
+    <p>Startet die gemeinsame Rally neu: alle Kreaturen gefangen, Energie auf 100 %.</p>
     <section class="creature-grid" aria-label="Acht Kreaturen">
       <article v-for="station in stations.slice(0, 8)" :key="station.id">
         <small>{{ station.id === 2 ? 'Spiel 2' : `Rätsel ${station.id}` }}</small>
         <h2>{{ station.name }}</h2>
         <p>Ziffer: <strong>{{ station.codeDigit }}</strong></p>
         <p>{{ state?.homeIds.includes(station.id) ? 'Nach Hause geflogen' : state?.releasedIds.includes(station.id) ? 'Freigegeben' : 'Noch gefangen' }}</p>
-        <button :disabled="!connected || !!failure || !state || busy.has(station.id) || state.releasedIds.includes(station.id)" @click="free(station.id)">
+        <button :disabled="!connected || !!failure || !state || pending > 0 || busy.has(station.id) || state.releasedIds.includes(station.id)" @click="free(station.id)">
           {{ busy.has(station.id) ? 'Wird freigelassen …' : 'Creature freilassen' }}
         </button>
       </article>

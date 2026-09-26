@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { initialRallyState, isRallyId, mergeRescuedCreatures, readRallyState } from './rallyState.js'
+import { initialRallyState, mergeRescuedCreatures, readRallyState } from './rallyState.js'
 import { stations } from './stations.js'
 
 test('A game stores all eight creature digits without player names or media', () => {
@@ -13,9 +13,17 @@ test('A game stores all eight creature digits without player names or media', ()
   state.releasedIds.push(1)
   assert.deepEqual(initialRallyState().releasedIds, [])
 })
-test('Only full random game identifiers are accepted', () => {
-  assert.ok(isRallyId('0123456789abcdef0123456789abcdef'))
-  for (const id of ['current', '', '../another', '0123', 'X'.repeat(32), null, ['a'.repeat(32)]]) assert.equal(isRallyId(id), false)
+test('A new round resets progress and preserves its internal revision when read', () => {
+  const previous = initialRallyState('old-round')
+  previous.releasedIds.push(1, 2)
+  previous.energy = 20
+  const fresh = readRallyState(initialRallyState('new-round'))
+  assert.equal(fresh.roundId, 'new-round')
+  assert.equal(fresh.energy, 100)
+  assert.deepEqual(fresh.releasedIds, [])
+  assert.deepEqual(fresh.foundIds, [])
+  assert.deepEqual(fresh.homeIds, [])
+  assert.deepEqual(previous.releasedIds, [1, 2])
 })
 test('Cloud progress ignores invalid IDs and cannot release the spaceship', () => {
   const state = readRallyState({ energy: 120, foundIds: [1, 1, 9, 10], releasedIds: [1, 2, 2, 9, '3', -1], homeIds: [2, 3, 9] })

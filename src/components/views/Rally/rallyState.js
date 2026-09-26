@@ -1,10 +1,10 @@
 import { stations } from './stations.js'
 
-export const isRallyId = value => typeof value === 'string' && /^[a-f0-9]{32}$/.test(value)
 export const creatureIds = stations.filter(station => station.id < 9).map(station => station.id)
-export function initialRallyState() {
+export function initialRallyState(roundId = 'initial') {
   return {
     version: 1,
+    roundId,
     creatureNames: stations.slice(0, 8).map(station => station.name),
     digits: stations.slice(0, 8).map(station => station.codeDigit),
     energy: 100,
@@ -17,7 +17,7 @@ export function readRallyState(data = {}) {
   const ids = (value, max) => Array.isArray(value) ? [...new Set(value.filter(id => Number.isInteger(id) && id >= 1 && id <= max))] : []
   const releasedIds = ids(data.releasedIds, 8)
   return {
-    ...initialRallyState(),
+    ...initialRallyState(typeof data.roundId === 'string' ? data.roundId : 'legacy'),
     energy: Number.isFinite(data.energy) ? Math.max(0, Math.min(100, data.energy)) : 100,
     foundIds: ids(data.foundIds, 9),
     releasedIds,

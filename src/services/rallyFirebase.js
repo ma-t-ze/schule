@@ -1,34 +1,41 @@
-import { arrayUnion, doc, onSnapshot, runTransaction, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { arrayUnion, doc, onSnapshot, runTransaction, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from './firebase'
-import { creatureIds, initialRallyState, isRallyId } from '../components/views/Rally/rallyState'
+import { creatureIds, initialRallyState } from '../components/views/Rally/rallyState'
 
-function gameRef(id) {
+function gameRef() {
   if (!db) throw new Error('Firebase ist nicht eingerichtet.')
-  if (!isRallyId(id)) throw new Error('Ungültiger Spielcode.')
-  return doc(db, 'rally_games', id)
+  return doc(db, 'rally_games', 'current')
 }
-export function watchRally(id, next, error) {
-  return onSnapshot(gameRef(id), { includeMetadataChanges: true }, next, error)
+export function watchRally(next, error) {
+  return onSnapshot(gameRef(), { includeMetadataChanges: true }, next, error)
 }
-export function ensureRally(id) {
-  const reference = gameRef(id)
-  return runTransaction(db, async transaction => {
-    const snapshot = await transaction.get(reference)
-    if (!snapshot.exists()) transaction.set(reference, { ...initialRallyState(), updatedAt: serverTimestamp() })
+export function createNewRally() {
+  return setDoc(gameRef(), {
+    ...initialRallyState(crypto.randomUUID().replaceAll('-', '')),
+    updatedAt: serverTimestamp()
   })
 }
-export function releaseRallyCreature(id, creatureId) {
-  if (!creatureIds.includes(creatureId)) throw new Error('Ungültige Kreatur.')
-  return updateDoc(gameRef(id), { releasedIds: arrayUnion(creatureId), updatedAt: serverTimestamp() })
+function updateRound(roundId, patch) {
+  const reference = gameRef()
+  return runTransaction(db, async transaction => {
+    const snapshot = await transaction.get(reference)
+    if (!snapshot.exists()) throw new Error('Bitte zuerst in FreeCreatures eine neue Rally starten.')
+    if (snapshot.data().roundId !== roundId) throw new Error('Eine neue Rally wurde gestartet. Bitte erneut versuchen.')
+    transaction.update(reference, { ...patch, updatedAt: serverTimestamp() })
+  })
 }
-export function sendRallyCreatureHome(id, creatureId) {
+export function releaseRallyCreature(roundId, creatureId) {
   if (!creatureIds.includes(creatureId)) throw new Error('Ungültige Kreatur.')
-  return updateDoc(gameRef(id), { releasedIds: arrayUnion(creatureId), homeIds: arrayUnion(creatureId), updatedAt: serverTimestamp() })
+  return updateRound(roundId, { releasedIds: arrayUnion(creatureId) })
 }
-export function recordRallyScan(id, stationId) {
+export function sendRallyCreatureHome(roundId, creatureId) {
+  if (!creatureIds.includes(creatureId)) throw new Error('Ungültige Kreatur.')
+  return updateRound(roundId, { releasedIds: arrayUnion(creatureId), homeIds: arrayUnion(creatureId) })
+}
+export function recordRallyScan(roundId, stationId) {
   if (!Number.isInteger(stationId) || stationId < 1 || stationId > 9) throw new Error('Ungültige Station.')
-  return updateDoc(gameRef(id), { foundIds: arrayUnion(stationId), updatedAt: serverTimestamp() })
+  return updateRound(roundId, { foundIds: arrayUnion(stationId) })
 }
-export function saveRallyEnergy(id, energy) {
-  return updateDoc(gameRef(id), { energy: Math.max(0, Math.min(100, energy)), updatedAt: serverTimestamp() })
+export function saveRallyEnergy(roundId, energy) {
+  return updateRound(roundId, { energy: Math.max(0, Math.min(100, energy)) })
 }
