@@ -2,6 +2,7 @@
 
 <template>
     <div class="links">
+        <router-link class="chaos-link" :to="{ name: '3tgg12' }">3TGG12</router-link>
         <router-link class="chaos-link" :to="{ name: 'farbmischsysteme' }">Farbmischsysteme</router-link>
         <router-link class="chaos-link" :to="{ name: 'rally' }">Rally</router-link>
         <router-link class="chaos-link" :to="{ name: 'free-creatures' }">FreeCreatures</router-link>

@@ -6,6 +6,18 @@ import store from './store'
 const app = createApp(App)
 
 const routes = [
+  {
+    path: '/3tgg12',
+    name: '3tgg12',
+    component: () => import('./components/views/TGG12/TGG12.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/3tgg12/visuelle-kommunikation-punkt-und-linie',
+    name: '3tgg12-punkt-und-linie',
+    component: () => import('./components/views/TGG12/PunktUndLinie.vue'),
+    meta: { requiresAuth: false }
+  },
   { path: '/freecreatures', name: 'free-creatures', component: () => import('./components/views/Rally/FreeCreatures.vue'), meta: { requiresAuth: false } },
   { path: '/farbmischsysteme', name: 'farbmischsysteme', component: () => import('./components/views/Farbmischsysteme/Farbmischsysteme.vue'), meta: { requiresAuth: false } },
   {
