@@ -180,7 +180,7 @@ router.beforeEach((to, from, next) => {
   if (
     to.meta.requiresAuth &&
     !isLoggedIn() &&
-    to.query.parameter !== '1'
+    to.query.parameter !== '1511'
   ) {
     next('/login')
   } else {
