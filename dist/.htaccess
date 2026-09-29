@@ -2,6 +2,9 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
+  # The QR asset directory shares this Vue route's name.
+  # Serve the app for the overview, while keeping asset files accessible.
+  RewriteRule ^3tgg12/?$ /index.html [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
