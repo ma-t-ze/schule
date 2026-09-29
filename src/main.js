@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/3tgg12/visuelle-kommunikation-punktportraits',
+    name: '3tgg12-punktportraits',
+    component: () => import('./components/views/TGG12/Punktportraits.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12',
     name: '3tgg12',
     component: () => import('./components/views/TGG12/TGG12.vue'),

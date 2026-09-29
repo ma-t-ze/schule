@@ -8,6 +8,9 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-punkt-und-linie' }">
         #1 Visuelle Kommunikation mit Punkt und Linie
       </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-punktportraits' }">
+        #2 Visuelle Kommunikation: der Punkt und Punktportraits
+      </router-link>
     </nav>
   </main>
 </template>
