@@ -7,6 +7,18 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/1bfd1',
+    name: '1bfd1',
+    component: () => import('./components/views/BFD1/BFD1.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/1bfd1/layouts-und-wirkung',
+    name: '1bfd1-layouts',
+    component: () => import('./components/views/BFD1/Layouts.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12/visuelle-kommunikation-punktportraits',
     name: '3tgg12-punktportraits',
     component: () => import('./components/views/TGG12/Punktportraits.vue'),
