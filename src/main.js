@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/kahoot-farbmischsysteme-programme-bkgd',
+    name: 'bkgd-live-quiz',
+    component: () => import('./components/views/BKGDQuiz/BKGDQuiz.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/1bfd1',
     name: '1bfd1',
     component: () => import('./components/views/BFD1/BFD1.vue'),
