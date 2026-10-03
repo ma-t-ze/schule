@@ -1,0 +1,56 @@
+// Add inside match /databases/{database}/documents. Preserve other rules.
+function designTeacher() {
+  return request.auth != null
+    && exists(/databases/$(database)/documents/design_thinking_admins/$(request.auth.uid))
+    && get(/databases/$(database)/documents/design_thinking_admins/$(request.auth.uid)).data.enabled == true;
+}
+match /design_thinking_admins/{uid} {
+  allow get: if request.auth != null && request.auth.uid == uid;
+  allow write: if false;
+}
+match /design_thinking_posts/{postId} {
+  allow read: if true;
+  allow update: if designTeacher()
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text'])
+    && request.resource.data.text is string
+    && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 5000;
+  allow delete: if designTeacher();
+  allow create: if request.auth != null
+    && request.resource.data.keys().hasAll(['uid', 'kind', 'text', 'createdAt'])
+    && request.resource.data.keys().hasOnly(['uid', 'kind', 'text', 'createdAt'])
+    && request.resource.data.uid == request.auth.uid
+    && request.resource.data.kind in ['briefing', 'problem']
+    && request.resource.data.text is string
+    && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 5000
+    && request.resource.data.createdAt == request.time;
+}
+match /design_thinking_results/{resultId} {
+  allow get: if request.auth != null && resultId == 'current';
+  allow create, update: if designTeacher() && resultId == 'current'
+    && request.resource.data.keys().hasAll(['rebriefing', 'problem', 'sourceIds', 'updatedBy', 'updatedAt'])
+    && request.resource.data.keys().hasOnly(['rebriefing', 'problem', 'sourceIds', 'updatedBy', 'updatedAt'])
+    && request.resource.data.rebriefing is string && request.resource.data.rebriefing.size() <= 20000
+    && request.resource.data.problem is string && request.resource.data.problem.size() <= 20000
+    && request.resource.data.sourceIds is list && request.resource.data.sourceIds.size() <= 500
+    && request.resource.data.updatedBy == request.auth.uid
+    && request.resource.data.updatedAt == request.time;
+}
+
+match /design_thinking_votes/{uid} {
+  function problem(id) {
+    return id is string
+      && exists(/databases/$(database)/documents/design_thinking_posts/$(id))
+      && get(/databases/$(database)/documents/design_thinking_posts/$(id)).data.kind == 'problem';
+  }
+  allow read: if request.auth != null;
+  allow create: if request.auth != null && request.auth.uid == uid
+    && request.resource.data.keys().hasAll(['postIds', 'createdAt'])
+    && request.resource.data.keys().hasOnly(['postIds', 'createdAt'])
+    && request.resource.data.postIds is list
+    && request.resource.data.postIds.size() >= 1
+    && request.resource.data.postIds.size() <= 2
+    && request.resource.data.postIds.toSet().size() == request.resource.data.postIds.size()
+    && problem(request.resource.data.postIds[0])
+    && (request.resource.data.postIds.size() == 1 || problem(request.resource.data.postIds[1]))
+    && request.resource.data.createdAt == request.time;
+}

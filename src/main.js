@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/3tgg2/entwicklung-einer-app-design-thinking/admin',
+    name: '3tgg2-design-thinking-admin',
+    component: () => import('./components/views/TGG2/DesignThinkingAdmin.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg2',
     name: '3tgg2',
     component: () => import('./components/views/TGG2/TGG2.vue'),
