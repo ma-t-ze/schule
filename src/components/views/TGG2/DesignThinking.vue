@@ -19,7 +19,7 @@ onDeactivated(stopPublished); onBeforeUnmount(stopPublished)
 const storageKey = '3tgg2-design-thinking-phase1'
 const prompts = ['Wer hat das Problem?', 'Wann tritt es auf?', 'Warum ist es ein Problem?', 'Wie wird es momentan gelöst?', 'Was wäre stattdessen wünschenswert?']
 const worksheet = ref({ team: '', problems: ['', '', '', '', ''], selected: '', investigation: ['', '', '', '', ''], question: '' })
-const storageNotice = ref('Eure Eingaben werden automatisch in diesem Browser gespeichert.')
+const storageNotice = ref('')
 try {
   const saved = JSON.parse(localStorage.getItem(storageKey) || 'null')
   if (saved) {
@@ -110,21 +110,17 @@ onBeforeUnmount(closeTerm)
       <header>
         <p class="eyebrow">3TGG2 · GMT</p>
         <h1>Wir entwickeln eine App</h1>
-        <div class="legend">
-          <p><strong class="blue-label">Blau · Unser Lernweg</strong>Die blauen Inhalte bilden die Metaebene: Sie helfen euch, die Begriffe durch ein eigenes Projekt zu verstehen. Diese Arbeitsaufgaben sind nicht Stoff der Klassenarbeit.</p>
-          <p><strong class="yellow-label">Gelb · Wissensinput</strong>Hinter den gelben Buttons auf der rechten Seite findet ihr Hintergrundwissen.</p>
-        </div>
       </header>
       <div class="content-grid">
         <div class="lesson">
           <details open class="blue-card" aria-labelledby="project-overview">
             <summary><h2 id="project-overview">Projektverlauf</h2></summary>
-            <h3>Vor der inhaltlichen Bearbeitung des Projekts</h3>
+            <h3>Das erste Treffen mit dem Kunden</h3>
             <ul>
-              <li><strong>Briefing – der Auftakt des Projekts:</strong> Wir lernen den Auftrag, die Ziele und die Rahmenbedingungen kennen.</li>
-              <li><strong>Rebriefing:</strong> Wir geben den Auftrag in eigenen Worten wieder und klären offene Fragen gemeinsam.</li>
+              <li><strong>Briefing – der Auftakt des Projekts:</strong> Wir lernen den <strong>Kunden und seinen Auftrag</strong> kennen und klären Ziele und Rahmenbedingungen.</li>
+              <li><strong>Rebriefing:</strong> Wir geben den <strong>Auftrag</strong> in eigenen Worten wieder und klären offene Fragen gemeinsam mit dem <strong>Kunden</strong>.</li>
             </ul>
-            <h3>Inhaltliche Bearbeitung des Projekts</h3>
+            <h3>So verläuft das Projekt im Anschluss</h3>
             <ol class="phase-overview">
               <li>Analysieren</li>
               <li>Ideen finden</li>
@@ -138,7 +134,7 @@ onBeforeUnmount(closeTerm)
             <summary><span class="block-heading"><span class="eyebrow">PROJEKTAUFTAKT · EINZELARBEIT · 20 MINUTEN</span><h2 id="project-title">Das Briefing – der Auftakt des Projekts</h2></span></summary>
             <div class="assignment">
               <h3>Arbeitsauftrag</h3>
-              <p>Lies das Briefing „App für den Schulalltag“ aufmerksam durch, notiere offene Fragen und poste sie für die Allgemeinheit. Im Anschluss klären wir diese gemeinsam.</p>
+              <p>Lies das Briefing <strong>„App für den Schulalltag“</strong> aufmerksam durch. Fasse die wichtigsten Punkte <strong>kurz in eigenen Worten</strong> zusammen und notiere <strong>offene Fragen</strong>. Poste anschließend deine Zusammenfassung und Fragen <strong>für alle sichtbar</strong>.</p>
             </div>
             <h3>Briefing – App für den Schulalltag</h3>
             <dl class="briefing">
@@ -167,7 +163,7 @@ onBeforeUnmount(closeTerm)
             </div>
             <label class="field-label" for="team">Namen eurer Gruppenmitglieder</label>
             <input id="team" v-model="worksheet.team" type="text" placeholder="Eure drei Namen">
-            <p class="save-note" role="status">{{ storageNotice }} Auf gemeinsam genutzten Geräten können andere eure Eingaben sehen.</p>
+            <p v-if="storageNotice" class="save-note" role="status">{{ storageNotice }}</p>
             <h3>Geht wie folgt vor:</h3>
             <ol class="tasks">
               <li><div class="step-title"><h3>Zielgruppe verstehen &amp; Probleme sammeln</h3><span>Arbeitszeit: 15 Minuten</span></div><p>Sammelt mindestens fünf Dinge, die euch im Schulalltag nerven.</p><p>In diesem Fall fällt es euch einfach, euch in die Zielgruppe hineinzuversetzen und diese zu verstehen, da ihr selbst die Zielgruppe seid.</p><div v-for="(_, i) in worksheet.problems" :key="i"><label class="field-label" :for="`problem-${i}`">Problem {{ i + 1 }}</label><textarea :id="`problem-${i}`" v-model="worksheet.problems[i]" rows="2"></textarea></div></li>
@@ -202,7 +198,7 @@ onBeforeUnmount(closeTerm)
           <router-link :to="{ name: '3tgg2-design-thinking-admin' }">Admin-Ansicht für die Lehrkraft</router-link>
         </div>
         <aside aria-labelledby="knowledge-title">
-          <div class="knowledge-panel"><h2 id="knowledge-title">Wissensinput</h2><p>Tippt auf einen Begriff, um die Erklärung zu öffnen.</p>
+          <div class="knowledge-panel"><h2 id="knowledge-title">Wichtige Begriffe</h2><p>Tippt auf einen Begriff, um die Erklärung zu öffnen.</p>
             <div class="knowledge-buttons">
             <button v-for="term in terms" :key="term.title" type="button" class="term-button" aria-haspopup="dialog" @click="openTerm(term)"><span>{{ term.title }}<small v-if="term.subtitle">{{ term.subtitle }}</small></span><span aria-hidden="true">↗</span></button>
             </div>

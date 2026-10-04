@@ -1,6 +1,6 @@
 import { getApps, initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
-import { connectFirestoreEmulator, getFirestore, collection, doc, getDocFromServer, onSnapshot, serverTimestamp, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { connectFirestoreEmulator, getFirestore, collection, doc, getDocFromServer, onSnapshot, serverTimestamp, setDoc, updateDoc, deleteDoc, getDocsFromServer, writeBatch } from 'firebase/firestore'
 import { db } from './firebase'
 
 const contexts = new Map()
@@ -88,4 +88,16 @@ export async function submitDesignVote(postIds) {
   const existing = await getDocFromServer(ref)
   if (existing.exists()) return
   await setDoc(ref, { postIds, createdAt: serverTimestamp() })
+}
+
+export async function resetDesignVotes() {
+  const admin = await checkDesignAdmin()
+  if (!admin) throw new Error('Bitte melde dich als Lehrkraft an.')
+  const database = context(true).db
+  const snapshot = await getDocsFromServer(collection(database, 'design_thinking_votes'))
+  for (let offset = 0; offset < snapshot.docs.length; offset += 400) {
+    const batch = writeBatch(database)
+    snapshot.docs.slice(offset, offset + 400).forEach(vote => batch.delete(vote.ref))
+    await batch.commit()
+  }
 }

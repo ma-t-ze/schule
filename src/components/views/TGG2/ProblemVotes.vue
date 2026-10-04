@@ -4,6 +4,7 @@ import { studentIdentity, watchDesignVotes, submitDesignVote, designError } from
 const props = defineProps({ posts: { type: Array, default: () => [] } })
 const selected = ref([]), votes = ref([]), uid = ref(null), ready = ref(false), busy = ref(false), error = ref('')
 const submitted = computed(() => votes.value.some(vote => vote.id === uid.value))
+watch(submitted, (value, previous) => { if (previous && !value) selected.value = [] })
 const counts = computed(() => {
   const result = {}
   for (const vote of votes.value) for (const id of vote.postIds || []) result[id] = (result[id] || 0) + 1

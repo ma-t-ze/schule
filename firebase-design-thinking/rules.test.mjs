@@ -54,5 +54,12 @@ try {
  await assertFails(deleteDoc(ballotRef))
  await assertSucceeds(getDocs(collection(other, 'design_thinking_votes')))
  await assertSucceeds(setDoc(doc(other, 'design_thinking_votes', 'other'), ballot(['p1'])))
+
+ await assertFails(deleteDoc(doc(other, 'design_thinking_votes', 'student')))
+ await assertSucceeds(deleteDoc(doc(admin, 'design_thinking_votes', 'student')))
+ await assertSucceeds(deleteDoc(doc(admin, 'design_thinking_votes', 'other')))
+ if (!(await getDocs(collection(student, 'design_thinking_votes'))).empty) throw new Error('Reset did not clear votes')
+ await assertSucceeds(setDoc(ballotRef, ballot(['p3'])))
+ await assertFails(setDoc(ballotRef, ballot(['p1'])))
  console.log('PASS: student posts, color-free schema, public reads, admin-only post editing and deletion, protected metadata, published results readable.')
 } finally { await env.cleanup() }
