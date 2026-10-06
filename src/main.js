@@ -61,6 +61,18 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/visuelle-kommunikation-sehvorgang',
+    name: '3tgg12-sehvorgang',
+    component: () => import('./components/views/TGG12/Sehvorgang.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/3tgg12/visuelle-kommunikation-andere-geschichte-farbensehen',
+    name: '3tgg12-andere-geschichte-farbensehen',
+    component: () => import('./components/views/TGG12/AndereGeschichteFarbensehen.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12/visuelle-kommunikation-zusatzaufgabe',
     name: '3tgg12-zusatzaufgabe',
     component: () => import('./components/views/TGG12/Zusatzaufgabe.vue'),
