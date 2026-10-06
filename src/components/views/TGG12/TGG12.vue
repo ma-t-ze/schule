@@ -14,6 +14,9 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-linienportraits' }">
         #3 Visuelle Kommunikation: die Linie und Linienportraits
       </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-flaechenportraits' }">
+        #4 Visuelle Kommunikation: Die Fläche und Flächenportraits
+      </router-link>
     </nav>
   </main>
 </template>

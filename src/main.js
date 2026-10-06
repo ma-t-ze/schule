@@ -55,6 +55,12 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/visuelle-kommunikation-flaechenportraits',
+    name: '3tgg12-flaechenportraits',
+    component: () => import('./components/views/TGG12/Flaechenportraits.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12',
     name: '3tgg12',
     component: () => import('./components/views/TGG12/TGG12.vue'),

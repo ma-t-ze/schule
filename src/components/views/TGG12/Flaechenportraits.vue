@@ -8,12 +8,13 @@
       <h1 id="lesson-title">VISUELLE<br />KOMMUNIKATION</h1>
       <footer>CHS | Heckel</footer>
     </section>
-    <section class="slide" aria-labelledby="line-title">
+    <section class="slide" aria-labelledby="area-title">
       <header class="subject"><span>GESTALTUNGS- UND MEDIENTECHNIK</span><span>Eingangsklasse</span></header>
-      <div class="line-copy">
-        <h2 id="line-title">Die Linie</h2>
-        <p>Die Linie entsteht aus der Bewegung des Punktes. Setzt man einen Bleistift auf dem Papier in Bewegung, entsteht eine Linie. Die Linie hat einen dynamischen Charakter. Erst die Linie veranlasst unser Auge, in Bewegung zu treten.</p>
-        <div class="line" role="img" aria-label="Eine schwarze waagerechte Linie"></div>
+      <div class="area-copy">
+        <h2 id="area-title">Die Fläche</h2>
+        <p>Eine Fläche ist ein zweidimensionales Gestaltungselement mit Breite und Höhe. Sie entsteht durch eine Begrenzung und hebt sich dadurch von ihrer Umgebung ab.</p>
+        <p>Flächen können geometrisch, organisch oder frei geformt sein. Durch ihre Größe, Form, Lage und Ausrichtung bestimmen sie wesentlich die Wirkung einer Komposition. Sie können beispielsweise ordnen, gliedern, verbinden, trennen oder Schwerpunkte bilden.</p>
+        <div class="area" role="img" aria-label="Eine schwarze quadratische Fläche"></div>
       </div>
       <footer>CHS | Heckel</footer>
     </section>
@@ -21,20 +22,19 @@
       <header class="subject"><span>GESTALTUNGS- UND MEDIENTECHNIK</span><span>Eingangsklasse</span></header>
       <div class="task-layout">
         <figure class="portrait">
-          <img src="../../../assets/linienportraits/beispiel.jpg" alt="Beispiel eines Gesichts, das aus einzelnen kurzen Linien aufgebaut ist" loading="lazy" />
+          <img src="../../../assets/flaechenportraits/beispiel.jpg" alt="Beispiel eines reduzierten Flächenportraits mit schwarzen und weißen Flächen" loading="lazy" />
         </figure>
         <div class="task-copy">
           <h2 id="task-title">Aufgabe:</h2>
-          <p>Erstelle drei verschiedene Linienportraits.</p>
+          <p>Erstelle zwei verschiedene Flächenportraits.</p>
           <h2>Vorgehen:</h2>
           <ul>
             <li>Mache ein Bild von dir mit dem iPad.</li>
             <li>Klebe mit Tesa Transparentpapier auf dein iPad.</li>
-            <li>Gestalte drei Varianten eines Linienportraits.
+            <li>Gestalte zwei Varianten eines Flächenportraits.
               <ol type="a">
-                <li>Ein Portrait aus vielen dünnen Strichen.</li>
-                <li>Ein Portrait aus dicken und dünnen Strichen.</li>
-                <li>Ein Portrait mit so großen Strichen, dass das Bild gerade noch als Gesicht erkennbar ist.</li>
+                <li>Ein Flächenportrait mit vielen Details.</li>
+                <li>Ein sehr reduziertes Flächenportrait – dein Gesicht soll gerade noch erkennbar sein.</li>
               </ol>
             </li>
             <li>Klebe die Arbeiten im Anschluss in deine Kladde.</li>
@@ -47,11 +47,9 @@
       <header class="subject"><span>GESTALTUNGS- UND MEDIENTECHNIK</span><span>Eingangsklasse</span></header>
       <div class="task-copy">
         <h2 id="assessment-title">Praktische Arbeit – Bewertungskriterien</h2>
-        <h3>Rhythmus und Reduktion | 0–5 Punkte</h3>
+        <h3>Reduktion | 0–5 Punkte</h3>
         <ul>
-          <li>Wiederholung und Variation erzeugen einen erkennbaren Rhythmus.</li>
-          <li>Größe, Abstand und Anordnung werden bewusst eingesetzt.</li>
-          <li>Das Motiv ist auf wesentliche Merkmale reduziert und bleibt dennoch erkennbar.</li>
+          <li>Die beiden Varianten unterscheiden sich deutlich im Detailgrad – die Reduktion von einer detailreichen zu einer vereinfachten Darstellung ist klar erkennbar.</li>
         </ul>
         <h3>Umsetzung | 0–5 Punkte</h3>
         <ul>
@@ -122,8 +120,8 @@
 
 
 
-.line-copy { max-width: 900px; margin: 48px auto 0; }
-.line { width: min(75%, 600px); height: 12px; background: #000; margin: 72px auto 0; }
+.area-copy { max-width: 900px; margin: 48px auto 0; }
+.area { width: clamp(90px, 10vw, 130px); aspect-ratio: 1; background: #000; margin: 60px auto 0; }
 .task-layout { display: grid; grid-template-columns: minmax(160px, 1fr) minmax(0, 3fr); gap: 40px; align-items: center; margin-top: 48px; }
 .portrait { margin: 0; }
 .portrait img { display: block; width: 100%; height: auto; }
