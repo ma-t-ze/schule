@@ -61,6 +61,12 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/visuelle-kommunikation-zusatzaufgabe',
+    name: '3tgg12-zusatzaufgabe',
+    component: () => import('./components/views/TGG12/Zusatzaufgabe.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12',
     name: '3tgg12',
     component: () => import('./components/views/TGG12/TGG12.vue'),

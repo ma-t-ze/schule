@@ -17,6 +17,9 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-flaechenportraits' }">
         #4 Visuelle Kommunikation: Die Fläche und Flächenportraits
       </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-zusatzaufgabe' }">
+        Visuelle Kommunikation: Zusatzaufgabe
+      </router-link>
     </nav>
   </main>
 </template>
