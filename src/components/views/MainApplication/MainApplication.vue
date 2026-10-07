@@ -2,6 +2,7 @@
 
 <template>
     <div class="links">
+        <router-link class="chaos-link" :to="{ name: 'einfuehrung-photoshop' }">Einführung Photoshop</router-link>
         <router-link class="chaos-link" :to="{ name: 'bkgd-live-quiz' }">Kahoot Farmischsysteme und Programme BKGD</router-link>
         <router-link class="chaos-link" :to="{ name: '1bfd1' }">1BFD1</router-link>
         <router-link class="chaos-link" :to="{ name: '3tgg12' }">3TGG12</router-link>

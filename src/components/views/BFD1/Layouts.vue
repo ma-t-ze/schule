@@ -7,6 +7,7 @@ import stripeImage from '../../../assets/layouts/stripe.png'
 import columnImage from '../../../assets/layouts/text-column.png'
 import wideImage from '../../../assets/layouts/text-wide.png'
 import exampleImage from '../../../assets/layouts/example.png'
+import wbImage from '../../../assets/layouts/wb.png'
 
 const layoutDialog = ref(null)
 
@@ -16,7 +17,8 @@ const elements = [
   { key: 'portrait', label: 'Porträt', src: portraitImage, w: 400, h: 372 },
   { key: 'stripe', label: 'Grüner Streifen', src: stripeImage, w: 70, h: 625 },
   { key: 'column', label: 'Text als Spalte', src: columnImage, w: 270, h: 270 },
-  { key: 'wide', label: 'Text als Block', src: wideImage, w: 570, h: 148 }
+  { key: 'wide', label: 'Text als Block', src: wideImage, w: 570, h: 148 },
+  { key: 'wb', label: 'WB-Element', src: wbImage, w: 200, h: 200 }
 ]
 const moods = ['gedrängt', 'seriös', 'verspielt', 'modern', 'klassisch', 'laut', 'ruhig', 'elegant', 'aggressiv', 'freundlich', 'düster', 'minimalistisch', 'chaotisch', 'dynamisch', 'provokant']
 const drafts = ref(Array.from({ length: 3 }, () => ({ mood: '', items: [] })))

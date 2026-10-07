@@ -7,6 +7,12 @@ const app = createApp(App)
 
 const routes = [
   {
+    path: '/einfuehrung-photoshop',
+    name: 'einfuehrung-photoshop',
+    component: () => import('./components/views/Photoshop/EinfuehrungPhotoshop.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg2/entwicklung-einer-app-design-thinking/admin',
     name: '3tgg2-design-thinking-admin',
     component: () => import('./components/views/TGG2/DesignThinkingAdmin.vue'),
