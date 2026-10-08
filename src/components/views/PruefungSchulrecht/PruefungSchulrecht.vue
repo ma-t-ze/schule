@@ -133,7 +133,7 @@ const toggleAnswer = (id) => {
     <p v-if="!visibleCount" class="empty-state">Keine passenden Fragen gefunden. Ändere den Suchbegriff oder wähle beide PDFs.</p>
 
     <section class="clusters" aria-label="Lerncluster">
-      <details v-for="cluster in filteredClusters" :key="`${cluster.id}-${filtering}`" class="cluster" :open="filtering">
+      <details v-for="cluster in filteredClusters" :key="`${cluster.id}-${filtering}`" class="cluster" :class="{ 'cluster-orange': ['cluster-2', 'cluster-3', 'cluster-4', 'cluster-5', 'cluster-7', 'cluster-9'].includes(cluster.id) }" :open="filtering">
         <summary>
           <span class="number">{{ cluster.id.split('-')[1].padStart(2, '0') }}</span>
           <span class="cluster-heading">
@@ -245,6 +245,10 @@ summary { cursor: pointer; line-height: 1.5; }
 .cluster-title { display: block; font-size: 19px; font-weight: 600; }
 .count { display: block; margin-top: 5px; color: #777; font-size: 13px; }
 .cluster[open] > summary { background: #f6f8f6; border-bottom: 1px solid #e3e8e4; }
+.cluster-orange { border-color: #f0a04b; }
+.cluster-orange > summary { background: #ffead2; }
+.cluster-orange[open] > summary { background: #ffead2; border-bottom-color: #f0a04b; }
+.cluster-orange .number { color: #9a4b09; }
 .topics { padding: 8px 22px 16px; }
 .topic + .topic { border-top: 1px solid #e8ece9; }
 .topic > summary { padding: 16px 4px; font-weight: 500; }

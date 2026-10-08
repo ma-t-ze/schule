@@ -105,6 +105,12 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/hardwarekomponenten',
+    name: 'hardwarekomponenten',
+    component: () => import('./components/views/Hardwarekomponenten/Hardwarekomponenten.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/programme-medientechnik-erstes-jahr',
     name: 'programme-medientechnik',
     component: () => import('./components/views/MedientechnikProgramme/MedientechnikProgramme.vue'),
