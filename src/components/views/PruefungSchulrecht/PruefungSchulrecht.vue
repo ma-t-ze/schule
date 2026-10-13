@@ -133,7 +133,7 @@ const toggleAnswer = (id) => {
     <p v-if="!visibleCount" class="empty-state">Keine passenden Fragen gefunden. Ändere den Suchbegriff oder wähle beide PDFs.</p>
 
     <section class="clusters" aria-label="Lerncluster">
-      <details v-for="cluster in filteredClusters" :key="`${cluster.id}-${filtering}`" class="cluster" :class="{ 'cluster-orange': ['cluster-2', 'cluster-3', 'cluster-4', 'cluster-5', 'cluster-7', 'cluster-9'].includes(cluster.id) }" :open="filtering">
+      <details v-for="cluster in filteredClusters" :key="`${cluster.id}-${filtering}`" class="cluster" :class="{ 'cluster-orange': ['cluster-1', 'cluster-2', 'cluster-3', 'cluster-4', 'cluster-5', 'cluster-6', 'cluster-7', 'cluster-8', 'cluster-9', 'cluster-10', 'cluster-11'].includes(cluster.id) }" :open="filtering">
         <summary>
           <span class="number">{{ cluster.id.split('-')[1].padStart(2, '0') }}</span>
           <span class="cluster-heading">

@@ -105,6 +105,34 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/medientechnik',
+    name: 'medientechnik',
+    component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
+    props: { level: 'overview' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign',
+    name: 'medientechnik-indesign',
+    component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
+    props: { level: 'indesign' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/lerninhalte',
+    name: 'medientechnik-indesign-lerninhalte',
+    component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
+    props: { level: 'lessons' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/typografisches-plakat/:step([1-6])',
+    name: 'indesign-plakat-schritt',
+    component: () => import('./components/views/Medientechnik/TypografischesPlakat.vue'),
+    props: route => ({ step: Number(route.params.step) }),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/hardwarekomponenten',
     name: 'hardwarekomponenten',
     component: () => import('./components/views/Hardwarekomponenten/Hardwarekomponenten.vue'),
