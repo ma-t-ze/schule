@@ -7,6 +7,7 @@ import directSelectionImage from './indesign-direktauswahl.png'
 import textFramesImage from './indesign-textrahmen.png'
 import typographyImage from './indesign-plakat-typografie.png'
 import posterReference from './plakat-vorlage.png'
+import bauhausInspirationTwo from './bauhaus-inspiration-2.png'
 const props = defineProps({ step: { type: Number, required: true } })
 const heading = ref(null)
 const steps = [
@@ -120,6 +121,11 @@ watch(() => props.step, async () => { await nextTick(); heading.value?.focus() }
         <figcaption>Baue dieses Plakat nach. Klicke auf die Vorlage, um sie zu vergrößern.</figcaption>
       </figure>
       <p v-if="step >= 7"><RouterLink :to="link(1)">Schritt 1: Dokument anlegen noch einmal ansehen →</RouterLink></p>
+      <div v-if="step === 8" class="bauhaus-references">
+      <figure class="document-image bauhaus-reference">
+        <a :href="bauhausInspirationTwo" target="_blank" rel="noopener noreferrer" aria-label="Zweite Bauhaus-Vorlage vergrößern (neuer Tab)"><img :src="bauhausInspirationTwo" alt="Bauhaus-Plakat 1919–1933 mit roten, blauen und gelben Rechtecken, Kreisen, Halbkreisen und schwarzen Linien."></a>
+      </figure>
+      </div>
       <section class="practice" aria-labelledby="practice-title"><h2 id="practice-title">So gehst du vor</h2><ol><li v-for="action in current.actions" :key="action">{{ action }}</li></ol></section>
       <section v-if="current.bodyText" class="practice" aria-labelledby="body-text-title">
         <h2 id="body-text-title">Der lange Text für dein Plakat</h2>
@@ -138,6 +144,8 @@ watch(() => props.step, async () => { await nextTick(); heading.value?.focus() }
 </template>
 
 <style scoped>
+.bauhaus-references { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px; margin: 28px 0; }
+.bauhaus-references .bauhaus-reference { width: 280px; max-width: 100%; margin: 0; }
 .poster-reference { max-width: 580px; margin-left: auto !important; margin-right: auto !important; }
 .document-image { margin: 28px 0; }
 .document-image img { display: block; width: 100%; height: auto; border-radius: 12px; }
