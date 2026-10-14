@@ -34,7 +34,7 @@ const lessons = [
       <RouterLink v-if="level === 'overview'" class="topic-link" to="/medientechnik/adobe-indesign"><span>Adobe InDesign</span><span aria-hidden="true">→</span></RouterLink>
       <div v-else-if="level === 'indesign'" class="topic-list">
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/lerninhalte"><span>Übersicht Lerninhalte</span><span aria-hidden="true">→</span></RouterLink>
-        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/typografisches-plakat/1"><span>1. Typografisches Plakat<small>Schritte 1–6: Dokument anlegen, Textrahmen verwenden, Schrift gestalten und einfache Formen einsetzen.</small></span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/typografisches-plakat/1"><span>1. Typografisches Plakat<small>Schritte 1–8: Dokument anlegen, Textrahmen verwenden, Schrift gestalten, einfache Formen einsetzen ein Plakat nach Vorlage nachbauen und ein eigenes Bauhaus-Plakat gestalten.</small></span><span aria-hidden="true">→</span></RouterLink>
       </div>
       <section v-else aria-labelledby="learning-title">
         <h2 id="learning-title">Lernreihenfolge für InDesign</h2>

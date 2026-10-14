@@ -126,7 +126,7 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/medientechnik/adobe-indesign/typografisches-plakat/:step([1-6])',
+    path: '/medientechnik/adobe-indesign/typografisches-plakat/:step([1-8])',
     name: 'indesign-plakat-schritt',
     component: () => import('./components/views/Medientechnik/TypografischesPlakat.vue'),
     props: route => ({ step: Number(route.params.step) }),
