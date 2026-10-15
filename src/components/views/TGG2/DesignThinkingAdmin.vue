@@ -38,10 +38,10 @@ async function remove(post) {
   catch(e) { error.value = designError(e, 'Beitrag löschen') }
   finally { busy.value = false }
 }
-async function resetVotes() {
-  if (busy.value || !window.confirm('Alle bisherigen Stimmen löschen? Danach können alle erneut abstimmen. Die Problemfragen bleiben erhalten.')) return
+async function resetVotes(kind = 'problem') {
+  if (busy.value || !window.confirm(kind === 'idea' ? 'Alle Stimmen für Ideen zurücksetzen? Die Ideen bleiben erhalten.' : 'Alle bisherigen Stimmen löschen? Danach können alle erneut abstimmen. Die Problemfragen bleiben erhalten.')) return
   busy.value = true; error.value = ''; status.value = ''
-  try { await resetDesignVotes(); status.value = 'Die Abstimmung wurde zurückgesetzt. Alle können erneut abstimmen.' }
+  try { await resetDesignVotes(kind); status.value = 'Die Abstimmung wurde zurückgesetzt. Alle können erneut abstimmen.' }
   catch(e) { error.value = designError(e, 'Abstimmung zurücksetzen') }
   finally { busy.value = false }
 }
@@ -64,10 +64,11 @@ onDeactivated(stop); onBeforeUnmount(stop)
   <form v-if="!user" @submit.prevent="login"><h2>Als Lehrkraft anmelden</h2><p>Nutze dein freigeschaltetes Google-Konto.</p><button :disabled="busy">{{ busy ? 'Anmeldung läuft …' : 'Mit Google anmelden' }}</button></form>
   <template v-else>
     <button :disabled="busy" @click="logout">Abmelden</button>
-    <button class="reset-votes" :disabled="busy" @click="resetVotes">Abstimmung zurücksetzen</button>
+    <button class="reset-votes" :disabled="busy" @click="resetVotes()">Abstimmung zurücksetzen</button>
     <p>Alle Beiträge sind direkt auf der Schülerseite sichtbar. Du kannst jeden Beitrag bearbeiten oder löschen.</p>
-    <section v-for="kind in ['briefing', 'problem']" :key="kind">
-      <h2>{{ kind === 'briefing' ? 'Beiträge zum Briefing / Rebriefing' : 'Problemfragen' }}</h2>
+    <section v-for="kind in ['briefing', 'problem', 'idea']" :key="kind">
+      <button v-if="kind === 'idea'" :disabled="busy" @click="resetVotes('idea')">Abstimmung Ideen zurücksetzen</button>
+      <h2>{{ kind === 'briefing' ? 'Beiträge zum Briefing / Rebriefing' : kind === 'problem' ? 'Problemfragen' : 'Ideen' }}</h2>
       <p v-if="!posts.some(p => p.kind === kind)">Noch keine Beiträge eingegangen.</p>
       <article v-for="post in posts.filter(p => p.kind === kind)" :key="post.id">
         <template v-if="editing === post.id">

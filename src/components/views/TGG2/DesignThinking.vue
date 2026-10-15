@@ -4,6 +4,7 @@ import projectTerms from './projectTerms'
 import PostComposer from './PostComposer.vue'
 import PublicPosts from './PublicPosts.vue'
 import ProblemVotes from './ProblemVotes.vue'
+import PhaseTwo from './PhaseTwo.vue'
 import { watchDesignPosts, designError } from '../../../services/designThinkingFirebase'
 const posts = ref([])
 const resultError = ref('')
@@ -195,6 +196,7 @@ onBeforeUnmount(closeTerm)
             <ProblemVotes :posts="posts.filter(post => post.kind === 'problem')" />
             <p v-if="resultError" role="alert">{{ resultError }}</p>
           </details>
+          <PhaseTwo :posts="posts" />
           <router-link :to="{ name: '3tgg2-design-thinking-admin' }">Admin-Ansicht für die Lehrkraft</router-link>
         </div>
         <aside aria-labelledby="knowledge-title">

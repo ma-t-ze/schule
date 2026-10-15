@@ -61,5 +61,18 @@ try {
  if (!(await getDocs(collection(student, 'design_thinking_votes'))).empty) throw new Error('Reset did not clear votes')
  await assertSucceeds(setDoc(ballotRef, ballot(['p3'])))
  await assertFails(setDoc(ballotRef, ballot(['p1'])))
+ // Phase 2: one idea per ballot, isolated from Phase 1, teacher-only reset.
+ await assertSucceeds(setDoc(doc(student, 'design_thinking_posts', 'idea1'), { ...post, kind: 'idea', text: 'Ein gemeinsamer Lernplan' }))
+ await assertSucceeds(setDoc(doc(other, 'design_thinking_posts', 'idea2'), { ...post, uid: 'other', kind: 'idea', text: 'Eine Pausen-App' }))
+ const ideaVote = doc(student, 'design_thinking_idea_votes', 'student')
+ await assertFails(setDoc(ideaVote, ballot(['p1'])))
+ await assertFails(setDoc(ideaVote, ballot(['idea1', 'idea2'])))
+ await assertFails(setDoc(doc(student, 'design_thinking_idea_votes', 'other'), ballot(['idea1'])))
+ await assertSucceeds(setDoc(ideaVote, ballot(['idea1'])))
+ await assertFails(setDoc(ideaVote, ballot(['idea2'])))
+ await assertFails(deleteDoc(ideaVote))
+ await assertSucceeds(deleteDoc(doc(admin, 'design_thinking_idea_votes', 'student')))
+ await assertSucceeds(setDoc(ideaVote, ballot(['idea2'])))
+ if (!(await getDoc(ballotRef)).exists()) throw new Error('Idea reset changed the Phase 1 vote')
  console.log('PASS: student posts, color-free schema, public reads, admin-only post editing and deletion, protected metadata, published results readable.')
 } finally { await env.cleanup() }

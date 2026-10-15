@@ -27,7 +27,7 @@ export function studentIdentity() {
   return studentPromise
 }
 export async function submitDesignPost(id, kind, text) {
-  if (!['briefing', 'problem'].includes(kind) || !text.trim() || text.trim().length > 5000) throw new Error('Bitte gib einen Text mit höchstens 5.000 Zeichen ein.')
+  if (!['briefing', 'problem', 'idea'].includes(kind) || !text.trim() || text.trim().length > 5000) throw new Error('Bitte gib einen Text mit höchstens 5.000 Zeichen ein.')
   const user = await studentIdentity()
   const ref = doc(context().db, 'design_thinking_posts', id)
   // A retry after a lost acknowledgement must not create a duplicate post.
@@ -79,22 +79,22 @@ export async function deleteDesignPost(id) {
   await deleteDoc(doc(context(true).db, 'design_thinking_posts', id))
 }
 
-export function watchDesignVotes(next, error) {
-  return onSnapshot(collection(context().db, 'design_thinking_votes'), snap => next(snap.docs.map(d => ({ id: d.id, ...d.data() }))), error)
+export function watchDesignVotes(next, error, kind = 'problem') {
+  return onSnapshot(collection(context().db, kind === 'idea' ? 'design_thinking_idea_votes' : 'design_thinking_votes'), snap => next(snap.docs.map(d => ({ id: d.id, ...d.data() }))), error)
 }
-export async function submitDesignVote(postIds) {
+export async function submitDesignVote(postIds, kind = 'problem') {
   const user = await studentIdentity()
-  const ref = doc(context().db, 'design_thinking_votes', user.uid)
+  const ref = doc(context().db, kind === 'idea' ? 'design_thinking_idea_votes' : 'design_thinking_votes', user.uid)
   const existing = await getDocFromServer(ref)
   if (existing.exists()) return
   await setDoc(ref, { postIds, createdAt: serverTimestamp() })
 }
 
-export async function resetDesignVotes() {
+export async function resetDesignVotes(kind = 'problem') {
   const admin = await checkDesignAdmin()
   if (!admin) throw new Error('Bitte melde dich als Lehrkraft an.')
   const database = context(true).db
-  const snapshot = await getDocsFromServer(collection(database, 'design_thinking_votes'))
+  const snapshot = await getDocsFromServer(collection(database, kind === 'idea' ? 'design_thinking_idea_votes' : 'design_thinking_votes'))
   for (let offset = 0; offset < snapshot.docs.length; offset += 400) {
     const batch = writeBatch(database)
     snapshot.docs.slice(offset, offset + 400).forEach(vote => batch.delete(vote.ref))

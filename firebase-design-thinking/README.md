@@ -49,3 +49,10 @@ Unter den Problemfragen können Schüler maximal zwei unterschiedliche Fragen an
 Die Sammlung `design_thinking_votes` speichert pro anonym angemeldeter UID ein Dokument mit `postIds` (ein oder zwei unterschiedliche vorhandene Problemfragen) und `createdAt`. Die Regeln verhindern weitere Abstimmungen und Änderungen derselben UID. Neue Browserprofile oder gelöschte Browserdaten können eine neue anonyme Identität erzeugen; eine Begrenzung pro realer Person erfordert persönliche Schülerkonten. Die Stimmenzahlen werden im Browser aus den lesbaren Abstimmungen berechnet; das Ausblenden vor Abgabe ist keine serverseitige Geheimhaltung.
 
 Die aktualisierten Regeln vor Nutzung veröffentlichen. Es gibt eine gemeinsame Abstimmung. Über „Abstimmung zurücksetzen“ kann die Lehrkraft nach Bestätigung alle bisherigen Stimmen löschen. Die Problemfragen bleiben erhalten und bereits verbundene Schüler können ohne Neuladen erneut abstimmen. Während des Zurücksetzens kurz mit neuen Abgaben warten. Dafür müssen die aktualisierten Regeln veröffentlicht sein (Löschen von Stimmen nur für freigeschaltete Lehrkräfte). Gelöschte Fragen verschwinden aus der Anzeige; bereits abgegebene Stimmen werden dadurch nicht erneut verfügbar.
+
+
+## Phase 2: Ideen finden
+
+Der Abschnitt auf der Schülerseite enthält acht aufeinanderfolgende Minuten für acht Papier-Ideen, lokal gespeicherte Gruppennamen und Pitch-Notizen sowie öffentliche Ideenbeiträge (`kind: idea`). Die Ideenabstimmung verwendet `design_thinking_idea_votes`, getrennt von Phase 1, mit einer Stimme pro anonymer Identität. Die Lehrkraft bearbeitet und löscht Ideen in der bestehenden Admin-Ansicht und setzt dort nur die Ideenabstimmung zurück.
+
+Vor Nutzung müssen die aktualisierten Firestore-Regeln veröffentlicht werden. Der Timer läuft lokal pro Gerät; es gibt keine gemeinsame Startsteuerung. Die Abstimmung zeigt nach Abgabe die Stimmenzahlen.

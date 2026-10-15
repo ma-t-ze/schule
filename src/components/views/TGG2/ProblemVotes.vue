@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed, watch, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
 import { studentIdentity, watchDesignVotes, submitDesignVote, designError } from '../../../services/designThinkingFirebase'
-const props = defineProps({ posts: { type: Array, default: () => [] } })
+const props = defineProps({ posts: { type: Array, default: () => [] }, kind: { type: String, default: 'problem' } })
+const limit = computed(() => props.kind === 'idea' ? 1 : 2)
+const noun = computed(() => props.kind === 'idea' ? 'Ideen' : 'Problemfragen')
 const selected = ref([]), votes = ref([]), uid = ref(null), ready = ref(false), busy = ref(false), error = ref('')
 const submitted = computed(() => votes.value.some(vote => vote.id === uid.value))
 watch(submitted, (value, previous) => { if (previous && !value) selected.value = [] })
@@ -20,34 +22,34 @@ onActivated(async () => {
     const identity = await studentIdentity()
     if (current !== generation) return
     uid.value = identity.uid
-    stop = watchDesignVotes(value => { votes.value = value; ready.value = true }, e => { ready.value = false; error.value = designError(e, 'Abstimmung laden') })
+    stop = watchDesignVotes(value => { votes.value = value; ready.value = true }, e => { ready.value = false; error.value = designError(e, 'Abstimmung laden') }, props.kind)
   } catch(e) { if (current === generation) error.value = designError(e, 'Abstimmung laden') }
 })
 onDeactivated(cleanup); onBeforeUnmount(cleanup)
 async function submit() {
-  if (!ready.value || busy.value || submitted.value || !selected.value.length || selected.value.length > 2) return
+  if (!ready.value || busy.value || submitted.value || !selected.value.length || selected.value.length > limit.value) return
   busy.value = true; error.value = ''
-  try { await submitDesignVote([...selected.value]) }
+  try { await submitDesignVote([...selected.value], props.kind) }
   catch(e) { error.value = designError(e, 'Stimme abgeben') }
   finally { busy.value = false }
 }
 </script>
 <template>
   <details class="votes" open>
-    <summary>Problemfragen und Abstimmung ({{ posts.length }})</summary>
+    <summary>{{ noun }} und Abstimmung ({{ posts.length }})</summary>
     <div class="content">
-      <p v-if="!posts.length">Noch keine Problemfragen veröffentlicht.</p>
-      <p v-else-if="!submitted">Setzt insgesamt höchstens zwei Kreuze – eines pro Problemfrage.</p>
+      <p v-if="!posts.length">Noch keine {{ noun }} veröffentlicht.</p>
+      <p v-else-if="!submitted">{{ kind === 'idea' ? 'Wähle eine Idee aus.' : 'Setzt insgesamt höchstens zwei Kreuze – eines pro Problemfrage.' }}</p>
       <p v-if="submitted" role="status">Deine Stimme wurde abgegeben. Hier siehst du die aktuellen Stimmenzahlen.</p>
       <div class="questions">
         <div v-for="post in posts" :key="post.id" class="question">
           <label :for="'vote-' + post.id">{{ post.text }}</label>
           <span v-if="submitted" class="count">{{ counts[post.id] || 0 }} {{ counts[post.id] === 1 ? 'Stimme' : 'Stimmen' }}</span>
-          <input v-else :id="'vote-' + post.id" v-model="selected" type="checkbox" :value="post.id" :disabled="!ready || busy || (selected.length >= 2 && !selected.includes(post.id))">
+          <input v-else :id="'vote-' + post.id" v-model="selected" type="checkbox" :value="post.id" :disabled="!ready || busy || (selected.length >= limit && !selected.includes(post.id))">
         </div>
       </div>
       <template v-if="!submitted && posts.length">
-        <p>{{ selected.length }} von 2 Kreuzen gesetzt</p>
+        <p>{{ selected.length }} von {{ limit }} möglichen Stimmen ausgewählt</p>
         <button type="button" :disabled="!ready || busy || !selected.length" @click="submit">{{ busy ? 'Wird gespeichert …' : 'Stimme Abgeben' }}</button>
       </template>
       <p v-if="error" role="alert">{{ error }}</p>

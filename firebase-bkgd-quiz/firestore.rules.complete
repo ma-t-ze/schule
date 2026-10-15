@@ -338,7 +338,7 @@ service cloud.firestore {
         && request.resource.data.keys().hasAll(['uid', 'kind', 'text', 'createdAt'])
         && request.resource.data.keys().hasOnly(['uid', 'kind', 'text', 'createdAt'])
         && request.resource.data.uid == request.auth.uid
-        && request.resource.data.kind in ['briefing', 'problem']
+        && request.resource.data.kind in ['briefing', 'problem', 'idea']
         && request.resource.data.text is string
         && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 5000
         && request.resource.data.createdAt == request.time;
@@ -369,6 +369,25 @@ service cloud.firestore {
         && request.resource.data.postIds is list
         && request.resource.data.postIds.size() >= 1
         && request.resource.data.postIds.size() <= 2
+        && request.resource.data.postIds.toSet().size() == request.resource.data.postIds.size()
+        && problem(request.resource.data.postIds[0])
+        && (request.resource.data.postIds.size() == 1 || problem(request.resource.data.postIds[1]))
+        && request.resource.data.createdAt == request.time;
+    }
+    match /design_thinking_idea_votes/{uid} {
+      function problem(id) {
+        return id is string
+          && exists(/databases/$(database)/documents/design_thinking_posts/$(id))
+          && get(/databases/$(database)/documents/design_thinking_posts/$(id)).data.kind == 'idea';
+      }
+      allow read: if request.auth != null;
+      allow delete: if designTeacher();
+      allow create: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasAll(['postIds', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['postIds', 'createdAt'])
+        && request.resource.data.postIds is list
+        && request.resource.data.postIds.size() >= 1
+        && request.resource.data.postIds.size() <= 1
         && request.resource.data.postIds.toSet().size() == request.resource.data.postIds.size()
         && problem(request.resource.data.postIds[0])
         && (request.resource.data.postIds.size() == 1 || problem(request.resource.data.postIds[1]))
