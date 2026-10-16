@@ -29,9 +29,13 @@ const lessons = [
       </nav>
       <header>
         <p class="eyebrow">{{ level === 'overview' ? 'SCHULE' : 'MEDIENTECHNIK' }}</p>
-        <h1>{{ level === 'overview' ? 'Medientechnik' : level === 'indesign' ? 'Adobe InDesign' : 'Übersicht Lerninhalte' }}</h1>
+        <h1>{{ level === 'overview' ? 'Medientechnik' : level === 'basics' ? 'Grundlagen' : level === 'indesign' ? 'Adobe InDesign' : 'Übersicht Lerninhalte' }}</h1>
       </header>
-      <RouterLink v-if="level === 'overview'" class="topic-link" to="/medientechnik/adobe-indesign"><span>Adobe InDesign</span><span aria-hidden="true">→</span></RouterLink>
+      <div v-if="level === 'overview'" class="topic-list">
+        <RouterLink class="topic-link" to="/medientechnik/grundlagen"><span>Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign"><span>Adobe InDesign</span><span aria-hidden="true">→</span></RouterLink>
+      </div>
+      <RouterLink v-else-if="level === 'basics'" class="topic-link" to="/medientechnik/grundlagen/imac"><span>iMac Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
       <div v-else-if="level === 'indesign'" class="topic-list">
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/lerninhalte"><span>Übersicht Lerninhalte</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/typografisches-plakat/1"><span>1. Typografisches Plakat<small>Schritte 1–8: Dokument anlegen, Textrahmen verwenden, Schrift gestalten, einfache Formen einsetzen ein Plakat nach Vorlage nachbauen und ein eigenes Bauhaus-Plakat gestalten.</small></span><span aria-hidden="true">→</span></RouterLink>

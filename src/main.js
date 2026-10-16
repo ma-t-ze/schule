@@ -118,6 +118,19 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/medientechnik/grundlagen',
+    name: 'medientechnik-grundlagen',
+    component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
+    props: { level: 'basics' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/grundlagen/imac',
+    name: 'medientechnik-imac-grundlagen',
+    component: () => import('./components/views/Medientechnik/IMacGrundlagen.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/medientechnik/adobe-indesign',
     name: 'medientechnik-indesign',
     component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
