@@ -58,7 +58,7 @@ export default [
   },
   {
     "title": "Ideenfindung",
-    "text": "Generierung erster Ideen durch Skizzen, Scribbles und kreative Methoden wie Brainstorming."
+    "text": "Bei der Ideenfindung geht es darum, möglichst viele kreative Lösungsansätze zu entwickeln. Zunächst gilt: Quantität vor Qualität. Auch ungewöhnliche oder verrückte Ideen sind willkommen, denn daraus können innovative Lösungen entstehen.\n\nEine Methode ist Crazy 8. Dabei wird ein Blatt in acht Felder unterteilt. Innerhalb von acht Minuten skizziert jede Person acht unterschiedliche Ideen. Der Zeitdruck fördert spontanes und kreatives Denken.\n\nAnschließend werden die Ideen analysiert und bewertet: Welche sind besonders originell, nützlich und umsetzbar? Vielversprechende Ansätze können kombiniert werden. Am Ende wird eine Idee ausgewählt und weiterentwickelt.\n\nZiel ist Innovation: eine neue oder deutlich verbesserte Lösung mit echtem Mehrwert."
   },
   {
     "title": "Ideenvielfalt",

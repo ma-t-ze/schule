@@ -96,7 +96,7 @@ const designThinking = {
   text: 'Design Thinking ist eine Methode, um Lösungen für Probleme zu entwickeln. Im Mittelpunkt stehen die Menschen, die eine Lösung später nutzen sollen. Ihr untersucht zuerst ihre Bedürfnisse. Dann sammelt ihr Ideen, macht einen einfachen Entwurf und probiert ihn mit anderen aus. Ihr nutzt ihre Rückmeldungen, um den Entwurf zu verbessern. Dabei könnt ihr immer wieder zu einem früheren Schritt zurückgehen.',
   example: 'Nach Briefing und Rebriefing arbeiten wir für unsere App mit sechs Phasen: Analysieren, Ideen finden, Anforderungen festlegen, Entwerfen, Testen und optimieren sowie Präsentieren. Wir beginnen mit einem Problem aus dem Schulalltag und überlegen erst danach, wie eine App helfen könnte.'
 }
-const terms = projectTerms.filter(term => ['Briefing, Rebriefing', 'Problemanalyse'].includes(term.title))
+const terms = projectTerms.filter(term => ['Briefing, Rebriefing', 'Problemanalyse', 'Ideenfindung'].includes(term.title))
 
 function openTerm(term) { activeTerm.value = term; dialog.value.showModal() }
 function closeTerm() { dialog.value?.close() }
@@ -114,7 +114,7 @@ onBeforeUnmount(closeTerm)
       </header>
       <div class="content-grid">
         <div class="lesson">
-          <details open class="blue-card" aria-labelledby="project-overview">
+          <details class="blue-card" aria-labelledby="project-overview">
             <summary><h2 id="project-overview">Projektverlauf</h2></summary>
             <h3>Das erste Treffen mit dem Kunden</h3>
             <ul>
@@ -131,7 +131,7 @@ onBeforeUnmount(closeTerm)
               <li>Präsentieren</li>
             </ol>
           </details>
-          <details open class="blue-card" aria-labelledby="project-title">
+          <details class="blue-card" aria-labelledby="project-title">
             <summary><span class="block-heading"><span class="eyebrow">PROJEKTAUFTAKT · EINZELARBEIT · 20 MINUTEN</span><h2 id="project-title">Das Briefing – der Auftakt des Projekts</h2></span></summary>
             <div class="assignment">
               <h3>Arbeitsauftrag</h3>
@@ -155,7 +155,7 @@ onBeforeUnmount(closeTerm)
             <PublicPosts :posts="posts.filter(post => post.kind === 'briefing')" />
             <p v-if="resultError" role="alert">{{ resultError }}</p>
           </details>
-          <details open class="blue-card" aria-labelledby="phase-one">
+          <details class="blue-card" aria-labelledby="phase-one">
             <summary><span class="block-heading"><span class="eyebrow">PHASE 1 · GRUPPENARBEIT · 50 MINUTEN</span><h2 id="phase-one">Analysieren</h2></span></summary>
             <div class="assignment">
             <h3>Arbeitsauftrag</h3>
@@ -215,53 +215,5 @@ onBeforeUnmount(closeTerm)
 </template>
 
 <style scoped>
-.blue-card > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; cursor: pointer; list-style: none; }
-.blue-card > summary::-webkit-details-marker { display: none; }
-.blue-card > summary::after { content: '+'; flex-shrink: 0; font-size: 28px; color: #2156a0; }
-.blue-card[open] > summary::after { content: '−'; }
-.blue-card[open] > summary { margin-bottom: 16px; }
-.blue-card > summary h2 { margin: 0; }
-.block-heading { min-width: 0; }
-.block-heading .eyebrow { display: block; margin-bottom: 8px; }
-.blue-card > summary:focus-visible { outline: 3px solid #2156a0; outline-offset: 5px; border-radius: 4px; }
-
-.briefing dt { font-weight: 600; margin-top: 12px; }.briefing dd { margin: 6px 0 0; line-height: 1.65; font-size: 18px; }.published-text { white-space: pre-wrap; overflow-wrap: anywhere; }
-.term-definition { white-space: pre-line; }
-.knowledge-buttons { display: grid; gap: 10px; }
-.knowledge-buttons .term-button { margin: 0; width: 100%; }
-
-.field-label { display: block; margin: 12px 0 6px; font-size: 17px; font-weight: 500; }
-textarea, input { display: block; width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid #8daacb; border-radius: 8px; background: white; color: #172b44; font: inherit; font-size: 18px; line-height: 1.5; }
-textarea { resize: vertical; }
-textarea:focus-visible, input:focus-visible { outline: 3px solid #2156a0; outline-offset: 2px; }
-.save-note { font-size: 14px; }
-.download-button { padding: 14px 22px; min-height: 48px; border: 0; border-radius: 9px; background: #2156a0; color: white; font: inherit; font-size: 18px; cursor: pointer; }
-.download-button:disabled { opacity: .6; cursor: wait; }
-
-.inline-term { display: inline; padding: 0; border: 0; border-bottom: 2px dotted currentColor; background: transparent; color: #154779; font: inherit; cursor: pointer; }
-.inline-term:hover { border-bottom-style: solid; }
-.term-dialog.learning-dialog { border-color: #bfd5ef; border-top-color: #3674b7; background: #f6faff; color: #172b44; }
-.learning-dialog .term-example { background: #e5effc; }
-.learning-dialog .close-button { border-color: #bfd5ef; }
-
-.design-page { min-height: 100vh; background: #f7f8fa; color: #172b44; font-family: 'Jost', sans-serif; user-select: text; }
-.design-page * { box-sizing: border-box; }
-.page-shell { max-width: 1280px; margin: auto; padding: 24px 28px 40px; }
-a { color: inherit; text-underline-offset: 4px; }
-header { padding: 24px 0; }
-.eyebrow { font-size: 12px; letter-spacing: .12em; font-weight: 600; margin: 0 0 12px; }
-h1 { max-width: 980px; font-size: clamp(34px, 5vw, 62px); line-height: 1.12; font-weight: 500; margin: 0 0 20px; }
-h2 { font-size: clamp(25px, 3vw, 34px); line-height: 1.2; font-weight: 500; margin: 0 0 20px; }
-h3 { font-size: 22px; font-weight: 500; margin: 24px 0 12px; }
-p, li { font-size: 18px; line-height: 1.65; }
-.legend { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }.legend p { margin: 0; font-size: 16px; }.legend strong { display: block; width: fit-content; padding: 4px 12px; border-radius: 6px; margin-bottom: 10px; }.yellow-label { background: #ffe27a; color: #493700; }.blue-label { background: #dcecff; color: #154779; }
-.content-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }.lesson { min-width: 0; }.blue-card { background: #e5effc; border: 1px solid #bfd5ef; border-top: 5px solid #3674b7; border-radius: 16px; padding: 24px; margin-bottom: 18px; }
-.assignment { margin: 16px 0; padding: 16px 18px; background: white; border: 1px solid #8daed6; border-left: 4px solid #2156a0; border-radius: 10px; }.assignment h3 { margin: 0 0 8px; }.assignment p { margin: 8px 0 0; }.important { color: #154779; }
-.phase-overview { padding-left: 32px; margin: 16px 0; }.phase-overview li { font-size: 18px; font-weight: 600; line-height: 1.65; margin-bottom: 12px; padding-left: 4px; }.phase-overview li:last-child { margin-bottom: 0; }
-.tasks { list-style: none; counter-reset: task; padding: 0; margin: 16px 0; display: grid; gap: 16px; }.tasks > li { counter-increment: task; padding: 18px; border: 1px solid #8daed6; border-left: 4px solid #2156a0; border-radius: 10px; background: white; }.tasks .step-title h3::before { content: counter(task) ". "; color: #2156a0; }.step-title { display: flex; gap: 12px; justify-content: space-between; align-items: baseline; }.step-title h3 { margin: 0; }.step-title span { white-space: nowrap; font-size: 15px; }.tasks p { margin: 12px 0; }.tasks ul { padding-left: 22px; }blockquote { margin: 16px 0; padding: 12px 18px; border-left: 3px solid #3674b7; background: #f6faff; }.example-note { font-size: 15px; }
-.knowledge-panel { position: sticky; top: 24px; padding: 24px; background: #fff6d2; border: 1px solid #e7d48a; border-radius: 16px; }aside { position: sticky; top: 24px; }.knowledge-panel h2 { font-size: 25px; }.knowledge-panel p { font-size: 15px; }.term-button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 16px; margin-top: 12px; border: 1px solid #d8b23d; border-radius: 9px; background: #ffdf6b; color: #3f3109; font: inherit; font-size: 18px; text-align: left; cursor: pointer; }.term-button:hover { background: #ffd34a; }.term-button small { display: block; font-size: 13px; margin-top: 3px; }
-.future-phase { padding: 24px 32px; border: 1px solid #bfd5ef; border-radius: 16px; background: #edf3fc; margin-bottom: 16px; }.future-phase h2 { margin-bottom: 8px; }.future-phase p:last-child { font-size: 15px; margin: 0; }
-.term-dialog { position: fixed; inset: 0; margin: auto; width: min(640px, calc(100% - 32px)); max-height: calc(100dvh - 40px); overflow-y: auto; border: 1px solid #d8b23d; border-top: 7px solid #ffdf6b; border-radius: 16px; padding: 28px; background: #fffcf0; color: #302a18; }.term-dialog::backdrop { background: #102238bb; }.close-button { display: block; margin: 0 0 24px auto; padding: 10px 14px; min-height: 44px; border: 1px solid #b9a25b; border-radius: 8px; background: white; font: inherit; cursor: pointer; }.term-example { background: #f5edce; border-radius: 10px; padding: 20px; }.term-example p { margin-bottom: 0; }.source { font-size: 13px; }a:focus-visible, button:focus-visible { outline: 3px solid #2156a0; outline-offset: 4px; }
-@media (max-width: 850px) { .content-grid { grid-template-columns: 1fr; }aside { position: static; grid-row: 1; }.knowledge-panel { position: static; }.term-button { display: inline-flex; width: auto; margin-right: 8px; }.legend { grid-template-columns: 1fr; } }
-@media (max-width: 500px) { .page-shell { padding: 24px 16px 40px; }header { padding-top: 20px; }.blue-card, .future-phase { padding: 16px; }.tasks > li, .assignment { padding: 14px; }.step-title { flex-wrap: wrap; gap: 4px; }.term-dialog { padding: 22px; } }
+@import './designThinking.css';
 </style>

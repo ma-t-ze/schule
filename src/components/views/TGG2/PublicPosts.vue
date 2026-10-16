@@ -2,7 +2,7 @@
 defineProps({ posts: { type: Array, default: () => [] } })
 </script>
 <template>
-  <details class="public-posts" open>
+  <details class="public-posts">
     <summary>Alle Beiträge ({{ posts.length }})</summary>
     <div class="post-list">
       <p v-if="!posts.length">Noch keine Beiträge veröffentlicht.</p>

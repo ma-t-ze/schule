@@ -35,7 +35,7 @@ async function submit() {
 }
 </script>
 <template>
-  <details class="votes" open>
+  <details class="votes">
     <summary>{{ noun }} und Abstimmung ({{ posts.length }})</summary>
     <div class="content">
       <p v-if="!posts.length">Noch keine {{ noun }} veröffentlicht.</p>
