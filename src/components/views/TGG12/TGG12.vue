@@ -23,9 +23,9 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-andere-geschichte-farbensehen' }">
         #6 Visuelle Kommunikation: Eine andere Geschichte des Farbensehens
       </router-link>
-      <span class="topic-link topic-disabled" aria-disabled="true" title="Noch nicht verfügbar">
+      <router-link class="topic-link" :to="{ name: '3tgg12-gestaltgesetze' }">
         #7 Gestaltgesetze
-      </span>
+      </router-link>
       <router-link class="topic-link" :to="{ name: '3tgg12-zusatzaufgabe' }">
         Visuelle Kommunikation: Zusatzaufgabe
       </router-link>
@@ -36,12 +36,6 @@
 <style scoped lang="scss">
 @import './style.scss';
 
-.topic-disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-
-  &:hover { background: black; }
-}
 
 .qr-link {
   display: block;
