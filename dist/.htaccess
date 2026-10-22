@@ -1,3 +1,5 @@
+Options -MultiViews
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -5,6 +7,8 @@
   # The QR asset directory shares this Vue route's name.
   # Serve the app for the overview, while keeping asset files accessible.
   RewriteRule ^3tgg12/?$ /index.html [L]
+  # This overview also shares its name with a public asset directory.
+  RewriteRule ^medientechnik/?$ /index.html [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
