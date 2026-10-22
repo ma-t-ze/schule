@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import store from './store'
+import { checkSiteSession } from './services/siteAuth'
 
 const app = createApp(App)
 
@@ -325,7 +326,10 @@ const router = createRouter({
   }
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth && !isLoggedIn() && await checkSiteSession()) {
+    store.dispatch('setIsAuthenticated')
+  }
   if (
     to.meta.requiresAuth &&
     !isLoggedIn()

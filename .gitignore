@@ -28,3 +28,7 @@ php
 *.sw?
 
 *.tsbuildinfo
+
+# Private server login credentials
+/server/login-credentials.php
+/server/sessions/
