@@ -138,11 +138,35 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/medientechnik/adobe-indesign/mini-tutorials',
+    name: 'indesign-mini-tutorials',
+    component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
+    props: { level: 'mini' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/mini-tutorials/text-um-form',
+    name: 'indesign-textumfluss',
+    component: () => import('./components/views/Medientechnik/TextumflussTutorial.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/medientechnik/adobe-indesign/lerninhalte',
     name: 'medientechnik-indesign-lerninhalte',
     component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
     props: { level: 'lessons' },
     meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/veranstaltungsflyer/:step([1-4])',
+    name: 'indesign-flyer-schritt',
+    component: () => import('./components/views/Medientechnik/Veranstaltungsflyer.vue'),
+    props: route => ({ step: Number(route.params.step) }),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/veranstaltungsflyer/:step([7-9])',
+    redirect: route => ({ name: 'indesign-flyer-schritt', params: { step: Number(route.params.step) - 6 } })
   },
   {
     path: '/medientechnik/adobe-indesign/typografisches-plakat/:step([1-8])',
