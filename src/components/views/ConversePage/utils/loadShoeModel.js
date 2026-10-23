@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import TWEEN from "tween.js/src/tween.js"
+import TWEEN from "tween.js"
 
 const extractDataFromPath = (texturePath) => {
     const fileName = texturePath.split('/').pop()

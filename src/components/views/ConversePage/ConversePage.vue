@@ -25,7 +25,7 @@
 
 <script>
 import * as THREE from 'three'
-import TWEEN from 'tween.js/src/tween.js'
+import TWEEN from 'tween.js'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 import { loadShoeModel } from './utils/loadShoeModel'

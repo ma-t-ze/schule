@@ -4,7 +4,7 @@
 
 <script>
 import * as THREE from "three"
-import TWEEN from "tween.js/src/tween.js"
+import TWEEN from "tween.js"
 import { markRaw } from "vue"
 
 const RENDER_SIZE = 800

@@ -4,7 +4,7 @@ import * as CANNON from 'cannon-es';
 import _ from 'lodash';
 import CannonDebugger from 'cannon-es-debugger';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import TWEEN from 'tween.js/src/tween.js';
+import TWEEN from 'tween.js';
 import html2canvas from 'html2canvas';
 import { windowresize } from './utils/windowresize.js';
 //Stats
