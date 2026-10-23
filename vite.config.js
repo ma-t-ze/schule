@@ -17,6 +17,19 @@ export default defineConfig(({ command }) => ({
   server: {
     allowedHosts: 'all',
     proxy: {
+      '/site-auth/proxy.php': {
+        target: 'https://visualizer.matthiasheckel.com',
+        changeOrigin: true,
+        rewrite: () => '/proxy.php',
+        cookieDomainRewrite: '',
+        configure(proxy) {
+          proxy.on('proxyRes', response => {
+            // Only the local dev proxy uses HTTP. Production cookies stay Secure.
+            const cookies = response.headers['set-cookie'];
+            if (cookies) response.headers['set-cookie'] = cookies.map(cookie => cookie.replace(/;\s*Secure\b/gi, ''));
+          });
+        },
+      },
       '/api': {
         target: 'http://localhost',
         changeOrigin: true,

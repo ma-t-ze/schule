@@ -5,12 +5,13 @@
     <input type="password" v-model="password" placeholder="Password" autocomplete="current-password">
     <label class="remember"><input v-model="remember" type="checkbox"> 30 Tage angemeldet bleiben</label>
     <button @click="login">Login</button>
-    <p v-if="error" style="color: red;">Incorrect username or password</p>
+    <p v-if="error" role="alert" style="color: red;">{{ errorMessage }}</p>
   </div>
 </div>
 </template>
 
 <script>
+import { siteAuthEndpoint } from '../../../services/siteAuth'
 export default {
   name: 'LoginPage',
   data() {
@@ -25,9 +26,11 @@ export default {
   },
   methods: {
     async login() {
+      this.error = false;
+      this.errorMessage = '';
       try {
         // Construct API URL
-        const apiUrl = `${import.meta.env.VITE_GET_PROXY}/proxy.php`;
+        const apiUrl = siteAuthEndpoint();
 
         // console.log('API URL:', apiUrl);
 
@@ -49,7 +52,9 @@ export default {
         // console.log('Connection successful!');
 
         // Read the response text
+        if (!response.ok) throw new Error('Login server unavailable');
         const result = await response.json();
+        if (typeof result.success !== 'boolean') throw new Error('Invalid login response');
   
         // console.log('Response:', text);
 
@@ -62,9 +67,12 @@ export default {
         } else {
           console.log('Login failed!'); // Log failed login
           this.error = true;
+          this.errorMessage = 'Benutzername oder Passwort stimmen nicht mit den Zugangsdaten auf dem Server überein.';
         }
       } catch (error) {
         console.error('Error:', error);
+        this.error = true;
+        this.errorMessage = 'Der Login-Server ist nicht erreichbar oder liefert eine ungültige Antwort. Bitte versuche es erneut.';
       }
     }
   }

@@ -42,7 +42,11 @@ const lessons = [
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/typografisches-plakat/1"><span>1. Typografisches Plakat<small>1–6: Dokument anlegen, Textrahmen verwenden, Schrift gestalten und einfache Formen einsetzen.</small></span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/veranstaltungsflyer/1"><span>2. Veranstaltungsflyer<small>7–9: Bilder platzieren, beschneiden, Objekte ausrichten und Gestaltungsraster einsetzen.</small></span><span aria-hidden="true">→</span></RouterLink>
       </div>
-      <RouterLink v-else-if="level === 'mini'" class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/text-um-form"><span>Text um eine Form fließen lassen</span><span aria-hidden="true">→</span></RouterLink>
+      <div v-else-if="level === 'mini'" class="topic-list">
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/text-um-form"><span>Text um eine Form fließen lassen</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/bild-und-rahmen"><span>Bilder skalieren und beschneiden – schwarzer und weißer Pfeil</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/textrahmen-automatisch-anpassen"><span>Textrahmen automatisch an Text anpassen</span><span aria-hidden="true">→</span></RouterLink>
+      </div>
       <section v-else aria-labelledby="learning-title">
         <h2 id="learning-title">Lernreihenfolge für InDesign</h2>
         <div class="table-scroll" tabindex="0" role="region" aria-labelledby="learning-title">

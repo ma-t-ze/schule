@@ -1,5 +1,17 @@
 # Website-Login mit Sitzung
 
+## Lokale Entwicklung
+
+Nach Änderungen an `vite.config.js` den Dev-Server neu starten (`npm run serve`).
+Die lokale Anmeldung läuft über `/site-auth/proxy.php` zum HTTPS-Login auf STRATO.
+Es gelten dieselben Zugangsdaten wie online; der aktuelle PHP-Login muss dort
+installiert sein. Lokal ist keine PHP-Installation nötig. Für den lokalen
+HTTP-Zugriff entfernt nur der Dev-Proxy das Secure-Attribut des Sitzungscookies.
+Die Produktionskonfiguration bleibt unverändert. Lokale und Online-Sitzungen
+haben getrennte Browsercookies.
+
+## Upload auf STRATO
+
 Auf STRATO müssen diese Dateien außerhalb des öffentlichen Webordners liegen:
 
 ```text

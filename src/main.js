@@ -8,12 +8,6 @@ const app = createApp(App)
 
 const routes = [
   {
-    path: '/einfuehrung-photoshop',
-    name: 'einfuehrung-photoshop',
-    component: () => import('./components/views/Photoshop/EinfuehrungPhotoshop.vue'),
-    meta: { requiresAuth: false }
-  },
-  {
     path: '/3tgg2/entwicklung-einer-app-design-thinking/admin',
     name: '3tgg2-design-thinking-admin',
     component: () => import('./components/views/TGG2/DesignThinkingAdmin.vue'),
@@ -149,6 +143,18 @@ const routes = [
     path: '/medientechnik/adobe-indesign/mini-tutorials/text-um-form',
     name: 'indesign-textumfluss',
     component: () => import('./components/views/Medientechnik/TextumflussTutorial.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/mini-tutorials/bild-und-rahmen',
+    name: 'indesign-bild-und-rahmen',
+    component: () => import('./components/views/Medientechnik/BildUndRahmenTutorial.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/mini-tutorials/textrahmen-automatisch-anpassen',
+    name: 'indesign-textrahmen-automatisch-anpassen',
+    component: () => import('./components/views/Medientechnik/TextrahmenAnpassenTutorial.vue'),
     meta: { requiresAuth: false }
   },
   {
