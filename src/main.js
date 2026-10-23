@@ -327,6 +327,15 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  if (to.name === 'LoginPage') {
+    if (!isLoggedIn() && await checkSiteSession()) {
+      store.dispatch('setIsAuthenticated')
+    }
+    if (isLoggedIn()) {
+      next('/')
+      return
+    }
+  }
   if (to.meta.requiresAuth && !isLoggedIn() && await checkSiteSession()) {
     store.dispatch('setIsAuthenticated')
   }
