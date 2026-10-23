@@ -1,10 +1,18 @@
 import { createApp } from 'vue'
+import PrimeVue from 'primevue/config'
+import Aura from '@primeuix/themes/aura'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import store from './store'
 import { checkSiteSession } from './services/siteAuth'
 
 const app = createApp(App)
+app.use(PrimeVue, {
+  theme: {
+    preset: Aura,
+    options: { darkModeSelector: '.prime-dark' }
+  }
+})
 
 const routes = [
   {

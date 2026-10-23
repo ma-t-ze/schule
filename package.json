@@ -12,6 +12,7 @@
     "clean": "rm -rf node_modules/.vite"
   },
   "dependencies": {
+    "@primeuix/themes": "^1.2.5",
     "@tweenjs/tween.js": "^25.0.0",
     "cannon-es": "^0.20.0",
     "cannon-es-debugger": "^1.0.0",
@@ -22,6 +23,7 @@
     "lottie-web": "^5.12.2",
     "matter-js": "^0.20.0",
     "nipplejs": "^0.10.2",
+    "primevue": "^4.5.5",
     "qrcode": "^1.5.4",
     "three": "^0.163.0",
     "tween.js": "^16.6.0",

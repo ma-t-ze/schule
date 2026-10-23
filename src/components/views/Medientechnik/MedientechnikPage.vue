@@ -24,12 +24,12 @@ const lessons = [
     <div class="page-shell">
       <nav class="breadcrumbs" aria-label="Seitennavigation">
         <RouterLink to="/">Schule</RouterLink>
-        <template v-if="level !== 'overview'"><span aria-hidden="true">/</span><RouterLink to="/medientechnik">Medientechnik</RouterLink></template>
+        <template v-if="level !== 'overview'"><span aria-hidden="true">/</span><RouterLink to="/medientechnik">3BKGD1_1_MET</RouterLink></template>
         <template v-if="['lessons', 'mini'].includes(level)"><span aria-hidden="true">/</span><RouterLink to="/medientechnik/adobe-indesign">Adobe InDesign</RouterLink></template>
       </nav>
       <header>
         <p class="eyebrow">{{ level === 'overview' ? 'SCHULE' : 'MEDIENTECHNIK' }}</p>
-        <h1>{{ level === 'overview' ? 'Medientechnik' : level === 'basics' ? 'Grundlagen' : level === 'indesign' ? 'Adobe InDesign' : level === 'mini' ? 'Mini Tutorials' : 'Übersicht Lerninhalte' }}</h1>
+        <h1>{{ level === 'overview' ? '3BKGD1_1_MET' : level === 'basics' ? 'Grundlagen' : level === 'indesign' ? 'Adobe InDesign' : level === 'mini' ? 'Mini Tutorials' : 'Übersicht Lerninhalte' }}</h1>
       </header>
       <div v-if="level === 'overview'" class="topic-list">
         <RouterLink class="topic-link" to="/medientechnik/grundlagen"><span>Grundlagen</span><span aria-hidden="true">→</span></RouterLink>

@@ -17,10 +17,10 @@ export default defineConfig(({ command }) => ({
   server: {
     allowedHosts: 'all',
     proxy: {
-      '/site-auth/proxy.php': {
+      '/site-auth/': {
         target: 'https://visualizer.matthiasheckel.com',
         changeOrigin: true,
-        rewrite: () => '/proxy.php',
+        rewrite: path => path.replace(/^\/site-auth/, ''),
         cookieDomainRewrite: '',
         configure(proxy) {
           proxy.on('proxyRes', response => {

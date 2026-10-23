@@ -32,3 +32,6 @@ php
 # Private server login credentials
 /server/login-credentials.php
 /server/sessions/
+
+# Private STRATO database credentials
+/server/database-config.php
