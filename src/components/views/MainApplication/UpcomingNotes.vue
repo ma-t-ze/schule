@@ -6,6 +6,12 @@ import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
 import Message from 'primevue/message'
+import DatePicker from 'primevue/datepicker'
+
+const emit = defineEmits(['change'])
+const eventDate = ref(null)
+const endDate = ref(null)
+const dateKey = date => date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : null
 
 const endpoint = import.meta.env.DEV ? '/site-auth/upcoming.php' : '/upcoming.php'
 const items = ref([])
@@ -34,6 +40,7 @@ async function load() {
     const data = await request()
     if (!Array.isArray(data.items) || typeof data.csrf !== 'string') throw new Error('Die Notizen-API liefert eine ungültige Antwort.')
     items.value = data.items
+    emit('change', items.value)
     csrf = data.csrf
     ready.value = true
   } catch (reason) { error.value = reason.message; ready.value = false }
@@ -43,6 +50,8 @@ function edit(item = null) {
   editing.value = item
   title.value = item?.title || ''
   note.value = item?.note || ''
+  eventDate.value = item?.event_date ? new Date(item.event_date + 'T12:00:00') : null
+  endDate.value = item?.end_date ? new Date(item.end_date + 'T12:00:00') : null
   formError.value = ''
   editorOpen.value = true
 }
@@ -52,12 +61,15 @@ async function mutate(payload) {
 async function save() {
   if (saving.value) return
   if (!title.value.trim() || !note.value.trim()) { formError.value = 'Bitte gib einen Titel und eine Notiz ein.'; return }
+  if (endDate.value && (!eventDate.value || dateKey(endDate.value) < dateKey(eventDate.value))) { formError.value = 'Bitte wähle ein Startdatum und ein Enddatum, das nicht davor liegt.'; return }
   saving.value = true
   formError.value = ''
   try {
-    const data = await mutate({ action: editing.value ? 'update' : 'create', id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim() })
+    const data = await mutate({ action: editing.value ? 'update' : 'create', id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim(), event_date: dateKey(eventDate.value), end_date: dateKey(endDate.value) })
+    if ((data.item?.event_date || null) !== dateKey(eventDate.value) || (data.item?.end_date || null) !== dateKey(endDate.value)) throw new Error('Das Kalenderdatum wurde vom Server nicht übernommen. Bitte die aktualisierte upcoming.php und die Datumsspalte auf STRATO einrichten.')
     if (editing.value) items.value = items.value.map(item => item.id === editing.value.id ? data.item : item)
     else items.value.unshift(data.item)
+    emit('change', items.value)
     editorOpen.value = false
   } catch (reason) { formError.value = reason.message }
   finally { saving.value = false }
@@ -69,6 +81,7 @@ async function remove() {
   try {
     await mutate({ action: 'delete', id: deleteTarget.value.id, revision: deleteTarget.value.revision })
     items.value = items.value.filter(item => item.id !== deleteTarget.value.id)
+    emit('change', items.value)
     deleteTarget.value = null
   } catch (reason) { formError.value = reason.message }
   finally { saving.value = false }
@@ -86,7 +99,7 @@ onMounted(load)
     <div class="notes" :aria-busy="loading">
       <Card v-for="item in items" :key="item.id" class="note-card">
         <template #title><h4>{{ item.title }}</h4></template>
-        <template #content><p class="note-text">{{ item.note }}</p></template>
+        <template #content><time v-if="item.event_date" :datetime="item.event_date">{{ new Date(item.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="item.end_date"> – {{ new Date(item.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-text">{{ item.note }}</p></template>
         <template #footer><div class="actions"><Button label="Bearbeiten" size="small" text :disabled="!ready || saving || loading" :aria-label="`${item.title} bearbeiten`" @click="edit(item)" /><Button label="Löschen" size="small" severity="danger" text :disabled="!ready || saving || loading" :aria-label="`${item.title} löschen`" @click="deleteTarget = item; formError = ''" /></div></template>
       </Card>
     </div>
@@ -94,6 +107,8 @@ onMounted(load)
       <form class="note-form" @submit.prevent="save">
         <label for="upcoming-title-input">Titel</label><InputText id="upcoming-title-input" v-model="title" maxlength="160" required autofocus :disabled="saving" />
         <label for="upcoming-note-input">Notiz</label><Textarea id="upcoming-note-input" v-model="note" rows="6" maxlength="5000" required :disabled="saving" />
+        <label for="upcoming-date-input">Startdatum im Kalender (optional)</label><DatePicker input-id="upcoming-date-input" v-model="eventDate" @update:model-value="value => { if (!value) endDate = null }" date-format="dd.mm.yy" show-icon show-clear :manual-input="false" :disabled="saving" />
+        <label for="upcoming-end-date-input">Enddatum (optional, einschließlich)</label><DatePicker input-id="upcoming-end-date-input" v-model="endDate" date-format="dd.mm.yy" show-icon show-clear :manual-input="false" :min-date="eventDate || undefined" :disabled="saving || !eventDate" />
         <Message v-if="formError" severity="error" :closable="false">{{ formError }}</Message>
         <div class="actions"><Button label="Abbrechen" severity="secondary" text :disabled="saving" @click="editorOpen = false" /><Button label="Speichern" type="submit" :loading="saving" /></div>
       </form>

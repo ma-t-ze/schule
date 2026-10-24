@@ -16,6 +16,46 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/stoffverteilungsplaene',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/Stoffverteilungsplaene.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stoffverteilungsplaene/pruefungszeitraeume',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/Pruefungszeitraeume.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stoffverteilungsplaene/3tgg1-2',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/StoffverteilungsplanDetail.vue'),
+    props: { planId: '3tgg1-2' },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stoffverteilungsplaene/3tgg2',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/StoffverteilungsplanDetail.vue'),
+    props: { planId: '3tgg2' },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stoffverteilungsplaene/3bkgd1-1',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/StoffverteilungsplanDetail.vue'),
+    props: { planId: '3bkgd1-1' },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stoffverteilungsplaene/3bkgd1-1-met',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/StoffverteilungsplanDetail.vue'),
+    props: { planId: '3bkgd1-1-met' },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stoffverteilungsplaene/1bfd1-bpk',
+    component: () => import('./components/views/Stoffverteilungsplaene/views/StoffverteilungsplanDetail.vue'),
+    props: { planId: '1bfd1-bpk' },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3tgg2/entwicklung-einer-app-design-thinking/admin',
     name: '3tgg2-design-thinking-admin',
     component: () => import('./components/views/TGG2/DesignThinkingAdmin.vue'),

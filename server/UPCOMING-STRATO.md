@@ -57,3 +57,34 @@ vorhanden sein. **Dev und Produktion verwenden dieselbe Datenbank.** Lokale
 Die Live-Datenbankverbindung lässt sich erst nach Eintrag der Zugangsdaten,
 Tabellenimport und Upload der privaten PHP-Dateien prüfen. PHP/PDO-MySQL müssen
 beim Hosting verfügbar sein; lokal ist aktuell kein PHP-Interpreter installiert.
+
+## Erweiterung: Notizen mit Kalenderdatum
+
+Bei einer bereits vorhandenen Tabelle **einmal** `server/upcoming-date-migration.sql`
+in phpMyAdmin ausführen. Dabei wird `event_date` ergänzt; vorhandene Notizen bleiben
+erhalten und haben zunächst kein Datum. Bei einer neuen Datenbank enthält
+`upcoming.sql` die Spalte bereits.
+
+Danach die aktualisierte private Datei `server/upcoming.php` nach `php/upcoming.php`
+hochladen und den neuen Frontend-Build bereitstellen. Der öffentliche Einstieg
+`visualizer/upcoming.php` bleibt unverändert. Kein Datenbankpasswort ändern.
+
+Im Notizformular ist das Datum optional und kann über das Kreuz wieder entfernt
+werden. Notizen ohne Datum bleiben ausschließlich bei Upcoming. Datierte Notizen
+erscheinen im Monatskalender am gewählten Tag und in der Wochen-Terminliste,
+inklusive Wochenenden. Änderungen und Löschen werden sofort im Kalender übernommen.
+Die Wochenansicht enthält zusätzlich den regelmäßigen Stundenplan; die Monatsansicht
+zeigt ausschließlich die datierten Notizen. Keine Google-Synchronisation.
+
+## Mehrtägige Zeiträume
+
+Für bestehende Tabellen nach der Datumsmigration zusätzlich
+`upcoming-range-migration.sql` in phpMyAdmin ausführen und die aktuelle
+`server/upcoming.php` nach `php/upcoming.php` hochladen. Neue Tabellen enthalten
+beide Datumsspalten bereits in `upcoming.sql`.
+
+Ein optionales Enddatum macht die Notiz zum Zeitraum. Start- und Endtag zählen
+beide mit; ohne Enddatum bleibt es ein einzelner Tag. Ein Enddatum vor dem Start
+ist ungültig. Beim Entfernen des Startdatums wird auch das Enddatum entfernt.
+Der Kalender zeigt die Notiz an allen Tagen des Zeitraums, auch über Wochen-
+und Monatsgrenzen hinweg.

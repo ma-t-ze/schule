@@ -1,0 +1,1483 @@
+[
+  {
+    "id": "1",
+    "title": "Grundlagen des Projektmanagements",
+    "hours": 6,
+    "practicalHours": 0,
+    "page": 12,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "1.1",
+        "page": 12,
+        "objective": "Die Schülerinnen und Schüler planen Projekte und führen diese unter Anwendung geeigneter Methoden durch.",
+        "content": [
+          "Projektmanagement",
+          "– Analyse des Projektauftrages",
+          "– Projektplanung",
+          "– Lösungsstrategien",
+          "– Auswahl, Realisierung, Ergebnis"
+        ]
+      },
+      {
+        "id": "1.2",
+        "page": 12,
+        "objective": "Parallel zum Fortgang von Projektarbeiten dokumentieren die Schülerinnen und Schüler ihre Ergebnisse und begründen ihre Entscheidungen. Sie stellen den Projektverlauf sowie das Ergebnis manuell oder computergestützt dar.",
+        "content": [
+          "Projektdokumentation",
+          "– Projektauftrag",
+          "– Projektplanung",
+          "– Projektverlauf",
+          "Resultat mit Begründung"
+        ]
+      },
+      {
+        "id": "1.3",
+        "page": 12,
+        "objective": "Die Schülerinnen und Schüler präsentieren ihr Projekt. Sie stellen ihren Lösungsweg dar und begründen ihre Entscheidungen in Bezug auf ihr Projektergebnis.",
+        "content": [
+          "Ergebnispräsentation",
+          "– Vorbereitung",
+          "– Durchführung"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Grundlagen der visuellen Kommunikation",
+    "hours": 22,
+    "practicalHours": 10,
+    "page": 13,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "2.1",
+        "page": 13,
+        "objective": "Die Schülerinnen und Schüler erklären die visuelle Wahrnehmung, deren Gesetzmäßigkeiten und Merkmale.",
+        "content": [
+          "Visuelle Wahrnehmung",
+          "– Sehvorgang",
+          "– Wahrnehmungs- und Gestaltgesetze"
+        ]
+      },
+      {
+        "id": "2.2",
+        "page": 13,
+        "objective": "Die Schülerinnen und Schüler beschreiben die Wahrnehmung von Farben und deren Wirkungen.",
+        "content": [
+          "Farbwahrnehmung",
+          "– Farbreiz",
+          "– Farbvalenz",
+          "– Farbempfindung",
+          "Farbeigenschaften",
+          "– Farbton",
+          "– Helligkeit",
+          "– Sättigung",
+          "Farbwirkung"
+        ]
+      },
+      {
+        "id": "2.3",
+        "page": 13,
+        "objective": "Die Schülerinnen und Schüler analysieren die Beziehungen und Wirkungen grafischer Grundformen.",
+        "content": [
+          "Grundformen",
+          "– Linie, Kontur",
+          "– Fläche",
+          "– Archetypen",
+          "Beziehungen und Wirkungen",
+          "– visuelles Gewicht",
+          "– Komposition"
+        ]
+      },
+      {
+        "id": "2.4",
+        "page": 14,
+        "objective": "Mithilfe eines Kommunikationsmodells beschreiben die Schülerinnen und Schüler den Vorgang der visuellen Kommunikation. Sie beurteilen Zeichen hinsichtlich ihrer Repräsentationsform und führen bei gestalterischen Arbeiten eine semiotische Analyse durch.",
+        "content": [
+          "Kommunikationsmodell",
+          "Repräsentationsformen von Zeichen",
+          "– Ikon",
+          "– Index",
+          "– Symbol",
+          "Semiotische Analyse",
+          "– Syntaktik",
+          "– Semantik",
+          "– Pragmatik"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Zeichentechniken und Flächengestaltung",
+    "hours": 16,
+    "practicalHours": 16,
+    "page": 14,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "3.1",
+        "page": 14,
+        "objective": "Die Schülerinnen und Schüler vergleichen Zeichenwerkzeuge und beschreiben deren Eigenschaften. Sie wählen geeignete Papiere aus.",
+        "content": [
+          "Eigenschaften und Einsatz",
+          "– Blei- und Farbstifte",
+          "– Faserstifte",
+          "– Marker",
+          "Papiere"
+        ]
+      },
+      {
+        "id": "3.2",
+        "page": 14,
+        "objective": "Die Schülerinnen und Schüler gestalten mit Linien und legen Flächen an.",
+        "content": [
+          "Gestalten mit Linien",
+          "– Linie, Kontur",
+          "– Schraffur, Textur, Struktur",
+          "Gestalten mit Flächen",
+          "– einfarbige Flächen",
+          "– Farbverläufe"
+        ]
+      },
+      {
+        "id": "3.3",
+        "page": 14,
+        "objective": "Die Schülerinnen und Schüler gestalten mit Formen und Farben.",
+        "content": [
+          "Gestaltung von Formen",
+          "– Linie, Kontur",
+          "– Fläche",
+          "Gestaltung mit Formen",
+          "– Beziehungen",
+          "– Wirkungen",
+          "Gestaltung mit Farbe",
+          "– Farbgenerierung:Farbton, Sättigung,",
+          "Helligkeit",
+          "– Farbkompositionen:Farbkontraste,",
+          "Farbharmonien",
+          "– Farbwirkungen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Grafik",
+    "hours": 12,
+    "practicalHours": 12,
+    "page": 15,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "4.1",
+        "page": 15,
+        "objective": "Die Schülerinnen und Schüler beurteilen grafische Zeichen hinsichtlich ihrer Merkmale, Funktionen und Einsatzgebiete. Sie analysieren die Wirkung grafischer Zeichen.",
+        "content": [
+          "Arten grafischer Zeichen",
+          "– Piktogramm",
+          "– Logo",
+          "– Icon",
+          "Merkmale und Anforderungen",
+          "– technisch",
+          "– gestalterisch"
+        ]
+      },
+      {
+        "id": "4.2",
+        "page": 15,
+        "objective": "Die Schülerinnen und Schüler entwerfen grafische Zeichen manuell. Sie setzen ihre Entwürfe mithilfe einer Grafiksoftware am Computer um. Die Schülerinnen und Schüler beschreiben die kommunikative Absicht und analysieren ihr Ergebnis.",
+        "content": [
+          "Entwürfe",
+          "– Kreativitätstechniken",
+          "– Scribbles",
+          "– Entwurfsskizze",
+          "Umsetzung",
+          "– Raster, Hilfslinien",
+          "– Konturen, Füllungen",
+          "– Farben",
+          "Kritische Analyse",
+          "Dateiausgabe"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Digitales Bild",
+    "hours": 12,
+    "practicalHours": 12,
+    "page": 16,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "5.1",
+        "page": 16,
+        "objective": "Die Schülerinnen und Schüler beschreiben die technischen Grundlagen der fotografischen Bilderfassung.",
+        "content": [
+          "Digitale Fotografie",
+          "– Kameratechnik",
+          "– Aufnahmetechnik",
+          "– Dateiformate"
+        ]
+      },
+      {
+        "id": "5.2",
+        "page": 16,
+        "objective": "Die Schülerinnen und Schüler fotografieren und wenden hierbei die Möglichkeiten der Kamera zur fotografischen Bildgestaltung an.",
+        "content": [
+          "Kameraeinstellungen",
+          "– Blende",
+          "– Verschlusszeit",
+          "– Brennweite",
+          "– Lichtempfindlichkeit",
+          "Fotografische Bildgestaltung",
+          "– Motivwahl",
+          "– Kameraperspektiven",
+          "– Bildausschnitt"
+        ]
+      },
+      {
+        "id": "5.3",
+        "page": 16,
+        "objective": "Für die Weiterverwendung und Ausgabe optimieren die Schülerinnen und Schüler Bilder. Sie beurteilen die technische Bildqualität im Hinblick auf den geforderten Einsatzzweck.",
+        "content": [
+          "Bildauswahl",
+          "Bildbearbeitung",
+          "– Bildkorrekturen",
+          "– Bildkomposition",
+          "Dateiausgabe"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Layout und Typografie",
+    "hours": 18,
+    "practicalHours": 18,
+    "page": 16,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "6.1",
+        "page": 17,
+        "objective": "Die Schülerinnen und Schüler beschreiben die Grundelemente eines Layouts und erklären die Verwendung und Wirkung eines Gestaltungsrasters.",
+        "content": [
+          "Layout",
+          "– Formate und Formatwirkung",
+          "– Satzspiegel",
+          "– Gestaltungsraster:Spaltenraster,",
+          "Grundlinienraster, Rasterzellen"
+        ]
+      },
+      {
+        "id": "6.2",
+        "page": 17,
+        "objective": "Die Schülerinnen und Schüler beschreiben die Entwicklung von Schrift. Sie erklären charakteristische Merkmale von Schriften.",
+        "content": [
+          "Schriftentwicklung",
+          "Merkmale eines Buchstabens",
+          "Schriftkategorien",
+          "– Antiquaschriften",
+          "– Serifenbetonte Schriften",
+          "– Groteskschriften",
+          "– Schreibschriften",
+          "– gebrochene Schriften",
+          "– dekorative Schriften",
+          "Schriftfamilie und Schriftschnitte"
+        ]
+      },
+      {
+        "id": "6.3",
+        "page": 17,
+        "objective": "Schüler beschreiben Kriterien für gute Lesbarkeit, wenden diese Kriterien zur Optimierung des Schriftsatzes an. Sie wählen Schriften unter Beachtung des Einsatzzweckes, der Zielgruppe und des Ausgabemediums aus.",
+        "content": [
+          "Schriftauswahl",
+          "– Schriftwirkung",
+          "– Schriftmischung",
+          "Schriftsatz",
+          "– Schriftart",
+          "– Schriftgröße und Zeilenabstand",
+          "– Zeilenlänge",
+          "– Satzarten",
+          "– Laufweite",
+          "– Auszeichnung",
+          "– Satzfehler",
+          "– Ausgabemedium"
+        ]
+      },
+      {
+        "id": "6.4",
+        "page": 18,
+        "objective": "Die Schülerinnen und Schüler entwerfen mithilfe eines Gestaltungsrasters einfache Layouts für Printmedien und für digitale Medien.",
+        "content": [
+          "Medienentwurf",
+          "– Ideenfindung",
+          "– Layoutskizzen:Format, Satzspiegel,",
+          "Gestaltungsraster",
+          "– Layouterstellung",
+          "– Dateiausgabe"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Grundlagen der Medientechnik",
+    "hours": 24,
+    "practicalHours": 12,
+    "page": 18,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "7.1",
+        "page": 18,
+        "objective": "Die Schülerinnen und Schüler beschreiben die erforderliche Hard- und Software für Medienproduktionen. Sie verarbeiten Daten und Dateien aufgabenbezogen und zielgerichtet. Die Schülerinnen und Schüler beschreiben die in der Medientechnik relevanten Zahlensysteme und erklären den Zusammenhang zwischen Speichereinheiten und Datenmenge einer Datei.",
+        "content": [
+          "Hardware",
+          "– Komponenten",
+          "– Ein- und Ausgabegeräte",
+          "– Netzwerke",
+          "– Speichermedien",
+          "Software",
+          "– Systemsoftware",
+          "– Anwendersoftware",
+          "Systemsicherheit",
+          "Datenmanagement",
+          "– Ordner- und Dateistruktur",
+          "– Datensicherung",
+          "– Dateinamen und Dateiendungen",
+          "Digitale Daten",
+          "– Zahlensysteme",
+          "– Speichereinheiten",
+          "– Datenmengen"
+        ]
+      },
+      {
+        "id": "7.2",
+        "page": 19,
+        "objective": "Die Schülerinnen und Schüler erklären die Verwendung von Farben in der Medienproduktion. Sie nennen und vergleichen wichtige Farbmischsysteme und Farbmodelle.",
+        "content": [
+          "Farbmischsysteme",
+          "– additive Farbmischung",
+          "– subtraktive Farbmischung",
+          "Farbmodelle",
+          "– RGB und CMYK",
+          "– metrische Farbräume"
+        ]
+      },
+      {
+        "id": "7.3",
+        "page": 19,
+        "objective": "Die Schülerinnen und Schüler beschreiben zentrale Begriffe der digitalen Bildtechnik. Sie berechnen die Datenmenge von Bildern. Sie begründen den Einsatz von geeigneten Dateiformaten in Abhängigkeit vom Ausgabemedium.",
+        "content": [
+          "Digitales Bild",
+          "– Bildparameter: Größe, Farbtiefe,",
+          "Pixeldichte/Auflösung",
+          "– Berechnung der Datenmenge von",
+          "Bildern",
+          "– Dateiformate"
+        ]
+      },
+      {
+        "id": "7.4",
+        "page": 19,
+        "objective": "Die Schülerinnen und Schüler beschreiben den Workflow zur Produktion gedruckter oder digitaler Medien.",
+        "content": [
+          "Dateiarten und Dateiformate",
+          "Datenerfassung und Datenimport",
+          "Datenbearbeitung",
+          "Dateiausgabe",
+          "– Printmedien",
+          "– digitale Medien"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Räumliche Darstellung",
+    "hours": 24,
+    "practicalHours": 24,
+    "page": 19,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "8.1",
+        "page": 20,
+        "objective": "Die Schülerinnen und Schüler beschreiben Grundregeln des technischen Zeichnens und wenden diese zur Erstellung manueller technischer Zeichnungen von zusammengesetzten Körpern und Produkten an.",
+        "content": [
+          "Projektion nach DIN ISO 5456",
+          "– Projektionsmethode 1",
+          "– Linienarten",
+          "– Hauptmaße"
+        ]
+      },
+      {
+        "id": "8.2",
+        "page": 20,
+        "objective": "Die Schülerinnen und Schüler beschreiben axonometrische Darstellungsarten und stellen zusammengesetzte geometrische Körper und Produkte manuell in Axonometrie dar.",
+        "content": [
+          "Axonometrie",
+          "– Dimetrie: Winkel, Verkürzung",
+          "– Isometrie"
+        ]
+      },
+      {
+        "id": "8.3",
+        "page": 20,
+        "objective": "Die Schülerinnen und Schüler beschreiben die Regeln der Fluchtpunktperspektiven.",
+        "content": [
+          "Sie skizzieren unterschiedliche Perspektiven von zusammengesetzten geometrischen",
+          "Körpern sowie von Produkten.",
+          "Fluchtpunktperspektive",
+          "– Zentralperspektive",
+          "– Zwei-Punkt-Perspektive"
+        ]
+      },
+      {
+        "id": "8.4",
+        "page": 20,
+        "objective": "Die Schülerinnen und Schüler erstellen Scribbles und Entwurfsskizzen von Produkten. Sie wenden freihändig erstellte Hilfskonstruktionen an.",
+        "content": [
+          "Anforderungen an Scribbles und",
+          "Entwurfsskizzen",
+          "Räumliche Darstellung als Konturzeichnung",
+          "– Axonometrie",
+          "– Fluchtpunktperspektive",
+          "Räumliche schattierte Darstellung",
+          "– Lichteinfall",
+          "– Schatten",
+          "Detailskizzen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "Modellbauverfahren",
+    "hours": 16,
+    "practicalHours": 16,
+    "page": 20,
+    "year": "Eingangsklasse",
+    "items": [
+      {
+        "id": "9.1",
+        "page": 21,
+        "objective": "Die Schülerinnen und Schüler fertigen mit additiven Verfahren Modelle an. Sie beschreiben die Merkmale und Modellbauwerkstoffe additiver Verfahren.",
+        "content": [
+          "Additive Verfahren",
+          "– Modellbauwerkstoffe",
+          "– Modellbauwerkzeuge",
+          "– Modellbautechniken"
+        ]
+      },
+      {
+        "id": "9.2",
+        "page": 21,
+        "objective": "Die Schülerinnen und Schüler fertigen mit subtraktiven Verfahren Modelle an. Sie beschreiben die Merkmale und Modellbauwerkstoffe subtraktiver Verfahren.",
+        "content": [
+          "Subtraktive Verfahren",
+          "– Modellbauwerkstoffe",
+          "– Modellbauwerkzeuge",
+          "– Modellbautechniken"
+        ]
+      },
+      {
+        "id": "9.3",
+        "page": 21,
+        "objective": "Die Schülerinnen und Schüler fertigen mit plastischen Verfahren Modelle an. Sie beschreiben die Merkmale und Modellbauwerkstoffe plastischer Verfahren.",
+        "content": [
+          "Plastische Verfahren (Modellieren)",
+          "– Modellbauwerkstoffe",
+          "– Modellbauwerkzeuge",
+          "– Modellbautechniken"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Projekt- und Designmanagement",
+    "hours": 10,
+    "practicalHours": 0,
+    "page": 22,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "10.1",
+        "page": 22,
+        "objective": "Die Schülerinnen und Schüler analysieren Problemstellungen und leiten Projektziele ab. Sie planen einen Projektverlauf für andere Bildungsplaneinheiten und führen das Projekt selbstständig durch und bewerten den Projektverlauf.",
+        "content": [
+          "Definition und Aufgaben von Projekten",
+          "und Projektmanagement",
+          "Projektverlauf",
+          "– Projektauftrag",
+          "– Briefing, Rebriefing",
+          "– Lastenheft, Pflichtenheft",
+          "– Problemanalyse",
+          "– Zielgruppendefinition",
+          "– Zielformulierung",
+          "– Controlling, Strategien und",
+          "Maßnahmen",
+          "Lösungsstrategien",
+          "– Synthese",
+          "– Analyse",
+          "– Auswahl und Entscheidung"
+        ],
+        "title": "Projektplanung und Projektverlauf"
+      },
+      {
+        "id": "10.2",
+        "page": 23,
+        "objective": "Zur strukturierten Durchführung eines Gestaltungsauftrags beschreiben die Schülerinnen und Schüler Methoden und Arbeitsschritte. Sie unterscheiden das organisatorische Projektmanagement vom Gestaltungsprozess.",
+        "content": [
+          "Gestaltungsprozess",
+          "Konzeption",
+          "– Analyse des Auftrags",
+          "– Zieldefinition",
+          "Ideenfindung",
+          "– Ideenvielfalt",
+          "– Innovation",
+          "Entwurf",
+          "– Analyse der Ideen",
+          "– Auswahl und Entscheidung",
+          "– Optimierung",
+          "Ausarbeitung",
+          "– Analyse der Entwürfe",
+          "– Umsetzung",
+          "Endprodukt"
+        ],
+        "title": "Gestaltungsprozess"
+      },
+      {
+        "id": "10.3",
+        "page": 23,
+        "objective": "Parallel zum Fortgang von Projektarbeiten dokumentieren die Schülerinnen und Schüler ihre Ergebnisse und begründen ihre Entscheidungen. Sie veranschaulichen den Projektverlauf sowie das Ergebnis computergestützt.",
+        "content": [
+          "Erstellung",
+          "– Erfassung von Texten",
+          "– Digitalisierung manueller Skizzen",
+          "und Entwürfe",
+          "– Fotografieren",
+          "– digitale Erstellung von Grafiken und",
+          "technischen Zeichnungen",
+          "– Satz und Layout",
+          "Inhalt",
+          "– Projektauftrag",
+          "– Konzeption",
+          "– Lösungsweg und Ergebnis",
+          "– Anhang"
+        ],
+        "title": "Projektdokumentation"
+      },
+      {
+        "id": "10.4",
+        "page": 24,
+        "objective": "Die Schülerinnen und Schüler präsentieren ein eigenes Projekt. Sie stellen ihren Lösungsweg dar und begründen ihre Entscheidungen in Bezug auf ihr Projektergebnis. Sie setzen zur Unterstützung ihrer Präsentation Medien zielführend ein. Die Schülerinnen und Schüler reflektieren ihre Präsentation.",
+        "content": [
+          "Präsentationsarten",
+          "– Zwischenpräsentation",
+          "– Ergebnispräsentation",
+          "Vorbereitung",
+          "– Ziele, Zielgruppe der Präsentation",
+          "– Inhalte",
+          "– Gliederung",
+          "– Logistik",
+          "Durchführung",
+          "– Struktur",
+          "– Veranschaulichung und Medieneinsatz",
+          "Bewertung",
+          "– Personalkompetenz",
+          "– Methodenkompetenz",
+          "– Medienkompetenz",
+          "– Fachkompetenz"
+        ],
+        "title": "Projektpräsentation"
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "title": "Produkt- und Medienanalyse",
+    "hours": 10,
+    "practicalHours": 0,
+    "page": 24,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "11.1",
+        "page": 24,
+        "objective": "Die Schülerinnen und Schüler beschreiben grundlegende Begriffe, Merkmale und Funktionsweisen visueller Kommunikation und wenden diese bei ihren Produkt- und Medienanalysen an.",
+        "content": [
+          "Visuelle Kommunikation",
+          "– Kommunikationsmodelle",
+          "– Zeichenmodelle",
+          "– Werbewirkungsmodelle:AIDA (Attention, Interest, Desire, Action), PPPP",
+          "(Picture, Promise, Prove, Push)",
+          "Corporate Identity",
+          "– Corporate Design",
+          "– Corporate Behaviour",
+          "– Corporate Communication"
+        ],
+        "title": "Visuelle Kommunikation und Corporate Identity"
+      },
+      {
+        "id": "11.2",
+        "page": 25,
+        "objective": "Mithilfe von Modellen und charakteristischen Merkmalen beschreiben die Schülerinnen und Schüler Zielgruppen. Sie übertragen die Inhalte dieser Bildungsplaneinheit in die BPE 13, 16, 20, 23 und 24.",
+        "content": [
+          "Modelle",
+          "Charakteristische Beschreibung",
+          "– soziodemografische Merkmale",
+          "– psychografische Merkmale",
+          "– Persona"
+        ],
+        "title": "Zielgruppen"
+      },
+      {
+        "id": "11.3",
+        "page": 25,
+        "objective": "Die Schülerinnen und Schüler analysieren Syntax, Semantik und Pragmatik von Produkten, Printmedien oder digitalen Anwendungen. Sie übertragen die Inhalte dieser Bildungsplaneinheit in die BPE 12, 13, 16, 20, 23 und 24.",
+        "content": [
+          "Syntaktische Analyse",
+          "– Elemente, Proportion und Positionierung",
+          "– Zeichen",
+          "Semantische Analyse",
+          "– Bezug, Kontext, Inhalt",
+          "– Bedeutung und Wirkung",
+          "Pragmatische Analyse",
+          "– Reaktion",
+          "– Nutzung/Gebrauch"
+        ],
+        "title": "Syntaktische, semantische und pragmatische Analyse"
+      },
+      {
+        "id": "11.4",
+        "page": 25,
+        "objective": "Die Schülerinnen und Schüler analysieren die Funktion eines Produkts, Printmediums oder einer digitalen Anwendung. Sie übertragen die Inhalte dieser Bildungsplaneinheit in die BPE 13, 16, 20, 23 und 24.",
+        "content": [
+          "Funktionsanalyse",
+          "– Aufbau und Technik",
+          "– Dienstleistung",
+          "– Ergonomie",
+          "– Benutzerführung:Produktsprache,",
+          "Anzeichenfunktion, Barrierefreiheit,",
+          "Blickführung"
+        ],
+        "title": "Funktionsanalyse"
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "title": "Designgeschichte – Epochen und Tendenzen",
+    "hours": 24,
+    "practicalHours": 0,
+    "page": 26,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "12.1",
+        "page": 26,
+        "objective": "Die Schülerinnen und Schüler erläutern Grundbegriffe für die Betrachtung und Einordnung von Designobjekten.",
+        "content": [
+          "Begriffsklärung und Abgrenzung",
+          "– Design, Kunst, Handwerk, Styling",
+          "Betrachtung von Designobjekten",
+          "– stilistische Merkmale",
+          "– technologische Merkmale",
+          "– Designepoche",
+          "– Designtendenz"
+        ],
+        "title": "Grundbegriffe und Betrachtung von Designobjekten"
+      },
+      {
+        "id": "12.2",
+        "page": 26,
+        "objective": "Die Schülerinnen und Schüler beschreiben die Stilmerkmale der Epochen. Sie analysieren Designobjekte, ordnen diese den Epochen zu und begründen ihre Zuordnung anhand stilistischer und technologischer Merkmale. Sie beurteilen den zeitlichen und gesellschaftlichen Bezug.",
+        "content": [
+          "Stilmerkmale vorindustrieller Epochen:",
+          "Antike, Romanik, Gotik, Renaissance,",
+          "Barock, Klassizismus",
+          "Frühindustrielle Gestaltung",
+          "– Manufaktur und frühindustrielle",
+          "Produktion",
+          "– Historismus und industrielle Produktion",
+          "– Arts and Crafts als Gegenbewegung",
+          "– Jugendstil",
+          "Die Moderne",
+          "– Deutscher Werkbund",
+          "– Frankfurter Küche",
+          "– Bauhaus",
+          "– Streamline",
+          "– Organic Design",
+          "– Hochschule für Gestaltung Ulm",
+          "Nach der Moderne",
+          "– Pop-Design",
+          "– Postmoderne",
+          "– neues Design bis heute"
+        ],
+        "title": "Designepochen und Stilmerkmale"
+      },
+      {
+        "id": "12.3",
+        "page": 27,
+        "objective": "Die Schülerinnen und Schüler vergleichen Designtendenzen und die angesprochenen Zielgruppen. Sie erläutern Tendenzen und Ansätze in der Designkritik. Sie beurteilen Designobjekte unter diesen Aspekten.",
+        "content": [
+          "Designtendenzen, deren Gestaltungsmerkmale und deren Intentionen",
+          "– Funktionsdesign",
+          "– dekoratives Design",
+          "– Konsumdesign",
+          "– Autorendesign",
+          "– Sozialdesign",
+          "– Ökodesign",
+          "Designströmungen und Gegenströmungen",
+          "Corporate Design",
+          "Designkritik"
+        ],
+        "title": "Designtendenzen und Designkritik"
+      },
+      {
+        "id": "12.4",
+        "page": 27,
+        "objective": "Die Schülerinnen und Schüler übertragen die Merkmale der Epochen auf Digital- und Printmedien.",
+        "content": [
+          "Printmedien",
+          "Digitale Medien"
+        ],
+        "title": "Epochenmerkmale in Print- und Digitalmedien"
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "title": "Konzeption und Gestaltung von Produkten",
+    "hours": 24,
+    "practicalHours": 10,
+    "page": 27,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "13.1",
+        "page": 27,
+        "objective": "Die Schülerinnen und Schüler konzipieren Produkte. Sie stellen ihre Konzeption in Form von aussagekräftigen Scribbles, räumlichen Darstellungen und technischen Zeichnungen dar.",
+        "content": [
+          "Gestaltungskategorien",
+          "Produkt- und Funktionsanalyse",
+          "Produktkonzeption",
+          "– Zielgruppen",
+          "– Anforderungen",
+          "Projektmanagement",
+          "– Zeit‑, Ressourcenplanung",
+          "– Controlling",
+          "Ideenfindung"
+        ],
+        "title": "Produktkonzeption"
+      },
+      {
+        "id": "13.2",
+        "page": 28,
+        "objective": "Die Schülerinnen und Schüler entwerfen Produkte. Bei der Ausarbeitung ihrer Ideen wenden sie die Mittel der visuellen Kommunikation zur zielgruppengerechten Gestaltung unter Berücksichtigung produktspezifischer, ergonomischer und technischer Gegebenheiten an.",
+        "content": [
+          "Entwurfstechniken und Prinziplösungen",
+          "– modulares Gestalten",
+          "– Variantenbildung",
+          "– Entscheidungen und begründete",
+          "Auswahl",
+          "– Optimierung",
+          "Scribbles",
+          "– Intention",
+          "– Ideenvielfalt – Innovation",
+          "– Aussagekraft",
+          "Entwurfsskizzen",
+          "Ergonomie",
+          "– Handhabung",
+          "– Bedienung",
+          "– Benutzerfreundlichkeit"
+        ],
+        "title": "Produktentwurf und Ergonomie"
+      },
+      {
+        "id": "13.3",
+        "page": 28,
+        "objective": "Die Schülerinnen und Schüler setzen ihre Entwürfe als Modell oder als Prototyp um.",
+        "content": [
+          "Sie überprüfen daran die formalen Zusammenhänge und die Ergonomie.",
+          "Modellbau",
+          "– Modell oder Prototyp",
+          "– Modellbauwerkstoffe",
+          "– Modellbauwerkzeuge",
+          "– manuelle Modellbautechniken",
+          "– generative Fertigung von Modellen",
+          "Überprüfung",
+          "– formale Zusammenhänge",
+          "– Ergonomie"
+        ],
+        "title": "Modellbau und Prototypen"
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "title": "Fertigung von Produkten",
+    "hours": 24,
+    "practicalHours": 0,
+    "page": 29,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "14.1",
+        "page": 29,
+        "objective": "Die Schülerinnen und Schüler unterscheiden wichtige Werkstoffgruppen in der Produktgestaltung und deren technologische Eigenschaften. Sie ermitteln Werkstoffe bei Produktanalysen und beurteilen deren Einsatz. Sie wählen für ihre Entwürfe geeignete Werkstoffe und Fertigungsverfahren aus und begründen ihre Wahl.",
+        "content": [
+          "Eigenschaften von Werkstoffen",
+          "Einteilung der Werkstoffe",
+          "– Metalle und deren Legierungen",
+          "– Nichtmetalle",
+          "– Verbundwerkstoffe",
+          "Metalle",
+          "– Eigenschaften und Verwendung",
+          "– Eisenwerkstoffe",
+          "– Aluminium",
+          "– Kupferlegierungen",
+          "Holz",
+          "– Eigenschaften und Verwendung",
+          "– Nachhaltigkeit",
+          "– Massivhölzer: Harthölzer, Weichhölzer",
+          "– Holzwerkstoffe: Schichtholz, Holzspanwerkstoffe, Holzfaserwerkstoffe",
+          "Kunststoffe",
+          "– Eigenschaften, Wärmeverhalten und",
+          "Verwendung",
+          "– Thermoplaste",
+          "– Duromere",
+          "– Elastomere"
+        ],
+        "title": "Werkstoffe und ihre Eigenschaften"
+      },
+      {
+        "id": "14.2",
+        "page": 30,
+        "objective": "Die Schülerinnen und Schüler unterscheiden Fertigungsverfahren nach DIN 8580. Sie beschreiben exemplarisch an selbstgewählten Fertigungsverfahren einen Arbeitsablauf.",
+        "content": [
+          "Fertigungsverfahren",
+          "– Fertigungsverfahren nach DIN 8580",
+          "– generative Fertigungsverfahren"
+        ],
+        "title": "Fertigungsverfahren"
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "title": "Technische Darstellung von Produkten",
+    "hours": 14,
+    "practicalHours": 10,
+    "page": 30,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "15.1",
+        "page": 30,
+        "objective": "Die Schülerinnen und Schüler stellen die Ergebnisse ihrer Entwurfsprozesse manuell als Entwurfsskizzen dar.",
+        "content": [
+          "Darstellungsarten bei Entwurfsskizzen",
+          "– Projektion nach DIN",
+          "– Axonometrien",
+          "– Fluchtpunktperspektiven",
+          "Intention des Produkts",
+          "Detaillierung",
+          "Aussagekraft"
+        ],
+        "title": "Manuelle Entwurfsskizzen"
+      },
+      {
+        "id": "15.2",
+        "page": 30,
+        "objective": "Die Schülerinnen und Schüler stellen die Ergebnisse ihrer Entwurfsprozesse manuell als räumlich schattierte Darstellungen dar.",
+        "content": [
+          "Darstellungsarten",
+          "– Axonometrie",
+          "– Fluchtpunktperspektive",
+          "Lichtführung, Schattierung",
+          "Darstellung",
+          "– Oberflächen",
+          "– Farben",
+          "– Werkstoffe",
+          "Detaillierung",
+          "Aussagekraft"
+        ],
+        "title": "Räumlich schattierte Darstellungen"
+      },
+      {
+        "id": "15.3",
+        "page": 30,
+        "objective": "Mit einem CAD-System konstruieren die Schülerinnen und Schüler Bauteile und führen diese zu ihrem selbst entwickelten Produkt zusammen. Sie ordnen mit einem CAD-System ihren 3D-Modellen Oberflächen, Farben und Werkstoffe zu. Sie leiten daraus räumlich schattierte Darstellungen ab und exportieren die Daten.",
+        "content": [
+          "Konstruktion",
+          "– Bauteile",
+          "– Baugruppen",
+          "– Zeichnungsableitung",
+          "Zuordnungen",
+          "– Oberflächen",
+          "– Farbe",
+          "– Werkstoffe",
+          "– Produktgrafik",
+          "Rendering",
+          "– Axonometrie oder Perspektive",
+          "– Lichteinfall und Schatten",
+          "– Ansicht, Blickrichtung",
+          "Datenmanagement",
+          "– Dateiimport",
+          "– Dateiausgabe"
+        ],
+        "title": "CAD-Konstruktion und Rendering"
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "title": "Konzeption und Gestaltung von Publikationen",
+    "hours": 30,
+    "practicalHours": 10,
+    "page": 31,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "16.1",
+        "page": 31,
+        "objective": "In Abhängigkeit von Zielgruppe und Einsatzzweck konzipieren die Schülerinnen und Schüler Publikationen. Sie entwickeln Layouts in Form von Scribbles und Entwurfsskizzen.",
+        "content": [
+          "Konzeption",
+          "– Briefing",
+          "– Publikationen",
+          "– Corporate Design",
+          "Layout",
+          "– Entwurfstechniken",
+          "– Gestaltungsraster",
+          "– Satzspiegel",
+          "– Gliederung und Strukturierungselemente",
+          "Schrift",
+          "– Schriftkategorie",
+          "– Schriftwirkung"
+        ],
+        "title": "Publikationskonzeption und Layout"
+      },
+      {
+        "id": "16.2",
+        "page": 32,
+        "objective": "Die für ihre Publikationen erforderlichen Grafiken entwerfen die Schülerinnen und Schüler manuell. Sie entwickeln Varianten, vergleichen diese und begründen ihre Auswahl.",
+        "content": [
+          "Arten grafischer Zeichen",
+          "– Piktogramm",
+          "– Icon",
+          "– Logo",
+          "– Informationsgrafik",
+          "Grafische Gestaltung",
+          "– Gestaltung von Zeichen",
+          "– Gestaltung mit Zeichen"
+        ],
+        "title": "Grafische Zeichen"
+      },
+      {
+        "id": "16.3",
+        "page": 32,
+        "objective": "Die Schülerinnen und Schüler erstellen die für ihre Publikationen erforderlichen Bilder oder wählen diese aus Bildarchiven aus. Sie beurteilen deren Qualität unter Anwendung der Regeln der Bildgestaltung.",
+        "content": [
+          "Bilderfassung",
+          "– Fotografie",
+          "– Bildarchive",
+          "Bildgestaltung",
+          "– Motivwahl",
+          "– Inszenierung",
+          "– Bildwirkung"
+        ],
+        "title": "Bilderfassung und Bildgestaltung"
+      },
+      {
+        "id": "16.4",
+        "page": 32,
+        "objective": "Für ihre Publikation entwickeln die Schülerinnen und Schüler ein Farbkonzept. Sie beurteilen die Verwendbarkeit von Farben in Abhängigkeit vom Einsatzzweck.",
+        "content": [
+          "Farbauswahl",
+          "– Farbwerte:RGB, CMYK, hexadezimale Angabe",
+          "– Einsatzzweck",
+          "Farbgestaltung",
+          "– Farbfunktion",
+          "– Farbwirkung",
+          "– Farbkonzept"
+        ],
+        "title": "Farbkonzept"
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "title": "Produktion von Printmedien",
+    "hours": 14,
+    "practicalHours": 10,
+    "page": 33,
+    "year": "Jahrgangsstufe 1",
+    "items": [
+      {
+        "id": "17.1",
+        "page": 33,
+        "objective": "Die Schülerinnen und Schüler beschreiben die grundlegenden produktspezifischen und produktionstechnischen Anforderungen des Printworkflows.",
+        "content": [
+          "Bedruckstoffe",
+          "– Arten",
+          "– Eigenschaften",
+          "Druckverfahren",
+          "– Merkmale",
+          "– Hauptdruckverfahren",
+          "– Einsatzgebiete",
+          "Farbverbindlichkeit",
+          "Druckfarben"
+        ],
+        "title": "Printworkflow und Druckverfahren"
+      },
+      {
+        "id": "17.2",
+        "page": 33,
+        "objective": "Für deren Einsatz in Publikationen optimieren die Schülerinnen und Schüler Bilder und Grafiken. Sie beurteilen die Qualität aus technischer und gestalterischer Sicht und exportieren Bilder und Grafiken in geeignete Dateiformate.",
+        "content": [
+          "Digitales Bild",
+          "– Optimierung",
+          "– Bilddaten",
+          "Vektorgrafik",
+          "– Optimierung",
+          "– Vektordaten",
+          "Dateiausgabe"
+        ],
+        "title": "Bild- und Grafikoptimierung"
+      },
+      {
+        "id": "17.3",
+        "page": 33,
+        "objective": "Die Schülerinnen und Schüler erstellen Texte für ihre Publikationen. Sie wählen Schriften aus und begründen deren Eignung. Sie setzen ihre Layouts mithilfe einer Layoutsoftware um. Die Schülerinnen und Schüler beurteilen die Qualität und optimieren ihre Ergebnisse unter makro- und mikrotypografischen Gesichtspunkten. Sie exportieren ihre Publikationen in geeigneten Datenformaten.",
+        "content": [
+          "Texterfassung",
+          "Schriftauswahl",
+          "– Lesbarkeit",
+          "– Schriftwirkung",
+          "– Einsatzzweck",
+          "– Zielgruppe",
+          "Layout",
+          "– Gestaltungsraster",
+          "– Text-Bild-Komposition",
+          "– Farben",
+          "Typografische Gestaltung",
+          "– Makrotypografie",
+          "– Mikrotypografie",
+          "Datenmanagement",
+          "– Datenkontrolle",
+          "– Datenausgabe"
+        ],
+        "title": "Layout, Typografie und Datenausgabe"
+      }
+    ]
+  },
+  {
+    "id": "18",
+    "title": "Medien und Gesellschaft",
+    "hours": 8,
+    "practicalHours": 0,
+    "page": 35,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "18.1",
+        "page": 35,
+        "objective": "Die Schülerinnen und Schüler beschreiben die historische Entwicklung unserer heutigen Medien. Sie erklären den Begriff „Medien“ aus verschiedenen Perspektiven.",
+        "content": [
+          "Historie",
+          "– Buchdruck",
+          "– Rundfunk",
+          "– Fernsehen",
+          "– Internet",
+          "Verbreitung und Teilnahme",
+          "– eins zu eins",
+          "– einer an manche",
+          "– einer an viele",
+          "– viele an viele",
+          "Arten",
+          "– visuelle Medien",
+          "– auditive Medien",
+          "– audiovisuelle Medien",
+          "– interaktive Medien"
+        ]
+      },
+      {
+        "id": "18.2",
+        "page": 35,
+        "objective": "Die Schülerinnen und Schüler analysieren das Mediennutzungsverhalten Jugendlicher und beschreiben den Einfluss von Medien auf die Meinungsbildung.",
+        "content": [
+          "Mediennutzungsverhalten",
+          "Medieneinfluss"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "19",
+    "title": "Medienrecht",
+    "hours": 12,
+    "practicalHours": 0,
+    "page": 36,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "19.1",
+        "page": 36,
+        "objective": "Die Schülerinnen und Schüler beschreiben Grundfragen des Urheberrechts bezüglich Werkbegriff und Schutzdauer.",
+        "content": [
+          "Urheberpersönlichkeitsrechte",
+          "Werkarten",
+          "– Schöpfungshöhe",
+          "– Schutzdauer, Gemeinfreiheit"
+        ]
+      },
+      {
+        "id": "19.2",
+        "page": 36,
+        "objective": "Die Schülerinnen und Schüler beschreiben Möglichkeiten der Nutzung von urheberrechtlich geschützten Werken.",
+        "content": [
+          "Nutzungsrechte",
+          "Lizenzmodelle: Creative Commons",
+          "Zitatrecht"
+        ]
+      },
+      {
+        "id": "19.3",
+        "page": 36,
+        "objective": "Die Schülerinnen und Schüler beschreiben die rechtlich relevanten Fragestellungen bei Bildern.",
+        "content": [
+          "Persönlichkeitsrecht",
+          "– Recht am eigenen Bild",
+          "– Einwilligungsfreie Verwendung",
+          "Panoramafreiheit"
+        ]
+      },
+      {
+        "id": "19.4",
+        "page": 36,
+        "objective": "Die Schülerinnen und Schüler beschreiben Möglichkeiten und Risiken beim Umgang mit personenbezogenen Daten und wie diese Daten geschützt werden.",
+        "content": [
+          "Datenschutz",
+          "– Rechtsnormen",
+          "– Personenbezogene Daten",
+          "– technische und organisatorische",
+          "Maßnahmen (TOM)",
+          "– Datenschutzerklärung",
+          "Prinzipien",
+          "– Datensparsamkeit",
+          "– Zweckbindung",
+          "– Transparenz"
+        ]
+      },
+      {
+        "id": "19.5",
+        "page": 37,
+        "objective": "Die Schülerinnen und Schüler beschreiben in Grundzügen die Merkmale des Behindertengleichstellungsgesetztes (BGG).",
+        "content": [
+          "Rechtsnormen",
+          "Prinzipien",
+          "– Zugänglichkeit",
+          "– Nutzbarkeit"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "20",
+    "title": "Konzeption und Gestaltung digitaler Anwendungen",
+    "hours": 24,
+    "practicalHours": 8,
+    "page": 37,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "20.1",
+        "page": 37,
+        "objective": "Die Schülerinnen und Schüler analysieren digitale Anwendungen, beschreiben deren Merkmale und unterscheiden diese von Printmedien.",
+        "content": [
+          "Merkmale",
+          "– Multimedialiät",
+          "– Hypermedialität",
+          "– Interaktivität",
+          "– Verbreitung",
+          "Analyse",
+          "– Zielgruppe",
+          "– Layout",
+          "– grafische Gestaltung",
+          "– Navigation",
+          "– Benutzerfreundlichkeit"
+        ]
+      },
+      {
+        "id": "20.2",
+        "page": 37,
+        "objective": "In Abhängigkeit von Zielgruppe und Einsatzzweck konzipieren die Schülerinnen und Schüler digitale Anwendungen.",
+        "content": [
+          "Konzeption",
+          "– Briefing",
+          "– Kommunikationsziel",
+          "– Zielgruppe",
+          "– Rahmenbedingungen",
+          "Responsive Workflow"
+        ]
+      },
+      {
+        "id": "20.3",
+        "page": 38,
+        "objective": "Die Schülerinnen und Schüler beschreiben das Interface als Schnittstelle zwischen Mensch und Maschine. Sie erläutern die Anforderungen an Interfacedesign, Informationsstruktur, Funktionalität und Aussehen digitaler Interfaces.",
+        "content": [
+          "Interfacedesign",
+          "– Informationsdesign",
+          "– Interaktionsdesign",
+          "Screendesign",
+          "– User Experience",
+          "– Usability",
+          "– Look and Feel",
+          "– Joy of Use"
+        ]
+      },
+      {
+        "id": "20.4",
+        "page": 38,
+        "objective": "Die Schülerinnen und Schüler beschreiben die Notwendigkeit, die Inhalte digitaler Anwendungen zu strukturieren. Sie entwickeln die Navigationsstruktur und planen die Interaktionsmöglichkeiten für ihre digitalen Anwendungen.",
+        "content": [
+          "Informationsdesign",
+          "– Navigationsstruktur",
+          "– Navigationselemente",
+          "– Navigationshilfen",
+          "Interaktionsdesign",
+          "– Bedienung",
+          "– Kommunikation"
+        ]
+      },
+      {
+        "id": "20.5",
+        "page": 38,
+        "objective": "Unter Einbezug der Zielgruppe, des Einsatzzwecks und der digitalen Endgeräte entwickeln die Schülerinnen und Schüler die visuelle Konzeption und das Layout für ihre digitalen Anwendungen.",
+        "content": [
+          "Visuelle Konzeption",
+          "– Entwurf",
+          "– Moodboard",
+          "– Farbkonzept",
+          "– Typografie",
+          "– Schaltflächengestaltung",
+          "– Style Tile",
+          "Layout",
+          "– Gestaltungsraster",
+          "– Wireframe",
+          "– Screendesign"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "21",
+    "title": "Produktion digitaler Anwendungen",
+    "hours": 24,
+    "practicalHours": 8,
+    "page": 39,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "21.1",
+        "page": 39,
+        "objective": "Die Schülerinnen und Schüler beschreiben den digitalen Workflow für die Produktion und Ausgabe digitaler Medien unter Berücksichtigung der technischen Gegebenheiten digitaler Endgeräte.",
+        "content": [
+          "Technische Spezifikationen",
+          "– Endgeräte",
+          "– Darstellungsprogramme",
+          "– Farbraum",
+          "Datenmanagement",
+          "– Ordner- und Dateistruktur",
+          "– Dateiformate",
+          "– Datenübertragung",
+          "– Dateiausgabe"
+        ]
+      },
+      {
+        "id": "21.2",
+        "page": 39,
+        "objective": "Für deren Einsatz in digitalen Anwendungen optimieren die Schülerinnen und Schüler Texte, Bilder und Grafiken.",
+        "content": [
+          "Text",
+          "Pixel- und Vektorgrafik",
+          "Sound und Video"
+        ]
+      },
+      {
+        "id": "21.3",
+        "page": 39,
+        "objective": "Die Schülerinnen und Schüler wenden Auszeichnungssprachen zur Strukturierung und Formatierung ihrer digitalen Anwendungen an.",
+        "content": [
+          "Seitenbeschreibungssprache",
+          "– Dateistruktur",
+          "– Sprach- und Strukturierungselemente",
+          "– Syntax",
+          "Formatierungssprache",
+          "– Sprachelemente",
+          "– Syntax",
+          "– Responsive Layouts",
+          "– Gestaltung",
+          "– Typografie",
+          "– Schaltflächen"
+        ]
+      },
+      {
+        "id": "21.4",
+        "page": 40,
+        "objective": "Die Schülerinnen und Schüler gestalten interaktive Elemente und interaktive Kommunikationsmöglichkeiten.",
+        "content": [
+          "Navigationselemente",
+          "– Hyperlinks",
+          "– Schaltflächen",
+          "– Auswahlmenü",
+          "Formulare"
+        ]
+      },
+      {
+        "id": "21.5",
+        "page": 40,
+        "objective": "Mithilfe einer geeigneten Software erstellen die Schülerinnen und Schüler digitale Prototypen. Sie beurteilen, überprüfen und optimieren ihre Ergebnisse.",
+        "content": [
+          "Medienproduktion",
+          "– Layout",
+          "– Textimport",
+          "– Bilder, Grafiken",
+          "– Farben",
+          "– Endgerät",
+          "Software",
+          "– WYSIWYG-Editoren",
+          "– Prototyping Tools",
+          "Datenausgabe",
+          "– Validierung",
+          "– Test",
+          "– Optimierung"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "22",
+    "title": "Produkte und Gesellschaft",
+    "hours": 12,
+    "practicalHours": 0,
+    "page": 40,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "22.1",
+        "page": 40,
+        "objective": "Die Schülerinnen und Schüler analysieren und beurteilen Produkte unter gesellschaftlichen und designethischen Fragestellungen.",
+        "content": [
+          "Gesellschaftliche Verantwortung",
+          "Designethik"
+        ]
+      },
+      {
+        "id": "22.2",
+        "page": 41,
+        "objective": "Die Schülerinnen und Schüler beschreiben Modelle der Nachhaltigkeit und übertragen diese in die Produktgestaltung. Sie bewerten Produkte bzw. deren Werkstoffe auf Nachhaltigkeit. Sie entwickeln Konzeptionen für nachhaltige Produkte.",
+        "content": [
+          "Produktlebenszyklus",
+          "Nachhaltigkeit",
+          "– Drei-Säulen-Modell der Nachhaltigkeit",
+          "– Vorrangmodell der Nachhaltigkeit",
+          "– Ökologie – Ökonomie",
+          "Ökologische Aspekte",
+          "– Rohstoffgewinnung",
+          "– Werkstoffauswahl",
+          "– Reparaturfähigkeit – geplante Obsoleszenz",
+          "– Transport",
+          "– Nutzung",
+          "– Rückführung und Entsorgung"
+        ]
+      },
+      {
+        "id": "22.3",
+        "page": 41,
+        "objective": "Die Schülerinnen und Schüler beschreiben aktuelle Entwicklungen in der Produktgestaltung.",
+        "content": [
+          "Design und Technik",
+          "Digitalisierung und Miniaturisierung",
+          "Virtuelle Welten",
+          "Trends"
+        ]
+      },
+      {
+        "id": "22.4",
+        "page": 41,
+        "objective": "Die Schülerinnen und Schüler beschreiben Schutzrechte und Grundlagen der Produkthaftung.",
+        "content": [
+          "Schutz von Design",
+          "– eingetragenes Design",
+          "– Gebrauchsmuster",
+          "– Patent",
+          "Produkthaftung"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "23",
+    "title": "Redesign von Produkten",
+    "hours": 16,
+    "practicalHours": 6,
+    "page": 42,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "23.1",
+        "page": 42,
+        "objective": "Die Schülerinnen und Schüler analysieren existierende Produkte unter Beachtung von gesellschaftlichen und nachhaltigen Fragestellungen, den Produktfunktionen und den Gestaltungskategorien im Produktdesign und übertragen diese Ergebnisse auf ein Redesign.",
+        "content": [
+          "Definition Redesign",
+          "Redesignprojekt",
+          "– Konzeption",
+          "– Optimierung",
+          "– Entscheidungen und begründete",
+          "Auswahl"
+        ]
+      },
+      {
+        "id": "23.2",
+        "page": 42,
+        "objective": "Im Verwendungszusammenhang stellen die Schülerinnen und Schüler ihr Redesign in der passenden Umgebung realistisch dar. Sie zeichnen diese räumlichen schattierten Darstellungen sowohl manuell als auch computergestützt.",
+        "content": [
+          "Darstellung mit Umgebungsbezug",
+          "– manuell",
+          "– CAD-Rendering"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "24",
+    "title": "Übergreifendes Projekt",
+    "hours": 24,
+    "practicalHours": 10,
+    "page": 42,
+    "year": "Jahrgangsstufe 2",
+    "items": [
+      {
+        "id": "24.1",
+        "page": 42,
+        "objective": "Die Schülerinnen und Schüler konzipieren, gestalten und realisieren Produkte, Printmedien und digitale Medien. Sie führen dieses Projekt eigenverantwortlich durch und dokumentieren den Projektverlauf. Sie präsentieren ihr Projekt und analysieren ihr Ergebnis.",
+        "content": [
+          "Projektmanagement",
+          "Projektdurchführung",
+          "Projektdokumentation",
+          "Projektpräsentation"
+        ]
+      }
+    ]
+  }
+]

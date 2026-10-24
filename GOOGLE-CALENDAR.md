@@ -1,10 +1,11 @@
 # Kalender auf der Startseite
 
-Die Startseite zeigt den regelmäßigen Wochenstundenplan aus `Stundenplan.png`.
-Es gibt keine Google-Kalender-Anbindung und keine Google-Anmeldung.
+Der Kalender bietet Woche und Monat ohne Google-Anbindung.
+Die Wochenansicht enthält den regelmäßigen Stundenplan und datierte Upcoming-Notizen
+der ganzen Woche. Die Monatsansicht enthält nur die datierten Notizen.
+Notizen können angeklickt werden, um ihren vollständigen Text zu lesen.
 
-Die Unterrichtsblöcke und Zeiten sind in
-`src/components/views/MainApplication/SchoolCalendar.vue` hinterlegt.
-Die Wochenansicht umfasst Montag bis Freitag; die Tagesüberschriften zeigen nur die Wochentage ohne Datum.
-Der regelmäßige Stundenplan wiederholt sich wöchentlich.
-Ferien und Vertretungen werden nicht automatisch berücksichtigt.
+Der Stundenplan ist in `src/components/views/MainApplication/SchoolCalendar.vue`
+hinterlegt. Ferien und Vertretungen werden nicht automatisch berücksichtigt.
+Zur Datenbank-Erweiterung siehe `server/UPCOMING-STRATO.md`, Abschnitt
+„Erweiterung: Notizen mit Kalenderdatum“.
