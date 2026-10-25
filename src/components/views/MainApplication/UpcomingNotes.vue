@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Dialog from 'primevue/dialog'
@@ -15,6 +15,7 @@ const dateKey = date => date ? `${date.getFullYear()}-${String(date.getMonth() +
 
 const endpoint = import.meta.env.DEV ? '/site-auth/upcoming.php' : '/upcoming.php'
 const items = ref([])
+const undatedItems = computed(() => items.value.filter(item => !item.event_date))
 const loading = ref(false)
 const ready = ref(false)
 const saving = ref(false)
@@ -47,6 +48,7 @@ async function load() {
   finally { loading.value = false }
 }
 function edit(item = null) {
+  if (!ready.value || loading.value || saving.value) return
   editing.value = item
   title.value = item?.title || ''
   note.value = item?.note || ''
@@ -60,7 +62,7 @@ async function mutate(payload) {
 }
 async function save() {
   if (saving.value) return
-  if (!title.value.trim() || !note.value.trim()) { formError.value = 'Bitte gib einen Titel und eine Notiz ein.'; return }
+  if (!title.value.trim()) { formError.value = 'Bitte gib einen Titel ein.'; return }
   if (endDate.value && (!eventDate.value || dateKey(endDate.value) < dateKey(eventDate.value))) { formError.value = 'Bitte wähle ein Startdatum und ein Enddatum, das nicht davor liegt.'; return }
   saving.value = true
   formError.value = ''
@@ -86,6 +88,12 @@ async function remove() {
   } catch (reason) { formError.value = reason.message }
   finally { saving.value = false }
 }
+function askDelete(item) {
+  if (!ready.value || loading.value || saving.value) return
+  deleteTarget.value = item
+  formError.value = ''
+}
+defineExpose({ edit, askDelete })
 onMounted(load)
 </script>
 
@@ -95,18 +103,18 @@ onMounted(load)
     <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
     <Button label="Neu laden" size="small" text :loading="loading" :disabled="saving" @click="load" />
     <p v-if="loading" role="status">Notizen werden geladen …</p>
-    <p v-else-if="ready && !items.length" class="empty">Noch keine Notizen. Lege deine erste Karte an.</p>
+    <p v-else-if="ready && !undatedItems.length" class="empty">Keine Notizen ohne Datum. Datierte Notizen findest du im Kalender.</p>
     <div class="notes" :aria-busy="loading">
-      <Card v-for="item in items" :key="item.id" class="note-card">
+      <Card v-for="item in undatedItems" :key="item.id" class="note-card">
         <template #title><h4>{{ item.title }}</h4></template>
         <template #content><time v-if="item.event_date" :datetime="item.event_date">{{ new Date(item.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="item.end_date"> – {{ new Date(item.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-text">{{ item.note }}</p></template>
-        <template #footer><div class="actions"><Button label="Bearbeiten" size="small" text :disabled="!ready || saving || loading" :aria-label="`${item.title} bearbeiten`" @click="edit(item)" /><Button label="Löschen" size="small" severity="danger" text :disabled="!ready || saving || loading" :aria-label="`${item.title} löschen`" @click="deleteTarget = item; formError = ''" /></div></template>
+        <template #footer><div class="actions"><Button label="Bearbeiten" size="small" text :disabled="!ready || saving || loading" :aria-label="`${item.title} bearbeiten`" @click="edit(item)" /><Button label="Löschen" size="small" severity="danger" text :disabled="!ready || saving || loading" :aria-label="`${item.title} löschen`" @click="askDelete(item)" /></div></template>
       </Card>
     </div>
     <Dialog v-model:visible="editorOpen" modal :header="editing ? 'Notiz bearbeiten' : 'Neue Notiz'" :closable="!saving" :close-on-escape="!saving" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }">
       <form class="note-form" @submit.prevent="save">
         <label for="upcoming-title-input">Titel</label><InputText id="upcoming-title-input" v-model="title" maxlength="160" required autofocus :disabled="saving" />
-        <label for="upcoming-note-input">Notiz</label><Textarea id="upcoming-note-input" v-model="note" rows="6" maxlength="5000" required :disabled="saving" />
+        <label for="upcoming-note-input">Notiz (optional)</label><Textarea id="upcoming-note-input" v-model="note" rows="6" maxlength="5000" :disabled="saving" />
         <label for="upcoming-date-input">Startdatum im Kalender (optional)</label><DatePicker input-id="upcoming-date-input" v-model="eventDate" @update:model-value="value => { if (!value) endDate = null }" date-format="dd.mm.yy" show-icon show-clear :manual-input="false" :disabled="saving" />
         <label for="upcoming-end-date-input">Enddatum (optional, einschließlich)</label><DatePicker input-id="upcoming-end-date-input" v-model="endDate" date-format="dd.mm.yy" show-icon show-clear :manual-input="false" :min-date="eventDate || undefined" :disabled="saving || !eventDate" />
         <Message v-if="formError" severity="error" :closable="false">{{ formError }}</Message>

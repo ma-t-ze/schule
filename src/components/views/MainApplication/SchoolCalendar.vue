@@ -4,7 +4,9 @@ import SelectButton from 'primevue/selectbutton'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import CalendarRangeBars from './CalendarRangeBars.vue'
+import { lessons, periods } from './schoolTimetable'
 
+const emit = defineEmits(['edit-note', 'delete-note'])
 const props = defineProps({ notes: { type: Array, default: () => [] } })
 const view = ref('week')
 const views = [{ label: 'Woche', value: 'week' }, { label: 'Monat', value: 'month' }]
@@ -41,22 +43,6 @@ const days = computed(() => Array.from({ length: 7 }, (_, index) => {
   date.setDate(date.getDate() + index)
   return { date, notes: props.notes.filter(note => coversDay(note, dateKey(date))), label: date.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }), today: date.toDateString() === new Date().toDateString() }
 }))
-const lessons = [
-  { day: 0, start: '08:00', end: '09:30', className: '3TGG2', subject: 'GMT', room: '229' },
-  { day: 0, start: '09:50', end: '11:20', className: '3BKGD1/1', subject: 'NFZ', room: '' },
-  { day: 0, start: '13:00', end: '16:15', className: '3BKGD1/1', subject: 'GRD', room: '429' },
-  { day: 1, start: '08:00', end: '09:30', className: '3TGG1/2', subject: 'GMT', room: '429' },
-  { day: 1, start: '09:50', end: '11:20', className: '3TGG1/2', subject: 'GMT', room: '429' },
-  { day: 1, start: '13:45', end: '15:30', className: '3TGG1/2', subject: 'GMT', room: '429' },
-  { day: 2, start: '09:50', end: '11:20', className: '1BFD1', subject: 'BPK', room: '103' },
-  { day: 4, start: '09:50', end: '13:00', className: '3BKGD1/1', subject: 'MET', room: '118' }
-]
-const periods = [
-  ['08:00', '08:45'], ['08:45', '09:30'], ['09:50', '10:35'],
-  ['10:35', '11:20'], ['11:30', '12:15'], ['12:15', '13:00'],
-  ['13:00', '13:45'], ['13:45', '14:30'], ['14:45', '15:30'],
-  ['15:30', '16:15'], ['16:20', '17:05']
-]
 const minutes = value => { const [h, m] = value.split(':').map(Number); return h * 60 + m }
 const position = time => (minutes(time) - 480) / 545 * 100
 const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(minutes(lesson.end) - minutes(lesson.start)) / 545 * 100}%` })
@@ -64,7 +50,7 @@ const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(
 
 <template>
   <div class="school-calendar">
-    <div class="calendar-toolbar"><SelectButton v-model="view" :options="views" option-label="label" option-value="value" :allow-empty="false" aria-label="Kalenderansicht" /><Button label="Heute" text size="small" @click="focus = new Date()" /></div>
+    <div class="calendar-toolbar"><div class="calendar-view-controls"><SelectButton v-model="view" :options="views" option-label="label" option-value="value" :allow-empty="false" aria-label="Kalenderansicht" /><Button v-if="view === 'week'" class="break-alarm-link" as="a" href="/pausenalarm" target="_blank" rel="noopener noreferrer" label="Pausenalarm aktivieren" size="small" /></div><Button label="Heute" text size="small" @click="focus = new Date()" /></div>
     <div class="period-navigation"><Button label="‹" :aria-label="view === 'week' ? 'Vorherige Woche' : 'Vorheriger Monat'" text @click="navigate(-1)" /><h2 aria-live="polite">{{ periodTitle }}</h2><Button label="›" :aria-label="view === 'week' ? 'Nächste Woche' : 'Nächster Monat'" text @click="navigate(1)" /></div>
     <div v-if="view === 'month'" class="calendar-scroll" tabindex="0" role="region" aria-label="Monatskalender">
       <div class="month-calendar" :aria-label="periodTitle">
@@ -92,11 +78,13 @@ const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(
         </div>
       </div>
     </div>
-    <Dialog :visible="!!selectedNote" modal :header="selectedNote?.title" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value) selectedNote = null }"><time v-if="selectedNote?.event_date">{{ new Date(selectedNote.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="selectedNote.end_date"> – {{ new Date(selectedNote.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-detail">{{ selectedNote?.note }}</p></Dialog>
+    <Dialog :visible="!!selectedNote" modal :header="selectedNote?.title" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value) selectedNote = null }"><time v-if="selectedNote?.event_date">{{ new Date(selectedNote.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="selectedNote.end_date"> – {{ new Date(selectedNote.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-detail">{{ selectedNote?.note }}</p><template #footer><Button label="Bearbeiten" @click="emit('edit-note', selectedNote); selectedNote = null" /><Button label="Löschen" severity="danger" outlined @click="emit('delete-note', selectedNote); selectedNote = null" /></template></Dialog>
   </div>
 </template>
 
 <style scoped>
+.break-alarm-link, .break-alarm-link:hover, .break-alarm-link:focus-visible { text-decoration: none; }
+.calendar-view-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .calendar-toolbar, .period-navigation { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .period-navigation h2 { font-size: 16px; font-weight: 500; margin: 0; }
 .week-note-grid { display: grid; grid-template-columns: 48px minmax(0, 1fr); border-bottom: 1px solid #dce3dd; }

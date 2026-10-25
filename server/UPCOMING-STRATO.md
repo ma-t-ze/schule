@@ -44,7 +44,7 @@ vorhanden sein. **Dev und Produktion verwenden dieselbe Datenbank.** Lokale
 
 ## Verhalten
 
-- Jede Karte hat Titel (max. 160 Zeichen) und Notiz (max. 5000 Zeichen).
+- Jede Karte hat Titel (max. 160 Zeichen) und optionaler Notiz (max. 5000 Zeichen).
 - Neue Karten erscheinen oben. Keine automatische Termininterpretation.
 - Zugriff nur mit der vorhandenen, serverseitig geprüften Website-Login-Sitzung.
 - Schreibzugriffe benötigen zusätzlich ein sitzungsgebundenes CSRF-Token.
@@ -88,3 +88,14 @@ beide mit; ohne Enddatum bleibt es ein einzelner Tag. Ein Enddatum vor dem Start
 ist ungültig. Beim Entfernen des Startdatums wird auch das Enddatum entfernt.
 Der Kalender zeigt die Notiz an allen Tagen des Zeitraums, auch über Wochen-
 und Monatsgrenzen hinweg.
+
+## Notizablauf
+
+Upcoming zeigt nur Notizen ohne Startdatum. Sobald ein Datum gespeichert wird,
+ist die Notiz ausschließlich im Kalender sichtbar. Ein Klick auf den Balken
+öffnet die Details mit Bearbeiten und Löschen. Wird das Startdatum beim Bearbeiten
+entfernt, erscheint die Notiz nach erfolgreichem Speichern wieder unter Upcoming.
+Für diesen Ablauf ist keine weitere Datenbankänderung nötig.
+
+Der Notiztext ist optional. Für diese Änderung die aktuelle `server/upcoming.php`
+nach `php/upcoming.php` hochladen; die Datenbanktabelle muss nicht geändert werden.

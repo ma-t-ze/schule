@@ -54,13 +54,13 @@ if ($method === 'POST') {
             if (!is_string($endDate) || !preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $endDate, $endParts) || (int)$endParts[1] < 1000 || !checkdate((int)$endParts[2], (int)$endParts[3], (int)$endParts[1]) || $eventDate === null || $endDate < $eventDate) respond(422, ['error' => 'Das Enddatum muss ein gültiges Datum ab dem Startdatum sein.']);
         }
         $title = $input['title'] ?? null;
-        $note = $input['note'] ?? null;
+        $note = $input['note'] ?? '';
         if (!is_string($title) || !is_string($note) || !preg_match('//u', $title) || !preg_match('//u', $note)) respond(422, ['error' => 'Titel und Notiz müssen Text sein.']);
         $title = trim($title);
         $note = trim($note);
         $titleLength = preg_match_all('/./us', $title);
         $noteLength = preg_match_all('/./us', $note);
-        if ($titleLength < 1 || $titleLength > 160 || $noteLength < 1 || $noteLength > 5000) respond(422, ['error' => 'Titel: 1–160 Zeichen. Notiz: 1–5000 Zeichen.']);
+        if ($titleLength < 1 || $titleLength > 160 || $noteLength > 5000) respond(422, ['error' => 'Titel: 1–160 Zeichen. Notiz: maximal 5000 Zeichen (optional).']);
     }
 }
 try {

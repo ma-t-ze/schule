@@ -7,7 +7,9 @@ import SchoolCalendar from './SchoolCalendar.vue'
 import UpcomingNotes from './UpcomingNotes.vue'
 import PlansOverview from '../Stoffverteilungsplaene/PlansOverview.vue'
 
+const isDev = import.meta.env.DEV
 const calendarNotes = ref([])
+const upcomingNotes = ref(null)
 const emailCopyStatus = ref('')
 async function copySchoolEmail() {
   try {
@@ -23,6 +25,8 @@ const neoInfo = ref(null)
 const paedmlInfo = ref(null)
 const teacherCodeInfo = ref(null)
 const internalAdminInfo = ref(null)
+const sickLeaveInfo = ref(null)
+const repairInfo = ref(null)
 
 const classes = [
   ['3BKGD1_1_MET', 'medientechnik'], ['1BFD1', '1bfd1'],
@@ -55,7 +59,8 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
           <RouterLink v-for="[label, name] in archive" :key="name" :to="{ name }">{{ label }}</RouterLink>
         </nav>
       </Panel>
-      <Panel header="Schuladministration" toggleable>
+      <Panel header="Schuladministration" toggleable collapsed>
+
         <div class="admin-link"><span class="school-email">heckel@chs.karlsruhe.de</span><Button label="Kopieren" size="small" text aria-label="Schul-E-Mail in die Zwischenablage kopieren" @click="copySchoolEmail" /><span role="status" class="copy-status">{{ emailCopyStatus }}</span></div>
         <div class="admin-link"><a href="https://webuntis.com/" target="_blank" rel="noopener noreferrer">WebUntis ↗</a><Button label="i" aria-label="Was ist WebUntis?" rounded outlined size="small" @click="webuntisInfo.toggle($event)" /></div>
         <div class="admin-link"><a href="https://m365.cloud.microsoft/apps/?fromcode=cmmiadtp424&amp;refOrigin=Google&amp;origindomain=Office&amp;auth=2" target="_blank" rel="noopener noreferrer">M365 ↗</a><Button label="i" aria-label="Was ist M365 an der CHS Karlsruhe?" rounded outlined size="small" @click="m365Info.toggle($event)" /></div>
@@ -70,10 +75,14 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
         <Popover ref="webuntisInfo"><div class="webuntis-info"><strong>Was ist WebUntis?</strong><p>WebUntis ist eine Online-Plattform für den Schulalltag. Sie zeigt Stunden- und Vertretungspläne. Je nach Ausstattung der Schule können Lehrkräfte dort auch das digitale Klassenbuch führen, Fehlzeiten erfassen und Unterrichtsinhalte oder Hausaufgaben dokumentieren.</p><a href="https://www.untis.at/produkte/webuntis/digitales-klassenbuch" target="_blank" rel="noopener noreferrer">Mehr bei Untis ↗</a></div></Popover>
         <div class="admin-link"><span>Interne Schulverwaltung CHS</span><Button label="i" aria-label="Information zur internen Schulverwaltung CHS" rounded outlined size="small" @click="internalAdminInfo.toggle($event)" /></div>
         <Popover ref="internalAdminInfo"><div class="webuntis-info"><strong>Interne Schulverwaltung CHS</strong><dl><dt>E-Mail</dt><dd>nachname@chs.karlsruhe.de</dd><dt>Server Schulverwaltung</dt><dd>Schulleitung (S:)</dd><dt>Server für eigene Dateien</dt><dd>Home (H:)</dd><dt>Server für Datentausch</dt><dd>Lehrernetz (L:)</dd></dl><p>Zugriff über CHS-Verwaltungsrechner.</p></div></Popover>
+        <div class="admin-link"><span>Reparaturschein EDV</span><Button label="i" aria-label="Hinweise zum Reparaturschein EDV" rounded outlined size="small" @click="repairInfo.toggle($event)" /></div>
+        <Popover ref="repairInfo"><div class="webuntis-info"><strong>Reparaturschein EDV</strong><p>Du findest den Reparaturschein in Microsoft Teams im Team <strong>Alle-Lehrer_Kib</strong>, im ausgeblendeten Kanal <strong>„Reperaturschein EDV“</strong>.</p><p>Markiere im Reparaturschein direkt die zuständige Person mit einer <strong>@-Erwähnung</strong>:</p><ul><li><strong>PädML:</strong> @Hasenhündl, @Mossa, @Akyol</li><li><strong>Lehrernetz / Verwaltungsnetz:</strong> @rsc</li><li><strong>iMacs:</strong> @Tögel, @Akyol</li><li><strong>iPads und Apple TV:</strong> @Baier</li><li><strong>Allgemeine Fragen / sonstige Themen:</strong> @Akyol</li></ul><p><strong>Bei iMacs bitte den Mac-Namen angeben.</strong> Du findest ihn auch über den Gast-Account in den Systemeinstellungen im Bereich „Info“.</p></div></Popover>
+        <div class="admin-link"><span>Bis 7:30 Uhr im Sekretariat krankmelden</span><Button label="i" aria-label="Hinweise zur Krankmeldung" rounded outlined size="small" @click="sickLeaveInfo.toggle($event)" /></div>
+        <Popover ref="sickLeaveInfo"><div class="webuntis-info"><strong>Krankmeldung</strong><p>Per E-Mail gerne auch schon früher krankmelden. Wenn möglich, Aufgaben an die Abteilungsleitung mitschicken, die die SuS bearbeiten könnten.</p><p>Bei TG-Beteiligung auch an der CES krankmelden.</p></div></Popover>
       </Panel>
 
-      <Panel v-for="title in ['Verlaufspläne']" :key="title" :header="title" toggleable collapsed>
-        <p class="empty-note">Noch keine Einträge.</p>
+      <Panel header="Verlaufspläne" toggleable collapsed>
+        <nav class="link-list" aria-label="Verlaufspläne"><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink></nav>
       </Panel>
       <Panel header="Prüfungen" toggleable collapsed>
         <nav class="link-list" aria-label="Prüfungsunterlagen">
@@ -84,14 +93,17 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
           <a href="/pruefungen/Aerztliches_Zeugnis.pdf" target="_blank" rel="noopener noreferrer">Ärztliches Zeugnis (PDF) ↗</a>
         </nav>
       </Panel>
+      <Panel v-if="isDev" header="Sitzpläne" toggleable collapsed>
+        <nav class="link-list" aria-label="Lokale Sitzpläne"><RouterLink to="/sitzplaene">Sitzpläne öffnen</RouterLink></nav>
+      </Panel>
     </aside>
     <div class="center-column">
-      <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" /></Panel>
+      <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>
       <Panel class="plans-panel" header="Stoffverteilungspläne" toggleable collapsed><PlansOverview /></Panel>
     </div>
     <Panel class="exams-column" header="Klassenarbeiten" toggleable>
       <ul><li v-for="name in exams" :key="name">{{ name }}</li></ul>
-      <UpcomingNotes @change="calendarNotes = $event" />
+      <UpcomingNotes ref="upcomingNotes" @change="calendarNotes = $event" />
     </Panel>
   </main>
 </template>

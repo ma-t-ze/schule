@@ -35,3 +35,6 @@ php
 
 # Private STRATO database credentials
 /server/database-config.php
+
+# Local-only student photos / seating-plan content; never commit or deploy
+/src/local-sitzplaene/

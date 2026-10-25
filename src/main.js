@@ -16,6 +16,24 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/pausenalarm',
+    name: 'pausenalarm',
+    component: () => import('./components/views/MainApplication/PausenalarmPage.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/verlaufsplaene/3d-druck',
+    component: () => import('./components/views/Verlaufsplaene/VerlaufsplanPage.vue'),
+    props: { topic: '3d-druck' },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/verlaufsplaene/gesetz-der-geschlossenheit',
+    component: () => import('./components/views/Verlaufsplaene/VerlaufsplanPage.vue'),
+    props: { topic: 'geschlossenheit' },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/stoffverteilungsplaene',
     component: () => import('./components/views/Stoffverteilungsplaene/views/Stoffverteilungsplaene.vue'),
     meta: { requiresAuth: true }
@@ -366,6 +384,16 @@ const routes = [
     meta: { requiresAuth: true }
   }
 ]
+
+if (import.meta.env.DEV) {
+  routes.push({
+    path: '/sitzplaene/:classId?',
+    name: 'sitzplaene-dev',
+    props: true,
+    component: () => import('./components/views/MainApplication/SitzplaeneDev.vue'),
+    meta: { requiresAuth: true }
+  })
+}
 
 const router = createRouter({
   history: createWebHistory(),
