@@ -5,6 +5,7 @@ import Button from 'primevue/button'
 import Popover from 'primevue/popover'
 import SchoolCalendar from './SchoolCalendar.vue'
 import UpcomingNotes from './UpcomingNotes.vue'
+import ExamChecklist from './ExamChecklist.vue'
 import { schoolYearPlanUrl } from './schoolYearEvents'
 import PlansOverview from '../Stoffverteilungsplaene/PlansOverview.vue'
 
@@ -45,6 +46,8 @@ const grdDatesOpen = ref(false)
 const grdDates = ['16.11.', 'nicht festgelegt', 'nicht festgelegt', 'nicht festgelegt']
 const tgg2DatesOpen = ref(false)
 const tgg2Dates = ['30.11.', 'nicht festgelegt']
+const tgg12DatesOpen = ref(false)
+const tgg12Dates = ['17.11.', 'nicht festgelegt', 'nicht festgelegt', 'nicht festgelegt', 'nicht festgelegt']
 </script>
 
 <template>
@@ -133,11 +136,15 @@ const tgg2Dates = ['30.11.', 'nicht festgelegt']
       <ul><li v-for="name in exams" :key="name">
         <template v-if="name === '3BKGD1_1_GRD'">
           <div class="exam-heading"><span>{{ name }} (0/4)</span><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
-          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="(date, index) in grdDates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}</li></ol>
+          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="(date, index) in grdDates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}<details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3bkgd1-1-grd-${index + 1}`" /></details></li></ol>
+        </template>
+        <template v-else-if="name === '3TGG1/2'">
+          <div class="exam-heading"><span>{{ name }} (0/5)</span><Button :label="tgg12DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg12DatesOpen" aria-controls="tgg12-exam-dates" aria-label="Klassenarbeitstermine für 3TGG1/2" @click="tgg12DatesOpen = !tgg12DatesOpen" /></div>
+          <ol v-if="tgg12DatesOpen" id="tgg12-exam-dates" class="exam-dates"><li v-for="(date, index) in tgg12Dates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}<details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3tgg1-2-${index + 1}`" /></details></li></ol>
         </template>
         <template v-else-if="name === '3TGG2'">
           <div class="exam-heading"><span>{{ name }} (0/2)</span><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
-          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="(date, index) in tgg2Dates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}</li></ol>
+          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="(date, index) in tgg2Dates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}<details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3tgg2-${index + 1}`" /></details></li></ol>
         </template>
         <template v-else>{{ name }}</template>
       </li></ul>
