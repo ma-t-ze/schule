@@ -5,6 +5,7 @@ import PostComposer from './PostComposer.vue'
 import PublicPosts from './PublicPosts.vue'
 import ProblemVotes from './ProblemVotes.vue'
 import PhaseTwo from './PhaseTwo.vue'
+import PhaseThree from './PhaseThree.vue'
 import { watchDesignPosts, designError } from '../../../services/designThinkingFirebase'
 const posts = ref([])
 const resultError = ref('')
@@ -96,7 +97,7 @@ const designThinking = {
   text: 'Design Thinking ist eine Methode, um Lösungen für Probleme zu entwickeln. Im Mittelpunkt stehen die Menschen, die eine Lösung später nutzen sollen. Ihr untersucht zuerst ihre Bedürfnisse. Dann sammelt ihr Ideen, macht einen einfachen Entwurf und probiert ihn mit anderen aus. Ihr nutzt ihre Rückmeldungen, um den Entwurf zu verbessern. Dabei könnt ihr immer wieder zu einem früheren Schritt zurückgehen.',
   example: 'Nach Briefing und Rebriefing arbeiten wir für unsere App mit sechs Phasen: Analysieren, Ideen finden, Anforderungen festlegen, Entwerfen, Testen und optimieren sowie Präsentieren. Wir beginnen mit einem Problem aus dem Schulalltag und überlegen erst danach, wie eine App helfen könnte.'
 }
-const terms = projectTerms.filter(term => ['Briefing, Rebriefing', 'Problemanalyse', 'Ideenfindung'].includes(term.title))
+const terms = ['Briefing, Rebriefing', 'Problemanalyse', 'Ideenfindung', 'Lastenheft und Pflichtenheft'].map(title => projectTerms.find(term => term.title === title)).filter(Boolean)
 
 function openTerm(term) { activeTerm.value = term; dialog.value.showModal() }
 function closeTerm() { dialog.value?.close() }
@@ -197,6 +198,7 @@ onBeforeUnmount(closeTerm)
             <p v-if="resultError" role="alert">{{ resultError }}</p>
           </details>
           <PhaseTwo :posts="posts" />
+          <PhaseThree />
           <router-link :to="{ name: '3tgg2-design-thinking-admin' }">Admin-Ansicht für die Lehrkraft</router-link>
         </div>
         <aside aria-labelledby="knowledge-title">
@@ -209,7 +211,7 @@ onBeforeUnmount(closeTerm)
       </div>
     </div>
     <dialog ref="dialog" class="term-dialog" :class="{ 'learning-dialog': activeTerm?.learning }" aria-labelledby="term-title" @click="event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) closeTerm() } }">
-      <template v-if="activeTerm"><button class="close-button" type="button" autofocus @click="closeTerm">Schließen ×</button><p class="eyebrow">{{ activeTerm.learning ? 'UNSER LERNWEG · EINFACH ERKLÄRT' : 'WISSENSINPUT' }}</p><h2 id="term-title">{{ activeTerm.title }}</h2><p v-if="activeTerm.subtitle">{{ activeTerm.subtitle }}</p><p class="term-definition">{{ activeTerm.text }}</p><p v-if="activeTerm.learning">Wenn ihr noch mehr Details wissen wollt, schaut euch gerne <a href="https://www.youtube.com/watch?v=Q2oODeqnLLY" target="_blank" rel="noopener noreferrer">dieses Video an ↗</a>.</p><div v-if="activeTerm.example" class="term-example"><strong>In unserem Projekt</strong><p>{{ activeTerm.example }}</p></div><p v-if="activeTerm.note" class="source">{{ activeTerm.note }}</p><a v-if="activeTerm.source" class="source" :href="activeTerm.source" target="_blank" rel="noopener noreferrer">{{ activeTerm.sourceLabel }} ↗</a></template>
+      <template v-if="activeTerm"><button class="close-button" type="button" autofocus @click="closeTerm">Schließen ×</button><p class="eyebrow">{{ activeTerm.learning ? 'UNSER LERNWEG · EINFACH ERKLÄRT' : 'WISSENSINPUT' }}</p><h2 id="term-title">{{ activeTerm.title }}</h2><p v-if="activeTerm.subtitle">{{ activeTerm.subtitle }}</p><p v-if="activeTerm.text" class="term-definition">{{ activeTerm.text }}</p><section v-for="section in activeTerm.sections || []" :key="section.title"><h3>{{ section.title }}</h3><p><template v-if="section.emphasis">{{ section.prefix }}<strong>{{ section.emphasis }}</strong></template>{{ section.text }}</p><p v-if="section.example"><strong>Beispiel:</strong> {{ section.example }}</p><p v-if="section.conclusion">{{ section.conclusion }}</p></section><p v-if="activeTerm.learning">Wenn ihr noch mehr Details wissen wollt, schaut euch gerne <a href="https://www.youtube.com/watch?v=Q2oODeqnLLY" target="_blank" rel="noopener noreferrer">dieses Video an ↗</a>.</p><div v-if="activeTerm.example" class="term-example"><strong>In unserem Projekt</strong><p>{{ activeTerm.example }}</p></div><p v-if="activeTerm.note" class="source">{{ activeTerm.note }}</p><a v-if="activeTerm.source" class="source" :href="activeTerm.source" target="_blank" rel="noopener noreferrer">{{ activeTerm.sourceLabel }} ↗</a></template>
     </dialog>
   </main>
 </template>

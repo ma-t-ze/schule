@@ -16,6 +16,12 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/pruefungen/paedagogik-psychologie',
+    name: 'pruefung-paedagogik-psychologie',
+    component: () => import('./components/views/PaedagogikPruefung/PaedagogikPruefung.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/pausenalarm',
     name: 'pausenalarm',
     component: () => import('./components/views/MainApplication/PausenalarmPage.vue'),
@@ -290,13 +296,6 @@ const routes = [
     path: '/bridgepage',
     name: 'bridgepage',
     component: () => import('./components/views/BridgePage/BridgePage.vue'),
-    meta: { requiresAuth: false }
-  },
-
-  {
-    path: '/gestaltgesetze',
-    name: 'gestaltgesetze',
-    component: () => import('./components/views/Gestaltgesetze/Gestaltgesetze.vue'),
     meta: { requiresAuth: false }
   },
 

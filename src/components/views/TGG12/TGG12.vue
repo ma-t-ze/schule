@@ -1,7 +1,7 @@
 <template>
   <main class="course-page">
-    <h1>3TGG12</h1>
-    <a class="qr-link" href="https://visualizer.matthiasheckel.com/3tgg12" aria-label="3TGG12-Übersicht öffnen">
+    <h1>3TGG1/2</h1>
+    <a class="qr-link" href="https://visualizer.matthiasheckel.com/3tgg12" aria-label="3TGG1/2-Übersicht öffnen">
       <img src="/3tgg12/qr-code.svg" width="240" height="240" alt="QR-Code zur Seite https://visualizer.matthiasheckel.com/3tgg12" />
     </a>
     <nav class="topic-links" aria-label="Unterrichtsthemen">

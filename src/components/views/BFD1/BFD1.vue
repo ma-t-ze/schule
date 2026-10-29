@@ -1,6 +1,6 @@
 <template>
   <main class="course-page">
-    <h1>1BFD1</h1>
+    <h1>1BFD1 BPK</h1>
     <nav class="topic-links" aria-label="Unterrichtsthemen">
       <router-link class="topic-link" :to="{ name: '1bfd1-layouts' }">Layouts und Wirkung</router-link>
     </nav>

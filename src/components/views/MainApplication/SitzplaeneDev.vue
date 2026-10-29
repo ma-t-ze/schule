@@ -13,6 +13,14 @@ const photos = import.meta.glob('../../../local-sitzplaene/klassen/*/*.{png,jpg,
 const classes = Object.entries(datasets).map(([path, data]) => ({ ...data, directory: path.slice(0, path.lastIndexOf('/')) }))
 const currentClass = computed(() => classes.find(item => item.id === props.classId))
 const seats = ref(originalPositions())
+// Temporary attendance follows the person, never the seat or persistence payload.
+const presentStudents = ref(new Set())
+function toggleAttendance(position) {
+  const next = new Set(presentStudents.value)
+  if (next.has(position)) next.delete(position)
+  else next.add(position)
+  presentStudents.value = next
+}
 const columns = ref(6)
 const rowCount = ref(5)
 const draftColumns = ref(6)
@@ -77,6 +85,7 @@ async function loadServer() {
   } finally { if (version === generation) loading.value = false }
 }
 watch(currentClass, () => {
+  presentStudents.value = new Set()
   generation++
   selected.value = null
   dragged.value = null
@@ -261,13 +270,17 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
       <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
       <div class="sync-actions"><Button label="Exportieren als PDF" size="small" outlined :loading="pdfBusy" :disabled="loading" @click="exportPdf" /><Button label="Auf STRATO speichern" size="small" :loading="saving" :disabled="!ready || loading || !dirty" @click="persist" /><Button label="Serverstand laden" size="small" outlined :loading="loading" :disabled="saving" @click="loadServer" /></div>
       <p v-if="pdfMessage" role="status">{{ pdfMessage }}</p>
+      <p class="attendance-hint">Anwesenheit: Kreis anklicken – grün bedeutet anwesend. Die Markierungen werden nicht gespeichert.</p>
       <div class="seating-scroll" tabindex="0" role="region" :aria-label="`Sitzplan mit ${columns} Spalten und ${rowCount} Reihen`">
         <div class="seating-grid" :style="{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, minWidth: `${columns * 130}px` }">
-          <button v-for="(position, index) in seats" :key="index" class="seat" :class="{ selected: selected === index, empty: !studentAt(position) }" :draggable="!!studentAt(position) && !saving && !loading" :disabled="saving || loading" :aria-pressed="selected === index" :aria-label="`Reihe ${Math.floor(index / columns) + 1}, Platz ${index % columns + 1}: ${studentAt(position)?.name || 'frei'}`" @click="choose(index)" @keydown.esc="selected = null" @dragstart="startDrag($event, index)" @dragend="dragged = null" @dragover.prevent @drop.prevent="drop(index)">
+          <div v-for="(position, index) in seats" :key="index" class="seat-card">
+          <button class="seat" :class="{ selected: selected === index, empty: !studentAt(position) }" :draggable="!!studentAt(position) && !saving && !loading" :disabled="saving || loading" :aria-pressed="selected === index" :aria-label="`Reihe ${Math.floor(index / columns) + 1}, Platz ${index % columns + 1}: ${studentAt(position)?.name || 'frei'}`" @click="choose(index)" @keydown.esc="selected = null" @dragstart="startDrag($event, index)" @dragend="dragged = null" @dragover.prevent @drop.prevent="drop(index)">
             <span class="seat-number">{{ Math.floor(index / columns) + 1 }} · {{ index % columns + 1 }}</span>
             <template v-if="studentAt(position)"><img :src="photo(studentAt(position))" :alt="studentAt(position).name" draggable="false" /><strong>{{ studentAt(position).name }}</strong></template>
             <span v-else class="empty-label">Freier Platz</span>
           </button>
+          <Button v-if="studentAt(position)" unstyled type="button" class="attendance-toggle" :class="{ present: presentStudents.has(position) }" :aria-pressed="presentStudents.has(position)" :aria-label="`Anwesenheit für ${studentAt(position).name}`" :title="presentStudents.has(position) ? 'Anwesend – zum Leeren anklicken' : 'Nicht markiert – als anwesend markieren'" @click.stop="toggleAttendance(position)" />
+          </div>
         </div>
       </div>
     </template>
@@ -296,7 +309,12 @@ h1 { font-size: 28px; font-weight: 500; }
 .seat-toolbar { display: flex; gap: 12px; align-items: center; margin: 18px 0; min-height: 32px; }
 .seating-scroll { overflow-x: auto; max-width: 100%; }
 .seating-grid { display: grid;  gap: 12px; }
-.seat { font: inherit; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 180px; padding: 24px 8px 12px; gap: 8px; background: #f4f7f3; border: 2px solid #dce3dd; border-radius: 8px; color: inherit; cursor: grab; }
+.seat-card { position: relative; min-width: 0; }
+.attendance-toggle { position: absolute; top: 4px; right: 5px; width: 28px; height: 28px; border: 2px solid #6c7f73; border-radius: 50%; background: #fff; cursor: pointer; padding: 0; }
+.attendance-toggle.present { background: #007c4a; border-color: #007c4a; }
+.attendance-toggle:focus-visible { outline: 3px solid #007c4a; outline-offset: 3px; }
+.attendance-hint { font-size: 14px; color: #526258; }
+.seat { width: 100%; height: 100%; box-sizing: border-box; font: inherit; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 180px; padding: 24px 8px 12px; gap: 8px; background: #f4f7f3; border: 2px solid #dce3dd; border-radius: 8px; color: inherit; cursor: grab; }
 .seat.selected { border-color: #007c4a; background: #e4f2e9; }
 .seat:focus-visible { outline: 3px solid #007c4a; outline-offset: 2px; }
 .seat.empty { border-style: dashed; cursor: pointer; }

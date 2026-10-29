@@ -5,9 +5,12 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import CalendarRangeBars from './CalendarRangeBars.vue'
 import { lessons, periods } from './schoolTimetable'
+import { schoolYearEvents } from './schoolYearEvents'
+import { classExamEvents } from './classExamEvents'
 
 const emit = defineEmits(['edit-note', 'delete-note'])
 const props = defineProps({ notes: { type: Array, default: () => [] } })
+const calendarEntries = computed(() => [...props.notes, ...schoolYearEvents, ...classExamEvents])
 const view = ref('week')
 const views = [{ label: 'Woche', value: 'week' }, { label: 'Monat', value: 'month' }]
 const selectedNote = ref(null)
@@ -19,7 +22,7 @@ const monthDays = computed(() => {
   return Array.from({ length: 42 }, (_, i) => {
     const date = new Date(start); date.setDate(start.getDate() + i)
     const key = dateKey(date)
-    return { date, key, outside: date.getMonth() !== focus.value.getMonth(), today: key === dateKey(new Date()), notes: props.notes.filter(note => coversDay(note, key)) }
+    return { date, key, outside: date.getMonth() !== focus.value.getMonth(), today: key === dateKey(new Date()), notes: calendarEntries.value.filter(note => coversDay(note, key)) }
   })
 })
 const periodTitle = computed(() => {
@@ -41,7 +44,7 @@ const week = computed(() => mondayOf(focus.value))
 const days = computed(() => Array.from({ length: 7 }, (_, index) => {
   const date = new Date(week.value)
   date.setDate(date.getDate() + index)
-  return { date, notes: props.notes.filter(note => coversDay(note, dateKey(date))), label: date.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }), today: date.toDateString() === new Date().toDateString() }
+  return { date, notes: calendarEntries.value.filter(note => coversDay(note, dateKey(date))), label: date.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }), today: date.toDateString() === new Date().toDateString() }
 }))
 const minutes = value => { const [h, m] = value.split(':').map(Number); return h * 60 + m }
 const position = time => (minutes(time) - 480) / 545 * 100
@@ -57,14 +60,14 @@ const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(
         <div class="month-weekdays"><strong v-for="day in ['Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.', 'So.']" :key="day">{{ day }}</strong></div>
         <div v-for="row in 6" :key="row" class="month-week">
           <div class="month-dates"><div v-for="day in monthDays.slice((row - 1) * 7, row * 7)" :key="day.key" :class="{ outside: day.outside, 'month-today': day.today }"><time :datetime="day.key" :aria-current="day.today ? 'date' : undefined">{{ day.date.getDate() }}</time></div></div>
-          <CalendarRangeBars :dates="monthDays.slice((row - 1) * 7, row * 7).map(day => day.key)" :notes="notes" @select="selectedNote = $event" />
+          <CalendarRangeBars :dates="monthDays.slice((row - 1) * 7, row * 7).map(day => day.key)" :notes="calendarEntries" @select="selectedNote = $event" />
         </div>
       </div>
     </div>
     <div v-else class="calendar-scroll" tabindex="0" role="region" aria-label="Stundenplan von Montag bis Sonntag, horizontal scrollbar">
       <div class="timetable">
         <div class="day-headings"><span>Zeit</span><strong v-for="day in days" :key="day.label" :class="{ today: day.today }">{{ day.label }}</strong></div>
-        <div class="week-note-grid"><span class="note-row-label">Termine</span><CalendarRangeBars :dates="days.map(day => dateKey(day.date))" :notes="notes" @select="selectedNote = $event" /></div>
+        <div class="week-note-grid"><span class="note-row-label">Termine</span><CalendarRangeBars :dates="days.map(day => dateKey(day.date))" :notes="calendarEntries" @select="selectedNote = $event" /></div>
         <div class="time-grid">
           <div class="time-axis" aria-label="Unterrichtsstunden">
             <div v-for="([start, end], index) in periods" :key="start" class="period-label" :style="{ top: `${position(start)}%`, height: `${(minutes(end) - minutes(start)) / 545 * 100}%` }"><span>{{ start }}</span><small>{{ index + 1 }}.</small><span>{{ end }}</span></div>
@@ -78,7 +81,7 @@ const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(
         </div>
       </div>
     </div>
-    <Dialog :visible="!!selectedNote" modal :header="selectedNote?.title" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value) selectedNote = null }"><time v-if="selectedNote?.event_date">{{ new Date(selectedNote.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="selectedNote.end_date"> – {{ new Date(selectedNote.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-detail">{{ selectedNote?.note }}</p><template #footer><Button label="Bearbeiten" @click="emit('edit-note', selectedNote); selectedNote = null" /><Button label="Löschen" severity="danger" outlined @click="emit('delete-note', selectedNote); selectedNote = null" /></template></Dialog>
+    <Dialog :visible="!!selectedNote" modal :header="selectedNote?.title" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value) selectedNote = null }"><time v-if="selectedNote?.event_date">{{ new Date(selectedNote.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="selectedNote.end_date"> – {{ new Date(selectedNote.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-detail">{{ selectedNote?.note }}</p><p v-if="selectedNote?.source" class="note-source"><a :href="selectedNote.sourceUrl" target="_blank" rel="noopener noreferrer">{{ selectedNote.source }} ↗</a></p><template v-if="!selectedNote?.readonly" #footer><Button label="Bearbeiten" @click="emit('edit-note', selectedNote); selectedNote = null" /><Button label="Löschen" severity="danger" outlined @click="emit('delete-note', selectedNote); selectedNote = null" /></template></Dialog>
   </div>
 </template>
 

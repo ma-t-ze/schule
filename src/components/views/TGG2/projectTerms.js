@@ -17,8 +17,27 @@ export default [
     "text": "Briefing\nEin Briefing beschreibt den Auftrag und die Rahmenbedingungen eines Projekts. Der Auftraggeber legt darin fest, was erreicht werden soll und welche Anforderungen und Vorgaben berücksichtigt werden müssen.\n\nKurz: Der Auftraggeber erklärt, was er braucht.\n\nRebriefing\nBeim Rebriefing gibt der Auftragnehmer den Auftrag in eigenen Worten wieder. Dadurch wird überprüft, ob die Aufgabe, die Ziele und die Anforderungen richtig verstanden wurden. Offene Fragen oder Missverständnisse können geklärt werden, bevor die eigentliche Arbeit beginnt.\n\nKurz: Der Auftragnehmer erklärt, was er verstanden hat, und offene Fragen werden geklärt."
   },
   {
-    "title": "Lastenheft, Pflichtenheft",
-    "text": "Das Lastenheft beschreibt Kundenanforderungen (z. B. Funktionen, Zielgruppe), das Pflichtenheft die technischen Spezifikationen und Umsetzungsvorgaben des Entwicklers.\n\nWo, wann: Web-App-Projekt\n\nIm Web-App-Projekt sammelten die SuS Kundenanforderungen über die Methode des Story Mapping. Die Anforderungen sind direkt in den Sub-Tasks abgebildet. Ein Lastenheft besteht nun im Wesentlichen aus einer schriftlichen Zusammenfassung dieser Sub-tasks. Weitere wichtige Elemente können sein: Erstellung einer Zielgruppenanalyse, Datenschutzanforderungen.\n\nDas nachfolgende Pflichtenheft spezifizierte die technische Umsetzung. Hierzu gehört beispielsweise die Auswahl der Software zum Programmieren, wie „VueJS für das Frontend und Firebase für das Backend“. Auch das responsive Design mit Figma-Prototypen wird festgehalten. Das Pflichtenheft dient als Basis für die Entwicklung und stellt sicher, dass alle technischen Anforderungen erfüllt werden. Bei hardwarebasierten Projekten wären zusätzlich Materialität, Produktionsverfahren und Fertigungsstandards zu berücksichtigen, um eine reibungslose Umsetzung zu gewährleisten.\n\nZusammenfassung:\n\nLastenheft:\n\nWird typischerweise in Zusammenarbeit mit dem Kunden erstellt. Es enthält die Anforderungen, Wünsche und Ziele des Kunden an das Projekt. Der Kunde beschreibt, was er benötigt und welche Funktionen die Lösung haben soll.\n\nPflichtenheft:\n\nWird vom Auftragnehmer (z. B. dem Entwicklerteam) erstellt. Es basiert auf dem Lastenheft und spezifiziert, wie die Anforderungen technisch umgesetzt werden. Das Pflichtenheft enthält Details zu Technologien, Architektur, Schnittstellen und Umsetzungsstrategien.\n\nDiese Trennung hilft, die Erwartungen klar zu definieren und sorgt für eine strukturierte Kommunikation zwischen Kunde und Auftragnehmer."
+    "title": "Lastenheft und Pflichtenheft",
+    "sections": [
+      {
+        "title": "1. Lastenheft – WAS soll entwickelt werden?",
+        "prefix": "Das Lastenheft wird vom ",
+        "emphasis": "Auftraggeber",
+        "text": " erstellt. Es beschreibt die Ziele und Wünsche an das Produkt, ohne die konkrete Umsetzung festzulegen."
+      },
+      {
+        "title": "2. Pflichtenheft – WIE soll es umgesetzt werden?",
+        "prefix": "Das Pflichtenheft wird vom ",
+        "emphasis": "Auftragnehmer",
+        "text": " erstellt. Es beschreibt, wie die Ziele des Lastenhefts konkret umgesetzt werden sollen."
+      },
+      {
+        "title": "3. Warum sind diese Dokumente wichtig?",
+        "prefix": "Die schriftliche Festlegung der Anforderungen und vereinbarten Leistungen ist besonders wichtig. Sie bildet die Grundlage für eine ",
+        "emphasis": "realistische Kostenabschätzung",
+        "text": " und schafft Klarheit darüber, welche Leistungen der Auftragnehmer erbringen muss. So lassen sich Missverständnisse und spätere Streitigkeiten zwischen Auftraggeber und Auftragnehmer vermeiden."
+      }
+    ]
   },
   {
     "title": "Problemanalyse",

@@ -5,6 +5,7 @@ import Button from 'primevue/button'
 import Popover from 'primevue/popover'
 import SchoolCalendar from './SchoolCalendar.vue'
 import UpcomingNotes from './UpcomingNotes.vue'
+import { schoolYearPlanUrl } from './schoolYearEvents'
 import PlansOverview from '../Stoffverteilungsplaene/PlansOverview.vue'
 
 const isDev = import.meta.env.DEV
@@ -29,21 +30,21 @@ const sickLeaveInfo = ref(null)
 const repairInfo = ref(null)
 
 const classes = [
-  ['3BKGD1_1_MET', 'medientechnik'], ['1BFD1', '1bfd1'],
-  ['3TGG12', '3tgg12'], ['3TGG2', '3tgg2']
+  ['1BFD1 BPK', '1bfd1'],
+  ['3TGG1/2', '3tgg12'], ['3TGG2', '3tgg2']
 ]
-const archive = [
+const metLinks = [
   ['Kahoot Farbmischsysteme und Programme BKGD', 'bkgd-live-quiz'],
-  ['Farbmischsysteme', 'farbmischsysteme'], ['Rally', 'rally'],
-  ['FreeCreatures', 'free-creatures'], ['Gesetz der Nähe', 'chaos'],
-  ['Gestaltgesetze', 'gestaltgesetze'], ['Variable Font', 'variablefont'],
-  ['Paperbridge', 'bridgepage'], ['BKGD Plattform', 'bkgdpage'],
-  ['Converse', 'conversepage'], ['3DPrint', '3dprint'],
-  ['Prüfung Schulrecht und Schulorganisation', 'pruefung-schulrecht'],
+  ['Medientechnik', 'medientechnik'],
   ['Programme im ersten Jahr Medientechnik', 'programme-medientechnik'],
-  ['Hardwarekomponenten', 'hardwarekomponenten']
+  ['Hardwarekomponenten', 'hardwarekomponenten'],
+  ['Farbmischsysteme', 'farbmischsysteme']
 ]
-const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
+const exams = ['3BKGD1/1 MET', '3BKGD1_1_GRD', '3TGG1/2', '3TGG2', '1BFD1 BPK']
+const grdDatesOpen = ref(false)
+const grdDates = ['16.11.', 'nicht festgelegt', 'nicht festgelegt', 'nicht festgelegt']
+const tgg2DatesOpen = ref(false)
+const tgg2Dates = ['30.11.', 'nicht festgelegt']
 </script>
 
 <template>
@@ -51,15 +52,41 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
     <aside class="sidebar" aria-label="Unterricht und Organisation">
       <Panel header="Klassen 2025/26" toggleable>
         <nav class="link-list" aria-label="Klassen 2025/26">
+          <Panel header="3BKGD1/1 MET" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="3BKGD1/1 MET"><RouterLink v-for="[label, name] in metLinks" :key="name" :to="{ name }">{{ label }}</RouterLink></nav>
+          </Panel>
           <RouterLink v-for="[label, name] in classes" :key="name" :to="{ name }">{{ label }}</RouterLink>
         </nav>
       </Panel>
       <Panel header="Archiv" toggleable collapsed>
         <nav class="link-list archive-links" aria-label="Archiv">
-          <RouterLink v-for="[label, name] in archive" :key="name" :to="{ name }">{{ label }}</RouterLink>
+          <Panel header="Prüfungen" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="Prüfungen im Archiv">
+              <RouterLink :to="{ name: 'pruefung-schulrecht' }">Prüfung Schulrecht und Schulorganisation</RouterLink>
+              <RouterLink :to="{ name: 'pruefung-paedagogik-psychologie' }">Prüfung Pädagogik und Pädagogische Psychologie</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="BKGD" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="BKGD">
+              <RouterLink :to="{ name: 'conversepage' }">Converse</RouterLink>
+              <RouterLink :to="{ name: 'bkgdpage' }">BKGD Plattform</RouterLink>
+              <RouterLink :to="{ name: 'variablefont' }">Variable Font</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="GMT" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="GMT">
+              <RouterLink :to="{ name: '3dprint' }">3DPrint</RouterLink>
+              <RouterLink :to="{ name: 'bridgepage' }">Paperbridge</RouterLink>
+              <RouterLink :to="{ name: 'chaos' }">Gesetz der Nähe</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="Privat" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="Privat"><RouterLink :to="{ name: 'rally' }">Rally</RouterLink><RouterLink :to="{ name: 'free-creatures' }">FreeCreatures</RouterLink></nav>
+          </Panel>
         </nav>
       </Panel>
       <Panel header="Schuladministration" toggleable collapsed>
+        <div class="admin-link"><a :href="schoolYearPlanUrl" target="_blank" rel="noopener noreferrer">Jahresplan CHS 2026/27 (PDF) ↗</a></div>
 
         <div class="admin-link"><span class="school-email">heckel@chs.karlsruhe.de</span><Button label="Kopieren" size="small" text aria-label="Schul-E-Mail in die Zwischenablage kopieren" @click="copySchoolEmail" /><span role="status" class="copy-status">{{ emailCopyStatus }}</span></div>
         <div class="admin-link"><a href="https://webuntis.com/" target="_blank" rel="noopener noreferrer">WebUntis ↗</a><Button label="i" aria-label="Was ist WebUntis?" rounded outlined size="small" @click="webuntisInfo.toggle($event)" /></div>
@@ -91,6 +118,7 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
           <a href="/pruefungen/Meldung_Kolloquien_Paed-PaedPsy_D.pdf" target="_blank" rel="noopener noreferrer">Meldung Kolloquien Päd-PädPsy D (PDF) ↗</a>
           <a href="/pruefungen/Pruefungsplan_PAED_PAEDPSYCH_D25_mit_Raum.pdf" target="_blank" rel="noopener noreferrer">Prüfungsplan PÄD + PÄDPSYCH D25 mit Raum (PDF) ↗</a>
           <a href="/pruefungen/Aerztliches_Zeugnis.pdf" target="_blank" rel="noopener noreferrer">Ärztliches Zeugnis (PDF) ↗</a>
+          <a href="/pruefungen/Klassen_UBs.jpg" target="_blank" rel="noopener noreferrer">Klassenauswahl für die unterrichtspraktischen Prüfungen (JPG) ↗</a>
         </nav>
       </Panel>
       <Panel v-if="isDev" header="Sitzpläne" toggleable collapsed>
@@ -102,7 +130,17 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
       <Panel class="plans-panel" header="Stoffverteilungspläne" toggleable collapsed><PlansOverview /></Panel>
     </div>
     <Panel class="exams-column" header="Klassenarbeiten" toggleable>
-      <ul><li v-for="name in exams" :key="name">{{ name }}</li></ul>
+      <ul><li v-for="name in exams" :key="name">
+        <template v-if="name === '3BKGD1_1_GRD'">
+          <div class="exam-heading"><span>{{ name }} (0/4)</span><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
+          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="(date, index) in grdDates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}</li></ol>
+        </template>
+        <template v-else-if="name === '3TGG2'">
+          <div class="exam-heading"><span>{{ name }} (0/2)</span><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
+          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="(date, index) in tgg2Dates" :key="index">{{ index + 1 }}. Klassenarbeit: {{ date }}</li></ol>
+        </template>
+        <template v-else>{{ name }}</template>
+      </li></ul>
       <UpcomingNotes ref="upcomingNotes" @change="calendarNotes = $event" />
     </Panel>
   </main>
@@ -118,6 +156,9 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
 .school-home :deep(.p-panel-header) { padding: 20px; gap: 8px; }
 .school-home :deep(.p-panel-title) { font: 500 21px 'Jost', sans-serif; }
 .school-home :deep(.p-panel-content) { padding: 0 20px 20px; }
+.class-subpanel :deep(.p-panel-title) { font-size: 17px; }
+.class-subpanel :deep(.p-panel-header) { padding: 10px 12px; }
+.class-subpanel :deep(.p-panel-content) { padding: 0 12px 12px; }
 .link-list { display: flex; flex-direction: column; gap: 6px; }
 .link-list a { padding: 10px 0; color: inherit; text-decoration: none; font-size: 17px; overflow-wrap: anywhere; }
 .link-list a:hover { color: #176746; text-decoration: underline; text-underline-offset: 5px; }
@@ -127,6 +168,8 @@ const exams = ['3BKGD1_1_MET', '3BKGD1_1_GRD', '3TGG12', '3TGG2', '1BFD1']
 .calendar-column, .exams-column { min-width: 0; align-self: start; }
 h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .exams-column ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 26px; font-size: 17px; overflow-wrap: anywhere; }
+.exam-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.exam-dates { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; font-size: 15px; }
 .admin-link + .admin-link { margin-top: 12px; }
 .school-email { user-select: text; overflow-wrap: anywhere; min-width: 0; font-size: 17px; }
 .copy-status { font-size: 13px; color: #526257; }
