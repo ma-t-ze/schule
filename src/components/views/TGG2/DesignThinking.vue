@@ -6,12 +6,15 @@ import PublicPosts from './PublicPosts.vue'
 import ProblemVotes from './ProblemVotes.vue'
 import PhaseTwo from './PhaseTwo.vue'
 import PhaseThree from './PhaseThree.vue'
+import TermContent from './TermContent.vue'
+const props = defineProps({ pdfMode: { type: Boolean, default: false } })
 import { watchDesignPosts, designError } from '../../../services/designThinkingFirebase'
 const posts = ref([])
 const resultError = ref('')
 let stopResults, resultGeneration = 0
 function stopPublished() { resultGeneration++; stopResults?.(); stopResults = null }
 onActivated(async () => {
+  if (props.pdfMode) return
   const generation = ++resultGeneration
   resultError.value = ''
   try { if (generation !== resultGeneration) return; stopResults = watchDesignPosts(value => { posts.value = value }, e => { resultError.value = designError(e, 'Beiträge laden') }, false) }
@@ -23,13 +26,14 @@ const prompts = ['Wer hat das Problem?', 'Wann tritt es auf?', 'Warum ist es ein
 const worksheet = ref({ team: '', problems: ['', '', '', '', ''], selected: '', investigation: ['', '', '', '', ''], question: '' })
 const storageNotice = ref('')
 try {
-  const saved = JSON.parse(localStorage.getItem(storageKey) || 'null')
+  const saved = props.pdfMode ? null : JSON.parse(localStorage.getItem(storageKey) || 'null')
   if (saved) {
     for (const key of ['team', 'selected', 'question']) if (typeof saved[key] === 'string') worksheet.value[key] = saved[key]
     for (const key of ['problems', 'investigation']) if (Array.isArray(saved[key])) worksheet.value[key] = Array.from({ length: 5 }, (_, i) => typeof saved[key][i] === 'string' ? saved[key][i] : '')
   }
 } catch { storageNotice.value = 'Automatisches Speichern ist nicht verfügbar. Ladet eure Antworten vor dem Schließen als PDF herunter.' }
 watch(worksheet, value => {
+  if (props.pdfMode) return
   try { localStorage.setItem(storageKey, JSON.stringify(value)) }
   catch { storageNotice.value = 'Automatisches Speichern ist nicht verfügbar. Ladet eure Antworten vor dem Schließen als PDF herunter.' }
 }, { deep: true })
@@ -115,7 +119,7 @@ onBeforeUnmount(closeTerm)
       </header>
       <div class="content-grid">
         <div class="lesson">
-          <details class="blue-card" aria-labelledby="project-overview">
+          <details class="blue-card" data-pdf-section="overview" aria-labelledby="project-overview">
             <summary><h2 id="project-overview">Projektverlauf</h2></summary>
             <h3>Das erste Treffen mit dem Kunden</h3>
             <ul>
@@ -132,7 +136,7 @@ onBeforeUnmount(closeTerm)
               <li>Präsentieren</li>
             </ol>
           </details>
-          <details class="blue-card" aria-labelledby="project-title">
+          <details class="blue-card" data-pdf-section="briefing" aria-labelledby="project-title">
             <summary><span class="block-heading"><span class="eyebrow">PROJEKTAUFTAKT · EINZELARBEIT · 20 MINUTEN</span><h2 id="project-title">Das Briefing – der Auftakt des Projekts</h2></span></summary>
             <div class="assignment">
               <h3>Arbeitsauftrag</h3>
@@ -151,12 +155,13 @@ onBeforeUnmount(closeTerm)
               <dt>Zeitrahmen</dt><dd>12 Unterrichtsstunden</dd>
               <dt>Erfolgskriterien</dt><dd>Die App löst ein nachvollziehbares Problem, berücksichtigt die Bedürfnisse der Zielgruppe und lässt sich einfach und intuitiv bedienen.</dd>
             </dl>
-            <PostComposer kind="briefing" label="Fasse kurz in eigenen Worten zusammen, was der Auftraggeber von dir will, und stelle bei Bedarf Rückfragen." />
+            <template v-if="pdfMode"><label class="field-label" for="pdf-briefing-answer">Deine Zusammenfassung und offenen Fragen</label><textarea id="pdf-briefing-answer" rows="6"></textarea></template>
+            <PostComposer v-if="!pdfMode" kind="briefing" label="Fasse kurz in eigenen Worten zusammen, was der Auftraggeber von dir will, und stelle bei Bedarf Rückfragen." />
             <h3>Rebriefing – den Auftrag gemeinsam klären</h3>
-            <PublicPosts :posts="posts.filter(post => post.kind === 'briefing')" />
+            <PublicPosts v-if="!pdfMode" :posts="posts.filter(post => post.kind === 'briefing')" />
             <p v-if="resultError" role="alert">{{ resultError }}</p>
           </details>
-          <details class="blue-card" aria-labelledby="phase-one">
+          <details class="blue-card" data-pdf-section="analysis" aria-labelledby="phase-one">
             <summary><span class="block-heading"><span class="eyebrow">PHASE 1 · GRUPPENARBEIT · 50 MINUTEN</span><h2 id="phase-one">Analysieren</h2></span></summary>
             <div class="assignment">
             <h3>Arbeitsauftrag</h3>
@@ -188,17 +193,17 @@ onBeforeUnmount(closeTerm)
                 <p>Formuliert euer Problem als Frage. Beginnt mit „Wie könnten wir …?“</p>
                 <blockquote>Wie könnten wir Schülerinnen und Schülern helfen, Freistunden sinnvoll zu nutzen?</blockquote>
                 <p class="example-note">Das ist ein Beispiel. Formuliert eine Frage zu eurem eigenen Problem.</p>
-                <PostComposer v-model="worksheet.question" kind="problem" label="Unsere Problemfrage" button-label="Problemfrage posten" />
+                <label v-if="pdfMode" class="field-label" for="pdf-problem-question">Unsere Problemfrage</label><textarea v-if="pdfMode" id="pdf-problem-question" rows="4"></textarea><PostComposer v-else v-model="worksheet.question" kind="problem" label="Unsere Problemfrage" button-label="Problemfrage posten" />
               </li>
             </ol>
             <button type="button" class="download-button" :disabled="exporting" @click="downloadWorksheet">{{ exporting ? 'PDF wird erstellt …' : 'Antworten als PDF herunterladen' }}</button>
             <p v-if="exportError" role="alert">{{ exportError }}</p>
-            <h3>Problemfragen der Klasse</h3>
-            <ProblemVotes :posts="posts.filter(post => post.kind === 'problem')" />
+            <h3 v-if="!pdfMode">Problemfragen der Klasse</h3>
+            <ProblemVotes v-if="!pdfMode" :posts="posts.filter(post => post.kind === 'problem')" />
             <p v-if="resultError" role="alert">{{ resultError }}</p>
           </details>
-          <PhaseTwo :posts="posts" />
-          <PhaseThree />
+          <PhaseTwo :posts="posts" :pdf-mode="pdfMode" data-pdf-section="ideas" />
+          <PhaseThree :pdf-mode="pdfMode" data-pdf-section="requirements" />
           <router-link :to="{ name: '3tgg2-design-thinking-admin' }">Admin-Ansicht für die Lehrkraft</router-link>
         </div>
         <aside aria-labelledby="knowledge-title">
@@ -211,8 +216,11 @@ onBeforeUnmount(closeTerm)
       </div>
     </div>
     <dialog ref="dialog" class="term-dialog" :class="{ 'learning-dialog': activeTerm?.learning }" aria-labelledby="term-title" @click="event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) closeTerm() } }">
-      <template v-if="activeTerm"><button class="close-button" type="button" autofocus @click="closeTerm">Schließen ×</button><p class="eyebrow">{{ activeTerm.learning ? 'UNSER LERNWEG · EINFACH ERKLÄRT' : 'WISSENSINPUT' }}</p><h2 id="term-title">{{ activeTerm.title }}</h2><p v-if="activeTerm.subtitle">{{ activeTerm.subtitle }}</p><p v-if="activeTerm.text" class="term-definition">{{ activeTerm.text }}</p><section v-for="section in activeTerm.sections || []" :key="section.title"><h3>{{ section.title }}</h3><p><template v-if="section.emphasis">{{ section.prefix }}<strong>{{ section.emphasis }}</strong></template>{{ section.text }}</p><p v-if="section.example"><strong>Beispiel:</strong> {{ section.example }}</p><p v-if="section.conclusion">{{ section.conclusion }}</p></section><p v-if="activeTerm.learning">Wenn ihr noch mehr Details wissen wollt, schaut euch gerne <a href="https://www.youtube.com/watch?v=Q2oODeqnLLY" target="_blank" rel="noopener noreferrer">dieses Video an ↗</a>.</p><div v-if="activeTerm.example" class="term-example"><strong>In unserem Projekt</strong><p>{{ activeTerm.example }}</p></div><p v-if="activeTerm.note" class="source">{{ activeTerm.note }}</p><a v-if="activeTerm.source" class="source" :href="activeTerm.source" target="_blank" rel="noopener noreferrer">{{ activeTerm.sourceLabel }} ↗</a></template>
+      <template v-if="activeTerm"><button class="close-button" type="button" autofocus @click="closeTerm">Schließen ×</button><TermContent :term="activeTerm" title-id="term-title" /></template>
     </dialog>
+    <section v-if="pdfMode" data-pdf-section="terms" aria-label="Wichtige Begriffe">
+      <article v-for="term in terms" :key="term.title" class="knowledge-panel"><TermContent :term="term" /></article>
+    </section>
   </main>
 </template>
 

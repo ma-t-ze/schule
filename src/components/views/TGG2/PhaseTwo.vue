@@ -4,11 +4,11 @@ import { submitDesignPost, designError } from '../../../services/designThinkingF
 import ProblemVotes from './ProblemVotes.vue'
 import { exportPhasePdf } from './exportPhasePdf'
 const phaseElement = ref(null)
-defineProps({ posts: { type: Array, default: () => [] } })
+const props = defineProps({ posts: { type: Array, default: () => [] }, pdfMode: { type: Boolean, default: false } })
 const draft = ref({ team: '', idea: '', pitch: '', team2: '', idea2: '', pitch2: '', candidate1: '', candidate2: '', candidate3: '', selectedCandidate: 'candidate1', finalIdea: '', matrix: Array.from({ length: 4 }, () => ({ text: '', scores: [0, 0, 0] })) })
 const notice = ref('')
 try {
-  const saved = JSON.parse(localStorage.getItem('3tgg2-phase2') || '{}')
+  const saved = props.pdfMode ? {} : JSON.parse(localStorage.getItem('3tgg2-phase2') || '{}')
   for (const key of Object.keys(draft.value)) if (typeof saved[key] === 'string') draft.value[key] = saved[key]
   if (Array.isArray(saved.matrix)) draft.value.matrix = Array.from({ length: 4 }, (_, i) => ({
     text: typeof saved.matrix[i]?.text === 'string' ? saved.matrix[i].text : '',
@@ -18,6 +18,7 @@ try {
   if (!draft.value.finalIdea) draft.value.finalIdea = draft.value[draft.value.selectedCandidate] || draft.value.idea2 || draft.value.idea || draft.value.candidate1
 } catch { notice.value = 'Deine Eingaben können auf diesem Gerät nicht automatisch gespeichert werden.' }
 watch(draft, value => {
+  if (props.pdfMode) return
   try { localStorage.setItem('3tgg2-phase2', JSON.stringify(value)) }
   catch { notice.value = 'Deine Eingaben können auf diesem Gerät nicht automatisch gespeichert werden.' }
 }, { deep: true })
@@ -39,7 +40,7 @@ async function postIdea() {
   finally { posting.value = false }
 }
 const exporting = ref(false), exportError = ref('')
-const pitchInfo = ref(false)
+const pitchInfo = ref(props.pdfMode)
 async function downloadAnswers() {
   if (exporting.value) return
   exporting.value = true; exportError.value = ''
@@ -74,7 +75,7 @@ const minute = value => `${Math.floor(value / 60)}:${String(value % 60).padStart
       <p>Jetzt entwickelt ihr Ideen, um eure Fragestellung aus Phase 1 zu beantworten. In dieser Phase zählt Quantität vor Qualität – es geht darum, so viele Ideen wie möglich zu sammeln, egal ob realistisch, verrückt oder ganz einfach.</p>
       <ul><li>Faltet ein DIN-A4-Blatt so, dass ihr 8 Felder bekommt.</li><li>Ihr habt 8 Minuten Zeit, um 8 unterschiedliche Ideen zu beschreiben.</li></ul>
     </section>
-    <section class="timer-block" aria-label="Timer für acht Ideen">
+    <section v-if="!pdfMode" class="timer-block" aria-label="Timer für acht Ideen">
       <div class="timer-controls"><button type="button" :disabled="running || remaining === 0" @click="start">{{ remaining === 480 ? 'Starten' : 'Fortsetzen' }}</button><button v-if="running" type="button" @click="pause">Pause</button><button v-if="remaining < 480" type="button" @click="reset">Zurücksetzen</button></div>
       <div class="timer-grid" aria-label="Achtmal eine Minute"><div v-for="(time, i) in times" :key="i" :aria-label="`Idee ${i + 1}: ${minute(time)}`" :class="{ active: running && time > 0 && time < 60, finished: time === 0 }"><strong>{{ minute(time) }}</strong></div></div>
       <p v-if="remaining === 0" role="status">Die acht Minuten sind vorbei.</p>
@@ -112,7 +113,7 @@ const minute = value => `${Math.floor(value / 60)}:${String(value % 60).padStart
       <button type="button" :disabled="posting || !finalIdea.trim() || finalIdea.length > 5000" @click="postIdea">{{ posting ? 'Wird gesendet …' : 'Idee posten' }}</button>
       <p v-if="postMessage" role="status">{{ postMessage }}</p><p v-if="postError" role="alert">{{ postError }}</p>
     </section>
-    <section class="phase-section" aria-labelledby="vote-title"><h3 id="vote-title">Die Klasse entscheidet sich für eine Idee</h3><ProblemVotes kind="idea" :posts="posts.filter(post => post.kind === 'idea')" /></section>
+    <section v-if="!pdfMode" class="phase-section" aria-labelledby="vote-title"><h3 id="vote-title">Die Klasse entscheidet sich für eine Idee</h3><ProblemVotes kind="idea" :posts="posts.filter(post => post.kind === 'idea')" /></section>
     <p v-if="notice" role="status">{{ notice }}</p>
     <div class="download-area" data-html2canvas-ignore><button class="download-button" type="button" :disabled="exporting" @click="downloadAnswers">{{ exporting ? 'PDF wird erstellt …' : 'Antworten als PDF herunterladen' }}</button></div>
     <p v-if="exportError" role="alert" data-html2canvas-ignore>{{ exportError }}</p>

@@ -1,12 +1,13 @@
 <script setup>
 import { ref, watch } from 'vue'
+const props = defineProps({ pdfMode: { type: Boolean, default: false } })
 const maxColumns = 12, maxStories = 12
 const story = () => ({ id: crypto.randomUUID(), text: '' })
 const column = () => ({ id: crypto.randomUUID(), activity: '', stories: Array.from({ length: 2 }, story) })
 const draft = ref({ version: 2, team: '', columns: Array.from({ length: 4 }, column) })
 const notice = ref(''), exporting = ref(false), exportError = ref('')
 try {
-  const saved = JSON.parse(localStorage.getItem('3tgg2-phase3-story-mapping') || 'null')
+  const saved = props.pdfMode ? null : JSON.parse(localStorage.getItem('3tgg2-phase3-story-mapping') || 'null')
   if (saved && typeof saved.team === 'string' && Array.isArray(saved.columns) && saved.columns.length > 0 && saved.columns.length <= maxColumns) {
     const columns = saved.columns.map(c => {
       if (typeof c.activity !== 'string' || !Array.isArray(c.stories) || !c.stories.length || c.stories.length > maxStories) throw new Error('Ungültiges Mapping')
@@ -20,6 +21,7 @@ try {
   }
 } catch { notice.value = 'Gespeicherte Eingaben konnten nicht geladen werden. Bitte sichert euer Mapping als PDF.' }
 watch(draft, value => {
+  if (props.pdfMode) return
   try { localStorage.setItem('3tgg2-phase3-story-mapping', JSON.stringify(value)) }
   catch { notice.value = 'Automatisches Speichern ist nicht verfügbar. Ladet euer Mapping vor dem Schließen als PDF herunter.' }
 }, { deep: true })
