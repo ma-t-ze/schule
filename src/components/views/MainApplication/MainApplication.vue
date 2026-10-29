@@ -127,6 +127,13 @@ const tgg12Dates = ['17.11.', 'nicht festgelegt', 'nicht festgelegt', 'nicht fes
       <Panel v-if="isDev" header="Sitzpläne" toggleable collapsed>
         <nav class="link-list" aria-label="Lokale Sitzpläne"><RouterLink to="/sitzplaene">Sitzpläne öffnen</RouterLink></nav>
       </Panel>
+      <Panel header="Lehrpläne" toggleable collapsed>
+        <nav class="link-list" aria-label="Lehrpläne">
+          <a href="/lehrplaene/Lehrplan_GMT.pdf" target="_blank" rel="noopener noreferrer">Lehrplan GMT (PDF) ↗</a>
+          <a href="/lehrplaene/Lehrplan_BKGD.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BKGD (PDF) ↗</a>
+          <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
+        </nav>
+      </Panel>
     </aside>
     <div class="center-column">
       <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>

@@ -26,9 +26,6 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-gestaltgesetze' }">
         #7 Gestaltgesetze
       </router-link>
-      <router-link class="topic-link" :to="{ name: '3tgg12-zusatzaufgabe' }">
-        Visuelle Kommunikation: Zusatzaufgabe
-      </router-link>
     </nav>
   </main>
 </template>

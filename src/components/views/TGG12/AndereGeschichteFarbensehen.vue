@@ -1,99 +1,25 @@
 <template>
-  <main class="lesson">
-    <nav class="lesson-nav" aria-label="Kursnavigation">
-      <router-link :to="{ name: '3tgg12' }">← Zur Übersicht 3TGG12</router-link>
-    </nav>
-    <section class="slide title-slide" aria-labelledby="lesson-title">
-      <p class="eyebrow">GRUNDLAGEN</p>
-      <h1 id="lesson-title">VISUELLE<br />KOMMUNIKATION</h1>
-      <footer>CHS | Heckel</footer>
-    </section>
-    <section class="slide" aria-labelledby="task-title">
-      <header class="subject"><span>GESTALTUNGS- UND MEDIENTECHNIK</span><span>Eingangsklasse</span></header>
-      <h2 id="task-title">Arbeitsauftrag</h2>
-      <div class="task-layout">
-        <div class="task-text">
-          <p>→ Zeichnet vier Quadrate über eine Doppelseite in eurer Kladde.</p>
-          <p>→ Erzählt in <strong>vier Schritten als Bildfolge</strong> eine <strong>alternative Erklärung</strong> dafür, warum wir Farben sehen. Nutzt dabei Ironie, Witz, Erwartungsbrüche und Humor.</p>
-        </div>
-        <div class="drawing-grid" role="img" aria-label="Vorlage: vier leere Zeichenfelder in zwei Reihen">
-          <div v-for="field in 4" :key="field"></div>
-        </div>
-      </div>
-      <footer>CHS | Heckel</footer>
-    </section>
+  <main class="document">
+    <nav aria-label="Kursnavigation"><RouterLink :to="{ name: '3tgg12' }">← Zur Übersicht 3TGG1/2</RouterLink></nav>
+    <h1>Eine andere Geschichte des Farbensehens</h1>
+    <div class="pages">
+      <img v-for="page in 2" :key="page" :src="`/3tgg12/farbensehen-seiten/seite-${String(page).padStart(2, '0')}.jpg`" :alt="`Eine andere Geschichte des Farbensehens – Dokumentseite ${page} von 2`" width="2200" height="1422" :loading="page === 1 ? 'eager' : 'lazy'">
+    </div>
+    <div class="download-area">
+      <a class="download-button" href="/material/3tgg12/Eine_andere_Geschichte_des_Farbensehens.pdf" download="06 Eine andere Geschichte des Farbensehens.pdf">PDF downloaden</a>
+    </div>
   </main>
 </template>
 
-<style scoped lang="scss">
-
-
-.lesson {
-  color: #111;
-  background: #efefed;
-  font-family: 'Jost', sans-serif;
-  user-select: text;
-}
-
-.lesson-nav {
-  padding: 18px clamp(20px, 4vw, 64px);
-  background: white;
-
-  a { color: inherit; text-underline-offset: 4px; }
-  a:focus-visible { outline: 3px solid #123cff; outline-offset: 5px; }
-}
-
-.slide {
-  position: relative;
-  box-sizing: border-box;
-  max-width: 1600px;
-  min-height: min(900px, 100svh);
-  margin: 0 auto 24px;
-  padding: clamp(24px, 4vw, 64px);
-  padding-bottom: 80px;
-  background: white;
-
-  h2, p { font-size: clamp(21px, 2.35vw, 34px); line-height: 1.5; }
-  h2 { margin: 32px 0 44px; }
-  p { margin: 0 0 36px; }
-  strong { font-weight: 600; }
-  footer { position: absolute; bottom: 28px; right: clamp(24px, 4vw, 64px); font-size: 13px; }
-}
-
-.subject {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 26px;
-
-  span:first-child { font-family: 'Anton', sans-serif; font-size: clamp(20px, 2.3vw, 32px); }
-  span:last-child { font-family: 'Anton', sans-serif; font-size: 18px; font-weight: 400; }
-  &::after { content: ''; width: 32px; height: 2px; background: currentColor; margin-top: 8px; }
-}
-
-.title-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  background: #1038ff;
-
-  .eyebrow { font-family: 'Graphit', sans-serif; font-weight: 600; letter-spacing: .35em; font-size: clamp(18px, 2.5vw, 34px); margin-bottom: 72px; }
-  h1 { font-family: 'Graphit', sans-serif; font-weight: 600; font-size: clamp(28px, 7.4vw, 112px); line-height: 1.15; letter-spacing: .015em; margin: 0; }
-}
-
-
-
-
-.task-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(28px, 4vw, 64px); }
-.drawing-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-self: start;
-  div { aspect-ratio: 1; border: 1px solid #111; }
-}
-@media (max-width: 700px) {
-  .task-layout { grid-template-columns: 1fr; }
-  .slide { min-height: auto; margin-bottom: 12px; }
-  .title-slide { min-height: 65svh; }
-  .title-slide .eyebrow { margin-bottom: 40px; }
-}
+<style scoped>
+.document { min-height: 100vh; background: #efefed; color: #111; font-family: 'Jost', Arial, sans-serif; }
+nav { padding: 20px clamp(20px, 4vw, 64px); background: white; }
+a { color: inherit; text-underline-offset: 4px; }
+a:focus-visible { outline: 3px solid #1038ff; outline-offset: 4px; }
+h1 { font-size: 28px; font-weight: 500; margin: 0; padding: 28px clamp(20px, 4vw, 64px); }
+.pages { max-width: 1600px; margin: auto; padding-bottom: 24px; }
+img { display: block; width: 100%; height: auto; margin-bottom: 24px; background: white; }
+.download-area { padding: 8px 20px 48px; text-align: center; }
+.download-button { display: inline-block; padding: 14px 24px; background: #1038ff; color: white; text-decoration: none; border-radius: 8px; font-size: 18px; }
+.download-button:hover { background: #0927c9; }
 </style>

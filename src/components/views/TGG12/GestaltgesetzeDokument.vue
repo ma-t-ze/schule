@@ -1,12 +1,12 @@
 <template>
   <main class="document">
-    <nav aria-label="Kursnavigation"><RouterLink :to="{ name: '3tgg12' }">← Zur Übersicht 3TGG12</RouterLink></nav>
-    <h1>Gestaltgesetze</h1>
+    <nav aria-label="Kursnavigation"><RouterLink :to="{ name: '3tgg12' }">← Zur Übersicht 3TGG1/2</RouterLink></nav>
+    <h1>Gestaltgesetze und Kunst VS Design</h1>
     <div class="pages">
-      <img v-for="page in 11" :key="page" :src="`/3tgg12/gestaltgesetze-seiten/seite-${String(page).padStart(2, '0')}.jpg`" :alt="`Gestaltgesetze – Dokumentseite ${page} von 11`" width="2200" height="1422" :loading="page === 1 ? 'eager' : 'lazy'">
+      <img v-for="page in 15" :key="page" :src="`/3tgg12/gestaltgesetze-kunst-design-seiten/seite-${String(page).padStart(2, '0')}.jpg`" :alt="`Gestaltgesetze und Kunst VS Design – Dokumentseite ${page} von 15`" width="2200" height="1422" :loading="page === 1 ? 'eager' : 'lazy'">
     </div>
     <div class="download-area">
-      <a class="download-button" href="/3tgg12/gestaltgesetze.pdf" download="07 Gestaltgesetze.pdf">PDF Downloaden</a>
+      <a class="download-button" href="/material/3tgg12/Gestaltgesetze_und_Kunst_VS_Design.pdf" download="07 Gestaltgesetze und Kunst VS Design.pdf">PDF downloaden</a>
     </div>
   </main>
 </template>
