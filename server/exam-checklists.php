@@ -38,7 +38,7 @@ $input = $method === 'POST' ? json_decode(file_get_contents('php://input', false
 if (!is_array($input)) respond(422, ['error' => 'Ungültige Anfrage.']);
 $key = $input['exam_key'] ?? '';
 if (!is_string($key) || !preg_match('/^2026-27-(3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/D', $key, $parts) || (int)$parts[2] > $keys[$parts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
-$fields = ['announced', 'materials', 'teams_announced', 'handed_out'];
+$fields = ['announced', 'materials', 'teams_announced', 'handed_out', 'accommodation'];
 if ($method === 'POST') {
     foreach ($fields as $field) if (!is_bool($input[$field] ?? null)) respond(422, ['error' => 'Ungültige Checkbox.']);
     $names = $input['makeup_names'] ?? null;
@@ -49,9 +49,9 @@ try {
     $config = require __DIR__ . '/database-config.php';
     $db = new PDO('mysql:host=' . $config['host'] . ';port=' . (int)($config['port'] ?? 3306) . ';dbname=' . $config['name'] . ';charset=utf8mb4', $config['user'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     if ($method === 'GET') {
-        $query = $db->prepare('SELECT announced, materials, teams_announced, handed_out, makeup_names, revision FROM school_exam_checklists WHERE exam_key = ?');
+        $query = $db->prepare('SELECT announced, materials, teams_announced, handed_out, accommodation, makeup_names, revision FROM school_exam_checklists WHERE exam_key = ?');
         $query->execute([$key]);
-        $item = $query->fetch() ?: ['announced' => false, 'materials' => false, 'teams_announced' => false, 'handed_out' => false, 'makeup_names' => '', 'revision' => 0];
+        $item = $query->fetch() ?: ['announced' => false, 'materials' => false, 'teams_announced' => false, 'handed_out' => false, 'accommodation' => false, 'makeup_names' => '', 'revision' => 0];
         foreach ($fields as $field) $item[$field] = (bool)$item[$field];
         $item['revision'] = (int)$item['revision'];
         respond(200, ['item' => $item, 'csrf' => $csrf]);
@@ -61,7 +61,7 @@ try {
     $values[] = $key;
     if ($input['revision'] === 0) {
         try {
-            $query = $db->prepare('INSERT INTO school_exam_checklists (announced, materials, teams_announced, handed_out, makeup_names, exam_key) VALUES (?, ?, ?, ?, ?, ?)');
+            $query = $db->prepare('INSERT INTO school_exam_checklists (announced, materials, teams_announced, handed_out, accommodation, makeup_names, exam_key) VALUES (?, ?, ?, ?, ?, ?, ?)');
             $query->execute($values);
         } catch (PDOException $error) {
             if ($error->getCode() === '23000') respond(409, ['error' => 'In einem anderen Fenster geändert. Bitte neu laden.']);
@@ -69,7 +69,7 @@ try {
         }
     } else {
         $values[] = $input['revision'];
-        $query = $db->prepare('UPDATE school_exam_checklists SET announced = ?, materials = ?, teams_announced = ?, handed_out = ?, makeup_names = ?, revision = revision + 1 WHERE exam_key = ? AND revision = ?');
+        $query = $db->prepare('UPDATE school_exam_checklists SET announced = ?, materials = ?, teams_announced = ?, handed_out = ?, accommodation = ?, makeup_names = ?, revision = revision + 1 WHERE exam_key = ? AND revision = ?');
         $query->execute($values);
         if ($query->rowCount() !== 1) respond(409, ['error' => 'In einem anderen Fenster geändert. Bitte neu laden.']);
     }
