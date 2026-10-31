@@ -75,6 +75,11 @@ try {
     }
     respond(200, ['revision' => $input['revision'] + 1]);
 } catch (Throwable $error) {
+    if ($error instanceof PDOException) {
+        $code = (int)($error->errorInfo[1] ?? 0);
+        if ($code === 1146) respond(503, ['error' => 'Die Tabelle school_exam_checklists fehlt. Bitte exam-checklists.sql in der ausgewählten STRATO-Datenbank importieren.']);
+        if ($code === 1054) respond(503, ['error' => 'Die Datenbankspalte für Nachteilsausgleich fehlt. Bitte exam-checklists-accommodation-migration.sql einmal in der bestehenden STRATO-Datenbank ausführen.']);
+    }
     error_log('Exam checklist operation failed: ' . get_class($error));
     respond(503, ['error' => 'Klassenarbeiten konnten nicht geladen oder gespeichert werden. Bitte PHP-Datei und Datenbanktabelle auf STRATO prüfen.']);
 }

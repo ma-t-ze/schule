@@ -49,7 +49,7 @@ try {
             $row = $query->fetch();
             if (!$row || $row['pdf_data'] === null) respond(404, ['error' => 'PDF nicht gefunden.']);
             header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment; filename="Nachteilsausgleich.pdf"');
+            header('Content-Disposition: inline; filename="Nachteilsausgleich.pdf"');
             header('Content-Length: ' . strlen($row['pdf_data']));
             echo $row['pdf_data']; exit;
         }
@@ -88,6 +88,10 @@ try {
     }
     respond(200, ['success' => true]);
 } catch (Throwable $error) {
+    if ($error instanceof PDOException) {
+        $code = (int)($error->errorInfo[1] ?? 0);
+        if ($code === 1146) respond(503, ['error' => 'Die Tabelle school_exam_accommodations fehlt. Bitte exam-accommodations.sql in der ausgewählten STRATO-Datenbank importieren.']);
+    }
     error_log('Exam accommodation operation failed: ' . get_class($error));
     respond(503, ['error' => 'Nachteilsausgleich konnte nicht geladen oder gespeichert werden. Bitte STRATO-Einrichtung prüfen.']);
 }

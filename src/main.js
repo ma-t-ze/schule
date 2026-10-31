@@ -34,6 +34,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/verlaufsplaene/kopierstempel-in-photoshop',
+    component: () => import('./components/views/Verlaufsplaene/VerlaufsplanPage.vue'),
+    props: { topic: 'kopierstempel' },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/verlaufsplaene/gesetz-der-geschlossenheit',
     component: () => import('./components/views/Verlaufsplaene/VerlaufsplanPage.vue'),
     props: { topic: 'geschlossenheit' },
@@ -107,6 +113,46 @@ const routes = [
     path: '/1bfd1',
     name: '1bfd1',
     component: () => import('./components/views/BFD1/BFD1.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/1bfd1/medientechnik',
+    name: '1bfd1-medientechnik',
+    component: () => import('./components/views/Medientechnik/PhotoshopPage.vue'),
+    props: { level: 'overview' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/1bfd1/medientechnik/adobe-photoshop',
+    name: '1bfd1-photoshop',
+    component: () => import('./components/views/Medientechnik/PhotoshopPage.vue'),
+    props: { level: 'photoshop' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/1bfd1/medientechnik/adobe-photoshop/mini-tutorials',
+    name: '1bfd1-photoshop-mini',
+    component: () => import('./components/views/Medientechnik/PhotoshopPage.vue'),
+    props: { level: 'mini' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/1bfd1/medientechnik/adobe-photoshop/lerninhalte',
+    name: '1bfd1-photoshop-lerninhalte',
+    component: () => import('./components/views/Medientechnik/PhotoshopPage.vue'),
+    props: { level: 'lessons' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/1bfd1/medientechnik/adobe-photoshop/mini-tutorials/kopierstempel',
+    name: '1bfd1-photoshop-kopierstempel',
+    redirect: { name: '1bfd1-photoshop-kopierstempel-schritt', params: { step: 1 } }
+  },
+  {
+    path: '/1bfd1/medientechnik/adobe-photoshop/mini-tutorials/kopierstempel/:step([1-4])',
+    name: '1bfd1-photoshop-kopierstempel-schritt',
+    component: () => import('./components/views/Medientechnik/KopierstempelTutorial.vue'),
+    props: route => ({ step: Number(route.params.step) }),
     meta: { requiresAuth: false }
   },
   {

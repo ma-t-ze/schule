@@ -112,7 +112,7 @@ const tgg12Dates = ['17.11.', 'nicht festgelegt', 'nicht festgelegt', 'nicht fes
       </Panel>
 
       <Panel header="Verlaufspläne" toggleable collapsed>
-        <nav class="link-list" aria-label="Verlaufspläne"><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink></nav>
+        <nav class="link-list" aria-label="Verlaufspläne"><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink><RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink></nav>
       </Panel>
       <Panel header="Prüfungen" toggleable collapsed>
         <nav class="link-list" aria-label="Prüfungsunterlagen">

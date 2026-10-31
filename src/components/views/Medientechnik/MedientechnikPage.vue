@@ -61,27 +61,5 @@ const lessons = [
 </template>
 
 <style scoped>
-.media-page { background: #f8f7f3; color: #202d32; min-height: 100vh; font-family: 'Jost', Arial, sans-serif; user-select: text; }
-.media-page * { box-sizing: border-box; }
-.page-shell { max-width: 1180px; padding: 32px 28px 64px; margin: auto; }
-.breadcrumbs { display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; color: #435355; }
-a { color: inherit; text-underline-offset: 4px; }
-header { padding: 64px 0 36px; }
-.eyebrow { font-size: 12px; letter-spacing: .14em; color: #526166; margin: 0 0 18px; }
-h1 { font-size: clamp(36px, 6vw, 72px); line-height: 1.08; letter-spacing: -.04em; font-weight: 500; margin: 0; }
-h2 { font-size: clamp(25px, 3vw, 36px); font-weight: 500; margin: 0 0 24px; }
-.topic-link { display: flex; justify-content: space-between; align-items: center; gap: 24px; max-width: 680px; padding: 28px; background: white; border: 1px solid #dce0db; border-top: 4px solid #a02b62; border-radius: 16px; font-size: 24px; text-decoration: none; }
-.topic-link:hover { background: #ffedf5; }
-.topic-list { display: grid; gap: 20px; }
-.topic-link small { display: block; font-size: 16px; line-height: 1.6; margin-top: 12px; color: #526166; }
-:is(a,.table-scroll):focus-visible { outline: 3px solid #a02b62; outline-offset: 4px; }
-.table-scroll { overflow-x: auto; border: 1px solid #dce0db; border-radius: 14px; background: white; }
-table { border-collapse: collapse; width: 100%; min-width: 660px; line-height: 1.6; }
-th,td { text-align: left; vertical-align: top; padding: 18px 20px; border-bottom: 1px solid #e3e7e1; }
-thead { background: #ffedf5; color: #762048; }
-tbody th { color: #a02b62; font-weight: 500; width: 90px; }
-td:nth-child(2) { width: 55%; }
-tbody tr:nth-child(even) { background: #f8f9f6; }
-tbody tr:last-child :is(th,td) { border-bottom: 0; }
-@media (max-width: 700px) { .page-shell { padding: 24px 20px 40px; }header { padding-top: 40px; }th,td { padding: 14px; }.topic-link { padding: 22px; font-size: 21px; } }
+@import './mediaPage.css';
 </style>
