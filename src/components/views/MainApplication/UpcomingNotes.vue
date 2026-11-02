@@ -8,14 +8,14 @@ import Textarea from 'primevue/textarea'
 import Message from 'primevue/message'
 import DatePicker from 'primevue/datepicker'
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['change', 'ready'])
 const eventDate = ref(null)
 const endDate = ref(null)
 const dateKey = date => date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : null
 
 const endpoint = import.meta.env.DEV ? '/site-auth/upcoming.php' : '/upcoming.php'
 const items = ref([])
-const undatedItems = computed(() => items.value.filter(item => !item.event_date))
+const undatedItems = computed(() => items.value.filter(item => !item.event_date && !item.exam_key))
 const loading = ref(false)
 const ready = ref(false)
 const saving = ref(false)
@@ -36,6 +36,7 @@ async function request(options = {}) {
 }
 async function load() {
   loading.value = true
+  emit('ready', false)
   error.value = ''
   try {
     const data = await request()
@@ -45,7 +46,13 @@ async function load() {
     csrf = data.csrf
     ready.value = true
   } catch (reason) { error.value = reason.message; ready.value = false }
-  finally { loading.value = false }
+  finally { loading.value = false; emit('ready', ready.value) }
+}
+function editExam(examKey) {
+  if (!ready.value || loading.value || saving.value) return
+  const item = items.value.find(entry => entry.exam_key === examKey)
+  if (!item) { error.value = 'Der Klassenarbeitstermin ist noch nicht eingerichtet. Bitte upcoming-exams-migration.sql auf STRATO ausführen.'; return }
+  edit(item)
 }
 function edit(item = null) {
   if (!ready.value || loading.value || saving.value) return
@@ -68,6 +75,7 @@ async function save() {
   formError.value = ''
   try {
     const data = await mutate({ action: editing.value ? 'update' : 'create', id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim(), event_date: dateKey(eventDate.value), end_date: dateKey(endDate.value) })
+    if (editing.value?.exam_key && data.item?.exam_key !== editing.value.exam_key) throw new Error('Die Klassenarbeits-Zuordnung fehlt in der Serverantwort. Bitte die aktuelle upcoming.php hochladen und die Notizen neu laden.')
     if ((data.item?.event_date || null) !== dateKey(eventDate.value) || (data.item?.end_date || null) !== dateKey(endDate.value)) throw new Error('Das Kalenderdatum wurde vom Server nicht übernommen. Bitte die aktualisierte upcoming.php und die Datumsspalte auf STRATO einrichten.')
     if (editing.value) items.value = items.value.map(item => item.id === editing.value.id ? data.item : item)
     else items.value.unshift(data.item)
@@ -81,8 +89,8 @@ async function remove() {
   saving.value = true
   formError.value = ''
   try {
-    await mutate({ action: 'delete', id: deleteTarget.value.id, revision: deleteTarget.value.revision })
-    items.value = items.value.filter(item => item.id !== deleteTarget.value.id)
+    const data = await mutate({ action: 'delete', id: deleteTarget.value.id, revision: deleteTarget.value.revision })
+    items.value = data.item ? items.value.map(item => item.id === deleteTarget.value.id ? data.item : item) : items.value.filter(item => item.id !== deleteTarget.value.id)
     emit('change', items.value)
     deleteTarget.value = null
   } catch (reason) { formError.value = reason.message }
@@ -93,7 +101,7 @@ function askDelete(item) {
   deleteTarget.value = item
   formError.value = ''
 }
-defineExpose({ edit, askDelete })
+defineExpose({ edit, editExam, askDelete })
 onMounted(load)
 </script>
 
@@ -111,7 +119,7 @@ onMounted(load)
         <template #footer><div class="actions"><Button label="Bearbeiten" size="small" text :disabled="!ready || saving || loading" :aria-label="`${item.title} bearbeiten`" @click="edit(item)" /><Button label="Löschen" size="small" severity="danger" text :disabled="!ready || saving || loading" :aria-label="`${item.title} löschen`" @click="askDelete(item)" /></div></template>
       </Card>
     </div>
-    <Dialog v-model:visible="editorOpen" modal :header="editing ? 'Notiz bearbeiten' : 'Neue Notiz'" :closable="!saving" :close-on-escape="!saving" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }">
+    <Dialog v-model:visible="editorOpen" modal :header="editing?.exam_key ? 'Klassenarbeit bearbeiten' : editing ? 'Notiz bearbeiten' : 'Neue Notiz'" :closable="!saving" :close-on-escape="!saving" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }">
       <form class="note-form" @submit.prevent="save">
         <label for="upcoming-title-input">Titel</label><InputText id="upcoming-title-input" v-model="title" maxlength="160" required autofocus :disabled="saving" />
         <label for="upcoming-note-input">Notiz (optional)</label><Textarea id="upcoming-note-input" v-model="note" rows="6" maxlength="5000" :disabled="saving" />
@@ -121,8 +129,8 @@ onMounted(load)
         <div class="actions"><Button label="Abbrechen" severity="secondary" text :disabled="saving" @click="editorOpen = false" /><Button label="Speichern" type="submit" :loading="saving" /></div>
       </form>
     </Dialog>
-    <Dialog :visible="!!deleteTarget" modal header="Notiz löschen?" :closable="!saving" :close-on-escape="!saving" :style="{ width: '26rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value && !saving) deleteTarget = null }">
-      <p>„{{ deleteTarget?.title }}“ endgültig löschen?</p>
+    <Dialog :visible="!!deleteTarget" modal :header="deleteTarget?.exam_key ? 'Klassenarbeitstermin entfernen?' : 'Notiz löschen?'" :closable="!saving" :close-on-escape="!saving" :style="{ width: '26rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value && !saving) deleteTarget = null }">
+      <p v-if="deleteTarget?.exam_key">Termin für „{{ deleteTarget.title }}“ aus dem Kalender entfernen? Unter Klassenarbeiten steht dann „nicht festgelegt“. Die Checkliste bleibt erhalten.</p><p v-else>„{{ deleteTarget?.title }}“ endgültig löschen?</p>
       <Message v-if="formError" severity="error" :closable="false">{{ formError }}</Message>
       <template #footer><Button label="Abbrechen" severity="secondary" text :disabled="saving" @click="deleteTarget = null" /><Button label="Löschen" severity="danger" :loading="saving" @click="remove" /></template>
     </Dialog>

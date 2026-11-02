@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 import Checkbox from 'primevue/checkbox'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
-import ExamAccommodations from './ExamAccommodations.vue'
 const props = defineProps({ examKey: { type: String, required: true } })
 const fields = [
   ['announced', 'Klassenarbeit angekündigt'],
@@ -52,7 +51,6 @@ onMounted(load)
         <Checkbox v-model="item[key]" binary :disabled="busy" @update:model-value="status = ''" />
         <span>{{ label }}</span>
       </label>
-      <ExamAccommodations v-if="key === 'accommodation'" :exam-key="examKey" />
       </template>
       <label :for="`makeup-${examKey}`">Nachschreiber</label>
       <Textarea :id="`makeup-${examKey}`" v-model="item.makeup_names" rows="2" auto-resize placeholder="Namen eintragen (optional)" maxlength="1000" :disabled="busy" @input="status = ''" />

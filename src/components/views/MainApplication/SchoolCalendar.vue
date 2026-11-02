@@ -6,11 +6,10 @@ import Dialog from 'primevue/dialog'
 import CalendarRangeBars from './CalendarRangeBars.vue'
 import { lessons, periods } from './schoolTimetable'
 import { schoolYearEvents } from './schoolYearEvents'
-import { classExamEvents } from './classExamEvents'
 
 const emit = defineEmits(['edit-note', 'delete-note'])
 const props = defineProps({ notes: { type: Array, default: () => [] } })
-const calendarEntries = computed(() => [...props.notes, ...schoolYearEvents, ...classExamEvents])
+const calendarEntries = computed(() => [...props.notes, ...schoolYearEvents])
 const view = ref('week')
 const views = [{ label: 'Woche', value: 'week' }, { label: 'Monat', value: 'month' }]
 const selectedNote = ref(null)

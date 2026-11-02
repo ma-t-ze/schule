@@ -68,15 +68,28 @@ try {
     $config = require __DIR__ . '/database-config.php';
     $db = new PDO('mysql:host=' . $config['host'] . ';port=' . (int)($config['port'] ?? 3306) . ';dbname=' . $config['name'] . ';charset=utf8mb4', $config['user'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     if ($method === 'GET') {
-        $items = $db->query('SELECT id, title, note, event_date, end_date, revision FROM school_upcoming ORDER BY id DESC')->fetchAll();
-        foreach ($items as &$item) { $item['id'] = (int)$item['id']; $item['revision'] = (int)$item['revision']; }
+        $items = $db->query('SELECT id, title, note, event_date, end_date, exam_key, revision FROM school_upcoming ORDER BY id DESC')->fetchAll();
+        foreach ($items as &$item) { $item['id'] = (int)$item['id']; $item['revision'] = (int)$item['revision']; $item['category'] = $item['exam_key'] ? 'exam' : null; }
         unset($item);
         respond(200, ['items' => $items, 'csrf' => $csrf]);
     }
     if ($action === 'create') {
         $statement = $db->prepare('INSERT INTO school_upcoming (title, note, event_date, end_date) VALUES (?, ?, ?, ?)');
         $statement->execute([$title, $note, $eventDate, $endDate]);
-        respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'revision' => 1]]);
+        respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => null, 'category' => null, 'revision' => 1]]);
+    }
+    // The association with a checklist is immutable and assigned by the migration,
+    // never by a user-supplied title or date.
+    $lookup = $db->prepare('SELECT exam_key, title, note FROM school_upcoming WHERE id = ? AND revision = ?');
+    $lookup->execute([$input['id'], $input['revision']]);
+    $existing = $lookup->fetch();
+    if (!$existing) respond(409, ['error' => 'Die Notiz wurde inzwischen geändert oder gelöscht. Bitte lade die Liste neu.']);
+    if ($action === 'delete' && $existing['exam_key']) {
+        // Remove only the calendar appointment; keep its checklist association.
+        $statement = $db->prepare('UPDATE school_upcoming SET event_date = NULL, end_date = NULL, revision = revision + 1 WHERE id = ? AND revision = ?');
+        $statement->execute([$input['id'], $input['revision']]);
+        if ($statement->rowCount() !== 1) respond(409, ['error' => 'Der Termin wurde inzwischen geändert. Bitte neu laden.']);
+        respond(200, ['item' => ['id' => $input['id'], 'title' => $existing['title'], 'note' => $existing['note'], 'event_date' => null, 'end_date' => null, 'exam_key' => $existing['exam_key'], 'category' => 'exam', 'revision' => $input['revision'] + 1]]);
     }
     if ($action === 'update') {
         $statement = $db->prepare('UPDATE school_upcoming SET title = ?, note = ?, event_date = ?, end_date = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
@@ -86,8 +99,11 @@ try {
         $statement->execute([$input['id'], $input['revision']]);
     }
     if ($statement->rowCount() !== 1) respond(409, ['error' => 'Die Notiz wurde inzwischen geändert oder gelöscht. Bitte lade die Liste neu.']);
-    respond(200, $action === 'update' ? ['item' => ['id' => $input['id'], 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'revision' => $input['revision'] + 1]] : ['success' => true]);
+    respond(200, $action === 'update' ? ['item' => ['id' => $input['id'], 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $existing['exam_key'], 'category' => $existing['exam_key'] ? 'exam' : null, 'revision' => $input['revision'] + 1]] : ['success' => true]);
 } catch (Throwable $error) {
+    if ($error instanceof PDOException && (int)($error->errorInfo[1] ?? 0) === 1054) {
+        respond(503, ['error' => 'Eine Kalender-Datenbankspalte fehlt. Bitte die Datums-/Zeitraum-Migrationen und upcoming-exams-migration.sql in der STRATO-Datenbank prüfen.']);
+    }
     error_log('Upcoming database operation failed: ' . get_class($error));
     respond(503, ['error' => 'Die Notizen konnten nicht gespeichert oder geladen werden. Bitte prüfe die Datenbank-Einrichtung oder versuche es später erneut.']);
 }

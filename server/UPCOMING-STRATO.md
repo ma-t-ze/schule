@@ -99,3 +99,15 @@ Für diesen Ablauf ist keine weitere Datenbankänderung nötig.
 
 Der Notiztext ist optional. Für diese Änderung die aktuelle `server/upcoming.php`
 nach `php/upcoming.php` hochladen; die Datenbanktabelle muss nicht geändert werden.
+
+## Klassenarbeiten als bearbeitbare Kalendereinträge
+
+Für bestehende Datenbanken einmal `server/upcoming-exams-migration.sql` in der ausgewählten Datenbank ausführen. Voraussetzung: Die früheren Datum-/Zeitraum-Migrationen sind bereits ausgeführt. Ergänzt werden `exam_key` (eindeutige Zuordnung) und elf Einträge für die bisher angelegten Klassenarbeiten 2026/27. Die drei bisherigen Termine (16.11., 17.11., 30.11.2026) werden übernommen; die übrigen bleiben ohne Datum. Vorhandene Notizen und Checklisten werden nicht verändert.
+
+Bei einer neuen Tabelle: aktuelle `upcoming.sql` importieren, danach `upcoming-exams-seed.sql`. Wenn `exam_key` bereits vorhanden ist, die ALTER-Anweisung nicht erneut ausführen; zum Ergänzen fehlender Einträge nur `upcoming-exams-seed.sql` verwenden. Der erneute Seed-Import überschreibt keine nachträglich geänderten Titel, Notizen oder Termine.
+
+Danach die aktualisierte private `server/upcoming.php` nach `php/upcoming.php` hochladen und den neuen Frontend-Build bereitstellen. Der öffentliche Einstieg bleibt unverändert. Das ist auch für den Dev-Modus erforderlich.
+
+Unter Klassenarbeiten auf einen Termin bzw. „nicht festgelegt“ klicken: Es öffnet sich der bekannte Notizdialog. Datum, optionales Enddatum, Titel und Notiz bearbeiten und speichern. Datierte Klassenarbeiten erscheinen rot im Kalender. Bearbeiten im Kalender aktualisiert sofort denselben Eintrag unter Klassenarbeiten. Beim Entfernen des Datums oder Löschen aus dem Kalender bleibt die Klassenarbeit mit „nicht festgelegt“ erhalten; die Checkliste und Nachteilsausgleich-Dokumente bleiben unverändert. Undatierte Klassenarbeiten erscheinen nicht zusätzlich in Upcoming.
+
+Prüfen: Einen Termin ändern, beide Ansichten vergleichen und neu laden. Einen noch offenen Termin setzen, Datum entfernen, erneut setzen und im Kalender löschen. Gewöhnliche Notizen weiterhin anlegen/bearbeiten/löschen. Ohne Sitzung HTTP 401; veraltete Version aus anderem Tab HTTP 409. Eine Live-Prüfung von PHP/MySQL ist erst nach Upload und Migration möglich; Browserprüfungen lokal verwenden simulierte API-Antworten.

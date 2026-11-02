@@ -34,9 +34,10 @@ if ($method === 'POST') {
 }
 session_write_close();
 $input = $method === 'POST' ? $_POST : $_GET;
-$key = $input['exam_key'] ?? '';
-$keys = ['3bkgd1-1-grd' => 4, '3tgg1-2' => 5, '3tgg2' => 2];
-if (!is_string($key) || !preg_match('/^2026-27-(3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/D', $key, $parts) || (int)$parts[2] > $keys[$parts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
+$key = $input['class_key'] ?? '';
+$keys = ['2026-27-3bkgd1-1-met', '2026-27-3bkgd1-1-grd', '2026-27-3tgg1-2', '2026-27-3tgg2', '2026-27-1bfd1-bpk'];
+if (!is_string($key) || !in_array($key, $keys, true)) respond(422, ['error' => 'Ungültige Klasse.']);
+// The existing exam_key column now stores the class key; see migration.
 $id = filter_var($input['id'] ?? 0, FILTER_VALIDATE_INT);
 if ($id === false || $id < 0) respond(422, ['error' => 'Ungültiger Eintrag.']);
 try {

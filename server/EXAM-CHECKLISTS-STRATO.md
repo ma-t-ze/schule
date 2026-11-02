@@ -23,3 +23,14 @@ Unter „Nachteilsausgleich berücksichtigt“ mit „Name hinzufügen“ einen 
 PDFs (maximal 5 MB) liegen als BLOB in der Datenbank und sind ausschließlich nach Website-Anmeldung über den PHP-Endpunkt herunterladbar. Es gibt keine öffentlichen Datei-URLs. PHP muss Uploads von 5 MB erlauben (`upload_max_filesize` mindestens 5M, `post_max_size` größer als 5M); Datenbank `max_allowed_packet` muss größer als 5 MB sein. Nach Einrichtung Name/PDF speichern, neu laden, herunterladen und Ersatz sowie Entfernen prüfen. Nicht angemeldet müssen auch PDF-Aufrufe HTTP 401 liefern. Lokal ist kein PHP-Interpreter vorhanden; die Live-Funktion muss nach Upload geprüft werden.
 
 Der Bereich „Namen und PDFs“ ist zunächst eingeklappt. „PDF anzeigen“ öffnet die geschützte PDF in einem neuen Browser-Tab. Dafür auch die aktuelle private `server/exam-accommodations.php` hochladen (Content-Disposition: inline). Keine Datenbankänderung nötig.
+
+## Nachteilsausgleich: Namen und PDFs pro Klasse
+
+Namen und PDFs werden direkt unter jeder Klasse verwaltet. Die Checkbox „Nachteilsausgleich berücksichtigt“ bleibt separat in jeder Klassenarbeit. Nachschreiber bleiben unverändert je Klassenarbeit.
+
+1. In phpMyAdmin die bestehende Schul-Datenbank auswählen und `exam-accommodations-class-migration.sql` ausführen. Die vorhandenen Namen und PDFs werden verlustfrei der Klasse zugeordnet. Mehrere bisherige Einträge derselben Person bleiben erhalten und können im Frontend bereinigt werden. Erneutes Ausführen verändert bereits überführte Einträge nicht.
+2. Die aktualisierte `server/exam-accommodations.php` im privaten `php/`-Verzeichnis neben `login.php` hochladen.
+3. Den neuen Build aus `dist/` hochladen. Die öffentliche PHP-Einstiegsdatei bleibt unverändert.
+4. Bei einer Klasse „Nachteilsausgleich · Namen und PDFs“ öffnen. Bestehende Einträge und PDF-Vorschau prüfen; Namen/PDFs lassen sich dort weiterhin hinzufügen, bearbeiten und entfernen. In den einzelnen Checklisten sind nur noch die zugehörigen Checkboxen, keine Namen oder PDF-Verwaltung.
+
+Die bestehende Tabelle und deren Spalte `exam_key` werden weiterverwendet; dort steht für diese Einträge nun der Klassenschlüssel. Anmeldung, CSRF-Schutz und Versionsprüfung bleiben erhalten.
