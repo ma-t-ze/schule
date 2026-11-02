@@ -30,9 +30,9 @@ async function downloadPdf() {
 }
 const pages = [
   { title: 'Arbeitsdatei anlegen, Zoomen und Scrollen', part: 'Teil 1 · Die beste Technik entdecken', minutes: 7 },
-  { title: 'Die richtige Einstellung für den Kopierstempel finden', part: 'Teil 1 · Technik entdecken', minutes: 9 },
-  { title: 'Steffi und den Helm retuschieren', part: 'Teil 2 · Einstellungen wählen und anwenden', minutes: 9 },
-  { title: 'Kontrollieren und sichern', part: 'Teil 2 · Einstellungen wählen und anwenden', minutes: 3 }
+  { title: 'Die richtige Größe und Härte für den Kopierstempel finden', part: 'Teil 1 · Technik entdecken', minutes: 9 },
+  { title: 'Steffi retuschieren', part: 'Teil 2 · Einstellungen wählen und anwenden', minutes: 9 },
+  { title: 'Zusatzaufgaben: Helm, Deckkraft und Fluss', part: 'Zusatzaufgaben · Für Schnelle' }
 ]
 </script>
 <template>
@@ -40,7 +40,7 @@ const pages = [
     <div class="screen-tools">
       <RouterLink :to="overview">← Adobe Photoshop</RouterLink>
       <h1 ref="heading" tabindex="-1">Retuschieren mit dem Kopierstempel-Werkzeug</h1>
-      <p>Zwei Teile · 30 Minuten · vier A4-Hochformatseiten. Die PDF enthält alle Seiten in derselben Gestaltung.</p>
+      <p>Zwei Teile · 30 Minuten · drei A4-Hochformatseiten und ein Extrablatt mit Zusatzaufgaben. Die PDF enthält alle Seiten in derselben Gestaltung.</p>
       <div class="tool-actions"><Button label="Arbeitsblatt als PDF" :loading="exporting" outlined @click="downloadPdf" /><Button as="a" :href="image" download="Kopierstempel_Matschflecken.png" label="Übungsbild herunterladen" text /></div>
       <p v-if="exportError" role="alert">{{ exportError }}</p>
       <nav class="page-nav" aria-label="Seiten des Arbeitsblatts"><RouterLink v-for="(page, index) in pages" :key="page.title" :to="link(index + 1)" :aria-current="step === index + 1 ? 'page' : undefined" :aria-label="`Seite ${index + 1}: ${page.title}`">{{ index + 1 }}</RouterLink></nav>
@@ -50,63 +50,71 @@ const pages = [
         <article v-for="(page, index) in pages" v-show="step === index + 1" :key="page.title" class="a4-page" :aria-label="`Arbeitsblatt Seite ${index + 1}`">
           <header class="sheet-header"><img :src="logo" width="128" height="44" alt="CHS Logo"><p class="subject">BF DRUCKTECHNIK MEDIENTECHNIK</p><p class="byline">Berufspraktische Kompetenz | CHS | Heckel</p></header>
           <div class="sheet-body">
-            <p class="part">{{ page.part }} · {{ page.minutes }} Minuten</p>
-            <h2 v-if="index !== 1 && index !== 2">{{ index === 0 ? 'Retuschieren mit dem Kopierstempel-Werkzeug' : `${index + 1}. ${page.title}` }}</h2>
+            <p class="part">{{ page.part }}<template v-if="page.minutes"> · {{ page.minutes }} Minuten</template></p>
+            <h2 v-if="index === 0">{{ index === 0 ? 'Retuschieren mit dem Kopierstempel-Werkzeug' : `${index + 1}. ${page.title}` }}</h2>
                         <template v-if="index === 0">
               <h3>Schritt 1: Arbeitsdatei anlegen</h3><ol>
                 <li>Erstelle auf dem Desktop einen Ordner mit deinem Namen.</li>
                 <li>Lade das Übungsbild aus Teams herunter. Du findest es unter <strong>Heckel → 02 Photoshop Kopierstempel → Vorlage.png</strong>. Speichere es in deinem Namensordner und öffne es in Photoshop über <strong>Datei → Öffnen</strong>.</li>
-                <li>Speichere eine Arbeitsdatei als <strong>Kopierstempel_Retusche.psd</strong> in deinem Namensordner. Das Original-PNG bleibt erhalten.</li>
-                <li>Öffne <strong>Fenster → Ebenen</strong>. Erstelle über das Plus eine leere Ebene über dem Foto. Nenne sie <strong>„Retusche“</strong>.</li>
+                <li>Speichere eine Arbeitsdatei als <strong>Kopierstempel_Retusche.psd</strong> in deinem Namensordner.</li>
               </ol>
-              <h3>Schritt 2: Zoomen und Scrollen</h3>
-              <p>Unten sind zwei Wege zum Zoomen und Scrollen in Photoshop beschrieben. Teste beide aus und schreibe kurz auf, welche Variante deiner Meinung nach fürs Retuschieren besser geeignet ist.</p>
+              <h3>Schritt 2: Das Arbeitsprinzip üben – nah heranzoomen zum Bearbeiten und weit herauszoomen zum Überprüfen</h3>
               <h4>Der einfache, aber beschwerliche Weg ohne Tastenkürzel</h4><ol>
-                <li>Wähle das <strong>Lupensymbol</strong> in der Werkzeugleiste.</li>
-                <li>Wähle oben die <strong>Lupe mit Plus</strong> zum Einzoomen oder die <strong>Lupe mit Minus</strong> zum Auszoomen. Klicke dann ins Bild.</li>
+                <li>Wähle das <strong>Lupensymbol</strong> in der Werkzeugleiste links. <img class="tool-icon" src="/medientechnik/photoshop/Lupensymbol.png" width="46" height="31" alt="Lupensymbol in der Photoshop-Werkzeugleiste"></li>
+                <li>Wähle oben die <strong>Lupe mit Plus</strong> zum Einzoomen oder die <strong>Lupe mit Minus</strong> zum Auszoomen. Klicke dann ins Bild. <img class="zoom-controls" src="/medientechnik/photoshop/Lupe_Plus_Minus.png" width="140" height="74" alt="Photoshop: Lupe mit Plus und Lupe mit Minus"></li>
                 <li>Verschiebe bei vergrößerter Ansicht den Ausschnitt mit den <strong>Balken am Rand der Arbeitsfläche</strong>: unten nach links und rechts, rechts nach oben und unten.</li>
               </ol>
               <h4>Der schnelle Weg mit Tastenkürzeln</h4><ol>
                 <li>Halte die <strong>Optiontaste (⌥)</strong> gedrückt und drehe das <strong>Scrollrad</strong>, um hinein- oder herauszuzoomen.</li>
                 <li>Halte die <strong>Leertaste</strong> gedrückt und ziehe mit <strong>gedrückter linker Maustaste</strong>, um die Ansicht zu verschieben. Lasse danach Maustaste und Leertaste los.</li>
               </ol>
-              <div class="writing-lines" aria-label="Platz für deine Rückmeldung"><span></span><span></span><span></span><span></span><span></span></div>
             </template>
             <template v-else-if="index === 1">
-              <h3>Schritt 3: Die richtige Einstellung für den Kopierstempel finden</h3>
+              <h3>Schritt 3: Die richtige Größe und Härte für den Kopierstempel finden</h3>
               <ol>
                 <li>Speichere über <strong>Datei → Speichern unter</strong> eine neue Datei <strong>„Kopierstempel Einstellungen.psd“</strong> in dem Ordner mit deinem Namen auf dem Schreibtisch.</li>
-                <li>Wähle den <strong>Kopierstempel</strong> in der Werkzeugleiste. Stelle oben <strong>Größe: 20 px · Fluss: 100 % · Deckkraft: 100 %</strong> ein. Nutze <strong>Modus: Normal</strong>, <strong>Ausgerichtet: an</strong> und <strong>Aufnehmen: Aktuell</strong>. Wähle im Ebenenbedienfeld die <strong>Fotoebene</strong> aus, damit du von ihr Pixel aufnehmen kannst.</li>
-                <li>Halte die <strong>Optiontaste (⌥)</strong> gedrückt und klicke auf eine saubere Hautstelle nahe am Fleck. Lasse die Taste los. Jetzt kannst du mit den aufgenommenen Pixeln den Fleck überdecken. Beobachte dabei das Quellenkreuz.</li>
+                <li>Wähle den <strong>Kopierstempel</strong> in der Werkzeugleiste. <img class="tool-icon" src="/medientechnik/photoshop/Kopierstempel_Symbol.png" width="46" height="35" alt="Kopierstempel-Symbol in der Photoshop-Werkzeugleiste"></li>
+                <li>Wähle das Symbol für <strong>„Auswahl für Pinselvorgaben“</strong> und gib dort eine <strong>Größe von 30 px</strong> und eine <strong>Härte von 100 %</strong> ein. <img class="tool-icon" src="/medientechnik/photoshop/Pinselvorgaben_Symbol.png" width="46" height="39" alt="Auswahl für Pinselvorgaben in Photoshop mit Größe 30 px">
+              <p><strong>Hinweis:</strong> Bitte überprüfe kurz, ob bei den übrigen Einstellungen die Standardeinstellungen eingestellt sind.</p>
+              <img class="settings-screenshot" src="/medientechnik/photoshop/Kopierstempel_Standardeinstellungen.png" width="1608" height="88" alt="Kopierstempel-Optionen: Modus Normal, Deckkraft 100 %, Fluss 100 %, Winkel 0°, Ausgerichtet aktiviert und Aufnehmen: Aktuelle Ebene.">
+                </li>
+                <li>Halte die <strong>Optiontaste (⌥)</strong> gedrückt und klicke auf eine saubere Hautstelle nahe an einem Matschfleck. Lasse die Taste los.</li>
+                <li>Klicke jetzt auf den Matschfleck.</li>
               </ol>
-              <p>Teste die folgenden Varianten am selben Matschfleck. Mache nach Variante 1 und 2 deine Stempelstriche mit <strong>⌘ + Z</strong> rückgängig, bis der Fleck wieder sichtbar ist. Nimm vor jeder Variante dieselbe saubere Quelle erneut auf.</p>
-              <div class="variant"><h3>1. Härte 100 %</h3><p>Stelle in der Pinselwahl oben <strong>Härte: 100 %</strong> ein. Größe bleibt 20 px, Fluss und Deckkraft bleiben 100 %. Entferne den Fleck und beobachte den Rand.</p></div>
-              <div class="variant"><h3>2. Härte 10 %</h3><p>Stelle <strong>Härte: 10 %</strong> ein. Größe bleibt 20 px, Fluss und Deckkraft bleiben 100 %. Entferne denselben Fleck und achte auf den Übergang zur umgebenden Haut.</p></div>
-              <div class="variant"><h3>3. Zusätzlich Deckkraft 10 %</h3><p>Nutze <strong>20 px · Härte 10 % · Fluss 100 % · Deckkraft 10 %</strong>. Nimm eine Quelle auf und <strong>klicke mehrfach auf den Fleck</strong>. Lasse die Maustaste nach jedem Klick los. Wiederhole, bis der Fleck weg ist; nimm bei Bedarf eine neue Quelle auf.</p></div>
-              <p>Was hast du beobachtet? Welche Variante hat deiner Meinung nach am besten funktioniert?</p>
-              <div class="writing-lines"><span></span><span></span><span></span><span></span></div>
+
+              <p><strong>Kurze Reflexion:</strong> Was habt ihr beobachtet? Fällt die Bearbeitung auf?</p>
+              <div class="writing-lines" aria-label="Platz für eure Reflexion"><span></span><span></span><span></span><span></span></div>
+              <ol start="6" class="settings-task">
+                <li>Reduziere nun die Härte deines Pinsels und passe die Größe nach Bedarf an, um deiner Meinung nach das beste Ergebnis zu erreichen. Notiere die Einstellungen für <strong>Größe und Härte</strong>.</li>
+              </ol>
+              <div class="writing-lines" aria-label="Platz für die Einstellungen für Größe und Härte"><span></span><span></span><span></span></div>
             </template>
             <template v-else-if="index === 2">
-              <h3>Schritt 4: Steffi und den Helm retuschieren</h3>
-              <p>Nutze deine Beobachtungen aus Teil 1: <strong>Wähle passende Einstellungen und begründe deine Wahl.</strong> Entferne anschließend die Matschflecken im Gesicht und am Helm. Passe deine Einstellungen an, wenn eine andere Stelle es erfordert.</p>
-              <h3>So gehst du vor</h3><ol>
-                <li>Wähle die leere Ebene <strong>„Retusche“</strong>. Prüfe: <strong>Aufnehmen → Aktuell und darunter</strong>. Übernimm deine gewählten Einstellungen.</li>
-                <li><strong>Gesicht:</strong> Entferne die Matschflecken auf Wange und Kinn. Nimm häufig eine neue Quelle mit ähnlicher Helligkeit, Farbe und Hautstruktur auf. Arbeite in kleinen Schritten.</li>
-                <li>Prüfe zwischendurch: Entstehen wiederholte Muster, helle Flecken oder auffällige Übergänge? Korrigiere Quelle und Einstellungen.</li>
+              <h3>Schritt 4: Steffi retuschieren</h3>
+              <ol>
+                <li>Schließe <strong>„Kopierstempel Einstellungen.psd“</strong> und öffne die Datei <strong>Kopierstempel_Retusche.psd</strong>.</li>
+                <li><strong>Gesicht:</strong> Entferne die Matschflecken im Gesicht mit den Erfahrungen und Einstellungen aus Schritt 3. Nimm immer eine neue Quelle mit ähnlicher Helligkeit, Farbe und Hautstruktur auf. Arbeite in kleinen Schritten. Zoome zum Bearbeiten nah an die Haut heran und zum Prüfen der Wirkung wieder heraus.</li>
+                <li>Speichere die PSD-Datei als <strong>Kopierstempel_Retusche.psd</strong> in deinem Namensordner.</li>
+                <li>Lade den Ordner mit deinem Namen in den Abgabeordner <strong>Heckel → 02 Photoshop Kopierstempel → Abgabeordner</strong> hoch.</li>
               </ol>
-              <p><strong>Speichere dein Ergebnis:</strong> Speichere die Photoshop-Datei mit Ebenen als <strong>Steffi_final.PSD</strong>. Exportiere zusätzlich über <strong>Datei → Exportieren → Exportieren als</strong> eine PNG-Datei namens <strong>Steffi final.png</strong>. Speichere beide Dateien im Ordner mit deinem Namen auf dem Desktop.</p>
+              <p><strong>Kurze Reflexion:</strong> Welche Art zu zoomen habt ihr benutzt? Was ist euch schwergefallen, was war einfach?</p>
+              <div class="writing-lines" aria-label="Platz für eure Reflexion zu Schritt 4"><span></span><span></span><span></span><span></span></div>
             </template>
-            <template v-else>
-              <h3>Vorher und nachher vergleichen</h3><ol>
-                <li>Blende „Retusche“ mit dem Augensymbol aus und wieder ein. Die Fotoebene bleibt eingeblendet.</li>
-                <li>Prüfe Gesicht <strong>und</strong> Helm in der Detailansicht und als Gesamtbild. Die Matschflecken sollen entfernt sein; Form, Struktur und wichtige Details bleiben erhalten.</li>
+            <template v-else-if="index === 3">
+              <h3>Zusatzaufgabe · Schritt 5: Den Helm retuschieren</h3>
+              <p>Falls du schnell bist und das Gesicht fertig hast, retuschiere zusätzlich den Helm in <strong>Kopierstempel_Retusche.psd</strong>.</p>
+              <ol>
+                <li>Speichere die Datei und lade die aktualisierte Version in deinen Namensordner im Abgabeordner auf Teams hoch.</li>
               </ol>
-              <h3>Ergebnischeck</h3><ul class="checklist"><li>Die Matschflecken im Gesicht sind entfernt.</li><li>Der Helm ist ebenfalls von Matsch befreit.</li><li>Hautstruktur, Gesichtszüge und Helmdetails sind erhalten.</li><li>Ich sehe keine auffälligen Stempelmuster oder Übergänge.</li><li>Das Originalbild ist unverändert erhalten.</li></ul>
-              <h3>Speichern</h3><ol>
-                <li>Speichere die Photoshop-Datei mit Ebenen als <strong>Steffi_final.PSD</strong> im Ordner mit deinem Namen auf dem Desktop.</li>
-                <li>Exportiere über <strong>Datei → Exportieren → Exportieren als</strong> zusätzlich eine PNG-Datei namens <strong>Steffi final.png</strong> in denselben Ordner.</li>
+              <h3>Zusatzaufgabe · Schritt 6: Mit Deckkraft und Fluss experimentieren</h3>
+              <ol>
+                <li>Öffne wieder <strong>„Kopierstempel Einstellungen.psd“</strong>. Wähle den Kopierstempel und nimm mit der <strong>Optiontaste (⌥)</strong> eine saubere Quelle nahe an einem Matschfleck auf.</li>
+                <li>Teste <strong>Deckkraft: 20 % · Fluss: 100 %</strong>. Ziehe mit gedrückter Maustaste mehrmals über den Fleck. Lasse danach die Maustaste los und setze erneut an. Was verändert sich?</li>
+                <li>Mache den Versuch mit <strong>⌘ + Z</strong> rückgängig. Teste am selben Fleck <strong>Deckkraft: 100 % · Fluss: 20 %</strong>. Bewege die Maus bei gedrückter Taste mehrmals hin und her.</li>
               </ol>
-              <h3>Kurze Rückmeldung</h3><p>Meine beste Einstellung war …, weil …</p><div class="writing-lines"><span></span><span></span></div><p>Am Helm musste ich besonders darauf achten, dass …</p><div class="writing-lines"><span></span><span></span></div>
+              <h4>Was ist der Unterschied?</h4>
+              <p><strong>Deckkraft</strong> begrenzt die Stärke eines gesamten Pinselstrichs. Bei niedriger Deckkraft scheint das ursprüngliche Bild durch. Erst wenn du die Maustaste loslässt und neu ansetzt, kannst du die Wirkung weiter aufbauen.</p>
+              <p><strong>Fluss</strong> bestimmt, wie viel pro Pinselabdruck aufgetragen wird. Bei niedrigem Fluss baut sich die Wirkung durch wiederholtes Überstreichen langsam auf – auch ohne die Maustaste loszulassen, bis zur eingestellten Deckkraft.</p>
             </template>
           </div>
           <footer class="sheet-footer"><span>Adobe Photoshop · Kopierstempel</span><span>{{ index + 1 }} / {{ pages.length }}</span></footer>
@@ -141,12 +149,16 @@ p { margin: 0 0 11px; }
 .screen-tools p { margin: 12px 0; }
 ol, ul { padding-left: 22px; margin: 8px 0 14px; }
 li { margin-bottom: 8px; padding-left: 3px; }
+.zoom-controls { display: block; width: 112px; height: auto; margin-top: 8px; }
+.tool-icon { display: inline-block; width: 46px; height: auto; vertical-align: middle; margin-left: 6px; }
+.settings-screenshot { display: block; width: 100%; height: auto; margin: 0 0 14px; }
 .exercise-photo { display: block; width: 100%; height: 242px; object-fit: contain; margin: 14px 0 18px; }
 .note, .task { background: #f1f3f2; border-left: 3px solid #7a8c86; padding: 12px 14px; margin-top: 16px; }
 .task h3 { margin-top: 0; }
 .task p { margin-bottom: 0; }
 .variant { border-top: 1px solid #d3dad6; margin-top: 13px; }
 .variant h3 { margin-top: 12px; }
+.settings-task { margin-top: 30px; }
 .writing-lines span { display: block; height: 25px; border-bottom: 1px solid #a7b0ad; }
 .checklist { list-style: none; padding-left: 0; }
 .checklist li::before { content: '□'; margin-right: 10px; }
