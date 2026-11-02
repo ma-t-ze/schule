@@ -84,7 +84,7 @@ onMounted(load)
 </script>
 <template>
   <div class="accommodations">
-    <Button label="Nachteilsausgleich · Namen und PDFs" text size="small" :aria-expanded="expanded" :aria-controls="`${classKey}-accommodations`" @click="expanded = !expanded">
+    <Button label="Nachteilsausgleich" text size="small" :aria-expanded="expanded" :aria-controls="`${classKey}-accommodations`" @click="expanded = !expanded">
       <template #icon><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" :style="{ transform: expanded ? 'rotate(90deg)' : undefined }"><path d="m4 2 4 4-4 4" stroke="currentColor" stroke-width="1.5" /></svg></template>
     </Button>
     <div v-show="expanded" :id="`${classKey}-accommodations`" class="accommodation-content">

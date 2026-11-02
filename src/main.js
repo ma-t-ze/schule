@@ -198,6 +198,12 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/rueckblick',
+    name: '3tgg12-rueckblick',
+    component: () => import('./components/views/TGG12/Rueckblick.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12/gestaltgesetze',
     name: '3tgg12-gestaltgesetze',
     component: () => import('./components/views/TGG12/GestaltgesetzeDokument.vue'),
