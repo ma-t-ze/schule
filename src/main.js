@@ -198,6 +198,12 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/semiotik',
+    name: '3tgg12-semiotik',
+    component: () => import('./components/views/TGG12/Semiotik.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12/rueckblick',
     name: '3tgg12-rueckblick',
     component: () => import('./components/views/TGG12/Rueckblick.vue'),

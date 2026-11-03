@@ -29,6 +29,9 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-rueckblick' }">
         #8 Rückblick
       </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-semiotik' }">
+        #9 Semiotik
+      </router-link>
     </nav>
   </main>
 </template>
