@@ -30,6 +30,17 @@ async function downloadPdf(mode) {
   } catch (error) { pdfError.value = error.message || 'PDF konnte nicht erstellt werden.' }
   finally { downloading.value = '' }
 }
+async function downloadWord(mode) {
+  downloading.value = `word-${mode}`; pdfError.value = ''
+  try {
+    selected.value = mode
+    await nextTick()
+    await textEditor.value?.whenLoaded()
+    const { exportPlanWord } = await import('./exportPlanWord')
+    await exportPlanWord(documentRoot.value, mode, title.value, props.topic)
+  } catch (error) { pdfError.value = error.message || 'Word-Dokument konnte nicht erstellt werden.' }
+  finally { downloading.value = '' }
+}
 watch(() => props.topic, () => { selected.value = 'verlauf' })
 const title = computed(() => props.topic === 'kopierstempel' ? 'Kopierstempel in Photoshop' : props.topic === '3d-druck' ? '3D Druck' : 'Gesetz der Geschlossenheit')
 const document = computed(() => props.topic === 'kopierstempel'
@@ -45,6 +56,8 @@ const document = computed(() => props.topic === 'kopierstempel'
     <div v-if="topic === 'kopierstempel'" class="pdf-actions">
       <Button label="Verlaufsplan als PDF" outlined :loading="downloading === 'verlauf'" :disabled="!!downloading || editingText" @click="downloadPdf('verlauf')" />
       <Button label="Unterrichtsausarbeitung als PDF" outlined :loading="downloading === 'langform'" :disabled="!!downloading || editingText" @click="downloadPdf('langform')" />
+      <Button label="Verlaufsplan als Word" outlined :loading="downloading === 'word-verlauf'" :disabled="!!downloading || editingText" @click="downloadWord('verlauf')" />
+      <Button label="Unterrichtsausarbeitung als Word" outlined :loading="downloading === 'word-langform'" :disabled="!!downloading || editingText" @click="downloadWord('langform')" />
     </div>
     <p v-if="pdfError" role="alert">{{ pdfError }}</p>
     <Tabs v-model:value="selected"><TabList><Tab value="verlauf" :disabled="editingText || !!downloading">Verlaufsplan</Tab><Tab value="langform" :disabled="editingText || !!downloading">Unterrichtsausarbeitung · Langform</Tab></TabList></Tabs>
