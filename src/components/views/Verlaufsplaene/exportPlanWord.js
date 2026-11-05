@@ -56,7 +56,7 @@ export async function exportPlanWord(root, mode, title, topic) {
   }
   function table(element) {
     if (element.classList.contains('toc')) return new TableOfContents('Inhaltsverzeichnis', { hyperlink: true, headingStyleRange: '1-3' })
-    const rows = [...element.rows]
+    const rows = [...element.rows].filter(row => !row.hidden)
     const count = Math.max(...rows.map(row => [...row.cells].reduce((sum, cell) => sum + cell.colSpan, 0)))
     let ratios = Array(count).fill(1 / count)
     const complete = rows.find(row => row.cells.length === count && [...row.cells].every(cell => cell.colSpan === 1))

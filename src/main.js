@@ -149,7 +149,7 @@ const routes = [
     redirect: { name: '1bfd1-photoshop-kopierstempel-schritt', params: { step: 1 } }
   },
   {
-    path: '/1bfd1/medientechnik/adobe-photoshop/mini-tutorials/kopierstempel/:step([1-4])',
+    path: '/1bfd1/medientechnik/adobe-photoshop/mini-tutorials/kopierstempel/:step([1-5])',
     name: '1bfd1-photoshop-kopierstempel-schritt',
     component: () => import('./components/views/Medientechnik/KopierstempelTutorial.vue'),
     props: route => ({ step: Number(route.params.step) }),
@@ -293,6 +293,17 @@ const routes = [
     component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
     props: { level: 'lessons' },
     meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/broschuere/:step([1-9])',
+    name: 'indesign-broschuere-schritt',
+    component: () => import('./components/views/Medientechnik/BroschuereTutorial.vue'),
+    props: route => ({ step: Number(route.params.step) }),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/broschuere/:step(10|11|12|13|14|15)',
+    redirect: { name: 'indesign-broschuere-schritt', params: { step: 1 } }
   },
   {
     path: '/medientechnik/adobe-indesign/veranstaltungsflyer/:step([1-4])',

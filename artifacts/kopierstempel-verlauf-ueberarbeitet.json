@@ -1,0 +1,121 @@
+{
+  "format": "schule-lesson-text-v1",
+  "document_key": "kopierstempel-verlauf",
+  "blocks": [
+    {
+      "key": "b845ebb2-0",
+      "base": "<ul><li>Quelle aufnehmen; zwischen Detail- und Gesamtansicht wechseln.</li><li>Größe und Härte erproben und passend wählen.</li><li>Gesicht retuschieren, PSD speichern und über Teams abgeben.</li></ul>",
+      "html": "<ul><li>Die SuS können den Begriff Bildretusche erläutern.</li><li>Die SuS können den Wechsel zwischen Detailansicht zum Bearbeiten und Gesamtansicht zur Qualitätskontrolle als grundlegendes Vorgehen bei der Bildretusche beschreiben.</li><li>Die SuS können den Kopierstempel in Photoshop zur Bildretusche einsetzen.</li></ul>"
+    },
+    {
+      "key": "76d90703-0",
+      "base": "<strong>Einstieg</strong><br>09:50<br>(8 Min.)",
+      "html": "<strong>Einstieg</strong><br>09:50<br>(6 Min.)"
+    },
+    {
+      "key": "505cd5e1-0",
+      "base": "Erfassen Steffis Auftrag und erklären Quelle/Ziel sowie den Ansichtswechsel.",
+      "html": "Die SuS verfolgen die Präsentation und erfassen den Retuscheauftrag."
+    },
+    {
+      "key": "39f45946-0",
+      "base": "Zeigt Steffi Marth und den Auftrag für „bike“. Erklärt Retusche, demonstriert Kopierstempel und Nah-/Fernansicht.",
+      "html": "Die Lehrkraft stellt ein praxisnahes Szenario zur Bildbearbeitung vor und führt den Begriff Bildretusche ein."
+    },
+    {
+      "key": "9e9ac0d8-0",
+      "base": "<strong>Praktische Phase 1</strong><br>09:58<br>(18 Min.)",
+      "html": "<strong>Erarbeitungsphase</strong><br>09:56<br>(34 Min.)"
+    },
+    {
+      "key": "c044695e-0",
+      "base": "Legen Dateien an und erproben Navigation (7 Min.). Stempeln mit 30 px/100 % Härte, reflektieren Spuren und passen Größe/Härte an (9 Min.).",
+      "html": "Die SuS verfolgen die Demonstration zur Bedienung des Kopierstempels und zum Vorgehen bei der Bildretusche."
+    },
+    {
+      "key": "dc4ffe3f-0",
+      "base": "Bündelt nach der Navigation kurz das Arbeitsprinzip (2 Min.). Begleitet Schritt 3 mit Reflexionsstopp vor Punkt 6; hilft bei Quelle und Pinselwahl.",
+      "html": "Die Lehrkraft erläutert den Retuscheauftrag und demonstriert die Funktionsweise des Kopierstempels: eine passende Quelle aufnehmen, Bilddetails übertragen und das Ergebnis durch den Wechsel zwischen Detail- und Gesamtansicht prüfen."
+    },
+    {
+      "key": "efad5810-0",
+      "base": "<strong>Reflexion</strong><br>10:16<br>(3 Min.)",
+      "html": "<strong>Praktische Phase</strong><br>10:16<br>(3 Min.)"
+    },
+    {
+      "key": "3c4551a9-0",
+      "base": "Benennen Bearbeitungsspuren, vergleichen gewählte Größe/Härte und halten Einstellungen fest.",
+      "html": "Die SuS bearbeiten die Schritt-für-Schritt-Anleitung zum Kopierstempel in Photoshop und füllen die farbig hinterlegten Reflexionsfelder schriftlich aus."
+    },
+    {
+      "key": "8cabf776-0",
+      "base": "Sichert passende Quelle, Pinselrand und Ansichtswechsel; klärt die Rückkehr zur Datei Kopierstempel_Retusche.psd.",
+      "html": "Die Lehrkraft gibt die Schritt-für-Schritt-Anleitung aus und erläutert den Arbeitsauftrag. Sie weist auf die vorgegebenen Dateinamen und das schriftliche Ausfüllen der farbig hinterlegten Felder hin.<br><br>Sie unterstützt individuell. Schnellere SuS bearbeiten nach Abschluss der Gesichtsretusche die Zusatzaufgaben zur Helmretusche sowie zu Deckkraft und Fluss."
+    },
+    {
+      "key": "e13201aa-0",
+      "base": "<strong>Praktische Phase 2</strong><br>10:19<br>(9 Min.)",
+      "html": "<br>"
+    },
+    {
+      "key": "1d3db4a0-0",
+      "base": "Öffnen die Retuschedatei; entfernen Matsch im Gesicht und prüfen aus der Gesamtansicht. Schnellere bearbeiten Zusatzaufgaben.",
+      "html": "<br>"
+    },
+    {
+      "key": "30507b82-0",
+      "base": "Unterstützt individuell. Gibt Helmretusche sowie Deckkraft-/Flussversuch nach Fertigstellung des Gesichts frei.",
+      "html": "<br>"
+    },
+    {
+      "key": "b9ad4538-0",
+      "base": "Einzelarbeit, Differenzierung",
+      "html": "<br>"
+    },
+    {
+      "key": "c70fd18e-0",
+      "base": "Arbeitsblatt S. 3; Zusatzblatt S. 4",
+      "html": "<br>"
+    },
+    {
+      "key": "cc1c1845-0",
+      "base": "<strong>Reflexion</strong><br>10:28<br>(3 Min.)",
+      "html": "<strong>Präsentation und Reflexion</strong><br>10:28<br>(3 Min.)"
+    },
+    {
+      "key": "733e2eb3-0",
+      "base": "Notieren: Welcher Zoomweg? Was war schwer, was einfach? Zeigen ausgewählte Ergebnisse.",
+      "html": "Ausgewählte SuS präsentieren ihre Ergebnisse und erläutern ihre Reflexion zum Arbeitsprozess."
+    },
+    {
+      "key": "1d26ebc3-0",
+      "base": "Moderiert Reflexion und prüft mit der Klasse die Unauffälligkeit der Retusche.",
+      "html": "Die Lehrkraft moderiert die Ergebnispräsentation und die Reflexion. Gemeinsam mit der Klasse prüft sie, ob die Retusche unauffällig wirkt."
+    },
+    {
+      "key": "a79c8adf-0",
+      "base": "<strong>Ergebnissicherung</strong><br>10:31<br>(4 Min.)",
+      "html": "<br>"
+    },
+    {
+      "key": "bfa8e8ee-0",
+      "base": "Speichern Kopierstempel_Retusche.psd; laden den Namensordner in den Teams-Abgabeordner hoch.",
+      "html": "<br>"
+    },
+    {
+      "key": "dc6ee9f1-0",
+      "base": "Sichert Quelle–Stempeln–Prüfen; kontrolliert Dateiname und Abgabe unter Heckel → 02 Photoshop Kopierstempel → Abgabeordner.",
+      "html": "<br>"
+    },
+    {
+      "key": "f156545b-0",
+      "base": "Sicherung, Einzelarbeit",
+      "html": "<br>"
+    },
+    {
+      "key": "97746a67-0",
+      "base": "Photoshop, Namensordner, Teams",
+      "html": "<br>"
+    }
+  ]
+}

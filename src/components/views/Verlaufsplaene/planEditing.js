@@ -20,20 +20,25 @@ function hash(text) {
   for (let i = 0; i < text.length; i++) value = Math.imul(value ^ text.charCodeAt(i), 16777619)
   return (value >>> 0).toString(16).padStart(8, '0')
 }
+// Bind identity to the template, rather than to DOM text already changed by an import or HMR.
+export function planBlockAttributes(html) {
+  const base = cleanTextHtml(html)
+  return { 'data-plan-key': `${hash('TD' + base)}-0`, 'data-plan-base': base }
+}
 export function collectBlocks(root) {
   const seen = new Map()
   const candidates = [...root.querySelectorAll('td, h1, h2, h3, h4, p, li, .thema-box')]
-    .filter(el => !el.closest('.toc') && !el.querySelector('a') && el.textContent.trim())
+    .filter(el => !el.closest('.toc') && !el.querySelector('a') && (el.hasAttribute('data-plan-key') || el.textContent.trim()))
   const set = new Set(candidates)
   return candidates.filter(el => {
     for (let parent = el.parentElement; parent && parent !== root; parent = parent.parentElement) if (set.has(parent)) return false
     return true
   }).map(el => {
-    const base = cleanTextHtml(el.innerHTML)
+    const base = el.getAttribute('data-plan-base') ?? cleanTextHtml(el.innerHTML)
     const signature = hash(el.tagName + base)
     const count = seen.get(signature) || 0
     seen.set(signature, count + 1)
-    return { el, key: `${signature}-${count}`, base, original: el.innerHTML }
+    return { el, key: el.getAttribute('data-plan-key') ?? `${signature}-${count}`, base, original: el.hasAttribute('data-plan-base') ? base : el.innerHTML }
   })
 }
 export function validBlocks(value) {

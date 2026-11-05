@@ -66,6 +66,7 @@ const document = computed(() => props.topic === 'kopierstempel'
   </main>
 </template>
 <style scoped>
+.lesson-plan-page, .lesson-plan-page :deep(*) { -webkit-user-select: text; user-select: text; }
 .lesson-plan-page { padding: 32px; max-width: 1400px; margin: auto; color: #202622; box-sizing: border-box; }
 .pdf-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
 [role="alert"] { color: #b42318; }

@@ -53,6 +53,7 @@ export async function exportKopierstempelPlan(root, mode) {
       .pagedjs_page { margin: 0; background: white; box-shadow: none; }
     `
     const clone = source.cloneNode(true)
+    clone.querySelectorAll('tr[hidden]').forEach(row => row.remove())
     clone.querySelectorAll('[data-toc-target]').forEach(cell => {
       const anchor = doc.createElement('a')
       anchor.href = `#${cell.dataset.tocTarget}`

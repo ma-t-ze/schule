@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import Button from 'primevue/button'
 import { cleanTextHtml, collectBlocks, validBlocks } from './planEditing'
+import kopierstempelTextPolish from './kopierstempelTextPolish.json'
 const props = defineProps({ root: { type: Object, required: true }, topic: { type: String, required: true }, mode: { type: String, required: true } })
 const emit = defineEmits(['lock'])
 const editing = ref(false), dirty = ref(false), busy = ref(false), ready = ref(false), error = ref(''), status = ref(''), unmatched = ref(0)
@@ -17,6 +18,20 @@ async function request(options = {}) {
   if (!response.ok) throw new Error(data.error || 'Laden oder Speichern fehlgeschlagen.')
   return data
 }
+function polish(entries) {
+  if (docKey.value !== 'kopierstempel-verlauf') return entries
+  return entries.map(entry => {
+    const change = kopierstempelTextPolish.find(item => item.key === entry.key && item.before === entry.html)
+    return change ? { ...entry, html: change.after } : entry
+  })
+}
+function updateEmptyRows() {
+  if (docKey.value !== 'kopierstempel-verlauf') return
+  for (const row of props.root.querySelectorAll('.verlauf-table tbody tr')) {
+    // Keep cells and their keys intact so saved edits remain compatible.
+    row.hidden = !editing.value && [...row.cells].every(cell => !cell.textContent.replace(/\u00a0/g, ' ').trim())
+  }
+}
 function apply(entries) {
   const map = new Map(entries.map(block => [block.key, block]))
   let count = 0
@@ -29,6 +44,7 @@ function apply(entries) {
       for (const child of block.el.querySelectorAll('*')) for (const name of scopeAttributes) child.setAttribute(name, '')
     }
   }
+  updateEmptyRows()
   unmatched.value = entries.length - count
 }
 async function load() {
@@ -36,12 +52,13 @@ async function load() {
   try {
     const data = await request()
     if (!validBlocks(data.blocks) || !Number.isInteger(data.revision) || typeof data.csrf !== 'string') throw new Error('Ungültiger Dokumentstand.')
-    saved = data.blocks; revision = data.revision; csrf = data.csrf
+    saved = polish(data.blocks); revision = data.revision; csrf = data.csrf
     apply(saved); ready.value = true
   } catch (e) { error.value = e.message } finally { busy.value = false }
 }
 function setEditing(value) {
   editing.value = value
+  updateEmptyRows()
   emit('lock', value)
   for (const { el } of blocks) {
     if (value) { el.setAttribute('contenteditable', 'true'); el.setAttribute('spellcheck', 'true'); el.dataset.planEditable = '' }
@@ -92,7 +109,7 @@ async function importFile(event) {
     if (data.format !== 'schule-lesson-text-v1' || data.document_key !== docKey.value || !validBlocks(data.blocks)) throw new Error('Diese Datei gehört nicht zu diesem Dokument oder hat ein ungültiges Format.')
     if (dirty.value && !window.confirm('Aktuellen Entwurf durch die Datei ersetzen?')) return
     // Keep source entries that no longer match the current template for review/export.
-    imported = data.blocks
+    imported = polish(data.blocks)
     error.value = ''; apply(imported); setEditing(true); markDirty(); status.value = 'Datei übernommen. Bitte prüfen und speichern.'
   } catch (e) { error.value = e.message }
 }
