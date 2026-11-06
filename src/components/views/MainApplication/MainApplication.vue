@@ -32,6 +32,7 @@ const teacherCodeInfo = ref(null)
 const internalAdminInfo = ref(null)
 const sickLeaveInfo = ref(null)
 const repairInfo = ref(null)
+const sabineHeitmannInfo = ref(null)
 
 const classes = [
   ['1BFD1 BPK', '1bfd1'],
@@ -97,6 +98,19 @@ const tgg12Dates = 5
       <Panel header="Schuladministration" toggleable collapsed>
         <div class="admin-link"><a :href="schoolYearPlanUrl" target="_blank" rel="noopener noreferrer">Jahresplan CHS 2026/27 (PDF) ↗</a></div>
         <div class="admin-link"><a href="/schuladministration/Pausenaufsichten_2026-10-12.pdf" target="_blank" rel="noopener noreferrer">Pausenaufsichten (PDF) ↗</a></div>
+        <div class="admin-link"><span>Sabine Heitmann</span><Button label="i" aria-label="Kontaktdaten von Sabine Heitmann" rounded outlined size="small" @click="sabineHeitmannInfo.toggle($event)" /></div>
+        <Popover ref="sabineHeitmannInfo">
+          <div class="webuntis-info">
+            <strong>Sabine Heitmann</strong>
+            <p>Carl-Hofer-Schule<br />Adlerstraße 29<br />76133 Karlsruhe<br />Raum 413</p>
+            <dl class="contact-details">
+              <dt>Telefon</dt><dd><a href="tel:+497211334869">0721 133-4869</a></dd>
+              <dt>Mobil</dt><dd><a href="tel:+4915735642863">01573 5642863</a></dd>
+              <dt>E-Mail</dt><dd><a href="mailto:sabine.heitmann@af-ka.de">sabine.heitmann@af-ka.de</a></dd>
+              <dt>Im Notfall</dt><dd><a href="tel:+49721972460">0721 97246-0</a></dd>
+            </dl>
+          </div>
+        </Popover>
 
         <div class="admin-link"><span class="school-email">heckel@chs.karlsruhe.de</span><Button label="Kopieren" size="small" text aria-label="Schul-E-Mail in die Zwischenablage kopieren" @click="copySchoolEmail" /><span role="status" class="copy-status">{{ emailCopyStatus }}</span></div>
         <div class="admin-link"><a href="https://webuntis.com/" target="_blank" rel="noopener noreferrer">WebUntis ↗</a><Button label="i" aria-label="Was ist WebUntis?" rounded outlined size="small" @click="webuntisInfo.toggle($event)" /></div>
@@ -201,6 +215,9 @@ h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .copy-status { font-size: 13px; color: #526257; }
 .admin-link { flex-wrap: wrap; display: flex; align-items: center; gap: 12px; }
 .admin-link a { color: inherit; font-size: 17px; text-underline-offset: 4px; }
+.contact-details { display: grid; gap: 4px; }
+.contact-details dt { font-weight: 500; }
+.contact-details dd { margin: 0 0 8px; overflow-wrap: anywhere; }
 .webuntis-info { max-width: min(320px, calc(100vw - 64px)); font-size: 15px; line-height: 1.5; }
 .empty-note { margin: 0; color: #647168; }
 @media (max-width: 1150px) { .school-home { grid-template-columns: 240px minmax(0, 1fr); padding: 24px; } .exams-column { grid-column: 2; min-height: auto; } .sidebar { grid-row: span 2; } }
