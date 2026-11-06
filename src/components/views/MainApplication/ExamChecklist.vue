@@ -1,17 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Checkbox from 'primevue/checkbox'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
+import { checklistFields as fields } from './examChecklistFields'
 const props = defineProps({ examKey: { type: String, required: true } })
-const fields = [
-  ['announced', 'Klassenarbeit angekündigt'],
-  ['materials', 'Alle Materialien auf Teams'],
-  ['teams_announced', 'Klassenarbeit in Teams angekündigt'],
-  ['handed_out', 'Klassenarbeit ausgegeben'],
-  ['accommodation', 'Nachteilsausgleich berücksichtigt']
-]
+const emit = defineEmits(['change'])
 const item = ref(null)
+watch(item, value => emit('change', value ? { ...value } : null), { deep: true })
 const busy = ref(false)
 const error = ref('')
 const status = ref('')

@@ -4,7 +4,10 @@ import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import FileUpload from 'primevue/fileupload'
 import Dialog from 'primevue/dialog'
-const props = defineProps({ classKey: { type: String, required: true } })
+const props = defineProps({
+  classKey: { type: String, required: true },
+  className: { type: String, required: true }
+})
 const endpoint = import.meta.env.DEV ? '/site-auth/exam-accommodations.php' : '/exam-accommodations.php'
 const entries = ref([])
 const expanded = ref(false)
@@ -84,10 +87,21 @@ onMounted(load)
 </script>
 <template>
   <div class="accommodations">
-    <Button label="Nachteilsausgleich" text size="small" :aria-expanded="expanded" :aria-controls="`${classKey}-accommodations`" @click="expanded = !expanded">
-      <template #icon><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" :style="{ transform: expanded ? 'rotate(90deg)' : undefined }"><path d="m4 2 4 4-4 4" stroke="currentColor" stroke-width="1.5" /></svg></template>
-    </Button>
-    <div v-show="expanded" :id="`${classKey}-accommodations`" class="accommodation-content">
+    <Button
+      class="accommodation-trigger" label="N" outlined size="small"
+      :aria-label="`Nachteilsausgleiche für ${className} öffnen`"
+      :title="`Nachteilsausgleiche · ${className}`"
+      aria-haspopup="dialog" :aria-expanded="expanded"
+      :aria-controls="`${classKey}-accommodations`"
+      @click="expanded = true"
+    />
+    <Dialog
+      v-model:visible="expanded" :id="`${classKey}-accommodations`"
+      :header="`Nachteilsausgleiche · ${className}`" modal
+      :closable="!busy" :close-on-escape="!busy"
+      :style="{ width: '36rem', maxWidth: 'calc(100vw - 2rem)' }"
+    >
+    <div class="accommodation-content">
     <p v-if="error" role="alert">{{ error }}</p>
     <div v-for="(entry, index) in entries" :key="entry.id || `new-${index}`" class="person">
       <label :for="`${classKey}-person-${index}`">Name</label>
@@ -100,6 +114,7 @@ onMounted(load)
     <Button v-if="error" label="Neu laden" text size="small" :disabled="busy" @click="load" />
     <span role="status">{{ busy ? 'Wird geladen / gespeichert …' : status }}</span>
     </div>
+    </Dialog>
     <Dialog v-model:visible="previewOpen" :header="`PDF · ${previewName}`" modal maximizable :style="{ width: 'min(70rem, 95vw)' }" @hide="closePreview">
       <p v-if="previewLoading" role="status">PDF wird geladen …</p>
       <iframe v-if="previewUrl" :src="previewUrl" :title="`Nachteilsausgleich – ${previewName}`" class="pdf-preview" />
@@ -107,7 +122,9 @@ onMounted(load)
   </div>
 </template>
 <style scoped>
-.accommodations { width: 100%; margin-top: .4rem; box-sizing: border-box; }
+.accommodations { display: inline-flex; flex-shrink: 0; }
+.accommodation-trigger { width: 1.75rem; height: 1.75rem; padding: 0; border: 1px solid #176746; border-radius: 5px; color: #176746; background: transparent; font-weight: 600; }
+.accommodation-trigger:hover { color: #115033; border-color: #115033; background: #e8f2ec; }
 .accommodation-content { padding: .5rem 0; }
 .person { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; margin-bottom: 1rem; }
 .person > input { width: 100%; }

@@ -5,7 +5,7 @@ import Button from 'primevue/button'
 import Popover from 'primevue/popover'
 import SchoolCalendar from './SchoolCalendar.vue'
 import UpcomingNotes from './UpcomingNotes.vue'
-import ExamChecklist from './ExamChecklist.vue'
+import ExamEntry from './ExamEntry.vue'
 import ExamAccommodations from './ExamAccommodations.vue'
 import { examDateLabel } from './classExamEvents'
 import { schoolYearPlanUrl } from './schoolYearEvents'
@@ -148,23 +148,22 @@ const tgg12Dates = 5
     <Panel class="exams-column" header="Klassenarbeiten" toggleable>
       <ul><li v-for="(name, classIndex) in exams" :key="name">
         <template v-if="name === '3BKGD1/1 MET'">
-          <div class="exam-heading"><span>{{ name }} (0/4)</span><Button :label="metDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="metDatesOpen" aria-controls="met-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1/1 MET" @click="metDatesOpen = !metDatesOpen" /></div>
-          <ol v-if="metDatesOpen" id="met-exam-dates" class="exam-dates"><li v-for="number in metDates" :key="number"><Button class="exam-date-button" text size="small" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-met-${number}`)}`" :aria-label="`${number}. Klassenarbeit in 3bkgd1-1-met bearbeiten`" @click="upcomingNotes?.editExam(`2026-27-3bkgd1-1-met-${number}`)" /><details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3bkgd1-1-met-${number}`" /></details></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/4)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="metDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="metDatesOpen" aria-controls="met-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1/1 MET" @click="metDatesOpen = !metDatesOpen" /></div>
+          <ol v-if="metDatesOpen" id="met-exam-dates" class="exam-dates"><li v-for="number in metDates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-met-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3bkgd1-1-met bearbeiten`" :exam-key="`2026-27-3bkgd1-1-met-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3bkgd1-1-met-${number}`)" /></li></ol>
         </template>
         <template v-else-if="name === '3BKGD1_1_GRD'">
-          <div class="exam-heading"><span>{{ name }} (0/4)</span><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
-          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="number in grdDates" :key="number"><Button class="exam-date-button" text size="small" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-grd-${number}`)}`" :aria-label="`${number}. Klassenarbeit in 3bkgd1-1-grd bearbeiten`" @click="upcomingNotes?.editExam(`2026-27-3bkgd1-1-grd-${number}`)" /><details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3bkgd1-1-grd-${number}`" /></details></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/4)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
+          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="number in grdDates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-grd-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3bkgd1-1-grd bearbeiten`" :exam-key="`2026-27-3bkgd1-1-grd-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3bkgd1-1-grd-${number}`)" /></li></ol>
         </template>
         <template v-else-if="name === '3TGG1/2'">
-          <div class="exam-heading"><span>{{ name }} (0/5)</span><Button :label="tgg12DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg12DatesOpen" aria-controls="tgg12-exam-dates" aria-label="Klassenarbeitstermine für 3TGG1/2" @click="tgg12DatesOpen = !tgg12DatesOpen" /></div>
-          <ol v-if="tgg12DatesOpen" id="tgg12-exam-dates" class="exam-dates"><li v-for="number in tgg12Dates" :key="number"><Button class="exam-date-button" text size="small" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg1-2-${number}`)}`" :aria-label="`${number}. Klassenarbeit in 3tgg1-2 bearbeiten`" @click="upcomingNotes?.editExam(`2026-27-3tgg1-2-${number}`)" /><details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3tgg1-2-${number}`" /></details></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/5)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="tgg12DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg12DatesOpen" aria-controls="tgg12-exam-dates" aria-label="Klassenarbeitstermine für 3TGG1/2" @click="tgg12DatesOpen = !tgg12DatesOpen" /></div>
+          <ol v-if="tgg12DatesOpen" id="tgg12-exam-dates" class="exam-dates"><li v-for="number in tgg12Dates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg1-2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg1-2 bearbeiten`" :exam-key="`2026-27-3tgg1-2-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3tgg1-2-${number}`)" /></li></ol>
         </template>
         <template v-else-if="name === '3TGG2'">
-          <div class="exam-heading"><span>{{ name }} (0/2)</span><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
-          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="number in tgg2Dates" :key="number"><Button class="exam-date-button" text size="small" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg2-${number}`)}`" :aria-label="`${number}. Klassenarbeit in 3tgg2 bearbeiten`" @click="upcomingNotes?.editExam(`2026-27-3tgg2-${number}`)" /><details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3tgg2-${number}`" /></details></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/2)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
+          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="number in tgg2Dates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg2 bearbeiten`" :exam-key="`2026-27-3tgg2-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3tgg2-${number}`)" /></li></ol>
         </template>
-        <template v-else>{{ name }}</template>
-        <ExamAccommodations :class-key="classKeys[classIndex]" />
+        <template v-else><div class="class-title"><span>{{ name }}</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div></template>
       </li></ul>
       <UpcomingNotes ref="upcomingNotes" @change="calendarNotes = $event" @ready="notesReady = $event" />
     </Panel>
@@ -193,7 +192,7 @@ const tgg12Dates = 5
 .calendar-column, .exams-column { min-width: 0; align-self: start; }
 h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .exams-column ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 26px; font-size: 17px; overflow-wrap: anywhere; }
-.exam-date-button { text-align: left; justify-content: flex-start; padding: .25rem 0; font: inherit; }
+.class-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .exam-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .exam-dates { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; font-size: 15px; }
 .admin-link + .admin-link { margin-top: 12px; }
