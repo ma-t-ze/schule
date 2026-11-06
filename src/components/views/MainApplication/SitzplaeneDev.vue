@@ -4,6 +4,8 @@ import Message from 'primevue/message'
 import Button from 'primevue/button'
 import InputNumber from 'primevue/inputnumber'
 import Dialog from 'primevue/dialog'
+import LocalOralGrades from './LocalOralGrades.vue'
+import { gradesForStudent } from './localOralGrades'
 import { originalPositions, validPositions, migrateSeating, validLayout, normalizePositions, resizeSeating } from './seatingPositions'
 
 const props = defineProps({ classId: { type: String, default: '' } })
@@ -13,6 +15,11 @@ const photos = import.meta.glob('../../../local-sitzplaene/klassen/*/*.{png,jpg,
 const classes = Object.entries(datasets).map(([path, data]) => ({ ...data, directory: path.slice(0, path.lastIndexOf('/')) }))
 const currentClass = computed(() => classes.find(item => item.id === props.classId))
 const seats = ref(originalPositions())
+const oralGrades = ref(null)
+const gradeTypes = [['oral', 'Mündlich'], ['written', 'Schriftlich']]
+function studentGrades(student, type) {
+  return gradesForStudent(oralGrades.value?.entries || [], student.id, type)
+}
 // Temporary attendance follows the person, never the seat or persistence payload.
 const presentStudents = ref(new Set())
 function toggleAttendance(position) {
@@ -253,6 +260,7 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
       <p v-if="!classes.length">Noch keine lokalen Klassen vorhanden.</p>
     </template>
     <template v-else-if="currentClass">
+      <LocalOralGrades :key="currentClass.id" ref="oralGrades" :classroom="currentClass" />
       <div class="name-game-start"><Button label="Spiel beginnen" :disabled="!gameStudents.length" @click="startGame" /></div>
       <Dialog v-model:visible="gameOpen" modal header="Namen lernen" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }">
         <div v-if="gameStudent" class="name-game">
@@ -273,12 +281,20 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
       <p class="attendance-hint">Anwesenheit: Kreis anklicken – grün bedeutet anwesend. Die Markierungen werden nicht gespeichert.</p>
       <div class="seating-scroll" tabindex="0" role="region" :aria-label="`Sitzplan mit ${columns} Spalten und ${rowCount} Reihen`">
         <div class="seating-grid" :style="{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, minWidth: `${columns * 130}px` }">
-          <div v-for="(position, index) in seats" :key="index" class="seat-card">
+          <div v-for="(position, index) in seats" :key="index" class="seat-card" :class="{ empty: !studentAt(position) }">
           <button class="seat" :class="{ selected: selected === index, empty: !studentAt(position) }" :draggable="!!studentAt(position) && !saving && !loading" :disabled="saving || loading" :aria-pressed="selected === index" :aria-label="`Reihe ${Math.floor(index / columns) + 1}, Platz ${index % columns + 1}: ${studentAt(position)?.name || 'frei'}`" @click="choose(index)" @keydown.esc="selected = null" @dragstart="startDrag($event, index)" @dragend="dragged = null" @dragover.prevent @drop.prevent="drop(index)">
             <span class="seat-number">{{ Math.floor(index / columns) + 1 }} · {{ index % columns + 1 }}</span>
             <template v-if="studentAt(position)"><img :src="photo(studentAt(position))" :alt="studentAt(position).name" draggable="false" /><strong>{{ studentAt(position).name }}</strong></template>
             <span v-else class="empty-label">Freier Platz</span>
           </button>
+          <div v-if="studentAt(position)" class="student-grades">
+            <Button v-for="[type, label] in gradeTypes" :key="type" class="grade-button" text size="small"
+              :aria-label="`${label}e Noten für ${studentAt(position).name} bearbeiten`"
+              @click.stop="oralGrades?.show(studentAt(position), type)">
+              <span class="grade-kind">{{ label }}</span>
+              <span class="grade-values">{{ studentGrades(studentAt(position), type).map(entry => entry.grade).join(' · ') || '—' }}</span>
+            </Button>
+          </div>
           <Button v-if="studentAt(position)" unstyled type="button" class="attendance-toggle" :class="{ present: presentStudents.has(position) }" :aria-pressed="presentStudents.has(position)" :aria-label="`Anwesenheit für ${studentAt(position).name}`" :title="presentStudents.has(position) ? 'Anwesend – zum Leeren anklicken' : 'Nicht markiert – als anwesend markieren'" @click.stop="toggleAttendance(position)" />
           </div>
         </div>
@@ -309,15 +325,21 @@ h1 { font-size: 28px; font-weight: 500; }
 .seat-toolbar { display: flex; gap: 12px; align-items: center; margin: 18px 0; min-height: 32px; }
 .seating-scroll { overflow-x: auto; max-width: 100%; }
 .seating-grid { display: grid;  gap: 12px; }
-.seat-card { position: relative; min-width: 0; }
+.seat-card { position: relative; min-width: 0; display: grid; grid-template-rows: 1fr auto; gap: 0; background: #f4f7f3; border: 2px solid #dce3dd; border-radius: 8px; }
+.student-grades { display: grid; padding: 4px; gap: 2px; border-top: 1px solid #dce3dd; }
+.grade-button { width: 100%; display: flex; align-items: baseline; justify-content: space-between; gap: 6px; padding: 4px; font-size: 12px; color: #202622; }
+.grade-kind { color: #526258; flex-shrink: 0; }
+.grade-values { font-weight: 600; text-align: right; overflow-wrap: anywhere; min-width: 0; }
 .attendance-toggle { position: absolute; top: 4px; right: 5px; width: 28px; height: 28px; border: 2px solid #6c7f73; border-radius: 50%; background: #fff; cursor: pointer; padding: 0; }
 .attendance-toggle.present { background: #007c4a; border-color: #007c4a; }
 .attendance-toggle:focus-visible { outline: 3px solid #007c4a; outline-offset: 3px; }
 .attendance-hint { font-size: 14px; color: #526258; }
-.seat { width: 100%; height: 100%; box-sizing: border-box; font: inherit; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 180px; padding: 24px 8px 12px; gap: 8px; background: #f4f7f3; border: 2px solid #dce3dd; border-radius: 8px; color: inherit; cursor: grab; }
-.seat.selected { border-color: #007c4a; background: #e4f2e9; }
+.seat { width: 100%; height: 100%; box-sizing: border-box; font: inherit; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 180px; padding: 24px 8px 12px; gap: 8px; background: #f4f7f3; border: 0; border-radius: 6px 6px 0 0; color: inherit; cursor: grab; }
+.seat-card:has(.seat.selected) { border-color: #007c4a; }
+.seat.selected { background: #e4f2e9; }
 .seat:focus-visible { outline: 3px solid #007c4a; outline-offset: 2px; }
-.seat.empty { border-style: dashed; cursor: pointer; }
+.seat-card.empty { border-style: dashed; }
+.seat.empty { cursor: pointer; }
 .seat img { width: 100%; height: 110px; object-fit: contain; }
 .seat strong { font-size: 14px; overflow-wrap: anywhere; font-weight: 500; }
 .seat-number { position: absolute; top: 5px; left: 8px; font-size: 11px; color: #647168; }

@@ -2,7 +2,7 @@
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
-import FileUpload from 'primevue/fileupload'
+import Textarea from 'primevue/textarea'
 import Dialog from 'primevue/dialog'
 const props = defineProps({
   classKey: { type: String, required: true },
@@ -57,19 +57,13 @@ async function load() {
   try {
     const data = await request(`${endpoint}?class_key=${encodeURIComponent(props.classKey)}`)
     if (!Array.isArray(data.items) || typeof data.csrf !== 'string') throw new Error('Ungültige API-Antwort.')
-    entries.value = data.items.map(entry => ({ ...entry, file: null })); csrf = data.csrf
+    if (data.items.some(entry => typeof entry.comment !== 'string')) throw new Error('Kommentare sind noch nicht verfügbar. Bitte die Website aktualisieren.')
+    entries.value = data.items; csrf = data.csrf
   } catch (e) { error.value = e.message } finally { busy.value = false }
 }
 function add() {
-  entries.value.push({ id: 0, student_name: '', has_pdf: false, revision: 0, file: null })
+  entries.value.push({ id: 0, student_name: '', has_pdf: false, revision: 0, comment: '' })
   status.value = ''
-}
-function selectFile(entry, event) {
-  const file = event.files[0]
-  if (file && (file.size > 5 * 1024 * 1024 || !file.name.toLowerCase().endsWith('.pdf'))) {
-    error.value = 'Bitte eine PDF mit maximal 5 MB auswählen.'; entry.file = null; return
-  }
-  entry.file = file || null; status.value = ''; error.value = ''
 }
 async function save(entry, action = 'save') {
   if (action === 'delete' && !entry.id) { entries.value.splice(entries.value.indexOf(entry), 1); return }
@@ -77,10 +71,9 @@ async function save(entry, action = 'save') {
   busy.value = true; error.value = ''; status.value = ''
   try {
     const body = new FormData()
-    for (const [key, value] of Object.entries({ class_key: props.classKey, id: entry.id, revision: entry.revision, student_name: entry.student_name, action })) body.append(key, String(value))
-    if (entry.file) body.append('pdf', entry.file)
+    for (const [key, value] of Object.entries({ class_key: props.classKey, id: entry.id, revision: entry.revision, student_name: entry.student_name, comment: entry.comment, action })) body.append(key, String(value))
     await request(endpoint, { method: 'POST', headers: { 'X-CSRF-Token': csrf }, body })
-    await load(); status.value = action === 'delete' ? 'Eintrag gelöscht.' : 'Name und PDF gespeichert.'
+    await load(); status.value = action === 'delete' ? 'Eintrag gelöscht.' : 'Name und Kommentar gespeichert.'
   } catch (e) { error.value = e.message } finally { busy.value = false }
 }
 onMounted(load)
@@ -106,7 +99,8 @@ onMounted(load)
     <div v-for="(entry, index) in entries" :key="entry.id || `new-${index}`" class="person">
       <label :for="`${classKey}-person-${index}`">Name</label>
       <InputText :id="`${classKey}-person-${index}`" v-model="entry.student_name" maxlength="150" :disabled="busy" @input="status = ''" />
-      <FileUpload mode="basic" choose-label="PDF auswählen" accept="application/pdf" :max-file-size="5242880" :disabled="busy" custom-upload :auto="false" invalid-file-size-message="Die PDF darf maximal 5 MB groß sein." invalid-file-type-message="Bitte eine PDF auswählen." @select="selectFile(entry, $event)" />
+      <label :for="`${classKey}-comment-${index}`">Kommentar</label>
+      <Textarea :id="`${classKey}-comment-${index}`" v-model="entry.comment" class="accommodation-comment" rows="3" maxlength="10000" :disabled="busy" @input="status = ''" />
       <Button v-if="entry.has_pdf" label="PDF anzeigen" text size="small" @click="showPdf(entry)" />
       <div class="actions"><Button label="Speichern" outlined size="small" :disabled="busy" @click="save(entry)" /><Button label="Entfernen" text severity="danger" size="small" :disabled="busy" @click="save(entry, 'delete')" /></div>
     </div>
@@ -128,6 +122,7 @@ onMounted(load)
 .accommodation-content { padding: .5rem 0; }
 .person { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; margin-bottom: 1rem; }
 .person > input { width: 100%; }
+.accommodation-comment { width: 100%; box-sizing: border-box; height: calc(6rem + 2px); min-height: calc(6rem + 2px); max-height: calc(6rem + 2px); line-height: 1.5rem; padding: .75rem; overflow-y: auto; resize: none; }
 input { max-width: 100%; min-width: 0; box-sizing: border-box; }
 .pdf-preview { display: block; width: 100%; height: 75vh; border: 0; }
 .actions { display: flex; flex-wrap: wrap; gap: .4rem; }

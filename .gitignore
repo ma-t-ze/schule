@@ -38,3 +38,6 @@ php
 
 # Local-only student photos / seating-plan content; never commit or deploy
 /src/local-sitzplaene/
+
+# Private local grade files; never commit or deploy
+/local-noten/

@@ -43,9 +43,15 @@ try {
     runMigrations($directory);
     check($db->query('SELECT note FROM school_upcoming WHERE id = 1')->fetchColumn() === 'Preserve text', 'Legacy note lost.');
     check((int)$db->query('SELECT announced FROM school_exam_checklists')->fetchColumn() === 1, 'Checklist lost.');
-    $row = $db->query('SELECT exam_key, pdf_data, revision FROM school_exam_accommodations')->fetch(PDO::FETCH_ASSOC);
+    $row = $db->query('SELECT exam_key, pdf_data, revision, comment FROM school_exam_accommodations')->fetch(PDO::FETCH_ASSOC);
     check($row['exam_key'] === '2026-27-3bkgd1-1-grd' && $row['pdf_data'] === 'test PDF bytes' && (int)$row['revision'] === 2, 'Accommodation migration failed.');
+    check($row['comment'] === null, 'Existing accommodation comment must be empty.');
+    $comment = "First line\nSecond line with umlauts: äöü";
+    $statement = $db->prepare('UPDATE school_exam_accommodations SET comment = ?');
+    $statement->execute([$comment]);
     runMigrations($directory);
+    check($db->query('SELECT comment FROM school_exam_accommodations')->fetchColumn() === $comment, 'Comment lost after repeated migrations.');
+    check($db->query('SELECT pdf_data FROM school_exam_accommodations')->fetchColumn() === 'test PDF bytes', 'Existing PDF lost.');
     check((int)$db->query('SELECT revision FROM school_exam_accommodations')->fetchColumn() === 2, 'Accommodation migrated twice.');
     echo "Migration integration checks passed.\n";
 } finally {

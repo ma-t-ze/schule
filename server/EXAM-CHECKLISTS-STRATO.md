@@ -34,3 +34,15 @@ Namen und PDFs werden direkt unter jeder Klasse verwaltet. Die Checkbox „Nacht
 4. Bei einer Klasse „Nachteilsausgleich · Namen und PDFs“ öffnen. Bestehende Einträge und PDF-Vorschau prüfen; Namen/PDFs lassen sich dort weiterhin hinzufügen, bearbeiten und entfernen. In den einzelnen Checklisten sind nur noch die zugehörigen Checkboxen, keine Namen oder PDF-Verwaltung.
 
 Die bestehende Tabelle und deren Spalte `exam_key` werden weiterverwendet; dort steht für diese Einträge nun der Klassenschlüssel. Anmeldung, CSRF-Schutz und Versionsprüfung bleiben erhalten.
+
+## Kommentare im Nachteilsausgleich
+
+Das N-Overlay zeigt pro Person ein dreizeiliges, bei längerem Text vertikal
+scrollbares Kommentarfeld. Name und Kommentar werden gemeinsam gespeichert und
+können später geändert werden. Neue PDF-Uploads werden nicht mehr angeboten;
+bereits gespeicherte PDFs bleiben über „PDF anzeigen“ verfügbar.
+
+Migration `003-accommodation-comments.php` ergänzt beim nächsten GitHub-Deploy
+die optionale Kommentarspalte automatisch. Die bestehenden Namen und PDFs bleiben
+erhalten. Die aktuelle `exam-accommodations.sql` enthält die Spalte auch für eine
+manuelle Neuinstallation.

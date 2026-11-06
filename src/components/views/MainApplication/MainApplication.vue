@@ -96,6 +96,7 @@ const tgg12Dates = 5
       </Panel>
       <Panel header="Schuladministration" toggleable collapsed>
         <div class="admin-link"><a :href="schoolYearPlanUrl" target="_blank" rel="noopener noreferrer">Jahresplan CHS 2026/27 (PDF) ↗</a></div>
+        <div class="admin-link"><a href="/schuladministration/Pausenaufsichten_2026-10-12.pdf" target="_blank" rel="noopener noreferrer">Pausenaufsichten (PDF) ↗</a></div>
 
         <div class="admin-link"><span class="school-email">heckel@chs.karlsruhe.de</span><Button label="Kopieren" size="small" text aria-label="Schul-E-Mail in die Zwischenablage kopieren" @click="copySchoolEmail" /><span role="status" class="copy-status">{{ emailCopyStatus }}</span></div>
         <div class="admin-link"><a href="https://webuntis.com/" target="_blank" rel="noopener noreferrer">WebUntis ↗</a><Button label="i" aria-label="Was ist WebUntis?" rounded outlined size="small" @click="webuntisInfo.toggle($event)" /></div>

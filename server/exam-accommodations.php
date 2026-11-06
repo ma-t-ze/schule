@@ -54,7 +54,7 @@ try {
             header('Content-Length: ' . strlen($row['pdf_data']));
             echo $row['pdf_data']; exit;
         }
-        $query = $db->prepare('SELECT id, student_name, (pdf_data IS NOT NULL) AS has_pdf, revision FROM school_exam_accommodations WHERE exam_key = ? ORDER BY id');
+        $query = $db->prepare('SELECT id, student_name, COALESCE(comment, \'\') AS comment, (pdf_data IS NOT NULL) AS has_pdf, revision FROM school_exam_accommodations WHERE exam_key = ? ORDER BY id');
         $query->execute([$key]);
         $items = $query->fetchAll();
         foreach ($items as &$item) { $item['id'] = (int)$item['id']; $item['revision'] = (int)$item['revision']; $item['has_pdf'] = (bool)$item['has_pdf']; }
@@ -71,6 +71,8 @@ try {
     }
     $name = $input['student_name'] ?? '';
     if (!is_string($name) || !preg_match('//u', $name) || strlen(trim($name)) < 1 || preg_match_all('/./us', $name) > 150) respond(422, ['error' => 'Bitte einen Namen mit maximal 150 Zeichen eingeben.']);
+    $comment = $input['comment'] ?? null;
+    if ($comment !== null && (!is_string($comment) || !preg_match('//u', $comment) || preg_match_all('/./us', $comment) > 10000)) respond(422, ['error' => 'Kommentar: maximal 10000 Zeichen.']);
     $pdf = null;
     if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] !== UPLOAD_ERR_NO_FILE) {
         $file = $_FILES['pdf'];
@@ -80,12 +82,12 @@ try {
         if (substr($pdf, 0, 5) !== '%PDF-') respond(422, ['error' => 'Ungültige PDF-Datei.']);
     }
     if ($id) {
-        $query = $db->prepare('UPDATE school_exam_accommodations SET student_name = ?, pdf_data = COALESCE(?, pdf_data), revision = revision + 1 WHERE id = ? AND exam_key = ? AND revision = ?');
-        $query->execute([trim($name), $pdf, $id, $key, $revision]);
+        $query = $db->prepare('UPDATE school_exam_accommodations SET student_name = ?, comment = COALESCE(?, comment), pdf_data = COALESCE(?, pdf_data), revision = revision + 1 WHERE id = ? AND exam_key = ? AND revision = ?');
+        $query->execute([trim($name), $comment, $pdf, $id, $key, $revision]);
         if ($query->rowCount() !== 1) respond(409, ['error' => 'Eintrag geändert. Bitte neu laden.']);
     } else {
-        $query = $db->prepare('INSERT INTO school_exam_accommodations (exam_key, student_name, pdf_data) VALUES (?, ?, ?)');
-        $query->execute([$key, trim($name), $pdf]);
+        $query = $db->prepare('INSERT INTO school_exam_accommodations (exam_key, student_name, comment, pdf_data) VALUES (?, ?, ?, ?)');
+        $query->execute([$key, trim($name), $comment, $pdf]);
     }
     respond(200, ['success' => true]);
 } catch (Throwable $error) {
