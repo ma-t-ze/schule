@@ -7,7 +7,8 @@ body {
     right: 0;
     bottom: 0; 
     // overflow: hidden;
-    user-select: none;
+    -webkit-user-select: text;
+    user-select: text;
     font-family: 'Jost', sans-serif; // Fallback font
     background-color: white;
 }

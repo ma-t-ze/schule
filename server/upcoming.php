@@ -41,6 +41,11 @@ if ($method === 'POST') {
     if (!is_array($input)) respond(400, ['error' => 'Ungültige Anfrage.']);
     $action = $input['action'] ?? '';
     if (!is_string($action) || !in_array($action, ['create', 'update', 'delete'], true)) respond(400, ['error' => 'Ungültige Aktion.']);
+    $examKey = $input['exam_key'] ?? null;
+    if ($action === 'create' && $examKey !== null) {
+        $examCounts = ['3bkgd1-1-met' => 4, '3bkgd1-1-grd' => 4, '3tgg1-2' => 5, '3tgg2' => 2];
+        if (!is_string($examKey) || !preg_match('/^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/D', $examKey, $examParts) || (int)$examParts[2] > $examCounts[$examParts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
+    }
     if ($action !== 'create') {
         if (!is_int($input['id'] ?? null) || $input['id'] < 1 || !is_int($input['revision'] ?? null) || $input['revision'] < 1) respond(400, ['error' => 'Ungültige Notiz-ID.']);
     }
@@ -74,12 +79,11 @@ try {
         respond(200, ['items' => $items, 'csrf' => $csrf]);
     }
     if ($action === 'create') {
-        $statement = $db->prepare('INSERT INTO school_upcoming (title, note, event_date, end_date) VALUES (?, ?, ?, ?)');
-        $statement->execute([$title, $note, $eventDate, $endDate]);
-        respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => null, 'category' => null, 'revision' => 1]]);
+        $statement = $db->prepare('INSERT INTO school_upcoming (title, note, event_date, end_date, exam_key) VALUES (?, ?, ?, ?, ?)');
+        $statement->execute([$title, $note, $eventDate, $endDate, $examKey]);
+        respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $examKey, 'category' => $examKey ? 'exam' : null, 'revision' => 1]]);
     }
-    // The association with a checklist is immutable and assigned by the migration,
-    // never by a user-supplied title or date.
+    // The checklist association remains immutable when editing an existing entry.
     $lookup = $db->prepare('SELECT exam_key, title, note FROM school_upcoming WHERE id = ? AND revision = ?');
     $lookup->execute([$input['id'], $input['revision']]);
     $existing = $lookup->fetch();
@@ -101,6 +105,9 @@ try {
     if ($statement->rowCount() !== 1) respond(409, ['error' => 'Die Notiz wurde inzwischen geändert oder gelöscht. Bitte lade die Liste neu.']);
     respond(200, $action === 'update' ? ['item' => ['id' => $input['id'], 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $existing['exam_key'], 'category' => $existing['exam_key'] ? 'exam' : null, 'revision' => $input['revision'] + 1]] : ['success' => true]);
 } catch (Throwable $error) {
+    if ($error instanceof PDOException && (int)($error->errorInfo[1] ?? 0) === 1062) {
+        respond(409, ['error' => 'Die Klassenarbeit wurde inzwischen angelegt. Bitte lade die Liste neu und öffne sie erneut.']);
+    }
     if ($error instanceof PDOException && (int)($error->errorInfo[1] ?? 0) === 1054) {
         respond(503, ['error' => 'Eine Kalender-Datenbankspalte fehlt. Bitte die Datums-/Zeitraum-Migrationen und upcoming-exams-migration.sql in der STRATO-Datenbank prüfen.']);
     }

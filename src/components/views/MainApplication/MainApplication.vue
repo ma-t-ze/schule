@@ -46,6 +46,8 @@ const metLinks = [
 ]
 const classKeys = ['2026-27-3bkgd1-1-met', '2026-27-3bkgd1-1-grd', '2026-27-3tgg1-2', '2026-27-3tgg2', '2026-27-1bfd1-bpk']
 const exams = ['3BKGD1/1 MET', '3BKGD1_1_GRD', '3TGG1/2', '3TGG2', '1BFD1 BPK']
+const metDatesOpen = ref(false)
+const metDates = 4
 const grdDatesOpen = ref(false)
 const grdDates = 4
 const tgg2DatesOpen = ref(false)
@@ -145,7 +147,11 @@ const tgg12Dates = 5
     </div>
     <Panel class="exams-column" header="Klassenarbeiten" toggleable>
       <ul><li v-for="(name, classIndex) in exams" :key="name">
-        <template v-if="name === '3BKGD1_1_GRD'">
+        <template v-if="name === '3BKGD1/1 MET'">
+          <div class="exam-heading"><span>{{ name }} (0/4)</span><Button :label="metDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="metDatesOpen" aria-controls="met-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1/1 MET" @click="metDatesOpen = !metDatesOpen" /></div>
+          <ol v-if="metDatesOpen" id="met-exam-dates" class="exam-dates"><li v-for="number in metDates" :key="number"><Button class="exam-date-button" text size="small" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-met-${number}`)}`" :aria-label="`${number}. Klassenarbeit in 3bkgd1-1-met bearbeiten`" @click="upcomingNotes?.editExam(`2026-27-3bkgd1-1-met-${number}`)" /><details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3bkgd1-1-met-${number}`" /></details></li></ol>
+        </template>
+        <template v-else-if="name === '3BKGD1_1_GRD'">
           <div class="exam-heading"><span>{{ name }} (0/4)</span><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
           <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="number in grdDates" :key="number"><Button class="exam-date-button" text size="small" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-grd-${number}`)}`" :aria-label="`${number}. Klassenarbeit in 3bkgd1-1-grd bearbeiten`" @click="upcomingNotes?.editExam(`2026-27-3bkgd1-1-grd-${number}`)" /><details><summary>Checkliste</summary><ExamChecklist :exam-key="`2026-27-3bkgd1-1-grd-${number}`" /></details></li></ol>
         </template>

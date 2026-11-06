@@ -33,11 +33,11 @@ if ($method === 'POST') {
     if (stripos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== 0) respond(415, ['error' => 'JSON erforderlich.']);
 }
 session_write_close();
-$keys = ['3bkgd1-1-grd' => 4, '3tgg1-2' => 5, '3tgg2' => 2];
+$keys = ['3bkgd1-1-met' => 4, '3bkgd1-1-grd' => 4, '3tgg1-2' => 5, '3tgg2' => 2];
 $input = $method === 'POST' ? json_decode(file_get_contents('php://input', false, null, 0, 20001), true) : $_GET;
 if (!is_array($input)) respond(422, ['error' => 'Ungültige Anfrage.']);
 $key = $input['exam_key'] ?? '';
-if (!is_string($key) || !preg_match('/^2026-27-(3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/D', $key, $parts) || (int)$parts[2] > $keys[$parts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
+if (!is_string($key) || !preg_match('/^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/D', $key, $parts) || (int)$parts[2] > $keys[$parts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
 $fields = ['announced', 'materials', 'teams_announced', 'handed_out', 'accommodation'];
 if ($method === 'POST') {
     foreach ($fields as $field) if (!is_bool($input[$field] ?? null)) respond(422, ['error' => 'Ungültige Checkbox.']);

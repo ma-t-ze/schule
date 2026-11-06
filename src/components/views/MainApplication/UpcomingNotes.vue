@@ -51,8 +51,11 @@ async function load() {
 function editExam(examKey) {
   if (!ready.value || loading.value || saving.value) return
   const item = items.value.find(entry => entry.exam_key === examKey)
-  if (!item) { error.value = 'Der Klassenarbeitstermin ist noch nicht eingerichtet. Bitte upcoming-exams-migration.sql auf STRATO ausführen.'; return }
-  edit(item)
+  if (item) { edit(item); return }
+  const match = /^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/.exec(examKey)
+  const classes = { '3bkgd1-1-met': ['3BKGD1/1 MET', 4], '3bkgd1-1-grd': ['3BKGD1/1 GRD', 4], '3tgg1-2': ['3TGG1/2', 5], '3tgg2': ['3TGG2', 2] }
+  if (!match || Number(match[2]) > classes[match[1]][1]) return
+  edit({ exam_key: examKey, title: `${match[2]}. Klassenarbeit · ${classes[match[1]][0]}`, event_date: examKey === '2026-27-3bkgd1-1-met-1' ? '2026-11-20' : null })
 }
 function edit(item = null) {
   if (!ready.value || loading.value || saving.value) return
@@ -74,10 +77,10 @@ async function save() {
   saving.value = true
   formError.value = ''
   try {
-    const data = await mutate({ action: editing.value ? 'update' : 'create', id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim(), event_date: dateKey(eventDate.value), end_date: dateKey(endDate.value) })
+    const data = await mutate({ action: editing.value?.id ? 'update' : 'create', exam_key: editing.value?.exam_key, id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim(), event_date: dateKey(eventDate.value), end_date: dateKey(endDate.value) })
     if (editing.value?.exam_key && data.item?.exam_key !== editing.value.exam_key) throw new Error('Die Klassenarbeits-Zuordnung fehlt in der Serverantwort. Bitte die aktuelle upcoming.php hochladen und die Notizen neu laden.')
     if ((data.item?.event_date || null) !== dateKey(eventDate.value) || (data.item?.end_date || null) !== dateKey(endDate.value)) throw new Error('Das Kalenderdatum wurde vom Server nicht übernommen. Bitte die aktualisierte upcoming.php und die Datumsspalte auf STRATO einrichten.')
-    if (editing.value) items.value = items.value.map(item => item.id === editing.value.id ? data.item : item)
+    if (editing.value?.id) items.value = items.value.map(item => item.id === editing.value.id ? data.item : item)
     else items.value.unshift(data.item)
     emit('change', items.value)
     editorOpen.value = false

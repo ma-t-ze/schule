@@ -1,12 +1,39 @@
 name: Deploy to Web Space
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 
+permissions:
+  contents: read
+
+concurrency:
+  group: strato-production
+  cancel-in-progress: false
+
 jobs:
+  migration-tests:
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: migration-test-only
+          MARIADB_DATABASE: school_migration_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+    - uses: actions/checkout@v4
+    - name: Test fresh database, legacy upgrade and repeated migrations
+      run: php server/tests/migrations.php
+
   deploy:
+    needs: migration-tests
     runs-on: ubuntu-latest
 
     steps:
@@ -28,15 +55,36 @@ jobs:
         cmp public/.htaccess dist/.htaccess
 
     - name: Set up SSH
+      env:
+        DEPLOY_SSH_KEY: ${{ secrets.SECRET_SSH }}
       run: |
+        set -euo pipefail
         mkdir -p ~/.ssh
-        echo "${{ secrets.SECRET_SSH }}" | base64 -d > ~/.ssh/id_ed25519  # Base64-Dekodierung ist wichtig!
+        printf '%s' "$DEPLOY_SSH_KEY" | base64 -d > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
         ssh-keyscan -t ed25519 ssh.strato.de >> ~/.ssh/known_hosts  # Host-Key automatisch akzeptieren
 
     - name: Test SSH Connection
       run: |
-        ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no matthiasheckel.com@ssh.strato.de exit
+        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'php -r '\''exit(PHP_VERSION_ID >= 70400 && extension_loaded("pdo_mysql") ? 0 : 1);'\'''
+
+    - name: Prepare and lint private backend
+      run: |
+        set -euo pipefail
+        mkdir -p "$RUNNER_TEMP/school-backend"
+        for file in login.php upcoming.php exam-checklists.php exam-accommodations.php seating.php lesson-documents.php migrate.php; do
+          php -l "server/$file"
+          cp "server/$file" "$RUNNER_TEMP/school-backend/"
+        done
+        cp -R server/migrations "$RUNNER_TEMP/school-backend/"
+        while IFS= read -r -d '' file; do php -l "$file"; done < <(find "$RUNNER_TEMP/school-backend/migrations" -name '*.php' -print0)
+
+    - name: Deploy private backend and migrate database
+      run: |
+        set -euo pipefail
+        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'mkdir -p php'
+        rsync -avz -e "ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes" "$RUNNER_TEMP/school-backend/" matthiasheckel.com@ssh.strato.de:php/
+        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'php php/migrate.php'
 
     - name: Deploy to Web Space
       run: |
