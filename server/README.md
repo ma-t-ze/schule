@@ -51,7 +51,9 @@ Ein Push nach `main` startet Tests, Build und Deployment. Unter GitHub Actions k
 „Deploy to Web Space“ auch manuell gestartet werden (`workflow_dispatch`).
 Der bestehende Secret `SECRET_SSH` genügt. Die auf STRATO bereits vorhandenen
 `php/database-config.php` und `php/login-credentials.php` bleiben Voraussetzung.
-Das SSH-Kommando `php` muss PHP >= 7.4 mit PDO-MySQL bereitstellen.
+Der Workflow sucht über `.github/scripts/strato-php.sh` eine echte PHP-CLI
+(PHP >= 7.4 mit PDO-MySQL), bevorzugt unter `/opt/RZphpXX/bin/php-cli`.
+STRATOs Standardkommando `php` kann stattdessen auf PHP-CGI zeigen.
 
 Ablauf:
 
@@ -61,7 +63,7 @@ Ablauf:
    übertragen. Kein Löschen im privaten Ordner; Konfiguration, Sitzungen und
    gespeicherte Dateien bleiben erhalten. Tests und lokale Schülerdaten werden
    nicht hochgeladen.
-4. Über SSH `php php/migrate.php` ausführen. Die Datenbank-Zugangsdaten werden nur
+4. Über SSH die erkannte PHP-CLI mit `php/migrate.php` ausführen. Die Datenbank-Zugangsdaten werden nur
    auf STRATO gelesen. Bei Fehlern schlägt der Deploy fehl, bevor das Frontend
    hochgeladen wird; bereits übertragene Backend-Dateien bleiben dabei bestehen.
 5. Den Build wie bisher nach `visualizer/` übertragen.

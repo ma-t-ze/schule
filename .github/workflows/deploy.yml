@@ -63,10 +63,11 @@ jobs:
         printf '%s' "$DEPLOY_SSH_KEY" | base64 -d > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
         ssh-keyscan -t ed25519 ssh.strato.de >> ~/.ssh/known_hosts  # Host-Key automatisch akzeptieren
+        printf 'Host ssh.strato.de\n  UpdateHostKeys no\n' >> ~/.ssh/config
 
-    - name: Test SSH Connection
+    - name: Check STRATO PHP CLI
       run: |
-        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'php -r '\''exit(PHP_VERSION_ID >= 70400 && extension_loaded("pdo_mysql") ? 0 : 1);'\'''
+        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'sh -s -- --check' < .github/scripts/strato-php.sh
 
     - name: Prepare and lint private backend
       run: |
@@ -84,7 +85,7 @@ jobs:
         set -euo pipefail
         ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'mkdir -p php'
         rsync -avz -e "ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes" "$RUNNER_TEMP/school-backend/" matthiasheckel.com@ssh.strato.de:php/
-        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'php php/migrate.php'
+        ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes matthiasheckel.com@ssh.strato.de 'sh -s -- php/migrate.php' < .github/scripts/strato-php.sh
 
     - name: Deploy to Web Space
       run: |
