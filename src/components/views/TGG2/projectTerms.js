@@ -1,5 +1,279 @@
-// Begriffe und Erklärungen aus dem bereitgestellten Unterrichtsmaterial A4 - 67.pdf.
+// Begriffe aus dem Unterrichtsmaterial A4 - 67.pdf und ergänzende Unterrichtstexte.
 export default [
+  {
+    "title": "Gestaltungsprozess",
+    "text": "Im Gestaltungsprozess wird eine Idee schrittweise zu einem fertigen Produkt weiterentwickelt. Dabei werden verschiedene Lösungen untersucht, ausgewählt, verbessert und schließlich umgesetzt.",
+    "sections": [
+      {
+        "title": "1. Entwurf",
+        "text": "In der Entwurfsphase werden die entwickelten Ideen konkretisiert und weiterentwickelt.",
+        "items": [
+          {
+            "label": "Analyse der Ideen",
+            "text": "Die verschiedenen Ideen werden anhand der Anforderungen und Bedürfnisse der Zielgruppe untersucht und bewertet."
+          },
+          {
+            "label": "Auswahl und Entscheidung",
+            "text": "Die geeignetste Idee wird ausgewählt. Die Entscheidung wird anhand nachvollziehbarer Kriterien begründet."
+          },
+          {
+            "label": "Optimierung",
+            "text": "Die ausgewählte Idee wird durch unterschiedliche Varianten und gezielte Verbesserungen weiterentwickelt."
+          }
+        ]
+      },
+      {
+        "title": "2. Ausarbeitung",
+        "text": "In der Ausarbeitungsphase wird der ausgewählte Entwurf überprüft und für die endgültige Realisierung vorbereitet.",
+        "items": [
+          {
+            "label": "Analyse der Entwürfe",
+            "text": "Die Entwürfe werden auf ihre Funktionalität, Verständlichkeit und gestalterische Qualität überprüft."
+          },
+          {
+            "label": "Umsetzung",
+            "text": "Der ausgewählte und optimierte Entwurf wird konkret umgesetzt."
+          }
+        ]
+      },
+      {
+        "title": "3. Endprodukt",
+        "prefix": "Das ",
+        "emphasis": "Endprodukt",
+        "text": " ist das fertige Ergebnis des Gestaltungsprozesses. Es soll die zuvor festgelegten Anforderungen erfüllen und das ursprüngliche Problem möglichst gut lösen."
+      }
+    ],
+    "examplesTitle": "Beispiel – Unsere App",
+    "examples": [
+      {
+        "label": "Entwurf",
+        "text": "Wir erstellen Wireframes für unsere App, vergleichen verschiedene Gestaltungsmöglichkeiten und verbessern unsere Entwürfe."
+      },
+      {
+        "label": "Ausarbeitung",
+        "text": "Wir überprüfen die Wireframes und setzen die ausgewählte Gestaltung um."
+      },
+      {
+        "label": "Endprodukt",
+        "text": "Ein fertiger App-Prototyp, mit dem die vorgesehenen Bedienabläufe nachvollzogen und getestet werden können."
+      }
+    ],
+    "objectivesTitle": "Ich kann … (mit Lösungen)",
+    "objectives": [
+      {
+        "title": "… die drei Phasen vom Entwurf bis zum Endprodukt nennen.",
+        "text": "Entwurf, Ausarbeitung und Endprodukt."
+      },
+      {
+        "title": "… erklären, welche Arbeitsschritte zur Entwurfsphase gehören.",
+        "tasks": [
+          {
+            "label": "Analyse der Ideen",
+            "text": "Verschiedene Ideen anhand von Anforderungen und Kriterien untersuchen und bewerten."
+          },
+          {
+            "label": "Auswahl und Entscheidung",
+            "text": "Die geeignetste Idee auswählen und die Entscheidung begründen."
+          },
+          {
+            "label": "Optimierung",
+            "text": "Die ausgewählte Idee durch Varianten und Verbesserungen weiterentwickeln."
+          }
+        ]
+      },
+      {
+        "title": "… erklären, was in der Ausarbeitungsphase geschieht.",
+        "text": "Die Entwürfe werden analysiert und anschließend umgesetzt.",
+        "tasks": [
+          {
+            "label": "Analyse der Entwürfe",
+            "text": "Funktionalität, Verständlichkeit und gestalterische Qualität überprüfen."
+          },
+          {
+            "label": "Umsetzung",
+            "text": "Den ausgewählten und optimierten Entwurf realisieren."
+          }
+        ]
+      },
+      {
+        "title": "… erklären, was unter einem Endprodukt verstanden wird.",
+        "text": "Das Endprodukt ist das fertige Ergebnis des Gestaltungsprozesses. Es soll die festgelegten Anforderungen erfüllen und das ursprüngliche Problem lösen."
+      }
+    ]
+  },
+  {
+    "title": "Projektverlauf",
+    "sections": [
+      {
+        "title": "Projektverlauf nach LPE 10.1",
+        "text": "Der Bildungsplan für Gestaltungs- und Medientechnik beschreibt folgende Bestandteile eines Projektverlaufs:",
+        "items": [
+          {
+            "text": "Projektauftrag"
+          },
+          {
+            "text": "Briefing, Rebriefing"
+          },
+          {
+            "text": "Lastenheft, Pflichtenheft"
+          },
+          {
+            "text": "Problemanalyse"
+          },
+          {
+            "text": "Zielgruppendefinition"
+          },
+          {
+            "text": "Zielformulierung"
+          },
+          {
+            "text": "Controlling, Strategien und Maßnahmen"
+          }
+        ],
+        "conclusion": "Zusätzlich nennt der Lehrplan unter dem Begriff „Lösungsstrategien“ die Entwicklung, Analyse und Auswahl von Lösungen."
+      },
+      {
+        "title": "Unser Projektverlauf – Wir entwickeln eine App",
+        "items": [
+          {
+            "label": "Projektauftrag",
+            "text": "Entwicklung einer App für den Schulalltag."
+          },
+          {
+            "label": "Briefing, Rebriefing",
+            "text": "Wir haben den Auftrag und die Rahmenbedingungen kennengelernt, den Auftrag zusammengefasst und offene Fragen geklärt."
+          },
+          {
+            "label": "Lastenheft, Pflichtenheft",
+            "text": "Wir haben die Anforderungen des Auftraggebers kennengelernt und mithilfe von User Story Mapping konkrete App-Funktionen für das Pflichtenheft festgelegt."
+          },
+          {
+            "label": "Problemanalyse",
+            "text": "Wir haben Probleme und Bedürfnisse der Nutzer untersucht."
+          },
+          {
+            "label": "Zielgruppendefinition",
+            "text": "Wir haben bestimmt, für welche Nutzer unsere App entwickelt werden soll."
+          },
+          {
+            "label": "Zielformulierung",
+            "text": "Wir haben ein konkretes Problem ausgewählt und eine Problemfrage formuliert."
+          },
+          {
+            "label": "Controlling, Strategien und Maßnahmen",
+            "text": "Wir überprüfen den Projektfortschritt und passen unsere Planung und unser Vorgehen bei Bedarf an."
+          },
+          {
+            "label": "Lösungsstrategien",
+            "text": "Mit der Kreativitätstechnik Crazy 8 haben wir unterschiedliche Lösungsideen entwickelt. Anschließend haben wir diese anhand von Kriterien analysiert, bewertet und eine Lösung ausgewählt."
+          }
+        ]
+      }
+    ],
+    "objectives": [
+      {
+        "title": "… die Bestandteile eines Projektverlaufs nach LPE 10.1 nennen.",
+        "text": "Projektauftrag, Briefing und Rebriefing, Lastenheft und Pflichtenheft, Problemanalyse, Zielgruppendefinition, Zielformulierung sowie Controlling, Strategien und Maßnahmen."
+      },
+      {
+        "title": "… erklären, was ein Projektauftrag ist.",
+        "text": "Ein Projektauftrag beschreibt die Aufgabe, die Ziele und die Rahmenbedingungen eines Projekts."
+      },
+      {
+        "title": "… den Unterschied zwischen Briefing und Rebriefing erklären.",
+        "text": "Beim Briefing erklärt der Auftraggeber, was er benötigt. Beim Rebriefing fasst der Auftragnehmer sein Verständnis des Auftrags zusammen und klärt offene Fragen."
+      },
+      {
+        "title": "… den Unterschied zwischen Lastenheft und Pflichtenheft erklären.",
+        "text": "Das Lastenheft beschreibt, was der Auftraggeber möchte. Das Pflichtenheft legt fest, wie der Auftragnehmer die Anforderungen konkret umsetzen wird."
+      },
+      {
+        "title": "… erklären, was eine Problemanalyse ist.",
+        "text": "Bei der Problemanalyse wird ein Problem untersucht, um seine Ursachen und die Bedürfnisse der Betroffenen zu verstehen."
+      },
+      {
+        "title": "… erklären, was Zielgruppendefinition und Zielformulierung bedeuten.",
+        "text": "Bei der Zielgruppendefinition wird bestimmt, für wen ein Produkt entwickelt wird. Bei der Zielformulierung wird festgelegt, was mit dem Projekt erreicht werden soll."
+      },
+      {
+        "title": "… erklären, was Controlling, Strategien und Maßnahmen im Projektmanagement bedeuten.",
+        "tasks": [
+          {
+            "label": "Controlling",
+            "text": "Überprüfen, ob das Projekt planmäßig verläuft und die Ziele erreicht werden."
+          },
+          {
+            "label": "Strategien",
+            "text": "Grundsätzliche Vorgehensweisen zur Erreichung der Projektziele."
+          },
+          {
+            "label": "Maßnahmen",
+            "text": "Konkrete Handlungen zur Umsetzung der Strategien."
+          }
+        ]
+      },
+      {
+        "title": "… erklären, wie wir in unserem Projekt Lösungsstrategien eingesetzt haben.",
+        "text": "Wir haben mit Crazy 8 verschiedene Lösungsideen entwickelt, diese anhand von Kriterien analysiert und bewertet und anschließend eine geeignete Lösung ausgewählt."
+      }
+    ]
+  },
+  {
+    "title": "Definition und Aufgaben von Projekten und Projektmanagement",
+    "sections": [
+      {
+        "title": "Projekt",
+        "text": "Ein Projekt ist ein zeitlich begrenztes Vorhaben mit einem klar definierten Ziel. Es zeichnet sich dadurch aus, dass es eine besondere, nicht alltägliche Aufgabe umfasst und dafür bestimmte Ressourcen wie Zeit, Geld und Personal zur Verfügung stehen.",
+        "summary": "Ein Projekt ist ein einmaliges Vorhaben mit einem festgelegten Ziel und begrenzten Ressourcen."
+      },
+      {
+        "title": "Projektmanagement",
+        "text": "Projektmanagement umfasst die Planung, Organisation, Steuerung und Kontrolle eines Projekts. Es sorgt dafür, dass die Aufgaben koordiniert, Ressourcen sinnvoll eingesetzt und die vereinbarten Ziele erreicht werden.",
+        "summary": "Projektmanagement sorgt dafür, dass ein Projekt planmäßig durchgeführt wird und seine Ziele erreicht."
+      }
+    ],
+    "examples": [
+      {
+        "label": "Projekt",
+        "text": "Wir entwickeln eine App für den Schulalltag."
+      },
+      {
+        "label": "Projektmanagement",
+        "text": "Wir legen Ziele fest, planen die einzelnen Arbeitsschritte, verteilen Aufgaben und überprüfen regelmäßig unseren Fortschritt."
+      }
+    ],
+    "objectives": [
+      {
+        "title": "… erklären, was ein Projekt ist, und seine wesentlichen Merkmale nennen.",
+        "text": "Ein Projekt ist ein einmaliges, zeitlich begrenztes Vorhaben mit einem klar definierten Ziel und begrenzten Ressourcen wie Zeit, Geld und Personal."
+      },
+      {
+        "title": "… erklären, was Projektmanagement bedeutet.",
+        "text": "Projektmanagement umfasst die Planung, Organisation, Steuerung und Kontrolle eines Projekts, damit die festgelegten Ziele erreicht werden."
+      },
+      {
+        "title": "… die wichtigsten Aufgaben des Projektmanagements nennen und beschreiben.",
+        "tasks": [
+          {
+            "label": "Planung",
+            "text": "Ziele, Arbeitsschritte und Zeitrahmen festlegen."
+          },
+          {
+            "label": "Organisation",
+            "text": "Aufgaben verteilen und Ressourcen bereitstellen."
+          },
+          {
+            "label": "Steuerung",
+            "text": "Den Projektablauf koordinieren und bei Problemen eingreifen."
+          },
+          {
+            "label": "Kontrolle",
+            "text": "Überprüfen, ob die Ziele erreicht und die Vorgaben eingehalten werden."
+          }
+        ]
+      }
+    ]
+  },
   {
     "title": "Projekt",
     "text": "Ein Vorhaben, das einmalig ist, ein klares Ziel hat und innerhalb festgelegter Zeit-, Kosten- und Ressourcenrahmen durchgeführt wird."

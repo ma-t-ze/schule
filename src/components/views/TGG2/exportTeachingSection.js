@@ -7,6 +7,7 @@ export const teachingSections = [
   { id: 'analysis', title: 'Analysieren', filename: '02_Analysieren.pdf' },
   { id: 'ideas', title: 'Ideen finden', filename: '03_Ideen_finden.pdf' },
   { id: 'requirements', title: 'Anforderungen festlegen', filename: '04_Anforderungen_festlegen.pdf' },
+  { id: 'drafts', title: 'Phase 4 – Erster Entwurf eurer App', filename: '05_Erster_Entwurf_eurer_App.pdf' },
   { id: 'terms', title: 'Wichtige Begriffe', filename: '05_Wichtige_Begriffe.pdf', yellow: true }
 ]
 
@@ -74,6 +75,10 @@ export function collectTeachingBlocks(root) {
       blocks.push({ kind: 'field', height: tag === 'TEXTAREA' ? Math.min(30, Math.max(14, el.rows * 5)) : 12 })
       return
     }
+    if (tag === 'IMG') {
+      blocks.push({ kind: 'image', src: el.currentSrc || el.src })
+      return
+    }
     if (tag === 'A') {
       const href = el.getAttribute('href')
       if (href && !href.startsWith('#')) blocks.push({ kind: 'link', text: text(el), href: new URL(href, location.origin).href })
@@ -126,6 +131,18 @@ export async function downloadTeachingSection(root, section) {
     if (y + height > 278) { pdf.addPage(); header(); y = 40 }
   }
   for (const block of blocks) {
+    if (block.kind === 'image') {
+      const response = await fetch(block.src)
+      if (!response.ok) throw new Error('Beispielgrafik konnte nicht geladen werden.')
+      const bytes = new Uint8Array(await response.arrayBuffer())
+      const dimensions = pdf.getImageProperties(bytes)
+      const scale = Math.min(186 / dimensions.width, 225 / dimensions.height)
+      const width = dimensions.width * scale, height = dimensions.height * scale
+      pageIfNeeded(height + 5)
+      pdf.addImage(bytes, 12 + (186 - width) / 2, y, width, height)
+      y += height + 7
+      continue
+    }
     if (block.kind === 'table') {
       pageIfNeeded(Math.min(230, 15 + block.rows.length * block.minHeight))
       autoTable(pdf, {

@@ -8,6 +8,7 @@ const props = defineProps({
   classKey: { type: String, required: true },
   className: { type: String, required: true }
 })
+const emit = defineEmits(['count'])
 const endpoint = import.meta.env.DEV ? '/site-auth/exam-accommodations.php' : '/exam-accommodations.php'
 const entries = ref([])
 const expanded = ref(false)
@@ -59,7 +60,8 @@ async function load() {
     if (!Array.isArray(data.items) || typeof data.csrf !== 'string') throw new Error('Ungültige API-Antwort.')
     if (data.items.some(entry => typeof entry.comment !== 'string')) throw new Error('Kommentare sind noch nicht verfügbar. Bitte die Website aktualisieren.')
     entries.value = data.items; csrf = data.csrf
-  } catch (e) { error.value = e.message } finally { busy.value = false }
+    emit('count', data.items.length)
+  } catch (e) { error.value = e.message; emit('count', null) } finally { busy.value = false }
 }
 function add() {
   entries.value.push({ id: 0, student_name: '', has_pdf: false, revision: 0, comment: '' })
@@ -100,7 +102,7 @@ onMounted(load)
       <label :for="`${classKey}-person-${index}`">Name</label>
       <InputText :id="`${classKey}-person-${index}`" v-model="entry.student_name" maxlength="150" :disabled="busy" @input="status = ''" />
       <label :for="`${classKey}-comment-${index}`">Kommentar</label>
-      <Textarea :id="`${classKey}-comment-${index}`" v-model="entry.comment" class="accommodation-comment" rows="3" maxlength="10000" :disabled="busy" @input="status = ''" />
+      <Textarea :id="`${classKey}-comment-${index}`" v-model="entry.comment" class="accommodation-comment" rows="12" maxlength="10000" :disabled="busy" @input="status = ''" />
       <Button v-if="entry.has_pdf" label="PDF anzeigen" text size="small" @click="showPdf(entry)" />
       <div class="actions"><Button label="Speichern" outlined size="small" :disabled="busy" @click="save(entry)" /><Button label="Entfernen" text severity="danger" size="small" :disabled="busy" @click="save(entry, 'delete')" /></div>
     </div>
@@ -122,7 +124,7 @@ onMounted(load)
 .accommodation-content { padding: .5rem 0; }
 .person { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; margin-bottom: 1rem; }
 .person > input { width: 100%; }
-.accommodation-comment { width: 100%; box-sizing: border-box; height: calc(6rem + 2px); min-height: calc(6rem + 2px); max-height: calc(6rem + 2px); line-height: 1.5rem; padding: .75rem; overflow-y: auto; resize: none; }
+.accommodation-comment { width: 100%; box-sizing: border-box; height: calc(24rem + 8px); min-height: calc(24rem + 8px); max-height: calc(24rem + 8px); line-height: 1.5rem; padding: .75rem; overflow-y: auto; resize: none; }
 input { max-width: 100%; min-width: 0; box-sizing: border-box; }
 .pdf-preview { display: block; width: 100%; height: 75vh; border: 0; }
 .actions { display: flex; flex-wrap: wrap; gap: .4rem; }

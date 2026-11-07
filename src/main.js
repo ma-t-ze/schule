@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import store from './store'
 import { checkSiteSession } from './services/siteAuth'
+import { installNewTabLinks } from './navigation/newTabLinks'
 
 const app = createApp(App)
 app.use(PrimeVue, {
@@ -507,6 +508,9 @@ function isLoggedIn() {
 
 app.use(router)
 app.use(store)
+
+const removeNewTabLinks = installNewTabLinks()
+if (import.meta.hot) import.meta.hot.dispose(removeNewTabLinks)
 
 app.mount('#app')
 

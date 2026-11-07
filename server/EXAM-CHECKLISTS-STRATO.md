@@ -37,7 +37,7 @@ Die bestehende Tabelle und deren Spalte `exam_key` werden weiterverwendet; dort 
 
 ## Kommentare im Nachteilsausgleich
 
-Das N-Overlay zeigt pro Person ein dreizeiliges, bei längerem Text vertikal
+Das N-Overlay zeigt pro Person ein gegenüber der ursprünglichen Ansicht viermal so hohes, bei längerem Text vertikal
 scrollbares Kommentarfeld. Name und Kommentar werden gemeinsam gespeichert und
 können später geändert werden. Neue PDF-Uploads werden nicht mehr angeboten;
 bereits gespeicherte PDFs bleiben über „PDF anzeigen“ verfügbar.

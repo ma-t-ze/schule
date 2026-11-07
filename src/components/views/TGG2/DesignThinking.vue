@@ -6,6 +6,7 @@ import PublicPosts from './PublicPosts.vue'
 import ProblemVotes from './ProblemVotes.vue'
 import PhaseTwo from './PhaseTwo.vue'
 import PhaseThree from './PhaseThree.vue'
+import PhaseFour from './PhaseFour.vue'
 import TermContent from './TermContent.vue'
 const props = defineProps({ pdfMode: { type: Boolean, default: false } })
 import { watchDesignPosts, designError } from '../../../services/designThinkingFirebase'
@@ -101,7 +102,7 @@ const designThinking = {
   text: 'Design Thinking ist eine Methode, um Lösungen für Probleme zu entwickeln. Im Mittelpunkt stehen die Menschen, die eine Lösung später nutzen sollen. Ihr untersucht zuerst ihre Bedürfnisse. Dann sammelt ihr Ideen, macht einen einfachen Entwurf und probiert ihn mit anderen aus. Ihr nutzt ihre Rückmeldungen, um den Entwurf zu verbessern. Dabei könnt ihr immer wieder zu einem früheren Schritt zurückgehen.',
   example: 'Nach Briefing und Rebriefing arbeiten wir für unsere App mit sechs Phasen: Analysieren, Ideen finden, Anforderungen festlegen, Entwerfen, Testen und optimieren sowie Präsentieren. Wir beginnen mit einem Problem aus dem Schulalltag und überlegen erst danach, wie eine App helfen könnte.'
 }
-const terms = ['Briefing, Rebriefing', 'Problemanalyse', 'Ideenfindung', 'Lastenheft und Pflichtenheft'].map(title => projectTerms.find(term => term.title === title)).filter(Boolean)
+const terms = ['Definition und Aufgaben von Projekten und Projektmanagement', 'Projektverlauf', 'Ideenfindung', 'Gestaltungsprozess'].map(title => projectTerms.find(term => term.title === title)).filter(Boolean)
 
 function openTerm(term) { activeTerm.value = term; dialog.value.showModal() }
 function closeTerm() { dialog.value?.close() }
@@ -204,6 +205,7 @@ onBeforeUnmount(closeTerm)
           </details>
           <PhaseTwo :posts="posts" :pdf-mode="pdfMode" data-pdf-section="ideas" />
           <PhaseThree :pdf-mode="pdfMode" data-pdf-section="requirements" />
+          <PhaseFour data-pdf-section="drafts" />
           <router-link :to="{ name: '3tgg2-design-thinking-admin' }">Admin-Ansicht für die Lehrkraft</router-link>
         </div>
         <aside aria-labelledby="knowledge-title">

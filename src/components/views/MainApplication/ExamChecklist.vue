@@ -4,7 +4,7 @@ import Checkbox from 'primevue/checkbox'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import { checklistFields as fields } from './examChecklistFields'
-const props = defineProps({ examKey: { type: String, required: true } })
+const props = defineProps({ examKey: { type: String, required: true }, accommodationCount: { type: Number, default: null } })
 const emit = defineEmits(['change'])
 const item = ref(null)
 watch(item, value => emit('change', value ? { ...value } : null), { deep: true })
@@ -45,7 +45,7 @@ onMounted(load)
       <template v-for="[key, label] in fields" :key="key">
       <label class="check-row">
         <Checkbox v-model="item[key]" binary :disabled="busy" @update:model-value="status = ''" />
-        <span>{{ label }}</span>
+        <span>{{ label }}<template v-if="key === 'accommodation'"> ({{ accommodationCount ?? '…' }} Personen)</template></span>
       </label>
       </template>
       <label :for="`makeup-${examKey}`">Nachschreiber</label>
