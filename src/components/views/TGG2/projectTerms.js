@@ -351,7 +351,30 @@ export default [
   },
   {
     "title": "Ideenfindung",
-    "text": "Bei der Ideenfindung geht es darum, möglichst viele kreative Lösungsansätze zu entwickeln. Zunächst gilt: Quantität vor Qualität. Auch ungewöhnliche oder verrückte Ideen sind willkommen, denn daraus können innovative Lösungen entstehen.\n\nEine Methode ist Crazy 8. Dabei wird ein Blatt in acht Felder unterteilt. Innerhalb von acht Minuten skizziert jede Person acht unterschiedliche Ideen. Der Zeitdruck fördert spontanes und kreatives Denken.\n\nAnschließend werden die Ideen analysiert und bewertet: Welche sind besonders originell, nützlich und umsetzbar? Vielversprechende Ansätze können kombiniert werden. Am Ende wird eine Idee ausgewählt und weiterentwickelt.\n\nZiel ist Innovation: eine neue oder deutlich verbesserte Lösung mit echtem Mehrwert."
+    "text": "Bei der Ideenfindung geht es darum, möglichst viele kreative Lösungsansätze zu entwickeln. Zunächst gilt: Quantität vor Qualität. Auch ungewöhnliche oder verrückte Ideen sind willkommen, denn daraus können innovative Lösungen entstehen.\n\nEine Methode ist Crazy 8. Dabei wird ein Blatt in acht Felder unterteilt. Innerhalb von acht Minuten skizziert jede Person acht unterschiedliche Ideen. Der Zeitdruck fördert spontanes und kreatives Denken.\n\nAnschließend werden die Ideen analysiert und bewertet: Welche sind besonders originell, nützlich und umsetzbar? Vielversprechende Ansätze können kombiniert werden. Am Ende wird eine Idee ausgewählt und weiterentwickelt.\n\nZiel ist Innovation: eine neue oder deutlich verbesserte Lösung mit echtem Mehrwert.",
+    "objectivesTitle": "Ich kann … (mit Lösungen)",
+    "objectives": [
+      {
+        "title": "… erklären, welches Ziel die Ideenfindung verfolgt.",
+        "text": "Ziel ist es, möglichst viele unterschiedliche und kreative Lösungsansätze zu entwickeln, aus denen eine innovative Lösung entstehen kann."
+      },
+      {
+        "title": "… erklären, was mit „Quantität vor Qualität“ gemeint ist.",
+        "text": "Zunächst sollen möglichst viele Ideen gesammelt werden, ohne sie sofort zu bewerten. Auch ungewöhnliche Ideen sind willkommen."
+      },
+      {
+        "title": "… die Kreativitätstechnik Crazy 8 beschreiben.",
+        "text": "Ein Blatt wird in acht Felder unterteilt. Innerhalb von acht Minuten skizziert jede Person acht unterschiedliche Ideen. Der Zeitdruck fördert spontanes und kreatives Denken."
+      },
+      {
+        "title": "… erklären, wie Ideen analysiert, bewertet und ausgewählt werden.",
+        "text": "Die Ideen werden anhand von Kriterien wie Originalität, Nutzen und Umsetzbarkeit verglichen. Vielversprechende Ideen können kombiniert werden. Anschließend wird eine geeignete Idee ausgewählt und weiterentwickelt."
+      },
+      {
+        "title": "… erklären, was Innovation bedeutet.",
+        "text": "Innovation ist eine neue oder deutlich verbesserte Lösung, die einen echten Mehrwert bietet."
+      }
+    ]
   },
   {
     "title": "Ideenvielfalt",
