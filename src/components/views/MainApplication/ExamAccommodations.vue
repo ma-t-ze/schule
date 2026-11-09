@@ -8,7 +8,7 @@ const props = defineProps({
   classKey: { type: String, required: true },
   className: { type: String, required: true }
 })
-const emit = defineEmits(['count'])
+const personCount = ref(null)
 const endpoint = import.meta.env.DEV ? '/site-auth/exam-accommodations.php' : '/exam-accommodations.php'
 const entries = ref([])
 const expanded = ref(false)
@@ -60,8 +60,8 @@ async function load() {
     if (!Array.isArray(data.items) || typeof data.csrf !== 'string') throw new Error('Ungültige API-Antwort.')
     if (data.items.some(entry => typeof entry.comment !== 'string')) throw new Error('Kommentare sind noch nicht verfügbar. Bitte die Website aktualisieren.')
     entries.value = data.items; csrf = data.csrf
-    emit('count', data.items.length)
-  } catch (e) { error.value = e.message; emit('count', null) } finally { busy.value = false }
+    personCount.value = data.items.length
+  } catch (e) { error.value = e.message; personCount.value = null } finally { busy.value = false }
 }
 function add() {
   entries.value.push({ id: 0, student_name: '', has_pdf: false, revision: 0, comment: '' })
@@ -90,6 +90,7 @@ onMounted(load)
       :aria-controls="`${classKey}-accommodations`"
       @click="expanded = true"
     />
+    <span class="accommodation-count" :aria-label="personCount === null ? 'Anzahl noch nicht verfügbar' : `${personCount} Personen mit Nachteilsausgleich`">({{ personCount ?? '…' }})</span>
     <Dialog
       v-model:visible="expanded" :id="`${classKey}-accommodations`"
       :header="`Nachteilsausgleiche · ${className}`" modal
@@ -118,7 +119,8 @@ onMounted(load)
   </div>
 </template>
 <style scoped>
-.accommodations { display: inline-flex; flex-shrink: 0; }
+.accommodations { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.accommodation-count { font-size: 14px; font-weight: 600; color: #176746; white-space: nowrap; }
 .accommodation-trigger { width: 1.75rem; height: 1.75rem; padding: 0; border: 1px solid #176746; border-radius: 5px; color: #176746; background: transparent; font-weight: 600; }
 .accommodation-trigger:hover { color: #115033; border-color: #115033; background: #e8f2ec; }
 .accommodation-content { padding: .5rem 0; }

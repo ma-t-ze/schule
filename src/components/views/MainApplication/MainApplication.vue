@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import Panel from 'primevue/panel'
 import Button from 'primevue/button'
 import Popover from 'primevue/popover'
+import Toolbar from 'primevue/toolbar'
+import { classServiceUrls } from './classServiceUrls'
 import SchoolCalendar from './SchoolCalendar.vue'
 import UpcomingNotes from './UpcomingNotes.vue'
 import ExamEntry from './ExamEntry.vue'
@@ -13,7 +15,6 @@ import PlansOverview from '../Stoffverteilungsplaene/PlansOverview.vue'
 
 const isDev = import.meta.env.DEV
 const calendarNotes = ref([])
-const accommodationCounts = ref({})
 const notesReady = ref(false)
 const upcomingNotes = ref(null)
 const emailCopyStatus = ref('')
@@ -48,6 +49,7 @@ const metLinks = [
 ]
 const classKeys = ['2026-27-3bkgd1-1-met', '2026-27-3bkgd1-1-grd', '2026-27-3tgg1-2', '2026-27-3tgg2', '2026-27-1bfd1-bpk']
 const exams = ['3BKGD1/1 MET', '3BKGD1_1_GRD', '3TGG1/2', '3TGG2', '1BFD1 BPK']
+const serviceGroups = [{ key: 'teams', label: 'Teams' }, { key: 'figma', label: 'Figma' }]
 const metDatesOpen = ref(false)
 const metDates = 4
 const grdDatesOpen = ref(false)
@@ -60,6 +62,22 @@ const tgg12Dates = 5
 
 <template>
   <main class="school-home" aria-label="Schule – persönliche Startseite">
+    <Toolbar class="class-services" aria-label="Teams und Figma nach Klassen">
+      <template #start>
+        <nav v-for="group in serviceGroups" :key="group.key" class="service-group" :aria-label="`${group.label} – Klassenlinks`">
+          <h2>{{ group.label }}</h2>
+          <div class="service-links">
+            <Button v-for="(name, index) in exams" :key="classKeys[index]" :label="name"
+              :as="classServiceUrls[group.key][classKeys[index]] ? 'a' : 'button'"
+              :href="classServiceUrls[group.key][classKeys[index]] || undefined"
+              :disabled="!classServiceUrls[group.key][classKeys[index]]"
+              :title="classServiceUrls[group.key][classKeys[index]] ? `${group.label} · ${name}` : 'Link noch nicht hinterlegt'"
+              outlined size="small" target="_blank" rel="noopener noreferrer" />
+            <Button v-if="group.key === 'figma'" label="Export" as="a" :href="classServiceUrls.figma.export" outlined size="small" target="_blank" rel="noopener noreferrer" />
+          </div>
+        </nav>
+      </template>
+    </Toolbar>
     <aside class="sidebar" aria-label="Unterricht und Organisation">
       <Panel header="Klassen 2025/26" toggleable>
         <nav class="link-list" aria-label="Klassen 2025/26">
@@ -164,22 +182,22 @@ const tgg12Dates = 5
     <Panel class="exams-column" header="Klassenarbeiten" toggleable>
       <ul><li v-for="(name, classIndex) in exams" :key="name">
         <template v-if="name === '3BKGD1/1 MET'">
-          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/4)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" @count="accommodationCounts[classKeys[classIndex]] = $event" /></div><Button :label="metDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="metDatesOpen" aria-controls="met-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1/1 MET" @click="metDatesOpen = !metDatesOpen" /></div>
-          <ol v-if="metDatesOpen" id="met-exam-dates" class="exam-dates"><li v-for="number in metDates" :key="number"><ExamEntry :accommodation-count="accommodationCounts[classKeys[classIndex]] ?? null" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-met-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3bkgd1-1-met bearbeiten`" :exam-key="`2026-27-3bkgd1-1-met-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3bkgd1-1-met-${number}`)" /></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/4)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="metDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="metDatesOpen" aria-controls="met-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1/1 MET" @click="metDatesOpen = !metDatesOpen" /></div>
+          <ol v-if="metDatesOpen" id="met-exam-dates" class="exam-dates"><li v-for="number in metDates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-met-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3bkgd1-1-met bearbeiten`" :exam-key="`2026-27-3bkgd1-1-met-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3bkgd1-1-met-${number}`)" /></li></ol>
         </template>
         <template v-else-if="name === '3BKGD1_1_GRD'">
-          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/4)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" @count="accommodationCounts[classKeys[classIndex]] = $event" /></div><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
-          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="number in grdDates" :key="number"><ExamEntry :accommodation-count="accommodationCounts[classKeys[classIndex]] ?? null" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-grd-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3bkgd1-1-grd bearbeiten`" :exam-key="`2026-27-3bkgd1-1-grd-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3bkgd1-1-grd-${number}`)" /></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/4)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="grdDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="grdDatesOpen" aria-controls="grd-exam-dates" aria-label="Klassenarbeitstermine für 3BKGD1_1_GRD" @click="grdDatesOpen = !grdDatesOpen" /></div>
+          <ol v-if="grdDatesOpen" id="grd-exam-dates" class="exam-dates"><li v-for="number in grdDates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3bkgd1-1-grd-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3bkgd1-1-grd bearbeiten`" :exam-key="`2026-27-3bkgd1-1-grd-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3bkgd1-1-grd-${number}`)" /></li></ol>
         </template>
         <template v-else-if="name === '3TGG1/2'">
-          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/5)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" @count="accommodationCounts[classKeys[classIndex]] = $event" /></div><Button :label="tgg12DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg12DatesOpen" aria-controls="tgg12-exam-dates" aria-label="Klassenarbeitstermine für 3TGG1/2" @click="tgg12DatesOpen = !tgg12DatesOpen" /></div>
-          <ol v-if="tgg12DatesOpen" id="tgg12-exam-dates" class="exam-dates"><li v-for="number in tgg12Dates" :key="number"><ExamEntry :accommodation-count="accommodationCounts[classKeys[classIndex]] ?? null" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg1-2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg1-2 bearbeiten`" :exam-key="`2026-27-3tgg1-2-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3tgg1-2-${number}`)" /></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/5)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="tgg12DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg12DatesOpen" aria-controls="tgg12-exam-dates" aria-label="Klassenarbeitstermine für 3TGG1/2" @click="tgg12DatesOpen = !tgg12DatesOpen" /></div>
+          <ol v-if="tgg12DatesOpen" id="tgg12-exam-dates" class="exam-dates"><li v-for="number in tgg12Dates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg1-2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg1-2 bearbeiten`" :exam-key="`2026-27-3tgg1-2-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3tgg1-2-${number}`)" /></li></ol>
         </template>
         <template v-else-if="name === '3TGG2'">
-          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/2)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" @count="accommodationCounts[classKeys[classIndex]] = $event" /></div><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
-          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="number in tgg2Dates" :key="number"><ExamEntry :accommodation-count="accommodationCounts[classKeys[classIndex]] ?? null" :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg2 bearbeiten`" :exam-key="`2026-27-3tgg2-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3tgg2-${number}`)" /></li></ol>
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/2)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
+          <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="number in tgg2Dates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg2 bearbeiten`" :exam-key="`2026-27-3tgg2-${number}`" @edit="upcomingNotes?.editExam(`2026-27-3tgg2-${number}`)" /></li></ol>
         </template>
-        <template v-else><div class="class-title"><span>{{ name }}</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" @count="accommodationCounts[classKeys[classIndex]] = $event" /></div></template>
+        <template v-else><div class="class-title"><span>{{ name }}</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div></template>
       </li></ul>
       <UpcomingNotes ref="upcomingNotes" @change="calendarNotes = $event" @ready="notesReady = $event" />
     </Panel>
@@ -188,6 +206,18 @@ const tgg12Dates = 5
 
 <style scoped>
 .school-home { background: #ffffff; box-sizing: border-box; min-height: 100vh; display: grid; align-content: start; grid-template-columns: minmax(230px, 1fr) minmax(0, 2.25fr) minmax(210px, 1fr); gap: 24px; width: 100%; margin: 0; padding: 40px 32px; color: #202622; font-family: 'Jost', sans-serif; }
+.class-services { grid-column: 1 / -1; background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; padding: 18px 20px; }
+.class-services :deep(.p-toolbar-start) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 24px; width: 100%; min-width: 0; }
+.service-group { min-width: 0; }
+.service-group + .service-group { border-left: 1px solid #d5dbd2; padding-left: 24px; }
+.service-group h2 { font-size: 20px; margin: 0 0 10px; }
+.service-links { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.service-links :deep(.p-button) { font-size: 15px; white-space: normal; text-align: left; justify-content: flex-start; }
+@media (max-width: 740px) {
+  .class-services { order: -2; }
+  .class-services :deep(.p-toolbar-start) { grid-template-columns: 1fr; gap: 16px; }
+  .service-group + .service-group { border-left: 0; padding-left: 0; border-top: 1px solid #d5dbd2; padding-top: 16px; }
+}
 .center-column > .p-panel { align-self: stretch; width: 100%; box-sizing: border-box; }
 .center-column { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .plans-panel { min-width: 0; background: #f1f2ef; }

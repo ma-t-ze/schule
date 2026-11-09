@@ -9,8 +9,7 @@ defineProps({
   examKey: { type: String, required: true },
   label: { type: String, required: true },
   editLabel: { type: String, required: true },
-  disabled: Boolean,
-  accommodationCount: { type: Number, default: null }
+  disabled: Boolean
 })
 defineEmits(['edit'])
 const expanded = ref(false)
@@ -24,7 +23,6 @@ const checklist = ref(null)
       <div class="checklist-preview" role="group" aria-label="Checklisten-Vorschau" :aria-busy="!checklist">
         <span v-for="[key, name] in checklistFields" :key="key" :title="`${name}: ${checklist ? (checklist[key] ? 'erledigt' : 'offen') : 'noch nicht geladen'}`">
           <Checkbox :model-value="Boolean(checklist?.[key])" binary disabled :aria-label="name" />
-          <span v-if="key === 'accommodation'" class="accommodation-count" :aria-label="accommodationCount === null ? 'Anzahl noch nicht verfügbar' : `${accommodationCount} Personen mit Nachteilsausgleich`">({{ accommodationCount ?? '…' }})</span>
         </span>
       </div>
       <Button
@@ -41,7 +39,7 @@ const checklist = ref(null)
       </Button>
     </div>
     <div v-show="expanded" :id="`${examKey}-checklist`" class="exam-checklist">
-      <ExamChecklist :exam-key="examKey" :accommodation-count="accommodationCount" @change="checklist = $event" />
+      <ExamChecklist :exam-key="examKey" @change="checklist = $event" />
     </div>
   </div>
 </template>
@@ -51,7 +49,6 @@ const checklist = ref(null)
 .exam-date-button { flex: 1; min-width: 0; text-align: left; justify-content: flex-start; padding: .25rem 0; font: inherit; }
 .checklist-preview { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
 .checklist-preview > span { display: flex; align-items: center; gap: 3px; }
-.accommodation-count { font-size: 12px; font-weight: 600; color: #176746; white-space: nowrap; }
 .checklist-preview :deep(.p-checkbox) { width: 16px; height: 16px; opacity: 1; }
 .checklist-preview :deep(.p-checkbox-box) { width: 16px; height: 16px; }
 .checklist-preview :deep(.p-checkbox.p-disabled .p-checkbox-box) { border: 1.5px solid #64748b; background: #fff; }
