@@ -19,7 +19,7 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     allowedHosts: 'all',
-    fs: { deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/local-noten/**'] },
+    fs: { deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/local-noten/**', '**/local-anwesenheit/**'] },
     proxy: {
       '/site-auth/': {
         target: 'https://visualizer.matthiasheckel.com',

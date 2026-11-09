@@ -174,6 +174,11 @@ const tgg12Dates = 5
           <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
         </nav>
       </Panel>
+      <Panel header="Designvorlagen" toggleable collapsed>
+        <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
+          <nav class="link-list" aria-label="Designvorlage A4"><RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink></nav>
+        </Panel>
+      </Panel>
     </aside>
     <div class="center-column">
       <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>

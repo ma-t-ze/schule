@@ -30,7 +30,13 @@
         #8 Rückblick
       </router-link>
       <router-link class="topic-link" :to="{ name: '3tgg12-semiotik' }">
-        #9 Semiotik
+        #9 Semiotik Einführung
+      </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-semiotische-analyse' }">
+        #10 Semiotische Analyse
+      </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-farbe' }">
+        #11 Farbe
       </router-link>
     </nav>
   </main>

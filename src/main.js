@@ -17,6 +17,12 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/designvorlagen/a4',
+    name: 'designvorlage-a4',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageA4.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/pruefungen/paedagogik-psychologie',
     name: 'pruefung-paedagogik-psychologie',
     component: () => import('./components/views/PaedagogikPruefung/PaedagogikPruefung.vue'),
@@ -196,6 +202,18 @@ const routes = [
     path: '/3tgg12/visuelle-kommunikation-zusatzaufgabe',
     name: '3tgg12-zusatzaufgabe',
     component: () => import('./components/views/TGG12/Zusatzaufgabe.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/3tgg12/farbe',
+    name: '3tgg12-farbe',
+    component: () => import('./components/views/TGG12/Farbe.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/3tgg12/semiotische-analyse',
+    name: '3tgg12-semiotische-analyse',
+    component: () => import('./components/views/TGG12/SemiotischeAnalyse.vue'),
     meta: { requiresAuth: false }
   },
   {

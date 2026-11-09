@@ -1,7 +1,7 @@
 <template>
   <main class="document">
     <nav aria-label="Kursnavigation"><RouterLink :to="{ name: '3tgg12' }">← Zur Übersicht 3TGG1/2</RouterLink></nav>
-    <h1>Semiotik</h1>
+    <h1>Semiotik Einführung</h1>
     <div class="pages">
       <img v-for="page in 5" :key="page" :src="`/3tgg12/semiotik-seiten/seite-${String(page).padStart(2, '0')}.jpg`" :alt="`Semiotik – Dokumentseite ${page} von 5`" width="1555" height="2200" :loading="page === 1 ? 'eager' : 'lazy'">
     </div>

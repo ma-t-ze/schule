@@ -41,3 +41,6 @@ php
 
 # Private local grade files; never commit or deploy
 /local-noten/
+
+# Private local attendance PDFs; never commit or deploy
+/local-anwesenheit/

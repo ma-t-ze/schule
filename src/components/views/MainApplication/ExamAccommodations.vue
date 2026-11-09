@@ -15,6 +15,8 @@ const expanded = ref(false)
 const busy = ref(false)
 const error = ref('')
 const status = ref('')
+const editingId = ref(null)
+const draft = ref(null)
 const previewOpen = ref(false)
 const previewUrl = ref('')
 const previewName = ref('')
@@ -61,21 +63,37 @@ async function load() {
     if (data.items.some(entry => typeof entry.comment !== 'string')) throw new Error('Kommentare sind noch nicht verfügbar. Bitte die Website aktualisieren.')
     entries.value = data.items; csrf = data.csrf
     personCount.value = data.items.length
-  } catch (e) { error.value = e.message; personCount.value = null } finally { busy.value = false }
+    return true
+  } catch (e) { error.value = e.message; personCount.value = null; return false } finally { busy.value = false }
+}
+function startEdit(entry) {
+  if (busy.value || editingId.value !== null) return
+  editingId.value = entry.id
+  draft.value = { ...entry }
+  status.value = ''; error.value = ''
 }
 function add() {
-  entries.value.push({ id: 0, student_name: '', has_pdf: false, revision: 0, comment: '' })
-  status.value = ''
+  const entry = { id: 0, student_name: '', has_pdf: false, revision: 0, comment: '' }
+  entries.value.push(entry)
+  startEdit(entry)
+}
+function cancelEdit() {
+  if (editingId.value === 0) entries.value = entries.value.filter(entry => entry.id !== 0)
+  editingId.value = null
+  draft.value = null
 }
 async function save(entry, action = 'save') {
-  if (action === 'delete' && !entry.id) { entries.value.splice(entries.value.indexOf(entry), 1); return }
+  if (busy.value || !entry) return
+  if (action === 'delete' && !entry.id) { cancelEdit(); return }
   if (action === 'save' && !entry.student_name.trim()) { error.value = 'Bitte einen Namen eingeben.'; return }
   busy.value = true; error.value = ''; status.value = ''
   try {
     const body = new FormData()
     for (const [key, value] of Object.entries({ class_key: props.classKey, id: entry.id, revision: entry.revision, student_name: entry.student_name, comment: entry.comment, action })) body.append(key, String(value))
     await request(endpoint, { method: 'POST', headers: { 'X-CSRF-Token': csrf }, body })
-    await load(); status.value = action === 'delete' ? 'Eintrag gelöscht.' : 'Name und Kommentar gespeichert.'
+    const loaded = await load()
+    cancelEdit()
+    if (loaded) status.value = action === 'delete' ? 'Eintrag gelöscht.' : 'Name und Kommentar gespeichert.'
   } catch (e) { error.value = e.message } finally { busy.value = false }
 }
 onMounted(load)
@@ -94,20 +112,32 @@ onMounted(load)
     <Dialog
       v-model:visible="expanded" :id="`${classKey}-accommodations`"
       :header="`Nachteilsausgleiche · ${className}`" modal
-      :closable="!busy" :close-on-escape="!busy"
+      :closable="!busy" :close-on-escape="!busy" @hide="cancelEdit"
       :style="{ width: '36rem', maxWidth: 'calc(100vw - 2rem)' }"
     >
     <div class="accommodation-content">
     <p v-if="error" role="alert">{{ error }}</p>
-    <div v-for="(entry, index) in entries" :key="entry.id || `new-${index}`" class="person">
-      <label :for="`${classKey}-person-${index}`">Name</label>
-      <InputText :id="`${classKey}-person-${index}`" v-model="entry.student_name" maxlength="150" :disabled="busy" @input="status = ''" />
-      <label :for="`${classKey}-comment-${index}`">Kommentar</label>
-      <Textarea :id="`${classKey}-comment-${index}`" v-model="entry.comment" class="accommodation-comment" rows="12" maxlength="10000" :disabled="busy" @input="status = ''" />
-      <Button v-if="entry.has_pdf" label="PDF anzeigen" text size="small" @click="showPdf(entry)" />
-      <div class="actions"><Button label="Speichern" outlined size="small" :disabled="busy" @click="save(entry)" /><Button label="Entfernen" text severity="danger" size="small" :disabled="busy" @click="save(entry, 'delete')" /></div>
-    </div>
-    <Button label="Name hinzufügen" text size="small" :disabled="busy || !!error" @click="add" />
+    <p v-if="!busy && !entries.length && !error" class="empty-notice">Noch keine Nachteilsausgleiche eingetragen.</p>
+    <article v-for="(entry, index) in entries" :key="entry.id || `new-${index}`" class="person">
+      <form v-if="editingId === entry.id && draft" class="person-editor" @submit.prevent="save(draft)">
+        <label :for="`${classKey}-person-${index}`">Name</label>
+        <InputText :id="`${classKey}-person-${index}`" v-model="draft.student_name" maxlength="150" :disabled="busy" required />
+        <label :for="`${classKey}-comment-${index}`">Kommentar</label>
+        <Textarea :id="`${classKey}-comment-${index}`" v-model="draft.comment" class="accommodation-comment" rows="3" auto-resize maxlength="10000" :disabled="busy" />
+        <div class="actions">
+          <Button label="Speichern" type="submit" size="small" :loading="busy" />
+          <Button label="Abbrechen" text size="small" :disabled="busy" @click="cancelEdit" />
+          <Button label="Entfernen" text severity="danger" size="small" :disabled="busy" @click="save(draft, 'delete')" />
+        </div>
+      </form>
+      <template v-else>
+        <div class="person-heading"><h3>{{ entry.student_name }}</h3><Button label="Bearbeiten" outlined size="small" :aria-label="`Nachteilsausgleich von ${entry.student_name} bearbeiten`" :disabled="busy || editingId !== null" @click="startEdit(entry)" /></div>
+        <p v-if="entry.comment" class="person-comment">{{ entry.comment }}</p>
+        <p v-else class="empty-notice">Kein Kommentar eingetragen.</p>
+        <Button v-if="entry.has_pdf" label="PDF anzeigen" text size="small" :disabled="busy" @click="showPdf(entry)" />
+      </template>
+    </article>
+    <Button label="Name hinzufügen" text size="small" :disabled="busy || !!error || editingId !== null" @click="add" />
     <Button v-if="error" label="Neu laden" text size="small" :disabled="busy" @click="load" />
     <span role="status">{{ busy ? 'Wird geladen / gespeichert …' : status }}</span>
     </div>
@@ -124,8 +154,16 @@ onMounted(load)
 .accommodation-trigger { width: 1.75rem; height: 1.75rem; padding: 0; border: 1px solid #176746; border-radius: 5px; color: #176746; background: transparent; font-weight: 600; }
 .accommodation-trigger:hover { color: #115033; border-color: #115033; background: #e8f2ec; }
 .accommodation-content { padding: .5rem 0; }
-.person { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; margin-bottom: 1rem; }
-.person > input { width: 100%; }
+.person { margin-bottom: 16px; padding: 16px; border: 1px solid #dce3dd; border-radius: 8px; background: #f6f8f5; }
+.person-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.person-heading h3 { margin: 0; font-size: 18px; overflow-wrap: anywhere; min-width: 0; }
+.person-heading :deep(.p-button) { flex-shrink: 0; }
+.person-comment { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; margin: 12px 0 0; }
+.person-editor { display: grid; gap: 8px; }
+.accommodation-comment { width: 100%; box-sizing: border-box; min-height: 6rem; line-height: 1.5; resize: none; }
+.empty-notice { color: #647168; font-size: 14px; }
+@media (max-width: 420px) { .person-heading { flex-wrap: wrap; } }
+input { width: 100%; }
 .accommodation-comment { width: 100%; box-sizing: border-box; height: calc(24rem + 8px); min-height: calc(24rem + 8px); max-height: calc(24rem + 8px); line-height: 1.5rem; padding: .75rem; overflow-y: auto; resize: none; }
 input { max-width: 100%; min-width: 0; box-sizing: border-box; }
 .pdf-preview { display: block; width: 100%; height: 75vh; border: 0; }

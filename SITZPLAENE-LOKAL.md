@@ -87,3 +87,17 @@ Datum und Uhrzeit. Gesichert werden beide Notenarten einschließlich Bemerkungen
 und Löschmarkierungen. Die Kopie kann über „Notendatei importieren“ wieder eingelesen
 werden. Die reguläre Datei im Schule-Ordner und deren Speicherstatus werden durch
 den Export nicht verändert. Ohne Dateiauswahl-API wird ein Download gestartet.
+
+## Anwesenheit als lokales PDF
+
+„Anwesenheit Lokal speichern“ sichert den aktuellen Sitzplan einschließlich Fotos,
+Namen und Anwesenheitspunkten unter `schule/local-anwesenheit/`. Grüne Punkte bedeuten
+anwesend, leere Kreise bedeuten nicht markiert. Datum, Uhrzeit, Klasse und Anzahl der
+markierten Personen stehen im PDF. Der Dateiname enthält Klasse, Datum und Uhrzeit;
+jede Speicherung legt eine eigene Datei an. Noten werden nicht in dieses PDF übernommen.
+
+Der Ordner wird automatisch angelegt, ist von Git ausgeschlossen und wird nicht
+veröffentlicht. Vite blockiert den direkten Dateizugriff. Die Speicherung verwendet
+ausschließlich den lokalen Dev-Server (`/__local-anwesenheit/`), mit denselben
+Loopback- und Herkunftsprüfungen wie die lokale Notenspeicherung. Nach der Änderung
+an der Dev-Konfiguration den Dev-Server bei Bedarf neu starten.

@@ -196,6 +196,32 @@ function startDrag(event, index) {
 }
 function drop(index) { if (dragged.value !== null) swap(dragged.value, index) }
 function photo(student) { return photos[`${currentClass.value.directory}/${student.photo}`] }
+const attendancePdfBusy = ref(false)
+const attendanceMessage = ref('')
+const attendanceError = ref('')
+async function saveAttendanceLocally() {
+  if (attendancePdfBusy.value || !currentClass.value) return
+  const classroom = currentClass.value
+  const snapshot = {
+    title: classroom.title, columns: columns.value, rows: rowCount.value,
+    attendanceAt: new Date().toISOString(),
+    seats: seats.value.map(position => {
+      const student = studentAt(position)
+      return student ? { name: student.name, photo: photo(student), present: presentStudents.value.has(position) } : null
+    })
+  }
+  attendancePdfBusy.value = true
+  attendanceMessage.value = ''; attendanceError.value = ''
+  try {
+    const { createSeatingPdf } = await import('./seatingPdf')
+    const pdf = await createSeatingPdf(snapshot)
+    const response = await fetch(`/__local-anwesenheit/${encodeURIComponent(classroom.id)}`, { method: 'POST', headers: { 'Content-Type': 'application/pdf' }, body: pdf.output('arraybuffer') })
+    const data = await response.json()
+    if (!response.ok || typeof data.file !== 'string') throw new Error(data.error || 'Speichern konnte nicht bestätigt werden.')
+    attendanceMessage.value = `Im Schule-Ordner gespeichert: ${data.file}`
+  } catch (reason) { attendanceError.value = reason.message || 'Die Anwesenheit konnte nicht lokal gespeichert werden.' }
+  finally { attendancePdfBusy.value = false }
+}
 const pdfBusy = ref(false)
 const pdfMessage = ref('')
 async function exportPdf() {
@@ -276,9 +302,11 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
       <p>{{ columns }} Plätze pro Reihe · {{ rowCount }} Reihen. Ziehe eine Person auf einen anderen Platz. Alternativ: erst den Ausgangsplatz, dann den Zielplatz anklicken. Belegte Plätze werden getauscht.</p>
       <div class="seat-toolbar"><span role="status">{{ selected !== null ? 'Wähle jetzt den Zielplatz.' : status }}</span><Button v-if="selected !== null" label="Auswahl aufheben" text size="small" @click="selected = null" /></div>
       <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
-      <div class="sync-actions"><Button label="Exportieren als PDF" size="small" outlined :loading="pdfBusy" :disabled="loading" @click="exportPdf" /><Button label="Auf STRATO speichern" size="small" :loading="saving" :disabled="!ready || loading || !dirty" @click="persist" /><Button label="Serverstand laden" size="small" outlined :loading="loading" :disabled="saving" @click="loadServer" /></div>
+      <div class="sync-actions"><Button label="Anwesenheit Lokal speichern" size="small" :loading="attendancePdfBusy" :disabled="loading || saving" @click="saveAttendanceLocally" /><Button label="Exportieren als PDF" size="small" outlined :loading="pdfBusy" :disabled="loading" @click="exportPdf" /><Button label="Auf STRATO speichern" size="small" :loading="saving" :disabled="!ready || loading || !dirty" @click="persist" /><Button label="Serverstand laden" size="small" outlined :loading="loading" :disabled="saving" @click="loadServer" /></div>
+      <p v-if="attendanceMessage" role="status">{{ attendanceMessage }}</p>
+      <Message v-if="attendanceError" severity="error" :closable="false">{{ attendanceError }}</Message>
       <p v-if="pdfMessage" role="status">{{ pdfMessage }}</p>
-      <p class="attendance-hint">Anwesenheit: Kreis anklicken – grün bedeutet anwesend. Die Markierungen werden nicht gespeichert.</p>
+      <p class="attendance-hint">Anwesenheit: Kreis anklicken – grün bedeutet anwesend. Mit „Anwesenheit Lokal speichern“ sicherst du den aktuellen Stand als PDF auf diesem Rechner.</p>
       <div class="seating-scroll" tabindex="0" role="region" :aria-label="`Sitzplan mit ${columns} Spalten und ${rowCount} Reihen`">
         <div class="seating-grid" :style="{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, minWidth: `${columns * 130}px` }">
           <div v-for="(position, index) in seats" :key="index" class="seat-card" :class="{ empty: !studentAt(position) }">

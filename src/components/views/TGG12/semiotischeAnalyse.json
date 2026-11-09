@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Sprache – „Du bist spät dran!“",
+    "groups": [
+      {
+        "heading": "Syntax – Aufbau der Zeichen",
+        "description": "Untersuche die grammatische Struktur des Satzes.",
+        "question": "Aus welchen Satzgliedern besteht der Satz und wie sind die Wörter angeordnet?"
+      },
+      {
+        "heading": "Semantik – Bedeutung der Zeichen",
+        "description": "Untersuche, was die einzelnen Wörter bedeuten.",
+        "question": "Was bedeuten „Du“, „bist“ und „spät dran“?"
+      },
+      {
+        "heading": "Pragmatik – Verwendung und Wirkung",
+        "description": "Überlege, wie der Satz in unterschiedlichen Situationen verstanden werden kann.",
+        "question": "Wie wirkt der Satz, wenn ihn ein Lehrer als Ermahnung sagt, und wie, wenn ihn ein Freund scherzhaft äußert?"
+      }
+    ]
+  },
+  {
+    "title": "Logo – Apple",
+    "groups": [
+      {
+        "heading": "Syntax – Aufbau der Zeichen",
+        "description": "Untersuche die Formen und ihre Anordnung.",
+        "question": "Aus welchen Formen besteht das Logo und wie sind sie gestaltet?"
+      },
+      {
+        "heading": "Semantik – Bedeutung der Zeichen",
+        "description": "Untersuche, wofür die einzelnen Formen und das gesamte Logo stehen.",
+        "question": "Was stellen die Formen dar und welche zusätzliche Bedeutung hat das Logo als Markenzeichen?"
+      },
+      {
+        "heading": "Pragmatik – Verwendung und Wirkung",
+        "description": "Überlege, wie Menschen auf das Logo reagieren.",
+        "question": "Welche Erwartungen kann das Logo bei jemandem auslösen, der es auf einem Smartphone sieht?"
+      }
+    ]
+  },
+  {
+    "title": "Produkt – Lichtschalter",
+    "groups": [
+      {
+        "heading": "Syntax – Aufbau der Zeichen",
+        "description": "Untersuche die sichtbaren Bauteile und ihre Anordnung.",
+        "question": "Aus welchen Bauteilen besteht der Lichtschalter und wie sind sie angeordnet?"
+      },
+      {
+        "heading": "Semantik – Bedeutung der Zeichen",
+        "description": "Untersuche, welche Funktionen die Gestaltung vermittelt.",
+        "question": "Was signalisiert die Form der Wippe und welche Bedeutung haben ihre beiden Seiten?"
+      },
+      {
+        "heading": "Pragmatik – Verwendung und Wirkung",
+        "description": "Überlege, wie die Gestaltung die Benutzung beeinflusst.",
+        "question": "Wie beeinflusst die vertraute Form des Lichtschalters das Verhalten einer Person, die einen dunklen Raum betritt?"
+      }
+    ]
+  }
+]

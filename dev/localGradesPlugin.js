@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto'
 import { mkdir, readFile, writeFile, rename, unlink, rmdir } from 'node:fs/promises'
 import path from 'node:path'
+import { createLocalAttendanceStore } from './localAttendanceStore.js'
 import { parseGrades, serializeGrades } from '../src/components/views/MainApplication/localOralGrades.js'
 
 const digest = text => createHash('sha256').update(text).digest('hex')
@@ -52,13 +53,15 @@ export function createLocalGradeStore(root) {
 
 export default function localGradesPlugin(root) {
   const store = createLocalGradeStore(root)
+  const attendance = createLocalAttendanceStore(root)
   return {
     name: 'local-grade-files',
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const pathname = new URL(req.url, 'http://localhost').pathname
-        if (!pathname.startsWith('/__local-noten/')) return next()
+        const isAttendance = pathname.startsWith('/__local-anwesenheit/')
+        if (!isAttendance && !pathname.startsWith('/__local-noten/')) return next()
         res.setHeader('Content-Type', 'application/json; charset=utf-8')
         res.setHeader('Cache-Control', 'no-store')
         res.setHeader('X-Content-Type-Options', 'nosniff')
@@ -66,23 +69,25 @@ export default function localGradesPlugin(root) {
         try {
           const host = new URL(`http://${req.headers.host}`)
           const remote = req.socket.remoteAddress
-          if (!['localhost', '127.0.0.1', '[::1]'].includes(host.hostname) || !['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(remote)) return respond(403, { error: 'Notendateien sind nur auf diesem Rechner verfügbar.' })
+          if (!['localhost', '127.0.0.1', '[::1]'].includes(host.hostname) || !['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(remote)) return respond(403, { error: 'Lokale Dateien sind nur auf diesem Rechner verfügbar.' })
           if ((req.headers.origin && req.headers.origin !== host.origin) || req.headers['sec-fetch-site'] === 'cross-site') return respond(403, { error: 'Zugriff nur aus derselben lokalen Ansicht erlaubt.' })
-          const classId = decodeURIComponent(pathname.slice('/__local-noten/'.length))
-          if (req.method === 'GET') return respond(200, await store.read(classId))
+          const prefix = isAttendance ? '/__local-anwesenheit/' : '/__local-noten/'
+          const classId = decodeURIComponent(pathname.slice(prefix.length))
+          if (!isAttendance && req.method === 'GET') return respond(200, await store.read(classId))
           if (req.method !== 'POST') return respond(405, { error: 'Methode nicht erlaubt.' })
-          if (req.headers.origin !== host.origin || !req.headers['content-type']?.startsWith('application/json')) return respond(403, { error: 'Lokale JSON-Anfrage erforderlich.' })
+          if (req.headers.origin !== host.origin || !req.headers['content-type']?.startsWith(isAttendance ? 'application/pdf' : 'application/json')) return respond(403, { error: 'Lokale Anfrage mit passendem Dateiformat erforderlich.' })
           let size = 0
           const chunks = []
           for await (const chunk of req) {
             size += chunk.length
-            if (size > 20 * 1024 * 1024) return respond(413, { error: 'Die Notendatei ist zu groß.' })
+            if (size > 20 * 1024 * 1024) return respond(413, { error: 'Die lokale Datei ist zu groß.' })
             chunks.push(chunk)
           }
-          return respond(200, await store.save(classId, JSON.parse(Buffer.concat(chunks).toString('utf8'))))
+          const body = Buffer.concat(chunks)
+          return respond(200, isAttendance ? await attendance.save(classId, body) : await store.save(classId, JSON.parse(body.toString('utf8'))))
         } catch (error) {
           // Never log grade contents or include filesystem paths in errors.
-          return respond(error.status || 400, { error: error.status ? error.message : 'Die lokale Notendatei konnte nicht gelesen oder gespeichert werden. Bitte Klasse, Dateiformat und Schreibrechte prüfen.' })
+          return respond(error.status || 400, { error: error.status ? error.message : 'Die lokale Datei konnte nicht gelesen oder gespeichert werden. Bitte Klasse, Dateiformat und Schreibrechte prüfen.' })
         }
       })
     }
