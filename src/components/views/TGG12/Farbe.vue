@@ -63,8 +63,8 @@ async function downloadPdf() {
               </dl>
               <div class="task">
                 <h3>Aufgabe: Eine Farbe, viele Auftritte</h3>
-              <p>Zeichne auf eine Doppelseite acht große Quadrate mit jeweils einem kleinen Quadrat in der Mitte – wie im Beispiel unten.</p>
-              <p>Male alle kleinen Quadrate mit <strong>demselben Marker gleich oft</strong> aus. Färbe die Flächen darum mit sechs unterschiedlichen Farben: hell, dunkel, ähnlich und gegensätzlich zur Mitte. Spare die kleinen Quadrate dabei aus.</p>
+              <p>Zeichne auf eine Doppelseite vier große Quadrate mit jeweils einem kleinen Quadrat in der Mitte – wie im Beispiel unten.</p>
+              <p>Male alle kleinen Quadrate mit <strong>demselben Marker gleich oft</strong> aus. Färbe die Flächen darum mit unterschiedlichen Farben. Spare die kleinen Quadrate dabei aus.</p>
               <p>Vergleiche: Wo wirkt die Mitte heller, dunkler oder leuchtender? Notiere zwei Beobachtungen darunter.</p>
               </div>
               <p class="prompt">Wie unterschiedlich kannst du dieselbe Farbe aussehen lassen?</p>
@@ -99,11 +99,11 @@ async function downloadPdf() {
               </figure>
               <div class="task">
                 <h3>Aufgabe: Dein Farblabor</h3>
-                <p>Gestalte drei Einzelseiten mit jeweils einem Feld.</p>
+                <p>Teile eine Seite in drei Felder ein. Gestalte in jedem Feld eine der folgenden Farbreihen:</p>
                 <ol>
-                  <li><strong>Farbton-Reise:</strong> Lass mindestens sechs Farbtöne aufeinanderfolgen. Probiere sanfte Übergänge und überraschende Farbsprünge.</li>
-                  <li><strong>Hell–Dunkel:</strong> Entwickle in einer Farbfamilie mindestens fünf Helligkeitsstufen. Nutze helle und dunkle Marker. Tipp: Mehrmaliges Auftragen des gleichen Markers führt zu einer dunkleren Farbe.</li>
-                  <li><strong>Gesättigt–Gedämpft:</strong> Entwickle mindestens fünf Varianten von kräftig bis graustichig. Probiere passende Graumarker oder vorsichtige Überlagerungen mit einer Gegenfarbe. Vergleiche möglichst ähnlich helle Varianten.</li>
+                  <li><strong>Farbton-Reise:</strong> Ordne mindestens sechs unterschiedliche Farbtöne zu einer Reihe an. Kombiniere sanfte Übergänge mit überraschenden Farbsprüngen.</li>
+                  <li><strong>Hell–Dunkel:</strong> Gestalte innerhalb einer Farbfamilie mindestens fünf Helligkeitsstufen von hell bis dunkel. Nutze dafür helle und dunkle Marker. <strong>Tipp:</strong> Durch mehrmaliges Auftragen desselben Markers kannst du die Farbe schrittweise abdunkeln.</li>
+                  <li><strong>Gesättigt–Ungesättigt:</strong> Gestalte ausgehend von einem Farbton mindestens fünf Abstufungen von kräftig und leuchtend bis graustichig. Nutze passende Graumarker oder überlagere die Farbe vorsichtig mit ihrer Gegenfarbe (Komplementärfarbe). Achte darauf, dass die Varianten möglichst ähnlich hell bleiben, damit du ihre Sättigung gut vergleichen kannst.</li>
                 </ol>
                 <p>Beschrifte die drei Felder mit „Farbton“, „Helligkeit“ und „Sättigung“.</p>
               </div>

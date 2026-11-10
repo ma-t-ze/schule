@@ -16,12 +16,15 @@ import Textarea from 'primevue/textarea'
 import { topics, supplementary } from './topics'
 import PsychologyStudy from './PsychologyStudy.vue'
 import ConnectionsStudy from './ConnectionsStudy.vue'
+import ChecklistStudy from './ChecklistStudy.vue'
 
 const subject = ref('paedagogik')
 const subjects = [
   { id: 'paedagogik', label: 'Pädagogik' },
   { id: 'psychologie', label: 'Pädagogische Psychologie' },
-  { id: 'connections', label: 'Querverbindungen' }
+  { id: 'connections', label: 'Querverbindungen' },
+  { id: 'checklist-paedagogik', label: 'Ich kann Liste Pädagogik' },
+  { id: 'checklist-psychologie', label: 'Ich kann Liste Päd. Psychologie' }
 ]
 
 const key = 'paed-d25-learning-v1'
@@ -64,6 +67,7 @@ const stages = [
     </nav>
     <PsychologyStudy v-show="subject === 'psychologie'" />
     <ConnectionsStudy v-show="subject === 'connections'" />
+    <ChecklistStudy v-if="subject === 'checklist-paedagogik' || subject === 'checklist-psychologie'" :subject="subject === 'checklist-paedagogik' ? 'paedagogik' : 'psychologie'" />
     <section v-show="subject === 'paedagogik'" aria-label="Pädagogik">
     <Message severity="info" :closable="false">Schwerpunkt noch offen. Vergleiche in den nächsten zwei Wochen mögliche Themen. Ein Schwerpunkt ersetzt die Vorbereitung der übrigen Inhalte nicht.</Message>
     <Tabs value="overview">
@@ -95,8 +99,13 @@ const stages = [
             <p class="connection">{{ topic.bridge }}</p>
             <div class="check-row"><Checkbox v-model="completed" :input-id="`learned-${topic.id}`" :value="topic.id" /><label :for="`learned-${topic.id}`">Kann ich erklären und anwenden</label></div>
             <p class="source">Quelle: {{ topic.source }}</p>
+            <ul v-if="topic.sourceLinks?.length" class="source">
+              <li v-for="source in topic.sourceLinks" :key="source.href"><a :href="source.href" target="_blank" rel="noopener noreferrer">{{ source.label }}</a></li>
+            </ul>
           </Panel>
-          <Panel :header="supplementary.title" toggleable collapsed class="section-panel"><p>{{ supplementary.text }}</p><h2>Transferfrage</h2><p>{{ supplementary.question }}</p><p class="source">{{ supplementary.source }}</p></Panel>
+          <Panel :header="supplementary.title" toggleable collapsed class="section-panel"><p>{{ supplementary.text }}</p><h2>Transferfrage</h2><p>{{ supplementary.question }}</p><p class="source">{{ supplementary.source }}</p>
+            <ul class="source"><li v-for="source in supplementary.sourceLinks" :key="source.href"><a :href="source.href" target="_blank" rel="noopener noreferrer">{{ source.label }}</a></li></ul>
+          </Panel>
         </TabPanel>
         <TabPanel value="practice">
           <label id="training-topic-label" for="training-topic">Trainingsbereich</label><Select aria-labelledby="training-topic-label" v-model="trainingTopic" input-id="training-topic" :options="topics" option-label="title" option-value="id" show-clear placeholder="Alle Themen" class="training-select" />

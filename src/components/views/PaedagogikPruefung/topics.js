@@ -3,6 +3,7 @@
 export const topics = [
   {
     id: 'planung', title: 'Unterrichtsplanung', source: 'Grundkurs 1 Unterrichtsplanung, Skript; Prüfungshinweise S. 3',
+    sourceLinks: [{"label": "D25 Grundkurs 1 Unterrichtsplanung Skript (PDF)", "href": "/pruefungen/paedagogik-quellen/d25-grundkurs-1-unterrichtsplanung-skript.pdf"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=3"}],
     required: 'Einstieg begründen, drei Lernzieldimensionen unterscheiden, präzise Ziele formulieren, Aufbau einer Lernzieltaxonomie erklären und das eigene Planungsverfahren vertreten.',
     concepts: [
       ['Vom Ziel zur Stunde', 'Kläre Lerngruppe und Vorwissen, fachlichen Kern und Bedeutung des Inhalts. Formuliere dann die angestrebten Kompetenzen und woran du deren Erwerb erkennen kannst. Wähle erst daraufhin Aufgaben, Methoden, Medien und Zeitverteilung. Plane Ergebnissicherung und eine Reserve für Schwierigkeiten.'],
@@ -17,6 +18,7 @@ export const topics = [
   },
   {
     id: 'methoden', title: 'Unterrichtsmethoden', source: 'Grundkurs 2 Unterrichtsmethoden, Skript, besonders S. 7–15; Prüfungshinweise S. 3',
+    sourceLinks: [{"label": "D25 Grundkurs 2 Unterrichtsmethoden Skript (PDF)", "href": "/pruefungen/paedagogik-quellen/d25-grundkurs-2-unterrichtsmethoden-skript.pdf#page=7"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=3"}],
     required: 'Regeln für Lehrerinput und Unterrichtsgespräch/FEU, klare Arbeitsaufträge sowie Chancen, Grenzen und Umgang mit schwierigen Gesprächssituationen. Visualisierung ist ausdrücklich ausgeschlossen.',
     concepts: [
       ['Lehrerinput', 'Ein Input vermittelt einen begrenzten, klar gegliederten Inhalt. Benenne das Ziel, knüpfe an Vorwissen an und erkläre an passenden Beispielen. Plane kurze Verarbeitungsphasen und überprüfe Verständnis durch eine Aufgabe. Die Frage „Alles verstanden?“ liefert allein kaum belastbare Informationen.'],
@@ -31,6 +33,7 @@ export const topics = [
   },
   {
     id: 'leistung-grundlagen', title: 'Grundlagen der Leistungsmessung', source: 'Leistungsmessung 1 – Skript, S. 2–15; Prüfungshinweise S. 3',
+    sourceLinks: [{"label": "Leistungsmessung 1 - Skript (PDF)", "href": "/pruefungen/paedagogik-quellen/leistungsmessung-1-skript.pdf#page=2"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=3"}],
     required: 'Funktionen der Notengebung, Objektivität/Reliabilität/Validität, diagnostische/formative/summative Anlässe, Bezugsnormen und Beurteilungsfehler auf Fälle anwenden.',
     concepts: [
       ['Messen, beurteilen, benoten', 'Messen erhebt eine Leistung. Beurteilen beschreibt deren Qualität im Verhältnis zu Kriterien. Benoten verdichtet die Beurteilung zur Ziffer. Noten informieren, geben Rückmeldung, ermöglichen Auswahl und Berechtigungen und werden auch prognostisch genutzt. Förderung und Selektion können dabei in Spannung stehen.'],
@@ -45,6 +48,7 @@ export const topics = [
   },
   {
     id: 'leistung-praxis', title: 'Schriftliche und mündliche Leistungsbewertung', source: 'Leistungsmessung 2 – Skript, S. 2–6; Ergänzung Schriftliche Leistungsmessung, S. 1–4; Prüfungshinweise S. 4',
+    sourceLinks: [{"label": "D25 Leistungsmessung 2 Skript (ohne schriftliche Leistungsbewertung) (PDF)", "href": "/pruefungen/paedagogik-quellen/d25-leistungsmessung-2-skript-ohne-schriftliche-leistungsbewertung.pdf#page=2"}, {"label": "D25 Leistungsmessung 2 Skript Schriftliche Leistungsbewertung - Gr. 2 (PDF)", "href": "/pruefungen/paedagogik-quellen/d25-leistungsmessung-2-skript-schriftliche-leistungsbewertung-gr-2.pdf"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=4"}],
     required: 'Eigene Bewertungspraxis erläutern und begründen, lernförderlich rückmelden und Fälle bearbeiten. Rechtliche Grundzüge anhand des Sitzungsskripts lernen; Nachteilsausgleich gehört zu Inklusion.',
     concepts: [
       ['Schriftlich: sechs Schritte', 'Planen → Erstellen → Durchführen → Korrigieren → Bewerten und Rückmelden → Zurückgeben und Weiterlernen. Sichere zuvor Ziele und behandelte Inhalte, geeignete Aufgaben, Bearbeitungszeit, Hilfsmittel und Erwartungshorizont. Gleiche Bewertungskriterien müssen bei der Korrektur verlässlich angewandt werden.'],
@@ -59,6 +63,7 @@ export const topics = [
   },
   {
     id: 'sprache', title: 'Textoptimierung und sprachliche Vereinfachung', source: 'Online-Auftrag 1 Sprache – Skript, S. 1–7; Prüfungshinweise S. 4',
+    sourceLinks: [{"label": "Online-Auftrag 1 Sprache - Skript (PDF)", "href": "/pruefungen/paedagogik-quellen/online-auftrag-1-sprache-skript.pdf"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=4"}],
     required: 'Texte vereinfachen, Einsatz im eigenen Fach begründen und den Einwand eines Niveauverlusts diskutieren. Die Unterscheidung zwischen leichter und einfacher Sprache ist nicht verlangt.',
     concepts: [
       ['Zugang zum Fachinhalt', 'Sprachliche Hürden können verhindern, dass vorhandene fachliche Fähigkeiten sichtbar werden. Vereinfache deshalb die sprachliche Verpackung, ohne den fachlichen Kern oder automatisch das Anspruchsniveau der Aufgabe zu senken. Prüfe zuerst, welche Begriffe tatsächlich zum Lernziel gehören.'],
@@ -73,6 +78,7 @@ export const topics = [
   },
   {
     id: 'arrangements', title: 'Lehr-Lern-Arrangements', source: 'LdL und DI – Skript, S. 1–6; Kooperatives Lernen, Projekt, SOL – Skript 2026, besonders S. 2–11; Prüfungshinweise S. 4',
+    sourceLinks: [{"label": "D25 Lehr-Lern-Arrangements - LdL und DI - Skript (PDF)", "href": "/pruefungen/paedagogik-quellen/d25-lehr-lern-arrangements-ldl-und-di-skript.pdf"}, {"label": "Lehr-Lern-Arrangements - Kooperatives Lernen Projekt SOL - Skript 2026 (PDF)", "href": "/pruefungen/paedagogik-quellen/lehr-lern-arrangements-kooperatives-lernen-projekt-sol-skript-2026.pdf#page=2"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=4"}],
     required: 'Ein Arrangement deiner Wahl an einem eigenen Beispiel sicher erläutern. Die fünf Alternativen helfen dir zunächst beim Vergleichen; die Wahl bleibt offen.',
     concepts: [
       ['Lernen durch Lehren', 'Lernende übernehmen Teile der Vermittlung einschließlich Erklären und gegebenenfalls Anleiten einer Übung. Die Lehrperson bereitet Material und Rahmen vor und sichert fachliche Qualität. Chance: intensive Verarbeitung und viele Sprechanlässe. Risiko: ungeprüfte Fehler oder Überforderung. Ein bloßes Referat nutzt das Potenzial noch nicht vollständig.'],
@@ -88,6 +94,7 @@ export const topics = [
   },
   {
     id: 'erziehung', title: 'Erziehungsauftrag und Werte', source: 'Erziehungsauftrag – Skript 2026 (D-Kurs), besonders Abschnitt „Erziehen“; Prüfungshinweise S. 4',
+    sourceLinks: [{"label": "Erziehungsauftrag - Skript 2026 (D-Kurs) (PDF)", "href": "/pruefungen/paedagogik-quellen/erziehungsauftrag-skript-2026-d-kurs.pdf"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=4"}],
     required: 'Eigene Position zur Werteerziehung begründen: Vorbild, Unterricht, Kollegium, Schulleitung und Unterschiede zwischen Lerngruppen berücksichtigen.',
     concepts: [
       ['Bildung und Erziehung verbinden', 'Unterricht vermittelt neben fachlichen Kompetenzen auch Formen des Zusammenlebens und der Verantwortungsübernahme. Werte werden durch Entscheidungen, Regeln und Umgangsweisen erfahrbar, nicht nur durch eine zusätzliche Moralstunde.'],
@@ -102,6 +109,7 @@ export const topics = [
   },
   {
     id: 'inklusion', title: 'Inklusion und Nachteilsausgleich', source: 'Inklusion Skript 2026, besonders S. 2–6 und 15; Leistungsmessung 2 – Skript, S. 5–6; Prüfungshinweise S. 4–5',
+    sourceLinks: [{"label": "Inklusion Skript 2026 (PDF)", "href": "/pruefungen/paedagogik-quellen/inklusion-skript-2026.pdf#page=2"}, {"label": "D25 Leistungsmessung 2 Skript (ohne schriftliche Leistungsbewertung) (PDF)", "href": "/pruefungen/paedagogik-quellen/d25-leistungsmessung-2-skript-ohne-schriftliche-leistungsbewertung.pdf#page=5"}, {"label": "Hinweise zur Prüfung D25 (PDF)", "href": "/pruefungen/paedagogik-quellen/hinweise-zur-prufung-d25.pdf#page=4"}],
     required: 'Begriffe, Kernpunkte der Schulgesetzänderung 2015, Umsetzung in BW, Nachteilsausgleich und eine Beeinträchtigung deiner Wahl an Fällen erläutern. Autismus, AD(H)S oder Förderschwerpunkt Lernen stehen zur Auswahl.',
     concepts: [
       ['Vier Begriffe', 'Exklusion schließt aus. Separation organisiert getrennte Angebote. Integration nimmt einzelne Menschen in ein bestehendes System auf. Inklusion verändert Bedingungen so, dass unterschiedliche Menschen teilhaben können. Entscheidend ist die Frage, welche Barrieren das Lernen und Mitwirken behindern.'],
@@ -118,6 +126,7 @@ export const topics = [
 ]
 
 export const supplementary = {
+  sourceLinks: [{"label": "Schulentwicklung Skript 2026 (PDF)", "href": "/pruefungen/paedagogik-quellen/schulentwicklung-skript-2026.pdf#page=2"}],
   title: 'Schulentwicklung – ergänzend mitlernen',
   text: 'Schulentwicklung ist kein eigener Schwerpunkt in der Liste der Prüfungshinweise. Das zugehörige Skript nennt dennoch eigene Prüfungserwartungen. Deshalb nicht als ausgeschlossen behandeln: Gute Schule ermöglicht guten Unterricht; Kooperation, unterstützende Leitung und eine wirksame Feedbackkultur tragen dazu bei. Individualfeedback dient der einzelnen Lehrperson, Selbstevaluation der Schule als Organisation. Aus Daten müssen begründete Veränderungen und eine spätere Überprüfung ihrer Wirkung folgen.',
   question: 'Eine Schülerbefragung zeigt unklare Bewertungskriterien. Was änderst du selbst, was sollte die Fachschaft gemeinsam klären, und wie prüft ihr später die Wirkung?',

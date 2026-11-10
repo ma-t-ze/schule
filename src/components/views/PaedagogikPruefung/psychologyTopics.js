@@ -3,6 +3,7 @@
 export const psychologyTopics = [
   {
     id: 'beobachtung', title: 'Unterrichtsbeobachtung und Lehrerrolle',
+    sourceLinks: [{"label": "Unterrichtsbeobachtung und Feedback 22 (PPTX)", "href": "/pruefungen/paedagogik-quellen/unterrichtsbeobachtung-und-feedback-22.pptx"}, {"label": "Angebots-Nutzungs-Modell mit Modulen Päd. Psych. 2020 (PPTX)", "href": "/pruefungen/paedagogik-quellen/angebots-nutzungs-modell-mit-modulen-pad-psych-2020.pptx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Unterrichtsbeobachtung und Feedback 22, Folien 7–16; Angebots-Nutzungs-Modell mit Modulen Päd. Psych. 2020, Folien 1–2; Ich-kann-Liste: Unterrichtsbeobachtung',
     required: 'Angebot, Nutzung und Ertrag unterscheiden; Kriterien der Beziehungsebene erläutern; Beobachtung von Interpretation trennen und hilfreiches Feedback geben.',
     concepts: [
@@ -18,6 +19,7 @@ export const psychologyTopics = [
   },
   {
     id: 'klassenfuehrung', title: 'Klassenführung und Unterrichtsstörungen',
+    sourceLinks: [{"label": "Klassenführung und Umgang mit Unterrichtsstörungen 2025-2 mit NA (PPTX)", "href": "/pruefungen/paedagogik-quellen/klassenfuhrung-und-umgang-mit-unterrichtsstorungen-2025-2-mit-na.pptx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Klassenführung und Umgang mit Unterrichtsstörungen 2025-2 mit NA, Folien 6–29; Ich-kann-Liste: Klassenführung/Disziplinprobleme',
     required: 'Störungen analysieren, Prävention und Intervention unterscheiden, subjektive Theorien reflektieren und die drei Dimensionen des Linzer Diagnoseansatzes anwenden.',
     concepts: [
@@ -34,6 +36,7 @@ export const psychologyTopics = [
   },
   {
     id: 'fallberatung', title: 'Kollegiale Fallbesprechung',
+    sourceLinks: [{"label": "Klassenführung und Umgang mit Unterrichtsstörungen 2025-2 mit NA (PPTX)", "href": "/pruefungen/paedagogik-quellen/klassenfuhrung-und-umgang-mit-unterrichtsstorungen-2025-2-mit-na.pptx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Klassenführung und Umgang mit Unterrichtsstörungen 2025-2 mit NA, Folien 30–32; Ich-kann-Liste: Fallbesprechungsgruppe',
     required: 'Ziele, Ablauf und Kommunikationsregeln einer Fallbesprechung beschreiben und von einer schnellen Ratschlagrunde unterscheiden.',
     concepts: [
@@ -48,6 +51,7 @@ export const psychologyTopics = [
   },
   {
     id: 'motivation', title: 'Motivation und Ursachenzuschreibung',
+    sourceLinks: [{"label": "Motivation 2021 TV BBB TV (PPTX)", "href": "/pruefungen/paedagogik-quellen/motivation-2021-tv-bbb-tv.pptx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Motivation 2021 TV BBB TV, Folien 6–21; Ich-kann-Liste: Motivation',
     required: 'Grundbedürfnisse, Heckhausens vier Fragen, Weiner, Atkinson und Bezugsnormen erklären und daraus konkrete Fördermöglichkeiten ableiten.',
     concepts: [
@@ -65,6 +69,7 @@ export const psychologyTopics = [
   },
   {
     id: 'konditionierung', title: 'Klassische und operante Konditionierung',
+    sourceLinks: [{"label": "Lernen und Verhaltensänderung 25 (1) (PPTX)", "href": "/pruefungen/paedagogik-quellen/lernen-und-verhaltensanderung-25-1.pptx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Lernen und Verhaltensänderung 25 (1), Folien 2–14; Ich-kann-Liste: Lernen und Verhaltensänderung',
     required: 'UCS/UCR/CS/CR korrekt zuordnen; die vier operanten Konsequenztypen unterscheiden; Verstärkung, Löschung und Grenzen von Sanktionen an Fällen erklären.',
     concepts: [
@@ -82,6 +87,7 @@ export const psychologyTopics = [
   },
   {
     id: 'modelllernen', title: 'Modelllernen und Vorbildfunktion',
+    sourceLinks: [{"label": "Lernen und Verhaltensänderung 25 (1) (PPTX)", "href": "/pruefungen/paedagogik-quellen/lernen-und-verhaltensanderung-25-1.pptx"}],
     source: 'Lernen und Verhaltensänderung 25 (1), Folien 15–20',
     required: 'Beobachtungslernen erklären, Erwerb und Ausführung unterscheiden und fachliches sowie soziales Modellverhalten auf den eigenen Unterricht beziehen.',
     concepts: [
@@ -96,6 +102,7 @@ export const psychologyTopics = [
   },
   {
     id: 'kommunikation', title: 'Kommunikation und Einzelgespräch',
+    sourceLinks: [{"label": "Grundlagen_der_Kommunikation_bei_Stoerungen 2021 (PPT)", "href": "/pruefungen/paedagogik-quellen/grundlagen-der-kommunikation-bei-stoerungen-2021.ppt"}, {"label": "Das_disziplinorientierte_Einzelgespraech-22 (PPT)", "href": "/pruefungen/paedagogik-quellen/das-disziplinorientierte-einzelgespraech-22.ppt"}, {"label": "Gordon-kommunikative Haltungen und Techniken (DOC)", "href": "/pruefungen/paedagogik-quellen/gordon-kommunikative-haltungen-und-techniken.doc"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Grundlagen der Kommunikation bei Störungen 2021; Das disziplinorientierte Einzelgespräch-22; Gordon – kommunikative Haltungen und Techniken; Ich-kann-Liste: Kommunikation',
     required: 'Ich-Botschaften, aktives Zuhören, Kommunikationssperren, vier Seiten einer Nachricht und den Ablauf eines disziplinorientierten Einzelgesprächs erklären und anwenden.',
     concepts: [
@@ -113,6 +120,7 @@ export const psychologyTopics = [
   },
   {
     id: 'gfk', title: 'Gewaltfreie Kommunikation',
+    sourceLinks: [{"label": "Klassenführung und Umgang mit Unterrichtsstörungen 2025-2 mit NA (PPTX)", "href": "/pruefungen/paedagogik-quellen/klassenfuhrung-und-umgang-mit-unterrichtsstorungen-2025-2-mit-na.pptx"}, {"label": "4 Ohren (DOCX)", "href": "/pruefungen/paedagogik-quellen/4-ohren.docx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Klassenführung und Umgang mit Unterrichtsstörungen 2025-2 mit NA, Folie 11; 4 Ohren.docx; Ich-kann-Liste: Gewaltfreie Kommunikation',
     required: 'Beobachtung, Gefühl, Bedürfnis und Bitte unterscheiden; Selbstklärung und Empathie anwenden; die vier Reaktionsrichtungen von GfK nicht mit Schulz von Thuns Modell verwechseln.',
     concepts: [
@@ -128,6 +136,7 @@ export const psychologyTopics = [
   },
   {
     id: 'gedaechtnis', title: 'Lernen und Gedächtnis',
+    sourceLinks: [{"label": "Skript Lernen Stand 15.05.24 (DOC)", "href": "/pruefungen/paedagogik-quellen/skript-lernen-stand-15-05-24.doc"}, {"label": "Wissen und Gedächtnis-2025 (PPT)", "href": "/pruefungen/paedagogik-quellen/wissen-und-gedachtnis-2025.ppt"}, {"label": "D26 Online-Arbeitsauftrag - Lernen und Gedächtnis (DOCX)", "href": "/pruefungen/paedagogik-quellen/d26-online-arbeitsauftrag-lernen-und-gedachtnis.docx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Skript Lernen Stand 15.05.24; Wissen und Gedächtnis-2025; Online-Arbeitsauftrag Lernen und Gedächtnis; Ich-kann-Liste: Lernen und Gedächtnis',
     required: 'Mehrspeicher- und Netzwerkmodell, Wissensarten, Repräsentation und Vergessen erläutern sowie Lerntechniken und Unterrichtsgestaltung begründen. Visualisierung gehört hier zum Lernstoff.',
     concepts: [
@@ -145,6 +154,7 @@ export const psychologyTopics = [
   },
   {
     id: 'gewalt', title: 'Gewaltprävention und Konfliktbearbeitung',
+    sourceLinks: [{"label": "Umgang mit Gewalt in der Schule 2026-3 (PPTX)", "href": "/pruefungen/paedagogik-quellen/umgang-mit-gewalt-in-der-schule-2026-3.pptx"}, {"label": "Online-Arbeitsauftrag zu Gewaltprävention und -intervention D25 Heckendorf (DOCX)", "href": "/pruefungen/paedagogik-quellen/online-arbeitsauftrag-zu-gewaltpravention-und-intervention-d25-heckendorf.docx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Umgang mit Gewalt in der Schule 2026-3, Folien 2–15; Online-Arbeitsauftrag Gewaltprävention und -intervention D25; Ich-kann-Liste: Gewaltprävention/Mediation',
     required: 'Gewaltbegriff und Risiken reflektieren, Frustration und Aggression differenzieren und individuelle sowie schulische Präventionsmaßnahmen begründen.',
     concepts: [
@@ -161,6 +171,7 @@ export const psychologyTopics = [
   },
   {
     id: 'mobbing', title: 'Mobbing und Cybermobbing',
+    sourceLinks: [{"label": "Umgang mit Gewalt in der Schule 2026-3 (PPTX)", "href": "/pruefungen/paedagogik-quellen/umgang-mit-gewalt-in-der-schule-2026-3.pptx"}, {"label": "Online-Arbeitsauftrag zu Gewaltprävention und -intervention D25 Heckendorf (DOCX)", "href": "/pruefungen/paedagogik-quellen/online-arbeitsauftrag-zu-gewaltpravention-und-intervention-d25-heckendorf.docx"}],
     source: 'Umgang mit Gewalt in der Schule 2026-3, Folien 17–27; Online-Arbeitsauftrag Gewalt D25, Aufgaben zu Stop-Sagen/No Blame Approach',
     required: 'Mobbing von einem einzelnen Streit unterscheiden; Gruppendynamik, Stop-Sagen und No Blame Approach vergleichen sowie typische Interventionsfehler erläutern.',
     concepts: [
@@ -178,6 +189,7 @@ export const psychologyTopics = [
   },
   {
     id: 'gesundheit', title: 'Lehrergesundheit und Selbstmanagement',
+    sourceLinks: [{"label": "Lehrergesundheit 26 (PPTX)", "href": "/pruefungen/paedagogik-quellen/lehrergesundheit-26.pptx"}, {"label": "Ressourcen Skript und Übungsbausteine - Anhang Online-Auftrag (DOCX)", "href": "/pruefungen/paedagogik-quellen/ressourcen-skript-und-ubungsbausteine-anhang-online-auftrag.docx"}, {"label": "Selbst- und Zeitmanagement für Lehrkräfte 2017 (PPTX)", "href": "/pruefungen/paedagogik-quellen/selbst-und-zeitmanagement-fur-lehrkrafte-2017.pptx"}, {"label": "Ich kann-Listen Päd. Psychologie (DOCX)", "href": "/pruefungen/paedagogik-quellen/ich-kann-listen-pad-psychologie.docx"}],
     source: 'Lehrergesundheit 26, Folien 4–24; Ressourcen Skript und Übungsbausteine; Selbst- und Zeitmanagement für Lehrkräfte 2017; Ich-kann-Liste: Lehrergesundheit',
     required: 'Belastung und Beanspruchung, Rudow, transaktionales Stressmodell, AVEM/IEGL und die Ebenen der Prävention erläutern. Historische Studienbefunde als solche kennzeichnen.',
     concepts: [

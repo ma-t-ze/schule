@@ -81,6 +81,9 @@ const stages = [
             <p class="connection">{{ topic.bridge }}</p>
             <div class="check-row"><Checkbox v-model="completed" :input-id="`psych-learned-${topic.id}`" :value="topic.id" /><label :for="`psych-learned-${topic.id}`">Kann ich erklären und anwenden</label></div>
             <p class="source">Quelle: {{ topic.source }}</p>
+            <ul v-if="topic.sourceLinks?.length" class="source">
+              <li v-for="source in topic.sourceLinks" :key="source.href"><a :href="source.href" target="_blank" rel="noopener noreferrer">{{ source.label }}</a></li>
+            </ul>
           </Panel>
         </TabPanel>
         <TabPanel value="practice">
