@@ -22,8 +22,9 @@ try {
     resetTestDatabase($db);
     runMigrations($directory);
     check((int)$db->query('SELECT COUNT(*) FROM school_upcoming')->fetchColumn() === 15, 'Missing initial exams.');
+    check((int)$db->query('SELECT COUNT(*) FROM school_upcoming WHERE event_color IS NULL AND is_important = 0')->fetchColumn() === 15, 'New appearance fields must preserve default presentation.');
     check($db->query("SELECT event_date FROM school_upcoming WHERE exam_key = '2026-27-3bkgd1-1-met-1'")->fetchColumn() === '2026-11-20', 'Incorrect MET date.');
-    $db->exec("UPDATE school_upcoming SET event_date = NULL, title = 'Edited', note = 'Keep me', revision = 7 WHERE exam_key = '2026-27-3bkgd1-1-met-1'");
+    $db->exec("UPDATE school_upcoming SET event_date = NULL, title = 'Edited', note = 'Keep me', event_color = 'orange', is_important = 1, revision = 7 WHERE exam_key = '2026-27-3bkgd1-1-met-1'");
     $before = $db->query('SELECT * FROM school_upcoming ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);
     runMigrations($directory);
     check($before === $db->query('SELECT * FROM school_upcoming ORDER BY id')->fetchAll(PDO::FETCH_ASSOC), 'Repeat changed data.');
@@ -42,6 +43,12 @@ try {
     $db->exec("INSERT INTO school_exam_accommodations (exam_key, student_name, pdf_data) VALUES ('2026-27-3bkgd1-1-grd-1', 'Test student', 'test PDF bytes')");
     runMigrations($directory);
     check($db->query('SELECT note FROM school_upcoming WHERE id = 1')->fetchColumn() === 'Preserve text', 'Legacy note lost.');
+    $appearance = $db->query('SELECT event_color, is_important FROM school_upcoming WHERE id = 1')->fetch(PDO::FETCH_ASSOC);
+    check($appearance['event_color'] === null && (int)$appearance['is_important'] === 0, 'Legacy note appearance must remain unchanged.');
+    $db->exec("UPDATE school_upcoming SET event_color = 'green', is_important = 1 WHERE id = 1");
+    runMigrations($directory);
+    $appearance = $db->query('SELECT event_color, is_important FROM school_upcoming WHERE id = 1')->fetch(PDO::FETCH_ASSOC);
+    check($appearance['event_color'] === 'green' && (int)$appearance['is_important'] === 1, 'Saved appointment appearance lost on repeated migration.');
     check((int)$db->query('SELECT announced FROM school_exam_checklists')->fetchColumn() === 1, 'Checklist lost.');
     $row = $db->query('SELECT exam_key, pdf_data, revision, comment FROM school_exam_accommodations')->fetch(PDO::FETCH_ASSOC);
     check($row['exam_key'] === '2026-27-3bkgd1-1-grd' && $row['pdf_data'] === 'test PDF bytes' && (int)$row['revision'] === 2, 'Accommodation migration failed.');

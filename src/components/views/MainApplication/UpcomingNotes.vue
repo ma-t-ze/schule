@@ -7,6 +7,10 @@ import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
 import Message from 'primevue/message'
 import DatePicker from 'primevue/datepicker'
+import SelectButton from 'primevue/selectbutton'
+import Checkbox from 'primevue/checkbox'
+import AppointmentMarker from './AppointmentMarker.vue'
+import { appointmentColors, appointmentStyle } from './appointmentAppearance'
 
 const emit = defineEmits(['change', 'ready'])
 const eventDate = ref(null)
@@ -26,6 +30,8 @@ const deleteTarget = ref(null)
 const editing = ref(null)
 const title = ref('')
 const note = ref('')
+const eventColor = ref(null)
+const important = ref(false)
 let csrf = ''
 async function request(options = {}) {
   const response = await fetch(endpoint, { credentials: 'include', cache: 'no-store', ...options })
@@ -62,6 +68,8 @@ function edit(item = null) {
   editing.value = item
   title.value = item?.title || ''
   note.value = item?.note || ''
+  eventColor.value = appointmentColors.some(color => color.value === item?.event_color) ? item.event_color : null
+  important.value = item?.is_important === true
   eventDate.value = item?.event_date ? new Date(item.event_date + 'T12:00:00') : null
   endDate.value = item?.end_date ? new Date(item.end_date + 'T12:00:00') : null
   formError.value = ''
@@ -77,9 +85,10 @@ async function save() {
   saving.value = true
   formError.value = ''
   try {
-    const data = await mutate({ action: editing.value?.id ? 'update' : 'create', exam_key: editing.value?.exam_key, id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim(), event_date: dateKey(eventDate.value), end_date: dateKey(endDate.value) })
+    const data = await mutate({ action: editing.value?.id ? 'update' : 'create', exam_key: editing.value?.exam_key, id: editing.value?.id, revision: editing.value?.revision, title: title.value.trim(), note: note.value.trim(), event_date: dateKey(eventDate.value), end_date: dateKey(endDate.value), event_color: eventColor.value, is_important: important.value })
     if (editing.value?.exam_key && data.item?.exam_key !== editing.value.exam_key) throw new Error('Die Klassenarbeits-Zuordnung fehlt in der Serverantwort. Bitte die aktuelle upcoming.php hochladen und die Notizen neu laden.')
     if ((data.item?.event_date || null) !== dateKey(eventDate.value) || (data.item?.end_date || null) !== dateKey(endDate.value)) throw new Error('Das Kalenderdatum wurde vom Server nicht übernommen. Bitte die aktualisierte upcoming.php und die Datumsspalte auf STRATO einrichten.')
+    if (data.item?.event_color !== eventColor.value || data.item?.is_important !== important.value) throw new Error('Die Terminmarkierung konnte nicht gespeichert werden. Bitte lade die Termine neu und versuche es erneut.')
     if (editing.value?.id) items.value = items.value.map(item => item.id === editing.value.id ? data.item : item)
     else items.value.unshift(data.item)
     emit('change', items.value)
@@ -116,8 +125,8 @@ onMounted(load)
     <p v-if="loading" role="status">Notizen werden geladen …</p>
     <p v-else-if="ready && !undatedItems.length" class="empty">Keine Notizen ohne Datum. Datierte Notizen findest du im Kalender.</p>
     <div class="notes" :aria-busy="loading">
-      <Card v-for="item in undatedItems" :key="item.id" class="note-card">
-        <template #title><h4>{{ item.title }}</h4></template>
+      <Card v-for="item in undatedItems" :key="item.id" class="note-card" :style="appointmentStyle(item)">
+        <template #title><h4 class="marked-title"><AppointmentMarker :important="item.is_important === true" />{{ item.title }}</h4></template>
         <template #content><time v-if="item.event_date" :datetime="item.event_date">{{ new Date(item.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="item.end_date"> – {{ new Date(item.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-text">{{ item.note }}</p></template>
         <template #footer><div class="actions"><Button label="Bearbeiten" size="small" text :disabled="!ready || saving || loading" :aria-label="`${item.title} bearbeiten`" @click="edit(item)" /><Button label="Löschen" size="small" severity="danger" text :disabled="!ready || saving || loading" :aria-label="`${item.title} löschen`" @click="askDelete(item)" /></div></template>
       </Card>
@@ -128,6 +137,14 @@ onMounted(load)
         <label for="upcoming-note-input">Notiz (optional)</label><Textarea id="upcoming-note-input" v-model="note" rows="6" maxlength="5000" :disabled="saving" />
         <label for="upcoming-date-input">Startdatum im Kalender (optional)</label><DatePicker input-id="upcoming-date-input" v-model="eventDate" @update:model-value="value => { if (!value) endDate = null }" date-format="dd.mm.yy" show-icon show-clear :manual-input="false" :disabled="saving" />
         <label for="upcoming-end-date-input">Enddatum (optional, einschließlich)</label><DatePicker input-id="upcoming-end-date-input" v-model="endDate" date-format="dd.mm.yy" show-icon show-clear :manual-input="false" :min-date="eventDate || undefined" :disabled="saving || !eventDate" />
+        <div class="appearance-options">
+          <span id="appointment-color-label">Farbe</span>
+          <SelectButton v-model="eventColor" :options="appointmentColors" option-label="label" option-value="value" :allow-empty="false" :disabled="saving" aria-labelledby="appointment-color-label" class="color-options">
+            <template #option="{ option }"><span v-if="option.value" class="color-dot" :class="`color-${option.value}`" aria-hidden="true"></span>{{ option.label }}</template>
+          </SelectButton>
+          <div class="important-option"><Checkbox input-id="appointment-important" v-model="important" binary :disabled="saving" /><label for="appointment-important">Wichtig – mit großem Ausrufezeichen anzeigen</label></div>
+          <div class="appearance-preview" :style="appointmentStyle({ event_color: eventColor, is_important: important, category: editing?.exam_key ? 'exam' : null })" aria-label="Vorschau der Terminmarkierung"><AppointmentMarker :important="important" /><span>{{ title.trim() || 'Terminvorschau' }}</span></div>
+        </div>
         <Message v-if="formError" severity="error" :closable="false">{{ formError }}</Message>
         <div class="actions"><Button label="Abbrechen" severity="secondary" text :disabled="saving" @click="editorOpen = false" /><Button label="Speichern" type="submit" :loading="saving" /></div>
       </form>
@@ -146,7 +163,18 @@ onMounted(load)
 h3 { font-size: 19px; font-weight: 500; margin: 0; }
 h4 { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
 .notes { display: grid; gap: 12px; margin-top: 10px; }
-.note-card { border: 1px solid #dce3dd; box-shadow: none; }
+.note-card { border: 1px solid var(--appointment-border); border-left-width: 4px; box-shadow: none; background: var(--appointment-bg); color: var(--appointment-ink); }
+.marked-title { display: flex; align-items: center; gap: 10px; }
+.appearance-options { display: grid; gap: 12px; margin: 8px 0; }
+.color-options { display: flex; flex-wrap: wrap; }
+.color-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+.color-red { background: #dc2626; }
+.color-orange { background: #ea580c; }
+.color-green { background: #16a34a; }
+.important-option { display: flex; align-items: center; gap: 10px; }
+.important-option label { margin: 0; cursor: pointer; }
+.appearance-preview { display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--appointment-border); border-left-width: 4px; border-radius: 6px; background: var(--appointment-bg); color: var(--appointment-ink); overflow-wrap: anywhere; }
+.appearance-preview > span { min-width: 0; }
 .note-text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; margin: 0; user-select: text; }
 .empty { color: #647168; font-size: 14px; }
 .note-form { display: grid; gap: 12px; }

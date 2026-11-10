@@ -4,11 +4,14 @@ import Button from 'primevue/button'
 import Checkbox from 'primevue/checkbox'
 import { checklistFields } from './examChecklistFields'
 import ExamChecklist from './ExamChecklist.vue'
+import AppointmentMarker from './AppointmentMarker.vue'
+import { appointmentStyle } from './appointmentAppearance'
 
 defineProps({
   examKey: { type: String, required: true },
   label: { type: String, required: true },
   editLabel: { type: String, required: true },
+  appointment: { type: Object, default: null },
   disabled: Boolean
 })
 defineEmits(['edit'])
@@ -19,7 +22,7 @@ const checklist = ref(null)
 <template>
   <div class="exam-entry">
     <div class="exam-row">
-      <Button class="exam-date-button" text size="small" :disabled="disabled" :label="label" :aria-label="editLabel" @click="$emit('edit')" />
+      <Button class="exam-date-button" :class="{ 'marked-appointment': appointment?.event_color || appointment?.is_important }" :style="appointmentStyle(appointment)" text size="small" :disabled="disabled" :aria-label="editLabel" @click="$emit('edit')"><AppointmentMarker :important="appointment?.is_important === true" /><span>{{ label }}</span></Button>
       <div class="checklist-preview" role="group" aria-label="Checklisten-Vorschau" :aria-busy="!checklist">
         <span v-for="[key, name] in checklistFields" :key="key" :title="`${name}: ${checklist ? (checklist[key] ? 'erledigt' : 'offen') : 'noch nicht geladen'}`">
           <Checkbox :model-value="Boolean(checklist?.[key])" binary disabled :aria-label="name" />
@@ -47,6 +50,8 @@ const checklist = ref(null)
 <style scoped>
 .exam-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .exam-date-button { flex: 1; min-width: 0; text-align: left; justify-content: flex-start; padding: .25rem 0; font: inherit; }
+.exam-date-button.marked-appointment { background: var(--appointment-bg); color: var(--appointment-ink); border-left: 4px solid var(--appointment-border); padding: 6px 8px; gap: 8px; }
+.exam-date-button > span { min-width: 0; overflow-wrap: anywhere; }
 .checklist-preview { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
 .checklist-preview > span { display: flex; align-items: center; gap: 3px; }
 .checklist-preview :deep(.p-checkbox) { width: 16px; height: 16px; opacity: 1; }

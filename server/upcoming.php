@@ -50,6 +50,10 @@ if ($method === 'POST') {
         if (!is_int($input['id'] ?? null) || $input['id'] < 1 || !is_int($input['revision'] ?? null) || $input['revision'] < 1) respond(400, ['error' => 'Ungültige Notiz-ID.']);
     }
     if ($action !== 'delete') {
+        $eventColor = $input['event_color'] ?? null;
+        if ($eventColor !== null && (!is_string($eventColor) || !in_array($eventColor, ['red', 'orange', 'green'], true))) respond(422, ['error' => 'Bitte wähle eine gültige Terminfarbe.']);
+        $important = array_key_exists('is_important', $input) ? $input['is_important'] : false;
+        if (!is_bool($important)) respond(422, ['error' => 'Die Wichtig-Markierung muss ein Wahrheitswert sein.']);
         $eventDate = $input['event_date'] ?? null;
         if ($eventDate !== null) {
             if (!is_string($eventDate) || !preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $eventDate, $parts) || (int)$parts[1] < 1000 || !checkdate((int)$parts[2], (int)$parts[3], (int)$parts[1])) respond(422, ['error' => 'Bitte wähle ein gültiges Datum.']);
@@ -73,43 +77,48 @@ try {
     $config = require __DIR__ . '/database-config.php';
     $db = new PDO('mysql:host=' . $config['host'] . ';port=' . (int)($config['port'] ?? 3306) . ';dbname=' . $config['name'] . ';charset=utf8mb4', $config['user'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     if ($method === 'GET') {
-        $items = $db->query('SELECT id, title, note, event_date, end_date, exam_key, revision FROM school_upcoming ORDER BY id DESC')->fetchAll();
-        foreach ($items as &$item) { $item['id'] = (int)$item['id']; $item['revision'] = (int)$item['revision']; $item['category'] = $item['exam_key'] ? 'exam' : null; }
+        $items = $db->query('SELECT id, title, note, event_date, end_date, exam_key, event_color, is_important, revision FROM school_upcoming ORDER BY id DESC')->fetchAll();
+        foreach ($items as &$item) { $item['id'] = (int)$item['id']; $item['revision'] = (int)$item['revision']; $item['is_important'] = (bool)$item['is_important']; $item['category'] = $item['exam_key'] ? 'exam' : null; }
         unset($item);
         respond(200, ['items' => $items, 'csrf' => $csrf]);
     }
     if ($action === 'create') {
-        $statement = $db->prepare('INSERT INTO school_upcoming (title, note, event_date, end_date, exam_key) VALUES (?, ?, ?, ?, ?)');
-        $statement->execute([$title, $note, $eventDate, $endDate, $examKey]);
-        respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $examKey, 'category' => $examKey ? 'exam' : null, 'revision' => 1]]);
+        $statement = $db->prepare('INSERT INTO school_upcoming (title, note, event_date, end_date, exam_key, event_color, is_important) VALUES (?, ?, ?, ?, ?, ?, ?)');
+        $statement->execute([$title, $note, $eventDate, $endDate, $examKey, $eventColor, (int)$important]);
+        respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $examKey, 'event_color' => $eventColor, 'is_important' => $important, 'category' => $examKey ? 'exam' : null, 'revision' => 1]]);
     }
     // The checklist association remains immutable when editing an existing entry.
-    $lookup = $db->prepare('SELECT exam_key, title, note FROM school_upcoming WHERE id = ? AND revision = ?');
+    $lookup = $db->prepare('SELECT exam_key, title, note, event_color, is_important FROM school_upcoming WHERE id = ? AND revision = ?');
     $lookup->execute([$input['id'], $input['revision']]);
     $existing = $lookup->fetch();
     if (!$existing) respond(409, ['error' => 'Die Notiz wurde inzwischen geändert oder gelöscht. Bitte lade die Liste neu.']);
+    // Older clients can still edit dates without clearing saved appearance settings.
+    if ($action === 'update') {
+        if (!array_key_exists('event_color', $input)) $eventColor = $existing['event_color'];
+        if (!array_key_exists('is_important', $input)) $important = (bool)$existing['is_important'];
+    }
     if ($action === 'delete' && $existing['exam_key']) {
         // Remove only the calendar appointment; keep its checklist association.
         $statement = $db->prepare('UPDATE school_upcoming SET event_date = NULL, end_date = NULL, revision = revision + 1 WHERE id = ? AND revision = ?');
         $statement->execute([$input['id'], $input['revision']]);
         if ($statement->rowCount() !== 1) respond(409, ['error' => 'Der Termin wurde inzwischen geändert. Bitte neu laden.']);
-        respond(200, ['item' => ['id' => $input['id'], 'title' => $existing['title'], 'note' => $existing['note'], 'event_date' => null, 'end_date' => null, 'exam_key' => $existing['exam_key'], 'category' => 'exam', 'revision' => $input['revision'] + 1]]);
+        respond(200, ['item' => ['id' => $input['id'], 'title' => $existing['title'], 'note' => $existing['note'], 'event_date' => null, 'end_date' => null, 'exam_key' => $existing['exam_key'], 'event_color' => $existing['event_color'], 'is_important' => (bool)$existing['is_important'], 'category' => 'exam', 'revision' => $input['revision'] + 1]]);
     }
     if ($action === 'update') {
-        $statement = $db->prepare('UPDATE school_upcoming SET title = ?, note = ?, event_date = ?, end_date = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
-        $statement->execute([$title, $note, $eventDate, $endDate, $input['id'], $input['revision']]);
+        $statement = $db->prepare('UPDATE school_upcoming SET title = ?, note = ?, event_date = ?, end_date = ?, event_color = ?, is_important = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
+        $statement->execute([$title, $note, $eventDate, $endDate, $eventColor, (int)$important, $input['id'], $input['revision']]);
     } else {
         $statement = $db->prepare('DELETE FROM school_upcoming WHERE id = ? AND revision = ?');
         $statement->execute([$input['id'], $input['revision']]);
     }
     if ($statement->rowCount() !== 1) respond(409, ['error' => 'Die Notiz wurde inzwischen geändert oder gelöscht. Bitte lade die Liste neu.']);
-    respond(200, $action === 'update' ? ['item' => ['id' => $input['id'], 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $existing['exam_key'], 'category' => $existing['exam_key'] ? 'exam' : null, 'revision' => $input['revision'] + 1]] : ['success' => true]);
+    respond(200, $action === 'update' ? ['item' => ['id' => $input['id'], 'title' => $title, 'note' => $note, 'event_date' => $eventDate, 'end_date' => $endDate, 'exam_key' => $existing['exam_key'], 'event_color' => $eventColor, 'is_important' => $important, 'category' => $existing['exam_key'] ? 'exam' : null, 'revision' => $input['revision'] + 1]] : ['success' => true]);
 } catch (Throwable $error) {
     if ($error instanceof PDOException && (int)($error->errorInfo[1] ?? 0) === 1062) {
         respond(409, ['error' => 'Die Klassenarbeit wurde inzwischen angelegt. Bitte lade die Liste neu und öffne sie erneut.']);
     }
     if ($error instanceof PDOException && (int)($error->errorInfo[1] ?? 0) === 1054) {
-        respond(503, ['error' => 'Eine Kalender-Datenbankspalte fehlt. Bitte die Datums-/Zeitraum-Migrationen und upcoming-exams-migration.sql in der STRATO-Datenbank prüfen.']);
+        respond(503, ['error' => 'Eine Kalender-Datenbankspalte fehlt. Bitte die Kalender-Migrationen einschließlich 004-upcoming-appearance.php ausführen.']);
     }
     error_log('Upcoming database operation failed: ' . get_class($error));
     respond(503, ['error' => 'Die Notizen konnten nicht gespeichert oder geladen werden. Bitte prüfe die Datenbank-Einrichtung oder versuche es später erneut.']);

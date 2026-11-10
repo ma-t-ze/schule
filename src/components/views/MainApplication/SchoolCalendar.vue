@@ -4,6 +4,8 @@ import SelectButton from 'primevue/selectbutton'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import CalendarRangeBars from './CalendarRangeBars.vue'
+import AppointmentMarker from './AppointmentMarker.vue'
+import { appointmentStyle } from './appointmentAppearance'
 import { lessons, periods } from './schoolTimetable'
 import { schoolYearEvents } from './schoolYearEvents'
 
@@ -80,7 +82,7 @@ const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(
         </div>
       </div>
     </div>
-    <Dialog :visible="!!selectedNote" modal :header="selectedNote?.title" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value) selectedNote = null }"><time v-if="selectedNote?.event_date">{{ new Date(selectedNote.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="selectedNote.end_date"> – {{ new Date(selectedNote.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-detail">{{ selectedNote?.note }}</p><p v-if="selectedNote?.source" class="note-source"><a :href="selectedNote.sourceUrl" target="_blank" rel="noopener noreferrer">{{ selectedNote.source }} ↗</a></p><template v-if="!selectedNote?.readonly" #footer><Button label="Bearbeiten" @click="emit('edit-note', selectedNote); selectedNote = null" /><Button label="Löschen" severity="danger" outlined @click="emit('delete-note', selectedNote); selectedNote = null" /></template></Dialog>
+    <Dialog :visible="!!selectedNote" modal :header="selectedNote?.title" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }" @update:visible="value => { if (!value) selectedNote = null }"><template #header><div class="appointment-detail-heading" :style="appointmentStyle(selectedNote)"><AppointmentMarker :important="selectedNote?.is_important === true" /><h3>{{ selectedNote?.title }}</h3></div></template><time v-if="selectedNote?.event_date">{{ new Date(selectedNote.event_date + 'T12:00:00').toLocaleDateString('de-DE') }}<template v-if="selectedNote.end_date"> – {{ new Date(selectedNote.end_date + 'T12:00:00').toLocaleDateString('de-DE') }}</template></time><p class="note-detail">{{ selectedNote?.note }}</p><p v-if="selectedNote?.source" class="note-source"><a :href="selectedNote.sourceUrl" target="_blank" rel="noopener noreferrer">{{ selectedNote.source }} ↗</a></p><template v-if="!selectedNote?.readonly" #footer><Button label="Bearbeiten" @click="emit('edit-note', selectedNote); selectedNote = null" /><Button label="Löschen" severity="danger" outlined @click="emit('delete-note', selectedNote); selectedNote = null" /></template></Dialog>
   </div>
 </template>
 
@@ -94,6 +96,8 @@ const lessonStyle = lesson => ({ top: `${position(lesson.start)}%`, height: `${(
 .note-row-label { font-size: 10px; padding: 8px 2px; }
 .calendar-note { box-sizing: border-box; min-width: 0; display: block; width: 100%; text-align: left; background: #e1efe7; border: 1px solid #c4dfce; border-radius: 4px; color: #22563a; font: inherit; font-size: 12px; padding: 5px; margin-top: 5px; overflow-wrap: anywhere; cursor: pointer; }
 .calendar-note:hover { background: #cce6d5; }
+.appointment-detail-heading { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-left: 4px solid var(--appointment-border); background: var(--appointment-bg); color: var(--appointment-ink); border-radius: 5px; min-width: 0; }
+.appointment-detail-heading h3 { margin: 0; font-size: 20px; overflow-wrap: anywhere; }
 .note-detail { white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
 .month-calendar { min-width: 490px; background: white; }
 .month-weekdays, .month-dates { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
