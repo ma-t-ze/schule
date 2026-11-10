@@ -8,6 +8,7 @@ export function installNewTabLinks(root = document) {
     if (!href || href.startsWith('#')) return
     const destination = new URL(href, link.baseURI)
     const current = new URL(link.ownerDocument.location.href)
+    if (current.pathname !== '/') return
     if (!['http:', 'https:'].includes(destination.protocol) || destination.origin !== current.origin) return
     if (destination.hash && destination.pathname === current.pathname && destination.search === current.search) return
     link.target = '_blank'
