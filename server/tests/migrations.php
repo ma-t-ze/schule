@@ -21,9 +21,15 @@ function resetTestDatabase(PDO $db) {
 try {
     resetTestDatabase($db);
     runMigrations($directory);
-    check((int)$db->query('SELECT COUNT(*) FROM school_upcoming')->fetchColumn() === 15, 'Missing initial exams.');
-    check((int)$db->query('SELECT COUNT(*) FROM school_upcoming WHERE event_color IS NULL AND is_important = 0')->fetchColumn() === 15, 'New appearance fields must preserve default presentation.');
+    check((int)$db->query('SELECT COUNT(*) FROM school_upcoming')->fetchColumn() === 17, 'Missing initial exams.');
+    check((int)$db->query('SELECT COUNT(*) FROM school_upcoming WHERE event_color IS NULL AND is_important = 0')->fetchColumn() === 17, 'New appearance fields must preserve default presentation.');
     check($db->query("SELECT event_date FROM school_upcoming WHERE exam_key = '2026-27-3bkgd1-1-met-1'")->fetchColumn() === '2026-11-20', 'Incorrect MET date.');
+    $bpkExams = $db->query("SELECT exam_key, event_date FROM school_upcoming WHERE exam_key LIKE '2026-27-1bfd1-bpk-%' ORDER BY exam_key")->fetchAll(PDO::FETCH_ASSOC);
+    check($bpkExams === [
+        ['exam_key' => '2026-27-1bfd1-bpk-1', 'event_date' => '2026-12-09'],
+        ['exam_key' => '2026-27-1bfd1-bpk-2', 'event_date' => null],
+    ], 'Incorrect BPK exams or dates.');
+    $db->exec("UPDATE school_upcoming SET event_date = NULL, title = 'Edited BPK', note = 'Keep BPK changes', revision = 3 WHERE exam_key = '2026-27-1bfd1-bpk-1'");
     $db->exec("UPDATE school_upcoming SET event_date = NULL, title = 'Edited', note = 'Keep me', event_color = 'orange', is_important = 1, revision = 7 WHERE exam_key = '2026-27-3bkgd1-1-met-1'");
     $before = $db->query('SELECT * FROM school_upcoming ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);
     runMigrations($directory);
