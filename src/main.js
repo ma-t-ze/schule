@@ -17,6 +17,24 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/1bfd1/kaefer-retuschieren',
+    name: 'kaefer-retuschieren',
+    component: () => import('./components/views/BFD1/KaeferRetuschieren.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/1bfd1/umfang-klassenarbeit-01',
+    name: 'umfang-klassenarbeit-01',
+    component: () => import('./components/views/BFD1/UmfangKlassenarbeit01.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/designvorlagen/a4/1bfd1-bpk',
+    name: 'designvorlage-a4-bpk',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageA4BPK.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/designvorlagen/a4',
     name: 'designvorlage-a4',
     component: () => import('./components/views/Designvorlagen/DesignvorlageA4.vue'),

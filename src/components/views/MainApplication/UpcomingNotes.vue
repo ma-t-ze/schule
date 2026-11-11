@@ -58,10 +58,10 @@ function editExam(examKey) {
   if (!ready.value || loading.value || saving.value) return
   const item = items.value.find(entry => entry.exam_key === examKey)
   if (item) { edit(item); return }
-  const match = /^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/.exec(examKey)
-  const classes = { '3bkgd1-1-met': ['3BKGD1/1 MET', 4], '3bkgd1-1-grd': ['3BKGD1/1 GRD', 4], '3tgg1-2': ['3TGG1/2', 5], '3tgg2': ['3TGG2', 2] }
+  const match = /^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2|1bfd1-bpk)-([1-5])$/.exec(examKey)
+  const classes = { '3bkgd1-1-met': ['3BKGD1/1 MET', 4], '3bkgd1-1-grd': ['3BKGD1/1 GRD', 4], '3tgg1-2': ['3TGG1/2', 5], '3tgg2': ['3TGG2', 2], '1bfd1-bpk': ['1BFD1 BPK', 2] }
   if (!match || Number(match[2]) > classes[match[1]][1]) return
-  edit({ exam_key: examKey, title: `${match[2]}. Klassenarbeit · ${classes[match[1]][0]}`, event_date: examKey === '2026-27-3bkgd1-1-met-1' ? '2026-11-20' : null })
+  edit({ exam_key: examKey, title: `${match[2]}. Klassenarbeit · ${classes[match[1]][0]}`, event_date: ({ '2026-27-3bkgd1-1-met-1': '2026-11-20', '2026-27-1bfd1-bpk-1': '2026-12-09' })[examKey] || null })
 }
 function edit(item = null) {
   if (!ready.value || loading.value || saving.value) return

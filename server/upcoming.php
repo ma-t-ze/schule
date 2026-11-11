@@ -43,8 +43,8 @@ if ($method === 'POST') {
     if (!is_string($action) || !in_array($action, ['create', 'update', 'delete'], true)) respond(400, ['error' => 'Ungültige Aktion.']);
     $examKey = $input['exam_key'] ?? null;
     if ($action === 'create' && $examKey !== null) {
-        $examCounts = ['3bkgd1-1-met' => 4, '3bkgd1-1-grd' => 4, '3tgg1-2' => 5, '3tgg2' => 2];
-        if (!is_string($examKey) || !preg_match('/^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2)-([1-5])$/D', $examKey, $examParts) || (int)$examParts[2] > $examCounts[$examParts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
+        $examCounts = ['3bkgd1-1-met' => 4, '3bkgd1-1-grd' => 4, '3tgg1-2' => 5, '3tgg2' => 2, '1bfd1-bpk' => 2];
+        if (!is_string($examKey) || !preg_match('/^2026-27-(3bkgd1-1-met|3bkgd1-1-grd|3tgg1-2|3tgg2|1bfd1-bpk)-([1-5])$/D', $examKey, $examParts) || (int)$examParts[2] > $examCounts[$examParts[1]]) respond(422, ['error' => 'Ungültige Klassenarbeit.']);
     }
     if ($action !== 'create') {
         if (!is_int($input['id'] ?? null) || $input['id'] < 1 || !is_int($input['revision'] ?? null) || $input['revision'] < 1) respond(400, ['error' => 'Ungültige Notiz-ID.']);

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import Panel from 'primevue/panel'
 import Button from 'primevue/button'
 import Popover from 'primevue/popover'
@@ -12,6 +12,29 @@ import ExamAccommodations from './ExamAccommodations.vue'
 import { examDateLabel } from './classExamEvents'
 import { schoolYearPlanUrl } from './schoolYearEvents'
 import PlansOverview from '../Stoffverteilungsplaene/PlansOverview.vue'
+
+const openDocuments = ref([])
+function documentId(url) {
+  return `document-${encodeURIComponent(url)}`
+}
+async function openDocument(event) {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+  const link = event.target.closest('a[href]')
+  if (!link || link.hasAttribute('download')) return
+  const url = new URL(link.href, window.location.href)
+  if (url.origin !== window.location.origin || !/^\/(sitzplaene|designvorlagen|pruefungen|lehrplaene)(\/|$)/.test(url.pathname)) return
+  event.preventDefault()
+  event.stopPropagation()
+  const src = url.pathname + url.search + url.hash
+  if (!openDocuments.value.some(document => document.src === src)) {
+    openDocuments.value.push({ src, title: link.textContent.trim().replace(/\s*↗$/, '') })
+  }
+  await nextTick()
+  document.getElementById(documentId(src))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+function closeDocument(src) {
+  openDocuments.value = openDocuments.value.filter(document => document.src !== src)
+}
 
 const isDev = import.meta.env.DEV
 const calendarNotes = ref([])
@@ -37,7 +60,6 @@ const repairInfo = ref(null)
 const sabineHeitmannInfo = ref(null)
 
 const classes = [
-  ['1BFD1 BPK', '1bfd1'],
   ['3TGG1/2', '3tgg12'], ['3TGG2', '3tgg2']
 ]
 const metLinks = [
@@ -56,6 +78,8 @@ const grdDatesOpen = ref(false)
 const grdDates = 4
 const tgg2DatesOpen = ref(false)
 const tgg2Dates = 2
+const bpkDatesOpen = ref(false)
+const bpkDates = 2
 const tgg12DatesOpen = ref(false)
 const tgg12Dates = 5
 </script>
@@ -78,11 +102,18 @@ const tgg12Dates = 5
         </nav>
       </template>
     </Toolbar>
-    <aside class="sidebar" aria-label="Unterricht und Organisation">
+    <aside class="sidebar" aria-label="Unterricht und Organisation" @click.capture="openDocument">
       <Panel header="Klassen 2025/26" toggleable>
         <nav class="link-list" aria-label="Klassen 2025/26">
           <Panel header="3BKGD1/1 MET" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="3BKGD1/1 MET"><RouterLink v-for="[label, name] in metLinks" :key="name" :to="{ name }">{{ label }}</RouterLink></nav>
+          </Panel>
+          <Panel header="1BFD1 BPK" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="1BFD1 BPK">
+              <RouterLink :to="{ name: '1bfd1' }">Themenübersicht</RouterLink>
+              <RouterLink :to="{ name: 'umfang-klassenarbeit-01' }">Umfang Klassenarbeit 01</RouterLink>
+              <RouterLink :to="{ name: 'kaefer-retuschieren' }">Photoshop: Käfer retuschieren</RouterLink>
+            </nav>
           </Panel>
           <RouterLink v-for="[label, name] in classes" :key="name" :to="{ name }">{{ label }}</RouterLink>
         </nav>
@@ -176,13 +207,19 @@ const tgg12Dates = 5
       </Panel>
       <Panel header="Designvorlagen" toggleable collapsed>
         <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
-          <nav class="link-list" aria-label="Designvorlage A4"><RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink></nav>
+          <nav class="link-list" aria-label="Designvorlage A4"><RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink><RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink></nav>
         </Panel>
       </Panel>
     </aside>
     <div class="center-column">
       <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>
       <Panel class="plans-panel" header="Stoffverteilungspläne" toggleable collapsed><PlansOverview /></Panel>
+      <Panel v-for="document in openDocuments" :id="documentId(document.src)" :key="document.src" class="document-panel" :header="document.title">
+        <template #icons>
+          <Button label="×" text rounded class="document-close" :aria-label="`${document.title} schließen`" @click="closeDocument(document.src)" />
+        </template>
+        <iframe :src="document.src" :title="document.title" class="document-preview" />
+      </Panel>
     </div>
     <Panel class="exams-column" header="Klassenarbeiten" toggleable>
       <ul><li v-for="(name, classIndex) in exams" :key="name">
@@ -201,6 +238,10 @@ const tgg12Dates = 5
         <template v-else-if="name === '3TGG2'">
           <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/2)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="tgg2DatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="tgg2DatesOpen" aria-controls="tgg2-exam-dates" aria-label="Klassenarbeitstermine für 3TGG2" @click="tgg2DatesOpen = !tgg2DatesOpen" /></div>
           <ol v-if="tgg2DatesOpen" id="tgg2-exam-dates" class="exam-dates"><li v-for="number in tgg2Dates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-3tgg2-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 3tgg2 bearbeiten`" :exam-key="`2026-27-3tgg2-${number}`" :appointment="calendarNotes.find(item => item.exam_key === `2026-27-3tgg2-${number}`)" @edit="upcomingNotes?.editExam(`2026-27-3tgg2-${number}`)" /></li></ol>
+        </template>
+        <template v-else-if="name === '1BFD1 BPK'">
+          <div class="exam-heading"><div class="class-title"><span>{{ name }} (0/2)</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div><Button :label="bpkDatesOpen ? '−' : '+'" text rounded size="small" :aria-expanded="bpkDatesOpen" aria-controls="bpk-exam-dates" aria-label="Klassenarbeitstermine für 1BFD1 BPK" @click="bpkDatesOpen = !bpkDatesOpen" /></div>
+          <ol v-if="bpkDatesOpen" id="bpk-exam-dates" class="exam-dates"><li v-for="number in bpkDates" :key="number"><ExamEntry :disabled="!notesReady" :label="`${number}. Klassenarbeit: ${examDateLabel(calendarNotes, `2026-27-1bfd1-bpk-${number}`)}`" :edit-label="`${number}. Klassenarbeit in 1BFD1 BPK bearbeiten`" :exam-key="`2026-27-1bfd1-bpk-${number}`" :appointment="calendarNotes.find(item => item.exam_key === `2026-27-1bfd1-bpk-${number}`)" @edit="upcomingNotes?.editExam(`2026-27-1bfd1-bpk-${number}`)" /></li></ol>
         </template>
         <template v-else><div class="class-title"><span>{{ name }}</span><ExamAccommodations :class-key="classKeys[classIndex]" :class-name="name" /></div></template>
       </li></ul>
@@ -225,6 +266,10 @@ const tgg12Dates = 5
 }
 .center-column > .p-panel { align-self: stretch; width: 100%; box-sizing: border-box; }
 .center-column { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.document-panel { min-width: 0; scroll-margin-top: 20px; background: #f1f2ef; }
+.document-panel :deep(.p-panel-title) { overflow-wrap: anywhere; }
+.document-close { font-size: 28px; flex-shrink: 0; }
+.document-preview { display: block; width: 100%; height: 80vh; min-height: 480px; border: 1px solid #e2e5df; border-radius: 4px; background: white; }
 .plans-panel { min-width: 0; background: #f1f2ef; }
 .sidebar { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .sidebar :deep(.p-panel), .calendar-column, .exams-column { background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; }
