@@ -5,6 +5,7 @@
       <img src="/3tgg12/qr-code.svg" width="240" height="240" alt="QR-Code zur Seite https://visualizer.matthiasheckel.com/3tgg12" />
     </a>
     <nav class="topic-links" aria-label="Unterrichtsthemen">
+      <router-link class="topic-link" :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</router-link>
       <router-link class="topic-link" :to="{ name: '3tgg12-punkt-und-linie' }">
         #1 Visuelle Kommunikation mit Punkt und Linie
       </router-link>

@@ -17,6 +17,18 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/3tgg12/klassenarbeit-01',
+    name: 'tgg12-klassenarbeit-01',
+    component: () => import('./components/views/TGG12/Klassenarbeit01.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/designvorlagen/klassenarbeiten/3tgg1-2',
+    name: 'designvorlage-klassenarbeit-tgg12',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageKlassenarbeitTGG12.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3bkgd1-1-grd/klassenarbeit-01',
     name: 'grd-klassenarbeit-01',
     component: () => import('./components/views/BKGD1GRD/Klassenarbeit01.vue'),
