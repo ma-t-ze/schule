@@ -103,10 +103,13 @@ const tgg12Dates = 5
       </template>
     </Toolbar>
     <aside class="sidebar" aria-label="Unterricht und Organisation" @click.capture="openDocument">
-      <Panel header="Klassen 2025/26" toggleable>
-        <nav class="link-list" aria-label="Klassen 2025/26">
+      <Panel header="Klassen 2026/27" toggleable>
+        <nav class="link-list" aria-label="Klassen 2026/27">
           <Panel header="3BKGD1/1 MET" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="3BKGD1/1 MET"><RouterLink v-for="[label, name] in metLinks" :key="name" :to="{ name }">{{ label }}</RouterLink></nav>
+          </Panel>
+          <Panel header="3BKGD1_1_GRD" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="3BKGD1_1_GRD"><RouterLink :to="{ name: 'grd-klassenarbeit-01' }">Klassenarbeit 01 · Farbensehen und Rhythmus</RouterLink></nav>
           </Panel>
           <Panel header="1BFD1 BPK" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="1BFD1 BPK">
@@ -206,9 +209,14 @@ const tgg12Dates = 5
         </nav>
       </Panel>
       <Panel header="Designvorlagen" toggleable collapsed>
-        <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
-          <nav class="link-list" aria-label="Designvorlage A4"><RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink><RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink></nav>
-        </Panel>
+        <nav class="link-list" aria-label="Designvorlagen">
+          <Panel header="Klassenarbeiten" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="Klassenarbeiten"><RouterLink :to="{ name: 'designvorlage-klassenarbeit-grd' }">3BKGD1_1_GRD</RouterLink></nav>
+          </Panel>
+          <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="Designvorlage A4"><RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink><RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink></nav>
+          </Panel>
+        </nav>
       </Panel>
     </aside>
     <div class="center-column">

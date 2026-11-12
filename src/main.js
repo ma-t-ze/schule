@@ -17,6 +17,18 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/3bkgd1-1-grd/klassenarbeit-01',
+    name: 'grd-klassenarbeit-01',
+    component: () => import('./components/views/BKGD1GRD/Klassenarbeit01.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/designvorlagen/klassenarbeiten/3bkgd1-1-grd',
+    name: 'designvorlage-klassenarbeit-grd',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageKlassenarbeitGRD.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/1bfd1/kaefer-retuschieren',
     name: 'kaefer-retuschieren',
     component: () => import('./components/views/BFD1/KaeferRetuschieren.vue'),
