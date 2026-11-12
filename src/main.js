@@ -300,10 +300,24 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/medientechnik/adobe-indesign/probe-klassenarbeit/:step([1-6])?',
+    name: 'indesign-probe-klassenarbeit',
+    component: () => import('./components/views/Medientechnik/ProbeKlassenarbeit.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/medientechnik/adobe-indesign/mini-tutorials',
     name: 'indesign-mini-tutorials',
     component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
     props: { level: 'mini' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/adobe-indesign/mini-tutorials/arbeitsoberflaeche-einrichten/:step([1-6])?',
+    name: 'indesign-arbeitsoberflaeche-einrichten',
+    component: () => import('./components/views/Medientechnik/ArbeitsoberflaecheTutorial.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
     meta: { requiresAuth: false }
   },
   {

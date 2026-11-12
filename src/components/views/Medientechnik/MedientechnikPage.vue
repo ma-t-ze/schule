@@ -37,6 +37,7 @@ const lessons = [
       </div>
       <RouterLink v-else-if="level === 'basics'" class="topic-link" to="/medientechnik/grundlagen/imac"><span>iMac Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
       <div v-else-if="level === 'indesign'" class="topic-list">
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/probe-klassenarbeit"><span>Probe Klassenarbeit</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials"><span>Mini Tutorials</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/lerninhalte"><span>Übersicht Lerninhalte</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/typografisches-plakat/1"><span>1. Typografisches Plakat<small>1–6: Dokument anlegen, Textrahmen verwenden, Schrift gestalten und einfache Formen einsetzen.</small></span><span aria-hidden="true">→</span></RouterLink>
@@ -44,6 +45,7 @@ const lessons = [
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/broschuere/1"><span>3. Magazinbroschüre RUMOR<small>Eine Broschüre Schritt für Schritt nachbauen: Cover, Innenseiten, Rückseite und PDF-Ausgabe.</small></span><span aria-hidden="true">→</span></RouterLink>
       </div>
       <div v-else-if="level === 'mini'" class="topic-list">
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/arbeitsoberflaeche-einrichten"><span>InDesign-Arbeitsoberfläche für den Unterricht einrichten</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/text-um-form"><span>Text um eine Form fließen lassen</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/bild-und-rahmen"><span>Bilder skalieren und beschneiden – schwarzer und weißer Pfeil</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/textrahmen-automatisch-anpassen"><span>Textrahmen automatisch an Text anpassen</span><span aria-hidden="true">→</span></RouterLink>

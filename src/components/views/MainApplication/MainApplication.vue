@@ -216,6 +216,11 @@ const tgg12Dates = 5
       <Panel class="plans-panel" header="Stoffverteilungspläne" toggleable collapsed><PlansOverview /></Panel>
       <Panel v-for="document in openDocuments" :id="documentId(document.src)" :key="document.src" class="document-panel" :header="document.title">
         <template #icons>
+          <Button as="a" :href="document.src" target="_blank" rel="noopener noreferrer" text rounded class="document-open-tab" :aria-label="`${document.title} in neuem Tab öffnen`" title="In neuem Tab öffnen">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 3h7v7M21 3l-10 10M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5" />
+            </svg>
+          </Button>
           <Button label="×" text rounded class="document-close" :aria-label="`${document.title} schließen`" @click="closeDocument(document.src)" />
         </template>
         <iframe :src="document.src" :title="document.title" class="document-preview" />
@@ -269,6 +274,7 @@ const tgg12Dates = 5
 .document-panel { min-width: 0; scroll-margin-top: 20px; background: #f1f2ef; }
 .document-panel :deep(.p-panel-title) { overflow-wrap: anywhere; }
 .document-close { font-size: 28px; flex-shrink: 0; }
+.document-open-tab { flex-shrink: 0; width: 2.5rem; height: 2.5rem; }
 .document-preview { display: block; width: 100%; height: 80vh; min-height: 480px; border: 1px solid #e2e5df; border-radius: 4px; background: white; }
 .plans-panel { min-width: 0; background: #f1f2ef; }
 .sidebar { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
