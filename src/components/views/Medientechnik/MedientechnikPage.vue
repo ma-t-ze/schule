@@ -45,7 +45,7 @@ const lessons = [
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/broschuere/1"><span>3. Magazinbroschüre RUMOR<small>Eine Broschüre Schritt für Schritt nachbauen: Cover, Innenseiten, Rückseite und PDF-Ausgabe.</small></span><span aria-hidden="true">→</span></RouterLink>
       </div>
       <div v-else-if="level === 'mini'" class="topic-list">
-        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/arbeitsoberflaeche-einrichten"><span>InDesign-Arbeitsoberfläche für den Unterricht einrichten</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/arbeitsoberflaeche-einrichten"><span>InDesign-Arbeitsoberfläche einrichten</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/text-um-form"><span>Text um eine Form fließen lassen</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/bild-und-rahmen"><span>Bilder skalieren und beschneiden – schwarzer und weißer Pfeil</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials/textrahmen-automatisch-anpassen"><span>Textrahmen automatisch an Text anpassen</span><span aria-hidden="true">→</span></RouterLink>

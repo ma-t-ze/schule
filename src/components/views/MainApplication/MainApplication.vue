@@ -109,7 +109,7 @@ const tgg12Dates = 5
             <nav class="link-list" aria-label="3BKGD1/1 MET"><RouterLink v-for="[label, name] in metLinks" :key="name" :to="{ name }">{{ label }}</RouterLink></nav>
           </Panel>
           <Panel header="3BKGD1_1_GRD" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3BKGD1_1_GRD"><RouterLink :to="{ name: 'grd-klassenarbeit-01' }">Klassenarbeit 01 · Farbensehen und Rhythmus</RouterLink></nav>
+            <nav class="link-list" aria-label="3BKGD1_1_GRD"><RouterLink :to="{ name: 'grd-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
           </Panel>
           <Panel header="1BFD1 BPK" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="1BFD1 BPK">
@@ -119,7 +119,7 @@ const tgg12Dates = 5
             </nav>
           </Panel>
           <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
+            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-spiel' }">Spiel, Repräsentationsformen von Zeichen</RouterLink><RouterLink :to="{ name: '3tgg12-ikon-und-symbol' }">Ikon und Symbol</RouterLink></nav>
           </Panel>
           <RouterLink v-for="[label, name] in classes.filter(([, route]) => route !== '3tgg12')" :key="name" :to="{ name }">{{ label }}</RouterLink>
         </nav>

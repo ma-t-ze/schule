@@ -57,7 +57,8 @@ async function downloadPdf() {
             <p>Grafikdesign Schuljahr 1 | chs | Heckel</p>
           </header>
           <div class="worksheet-body">
-            <h2>Klassenarbeit 01 · Farbensehen und Rhythmus</h2>
+            <h2>Klassenarbeit 01</h2>
+            <p class="exam-duration">Bearbeitungszeit: 60 Minuten</p>
             <div class="assessment"><span>Name: ___________________________</span><span>Punkte: ____ / 30</span><span>Note: ____</span></div>
             <h2 class="topic-heading">Farbensehen</h2>
             <h3>1. Ordne die Begriffe zu. <span>5 Punkte</span></h3>
@@ -186,4 +187,5 @@ th, td { border: 1px solid #d3dad6; padding: 4px 8px; text-align: left; }
 .dot-position { display: flex; align-items: center; justify-content: center; width: 48px; flex: 0 0 48px; }
 .rhythm-dot { display: block; background: #176746; border-radius: 50%; }
 @page { size: A4; margin: 0; }
+.worksheet-body .exam-duration { background: #eeeeee; padding: 8px 12px; margin: 8px 0 12px; font-weight: 500; }
 </style>

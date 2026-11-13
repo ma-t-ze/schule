@@ -17,6 +17,18 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/3tgg12/ikon-und-symbol',
+    name: '3tgg12-ikon-und-symbol',
+    component: () => import('./components/views/TGG12/IkonUndSymbol.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/3tgg12/zeichen-spiel',
+    name: '3tgg12-zeichen-spiel',
+    component: () => import('./components/views/TGG12/ZeichenSpiel.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3tgg12/klassenarbeit-01',
     name: 'tgg12-klassenarbeit-01',
     component: () => import('./components/views/TGG12/Klassenarbeit01.vue'),
@@ -68,7 +80,7 @@ const routes = [
     path: '/pruefungen/paedagogik-psychologie',
     name: 'pruefung-paedagogik-psychologie',
     component: () => import('./components/views/PaedagogikPruefung/PaedagogikPruefung.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: false }
   },
   {
     path: '/pausenalarm',
