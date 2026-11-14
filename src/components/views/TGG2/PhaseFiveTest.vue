@@ -50,7 +50,7 @@ async function download() {
 
 <template>
   <details ref="root" id="phase-five-test" class="blue-card phase-five" aria-labelledby="phase-five-title">
-    <summary><span class="block-heading"><span class="eyebrow">PHASE 5.1 · TEAMARBEIT · 45 MINUTEN</span><h2 id="phase-five-title">Klickdummys testen und vergleichen</h2></span></summary>
+    <summary><span class="block-heading"><span class="eyebrow">PHASE 5.1</span><h2 id="phase-five-title">Testen und optimieren</h2></span></summary>
     <section class="assignment">
       <h3>Arbeitsauftrag</h3>
       <ol>
