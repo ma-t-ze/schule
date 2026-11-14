@@ -159,6 +159,13 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg2/entwicklung-einer-app-design-thinking/klickdummy/:variant(a|b|c)',
+    name: '3tgg2-design-thinking-klickdummy',
+    component: () => import('./components/views/TGG2/prototypeTest/MealPrototype.vue'),
+    props: true,
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg2/entwicklung-einer-app-design-thinking',
     name: '3tgg2-design-thinking',
     component: () => import('./components/views/TGG2/DesignThinking.vue'),

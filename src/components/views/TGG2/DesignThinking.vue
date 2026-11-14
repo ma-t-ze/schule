@@ -7,6 +7,7 @@ import ProblemVotes from './ProblemVotes.vue'
 import PhaseTwo from './PhaseTwo.vue'
 import PhaseThree from './PhaseThree.vue'
 import PhaseFour from './PhaseFour.vue'
+import PhaseFiveTest from './PhaseFiveTest.vue'
 import TermContent from './TermContent.vue'
 const props = defineProps({ pdfMode: { type: Boolean, default: false } })
 import { watchDesignPosts, designError } from '../../../services/designThinkingFirebase'
@@ -206,6 +207,7 @@ onBeforeUnmount(closeTerm)
           <PhaseTwo :posts="posts" :pdf-mode="pdfMode" data-pdf-section="ideas" />
           <PhaseThree :pdf-mode="pdfMode" data-pdf-section="requirements" />
           <PhaseFour data-pdf-section="drafts" />
+          <PhaseFiveTest :pdf-mode="pdfMode" data-pdf-section="testing" />
           <router-link :to="{ name: '3tgg2-design-thinking-admin' }">Admin-Ansicht für die Lehrkraft</router-link>
         </div>
         <aside aria-labelledby="knowledge-title">

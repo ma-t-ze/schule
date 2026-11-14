@@ -62,6 +62,7 @@ export default [
     "objectives": [
       {
         "title": "… die drei Phasen vom Entwurf bis zum Endprodukt nennen.",
+        "examNotice": "Kommt nicht in der ersten Klassenarbeit dran",
         "text": "Entwurf, Ausarbeitung und Endprodukt."
       },
       {
@@ -83,6 +84,7 @@ export default [
       },
       {
         "title": "… erklären, was in der Ausarbeitungsphase geschieht.",
+        "examNotice": "Kommt nicht in der ersten Klassenarbeit dran",
         "text": "Die Entwürfe werden analysiert und anschließend umgesetzt.",
         "tasks": [
           {
@@ -97,6 +99,7 @@ export default [
       },
       {
         "title": "… erklären, was unter einem Endprodukt verstanden wird.",
+        "examNotice": "Kommt nicht in der ersten Klassenarbeit dran",
         "text": "Das Endprodukt ist das fertige Ergebnis des Gestaltungsprozesses. Es soll die festgelegten Anforderungen erfüllen und das ursprüngliche Problem lösen."
       }
     ]
@@ -197,6 +200,7 @@ export default [
       },
       {
         "title": "… erklären, was Controlling, Strategien und Maßnahmen im Projektmanagement bedeuten.",
+        "examNotice": "Kommt nicht in der ersten Klassenarbeit dran",
         "tasks": [
           {
             "label": "Controlling",

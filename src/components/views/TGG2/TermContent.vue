@@ -19,8 +19,9 @@ defineProps({ term: { type: Object, required: true }, titleId: { type: String, d
     <section v-if="term.objectives?.length">
       <h3>{{ term.objectivesTitle || 'Ich kann …' }}</h3>
       <ol class="learning-objectives">
-        <li v-for="objective in term.objectives" :key="objective.title">
+        <li v-for="objective in term.objectives" :key="objective.title" :class="{ 'exam-excluded': objective.examNotice }">
           <strong>{{ objective.title }}</strong>
+          <p v-if="objective.examNotice" class="exam-notice">{{ objective.examNotice }}</p>
           <p v-if="objective.text">{{ objective.text }}</p>
           <ul v-if="objective.tasks?.length"><li v-for="task in objective.tasks" :key="task.label"><strong>{{ task.label }}:</strong> {{ task.text }}</li></ul>
         </li>
@@ -37,4 +38,15 @@ defineProps({ term: { type: Object, required: true }, titleId: { type: String, d
 .learning-objectives > li { margin-bottom: 1rem; }
 .learning-objectives > li::marker { font-weight: 700; }
 .learning-objectives ul { margin-top: .75rem; }
+.learning-objectives > li.exam-excluded {
+  border: 2px solid #b45309;
+  border-radius: 8px;
+  background: #fffbeb;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+.exam-notice {
+  color: #9a3412;
+  font-weight: 700;
+}
 </style>

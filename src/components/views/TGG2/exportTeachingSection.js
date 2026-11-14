@@ -8,6 +8,7 @@ export const teachingSections = [
   { id: 'ideas', title: 'Ideen finden', filename: '03_Ideen_finden.pdf' },
   { id: 'requirements', title: 'Anforderungen festlegen', filename: '04_Anforderungen_festlegen.pdf' },
   { id: 'drafts', title: 'Phase 4 – Erster Entwurf eurer App', filename: '05_Erster_Entwurf_eurer_App.pdf' },
+  { id: 'testing', title: 'Phase 5.1 – Klickdummys testen und vergleichen', filename: '06_Klickdummys_testen.pdf' },
   { id: 'terms', title: 'Wichtige Begriffe', filename: '05_Wichtige_Begriffe.pdf', yellow: true }
 ]
 
