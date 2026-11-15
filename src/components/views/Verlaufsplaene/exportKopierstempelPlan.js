@@ -6,7 +6,7 @@ import verlaufCss from './kopierstempelVerlauf.css?raw'
 
 // Render the original document HTML and CSS. No reconstructed jsPDF tables,
 // replacement fonts, invented running headers or changes to the document structure.
-export async function exportKopierstempelPlan(root, mode) {
+export async function exportKopierstempelPlan(root, mode, options = {}) {
   const source = root?.querySelector('.doc')
   if (!source) throw new Error('Dokument konnte nicht geladen werden.')
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas'), import('jspdf')])
@@ -84,7 +84,7 @@ export async function exportKopierstempelPlan(root, mode) {
       for (const [property, value] of properties) element.style.setProperty(property, value)
     }
     const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: landscape ? 'landscape' : 'portrait' })
-    pdf.setProperties({ title: landscape ? 'Verlaufsplan · Kopierstempel in Photoshop' : 'Unterrichtsausarbeitung · Kopierstempel in Photoshop', author: 'Matthias Heckel' })
+    pdf.setProperties({ title: `${landscape ? 'Verlaufsplan' : 'Unterrichtsausarbeitung'} · ${options.title || 'Kopierstempel in Photoshop'}`, author: 'Matthias Heckel' })
     for (const [index, page] of pages.entries()) {
       const canvas = await html2canvas(page, {
         scale: 2, backgroundColor: '#ffffff', windowWidth: 1400,
@@ -99,6 +99,6 @@ export async function exportKopierstempelPlan(root, mode) {
       if (index) pdf.addPage()
       pdf.addImage(canvas.toDataURL('image/jpeg', .97), 'JPEG', 0, 0, landscape ? 297 : 210, landscape ? 210 : 297)
     }
-    pdf.save(landscape ? 'Kopierstempel_Verlaufsplan.pdf' : 'Kopierstempel_Unterrichtsausarbeitung.pdf')
+    pdf.save(`${options.filenamePrefix || 'Kopierstempel'}_${landscape ? 'Verlaufsplan' : 'Unterrichtsausarbeitung'}.pdf`)
   } finally { frame.remove() }
 }

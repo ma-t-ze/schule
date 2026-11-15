@@ -49,6 +49,12 @@ async function downloadPdf() {
     pdf.setFont('Jost', 'normal'); pdf.setFontSize(9)
     pdf.text(byline, 105, 34, { align: 'center' })
     pdf.setDrawColor(171, 179, 181); pdf.setLineWidth(.2); pdf.line(12, 39, 198, 39)
+    pdf.setFont('Jost', 'normal'); pdf.setFontSize(9)
+    pdf.text('Sozialform:', 12, 48)
+    pdf.text('Zeitvorgabe:', 112, 48)
+    pdf.setDrawColor(171, 179, 181)
+    pdf.line(34, 49, 98, 49)
+    pdf.line(137, 49, 198, 49)
     pdf.setDrawColor(211, 218, 214); pdf.line(12, 281, 198, 281)
     pdf.setFontSize(7.5)
     pdf.text('3TGG1/2 · Gestaltungs- und Medientechnik', 12, 287)
@@ -76,6 +82,10 @@ async function downloadPdf() {
             <h2>{{ subject }}</h2>
             <p>{{ byline }}</p>
           </header>
+          <div class="worksheet-details" aria-label="Angaben zum Arbeitsauftrag">
+            <div><span>Sozialform:</span><span class="write-line"></span></div>
+            <div><span>Zeitvorgabe:</span><span class="write-line"></span></div>
+          </div>
           <div class="worksheet-body"></div>
           <footer class="worksheet-footer"><span>3TGG1/2 · Gestaltungs- und Medientechnik</span><span>1 / 1</span></footer>
         </article>
@@ -97,6 +107,9 @@ h1 { font-size: 28px; font-weight: 500; margin: 24px 0; }
 .worksheet-header img { display: block; width: 128px; height: 44px; margin: 0 auto 9px; }
 .worksheet-header h2 { font-size: 15px; font-weight: 600; letter-spacing: .05em; line-height: 1.4; margin: 0 0 3px; }
 .worksheet-header p { font-size: 12px; margin: 0; }
+.worksheet-details { display: flex; gap: 14mm; margin-top: 5mm; font-size: 12px; }
+.worksheet-details > div { display: flex; flex: 1; align-items: baseline; gap: 2mm; }
+.write-line { flex: 1; height: 5mm; border-bottom: 1px solid #abb3b5; }
 .worksheet-body { flex: 1; }
 .worksheet-footer { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid #d3dad6; font-size: 10px; }
 @media (max-width: 700px) { .design-template-page { padding: 16px; } }

@@ -19,3 +19,7 @@ Bei allen Arbeitsaufträgen innerhalb eines Projekts sollen die anderen bestehen
 **Grundregel:** Vermeide unnötige Abweichungen von bestehenden Projekten. Einheitlichkeit und Wiederverwendbarkeit haben Vorrang vor neuen individuellen Lösungen.
 
 Falls andere Projekte nicht zugänglich sind, frage nach, anstatt deren Aufbau oder Design zu vermuten.
+
+## Arbeitsblätter
+
+- Bei normalen Arbeitsblättern niemals Felder für Name oder Datum hinzufügen. Diese werden nicht benötigt.

@@ -17,6 +17,12 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/3tgg12/zeichen-und-bezeichnetes',
+    name: '3tgg12-zeichen-und-bezeichnetes',
+    component: () => import('./components/views/TGG12/ZeichenUndBezeichnetes.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3tgg12/ikon-und-symbol',
     name: '3tgg12-ikon-und-symbol',
     component: () => import('./components/views/TGG12/IkonUndSymbol.vue'),
@@ -86,6 +92,12 @@ const routes = [
     path: '/pausenalarm',
     name: 'pausenalarm',
     component: () => import('./components/views/MainApplication/PausenalarmPage.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/verlaufsplaene/repraesentationsformen-von-zeichen',
+    name: 'verlaufsplan-repraesentationsformen-von-zeichen',
+    component: () => import('./components/views/Verlaufsplaene/RepraesentationsformenVonZeichen.vue'),
     meta: { requiresAuth: true }
   },
   {

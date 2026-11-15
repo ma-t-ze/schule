@@ -119,7 +119,7 @@ const tgg12Dates = 5
             </nav>
           </Panel>
           <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-spiel' }">Spiel, Repräsentationsformen von Zeichen</RouterLink><RouterLink :to="{ name: '3tgg12-ikon-und-symbol' }">Ikon und Symbol</RouterLink></nav>
+            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-spiel' }">Spiel, Repräsentationsformen von Zeichen</RouterLink><RouterLink :to="{ name: '3tgg12-ikon-und-symbol' }">Ikon und Symbol</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink></nav>
           </Panel>
           <RouterLink v-for="[label, name] in classes.filter(([, route]) => route !== '3tgg12')" :key="name" :to="{ name }">{{ label }}</RouterLink>
         </nav>
@@ -189,7 +189,7 @@ const tgg12Dates = 5
       </Panel>
 
       <Panel header="Verlaufspläne" toggleable collapsed>
-        <nav class="link-list" aria-label="Verlaufspläne"><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink><RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink></nav>
+        <nav class="link-list" aria-label="Verlaufspläne"><RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink><RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink></nav>
       </Panel>
       <Panel header="Prüfungen" toggleable collapsed>
         <nav class="link-list" aria-label="Prüfungsunterlagen">
