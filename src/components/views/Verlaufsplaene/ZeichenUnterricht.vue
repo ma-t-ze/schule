@@ -16,23 +16,23 @@
 <td colspan="2"><span class="label">Schulleiter/-in</span><br>Veit Kibele</td>
 </tr>
 <tr>
-<td colspan="1"><span class="label">Mentor/-in</span><br>Andreas Lorenschatt</td>
+<td colspan="1"><span class="label">Mentor/-in</span><br>Steffen Bittmann</td>
 <td colspan="1"><span class="label">Ausbilder/-in</span><br>Andreas Lorenschatt</td>
 </tr>
 <tr>
 <td colspan="1"><span class="label">Datum</span><br>17.11.2026</td>
-<td colspan="1"><span class="label">Uhrzeit</span><br>4. Stunde (45 Minuten)</td>
+<td colspan="1"><span class="label">Uhrzeit</span><br>10:35–11:20</td>
 </tr>
 <tr>
-<td colspan="1"><span class="label">Klasse / Schulart</span><br>3TGG1/2 · Technisches Gymnasium (TGG), Eingangsklasse</td>
-<td colspan="1"><span class="label">Raum</span><br>Nicht angegeben</td>
+<td colspan="1"><span class="label">Klasse / Schulart</span><br>3TGG1/2 · Technisches Gymnasium (TGG)</td>
+<td colspan="1"><span class="label">Raum</span><br>429</td>
 </tr>
 <tr>
 <td colspan="2"><span class="label">Fach/ggf. Lernfeld</span><br>Gestaltungs- und Medientechnik (GMT)</td>
 </tr>
 </tbody></table>
-<p class="thema-label"><strong>Thema des Unterrichts (ggf. unter Angabe der Lernsituation)</strong></p>
-<div class="thema-box">Wie verstehen wir Zeichen? – Drei Wege zur Bedeutung anhand alltagsnaher Werbevideos: Ähnlichkeit, kulturelle Konvention und tatsächlicher Zusammenhang.</div>
+<p class="thema-label"><strong>Thema des Unterrichts (ggf. unter Angabe der Lernsituation):</strong></p>
+<div class="thema-box">Warum verstehen wir Zeichen unterschiedlich? – Untersuchung von Zeichenbeziehungen in der visuellen Kommunikation anhand humorvoller Werbevideos</div>
 </div>
 <div class="page">
 <h3>Inhaltsverzeichnis</h3>
@@ -52,11 +52,11 @@
 <table class="content-table"><tbody>
 <tr>
 <td colspan="1" class="key">1.1 Thema</td>
-<td colspan="1">Wie verstehen wir Zeichen? – Ähnlichkeit, kulturelle Konvention und Zusammenhang an drei Werbevideos untersuchen.</td>
+<td colspan="1">Warum verstehen wir Zeichen unterschiedlich? – Untersuchung von Zeichenbeziehungen in der visuellen Kommunikation anhand humorvoller Werbevideos</td>
 </tr>
 <tr>
 <td colspan="1" class="key">1.2 Lehrplanbezug</td>
-<td colspan="1">Der Bildungsplan 2021 für das Berufliche Gymnasium, Technische Richtung, Profil Gestaltungs- und Medientechnik (TGG), Eingangsklasse, nennt in BPE 2 „Grundlagen der visuellen Kommunikation“ (S. 13–14), insbesondere BPE 2.4 (S. 14), das Beurteilen von Zeichen hinsichtlich ihrer Repräsentationsform. Verbindlich genannt werden Ikon (Ähnlichkeit/Abbild), Index (Symptom/Hinweis) und Symbol (Konvention). Die Stunde erarbeitet deren Bedeutungsbeziehungen in alltagssprachlicher Form als Vorbereitung auf die anschließende explizite Fachbegriffseinführung. Die Videos sind methodische Beispiele, keine Vorgabe des Bildungsplans.</td>
+<td colspan="1">Der Bildungsplan 2021 für das Berufliche Gymnasium, Technische Richtung, Profil Gestaltungs- und Medientechnik (TGG) nennt in BPE 2 „Grundlagen der visuellen Kommunikation“ (S. 13–14), insbesondere BPE 2.4 (S. 14), das Beurteilen von Zeichen hinsichtlich ihrer Repräsentationsform. Verbindlich genannt werden Ikon (Ähnlichkeit/Abbild), Index (Symptom/Hinweis) und Symbol (Konvention). Die Stunde erarbeitet deren Bedeutungsbeziehungen in alltagssprachlicher Form als Vorbereitung auf die anschließende explizite Fachbegriffseinführung.</td>
 </tr>
 <tr>
 <td colspan="1" class="key">1.3 Zentrales Anliegen</td>
@@ -72,7 +72,7 @@
 <h2 id="_Toc2" class="section-title">2. Begründungszusammenhänge / Vertiefung</h2>
 <h3 id="_Toc3">2.1. Rahmenbedingungen und Einbettung der Stunde</h3>
 <h4>2.1.1. Organisatorisches</h4>
-<p>Der Unterrichtsbesuch findet am Dienstag, 17.11.2026, in der 4. Stunde (45 Minuten) in der Klasse 3TGG1/2 statt. Schulart: Technisches Gymnasium, Profil Gestaltungs- und Medientechnik (TGG), Eingangsklasse. Fach: Gestaltungs- und Medientechnik (GMT). Ausbilder und Mentor sind Andreas Lorenschatt. Der Raum und die genaue Uhrzeit sind nicht angegeben. Eingesetzt werden ein Beamer mit der zwölfseitigen Präsentation sowie das zweiseitige Arbeitsblatt „Zeichen und ihre Bedeutung“. Die Gruppenarbeit erfolgt zu dritt.</p>
+<p>Der Unterrichtsbesuch findet am Dienstag, 17.11.2026, von 10:35 bis 11:20 Uhr in der Klasse 3TGG1/2 statt. Schulart: Technisches Gymnasium, Profil Gestaltungs- und Medientechnik (TGG), Eingangsklasse. Fach: Gestaltungs- und Medientechnik (GMT). Ausbilder ist Andreas Lorenschatt, Mentor ist Steffen Bittmann. Der Unterricht findet in Raum 429 statt. Eingesetzt werden ein Beamer mit der zwölfseitigen Präsentation sowie das zweiseitige Arbeitsblatt „Zeichen und ihre Bedeutung“. Die Gruppenarbeit erfolgt zu dritt.</p>
 <p>Vor der Stunde werden die drei Videosequenzen, Tonwiedergabe, Abspielpositionen und Folienreihenfolge geprüft. Arbeitsblätter werden vorbereitet. Für die Videos „Haustier“, „Blumen“ und „Einkaufsladen“ sind kurze Gesprächsimpulse vorgesehen; die englischen Ausdrücke „chrysanthemums“ und „deck“ werden durch die auf den Folien vorhandenen deutschen Hilfen gestützt. Die Zeitfenster werden sichtbar geführt.</p>
 <h4>2.1.2. Klassenstruktur</h4>
 <p>Zur Klasse 3TGG1/2 liegen in den hier bereitgestellten Unterlagen keine gesicherten Angaben zu Anzahl, individuellen Förderbedarfen, Sprachständen oder konkreten Vorerfahrungen vor. Solche Angaben werden daher nicht aus der früheren Unterrichtsausarbeitung zur 1BFD1 übernommen. Für die Planung wird lediglich von unterschiedlichen Vorerfahrungen mit Werbung, Zeichen und kulturellen Bedeutungen ausgegangen; diese werden im Gespräch erkundet.</p>
