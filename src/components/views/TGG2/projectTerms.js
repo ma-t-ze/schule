@@ -62,7 +62,6 @@ export default [
     "objectives": [
       {
         "title": "… die drei Phasen vom Entwurf bis zum Endprodukt nennen.",
-        "examNotice": "Kommt nicht in der ersten Klassenarbeit dran",
         "text": "Entwurf, Ausarbeitung und Endprodukt."
       },
       {

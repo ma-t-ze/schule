@@ -188,6 +188,11 @@ const tgg12Dates = 5
         <Popover ref="sickLeaveInfo"><div class="webuntis-info"><strong>Krankmeldung</strong><p>Per E-Mail gerne auch schon früher krankmelden. Wenn möglich, Aufgaben an die Abteilungsleitung mitschicken, die die SuS bearbeiten könnten.</p><p>Bei TG-Beteiligung auch an der CES krankmelden.</p></div></Popover>
       </Panel>
 
+      <Panel header="Unterricht planen" toggleable collapsed>
+        <nav class="link-list" aria-label="Unterricht planen">
+          <a href="/material/unterricht-planen/Vorlage_Langform.docx" download="Vorlage_Langform.docx">Vorlage Langform (Word)</a>
+        </nav>
+      </Panel>
       <Panel header="Verlaufspläne" toggleable collapsed>
         <nav class="link-list" aria-label="Verlaufspläne"><RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink><RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink></nav>
       </Panel>
