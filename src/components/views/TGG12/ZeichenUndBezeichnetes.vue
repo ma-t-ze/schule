@@ -16,15 +16,15 @@ const scenes = [
   {
     title: 'Blumen', perspective: 'Perspektive der älteren italienischen Dame', reason: 'Konvention', explanation: 'Chrysanthemen haben für die ältere italienische Dame die erlernte Bedeutung von Trauer.',
     options: [
-      { text: 'Dort liegen Chrysanthemen, die für Trauer stehen. Sofia ist verunglückt!', kind: 'meaning' },
-      { text: 'Ein Blumenstrauß.', kind: 'sign' }
+      { text: 'Dort liegen Chrysanthemen vor Sofias Haustür, die für Trauer stehen. Sofia ist verunglückt!', kind: 'meaning' },
+      { text: 'Ein Blumenstrauß aus Chrysanthemen liegt vor der Haustür von Sofia.', kind: 'sign' }
     ]
   },
   {
     title: 'Einkaufsladen', perspective: 'Perspektive des Ladenbesitzers', reason: 'Zusammenhang', explanation: 'Der Ladenbesitzer schließt aus dem Griff in die Jackentasche und der Äußerung über einen Überfall auf eine Bedrohung.',
     options: [
-      { text: 'Der Mann will eine Waffe ziehen und den Laden überfallen.', kind: 'meaning' },
-      { text: 'Ein Mann greift in seine Jackentasche, um sein Portemonnaie herauszuholen, und sagt, dass die Person am anderen Ende des Telefons ausgeraubt wird.', kind: 'sign' }
+      { text: 'Ein Mann sagt „Du wirst ausgeraubt“ und greift in seine Jackentasche, um eine Waffe zu ziehen und den Laden zu überfallen.', kind: 'meaning' },
+      { text: 'Ein Mann sagt „Du wirst ausgeraubt“ und greift in seine Jackentasche, um sein Portemonnaie herauszuholen und zu bezahlen.', kind: 'sign' }
     ]
   }
 ]
@@ -98,7 +98,7 @@ async function downloadPdf() {
             <p class="subtitle">Zuordnungsaufgabe zu drei Werbefilmen</p>
             <section v-if="pageIndex === 0" class="assignment" aria-labelledby="video-worksheet-task">
               <h3 id="video-worksheet-task">Aufgabe</h3>
-              <p>Ordne jedem Werbefilm das passende <strong>Zeichen</strong> und die <strong>Bedeutung, die die Person damit verbindet</strong>, zu. Schreibe die richtigen Buchstaben (A und B) in die Lücken.<br />Ordne außerdem jedem Werbefilm einen <strong>Grund für das Missverständnis</strong> zu: Ähnlichkeit (ähnliches Aussehen), Zusammenhang (von einem Hinweis auf etwas anderes schließen) oder Konvention (gemeinsam vereinbarte oder erlernte Bedeutung). <strong>Begründe deine Zuordnung in ein bis zwei kurzen Sätzen.</strong></p>
+              <p>Ordne jedem Werbefilm das passende <strong>Zeichen</strong> und die <strong>Bedeutung, die die Person damit verbindet</strong>, zu. Das <strong>Zeichen</strong> ist das, was tatsächlich vorhanden ist. Die <strong>Bedeutung</strong> ist das, was im Kopf der Person entsteht. Schreibe die richtigen Buchstaben (A und B) in die Lücken.<br />Ordne außerdem jedem Werbefilm einen <strong>Grund für das Missverständnis</strong> zu: Ähnlichkeit (ähnliches Aussehen), Zusammenhang (von einem Hinweis auf etwas anderes schließen) oder Konvention (gemeinsam vereinbarte oder erlernte Bedeutung). <strong>Begründe deine Zuordnung in ein bis zwei kurzen Sätzen.</strong></p>
             </section>
             <section v-for="(scene, index) in pageScenes" :key="scene.title" class="video-section">
               <div class="scene-heading">

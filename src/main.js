@@ -361,6 +361,13 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/medientechnik/adobe-indesign/klassenarbeit-01/:step([1-6])?',
+    name: 'indesign-klassenarbeit-01',
+    component: () => import('./components/views/Medientechnik/Klassenarbeit01.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/medientechnik/adobe-indesign/probe-klassenarbeit/:step([1-6])?',
     name: 'indesign-probe-klassenarbeit',
     component: () => import('./components/views/Medientechnik/ProbeKlassenarbeit.vue'),

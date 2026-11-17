@@ -37,6 +37,7 @@ const lessons = [
       </div>
       <RouterLink v-else-if="level === 'basics'" class="topic-link" to="/medientechnik/grundlagen/imac"><span>iMac Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
       <div v-else-if="level === 'indesign'" class="topic-list">
+        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/klassenarbeit-01"><span>Klassenarbeit 01</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/probe-klassenarbeit"><span>Probe Klassenarbeit</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/mini-tutorials"><span>Mini Tutorials</span><span aria-hidden="true">→</span></RouterLink>
         <RouterLink class="topic-link" to="/medientechnik/adobe-indesign/lerninhalte"><span>Übersicht Lerninhalte</span><span aria-hidden="true">→</span></RouterLink>
