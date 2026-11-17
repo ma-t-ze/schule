@@ -42,6 +42,9 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-farbe' }">
         #11 Farbe
       </router-link>
+      <router-link class="topic-link" :to="{ name: '3tgg12-helligkeit-und-saettigung' }">
+        #12 Helligkeit und Sättigung
+      </router-link>
     </nav>
   </main>
 </template>

@@ -7,27 +7,31 @@ const subject = 'GESTALTUNGS- UND MEDIENTECHNIK'
 const byline = 'Eingangsklasse | CHS | Heckel'
 const scenes = [
   {
-    title: 'Haustier', perspective: 'Perspektive des Tierarztes', reason: 'Ähnlichkeit',
+    title: 'Haustier', perspective: 'Perspektive des Tierarztes', reason: 'Ähnlichkeit', explanation: 'Die Wollmütze sieht einer Katze ähnlich und wird deshalb für eine Katze gehalten.',
     options: [
       { text: 'Eine Wollmütze.', kind: 'sign' },
       { text: 'Eine Katze.', kind: 'meaning' }
     ]
   },
   {
-    title: 'Blumen', perspective: 'Perspektive der älteren italienischen Dame', reason: 'Konvention',
+    title: 'Blumen', perspective: 'Perspektive der älteren italienischen Dame', reason: 'Konvention', explanation: 'Chrysanthemen haben für die ältere italienische Dame die erlernte Bedeutung von Trauer.',
     options: [
       { text: 'Dort liegen Chrysanthemen, die für Trauer stehen. Sofia ist verunglückt!', kind: 'meaning' },
       { text: 'Ein Blumenstrauß.', kind: 'sign' }
     ]
   },
   {
-    title: 'Einkaufsladen', perspective: 'Perspektive des Ladenbesitzers', reason: 'Zusammenhang',
+    title: 'Einkaufsladen', perspective: 'Perspektive des Ladenbesitzers', reason: 'Zusammenhang', explanation: 'Der Ladenbesitzer schließt aus dem Griff in die Jackentasche und der Äußerung über einen Überfall auf eine Bedrohung.',
     options: [
       { text: 'Der Mann will eine Waffe ziehen und den Laden überfallen.', kind: 'meaning' },
       { text: 'Ein Mann greift in seine Jackentasche, um sein Portemonnaie herauszuholen, und sagt, dass die Person am anderen Ende des Telefons ausgeraubt wird.', kind: 'sign' }
     ]
   }
 ]
+const worksheetPages = [scenes.slice(0, 2), scenes.slice(2)]
+function setPaper(element, pageIndex) {
+  if (pageIndex === 0) paper.value = element
+}
 function solutionLetter(scene, kind) {
   return String.fromCharCode(65 + scene.options.findIndex(option => option.kind === kind))
 }
@@ -72,96 +76,53 @@ async function downloadPdf() {
       <RouterLink :to="{ name: '3tgg12' }">← Zur Übersicht 3TGG1/2</RouterLink>
       <h1>Zeichen und ihre Bedeutung</h1>
       <div class="template-actions">
-        <Button :label="solutions ? 'Lösung ausblenden' : 'Lösung anzeigen'" outlined :disabled="busy" @click="solutions = !solutions" />
+        <Button :label="solutions ? 'Lösung ausblenden' : 'Lösung anzeigen'" outlined :disabled="busy" :aria-pressed="solutions" @click="solutions = !solutions" />
         <Button :label="solutions ? 'Lösungsblatt als PDF' : 'Arbeitsblatt als PDF'" :loading="busy" @click="downloadPdf" />
       </div>
       <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
-      <p class="preview-label">{{ solutions ? 'Lösungsblatt' : 'Arbeitsblatt' }} · 3 Seiten · DIN A4, Hochformat</p>
+      <p class="preview-label">{{ solutions ? 'Lösungsblatt' : 'Arbeitsblatt' }} · 2 Seiten · DIN A4, Hochformat</p>
     </div>
     <div ref="container" class="paper-container">
-      <div class="paper-frame" :style="{ height: `${1122.52 * scale}px` }">
-        <article ref="paper" class="a4-paper" :style="{ transform: `scale(${scale})` }" aria-label="Arbeitsblatt Missverständnisse – Ergebnisse aus dem Plenum">
+      <div v-for="(pageScenes, pageIndex) in worksheetPages" :key="pageIndex" class="paper-frame" :style="{ height: `${1122.52 * scale}px` }">
+        <article :ref="element => setPaper(element, pageIndex)" class="a4-paper" :style="{ transform: `scale(${scale})` }" aria-label="Arbeitsblatt Zeichen und ihre Bedeutung">
           <header class="worksheet-header">
             <img src="/designvorlagen/chs.svg" width="128" height="44" alt="CHS-Logo" />
             <h2>{{ subject }}</h2><p>{{ byline }}</p>
           </header>
-          <div class="worksheet-body">
-            <div class="sheet-heading"><h2>Warum verstehen wir Zeichen unterschiedlich?</h2></div>
-            <section class="assignment" aria-labelledby="plenary-worksheet-task">
-              <h3 id="plenary-worksheet-task">Aufgabe</h3>
-              <p>Auf welche Weise sind die Missverständnisse entstanden? Notiere zu jedem Werbefilm ein Stichwort bzw. Stichwörter zum im Plenum besprochenen Ergebnis.</p>
-            </section>
-            <section v-for="(scene, index) in scenes" :key="scene.title" class="plenary-section">
-              <div class="scene-heading">
-                <span class="scene-number">{{ String(index + 1).padStart(2, '0') }}</span>
-                <div><h3>Werbefilm „{{ scene.title }}“</h3></div>
-              </div>
-              <div class="keyword-answer"><span>Stichwort bzw. Stichwörter:</span><span class="keyword-line" :aria-label="`Stichwort bzw. Stichwörter zum Werbefilm ${scene.title}`"></span></div>
-            </section>
-          </div>
-          <footer class="worksheet-footer"><span>3TGG1/2 · Gestaltungs- und Medientechnik</span><span>1 / 3</span></footer>
-        </article>
-      </div>
-      <div class="paper-frame" :style="{ height: `${1122.52 * scale}px` }">
-        <article class="a4-paper" :style="{ transform: `scale(${scale})` }" aria-label="Arbeitsblatt Zeichen und ihre Bedeutung">
-          <header class="worksheet-header">
-            <img src="/designvorlagen/chs.svg" width="128" height="44" alt="CHS-Logo" />
-            <h2>{{ subject }}</h2><p>{{ byline }}</p>
-          </header>
-          <div class="worksheet-details" aria-label="Angaben zum Arbeitsauftrag">
+          <div v-if="pageIndex === 0" class="worksheet-details" aria-label="Angaben zum Arbeitsauftrag">
             <div><span class="detail-label">Sozialform</span><strong>Gruppenarbeit · 3 Personen</strong></div>
             <div><span class="detail-label">Zeitvorgabe</span><strong>15 Minuten</strong></div>
           </div>
           <div class="worksheet-body">
             <div class="sheet-heading"><h2>Warum verstehen wir Zeichen unterschiedlich?</h2><span v-if="solutions">LÖSUNG</span></div>
             <p class="subtitle">Zuordnungsaufgabe zu drei Werbefilmen</p>
-            <section class="assignment" aria-labelledby="video-worksheet-task">
+            <section v-if="pageIndex === 0" class="assignment" aria-labelledby="video-worksheet-task">
               <h3 id="video-worksheet-task">Aufgabe</h3>
-              <p>Ordne jedem Werbefilm das passende Zeichen und den Gedanken zu, den die Person damit verbindet.<br />Schreibe die richtigen Buchstaben (A und B) in die Lücken.<br />Ordne außerdem jedem Werbefilm einen Grund für das Missverständnis zu: Ähnlichkeit (ähnliches Aussehen), Zusammenhang (Ursache und Wirkung) oder Konvention (gelernt bzw. kulturell gelernt).</p>
+              <p>Ordne jedem Werbefilm das passende <strong>Zeichen</strong> und die <strong>Bedeutung, die die Person damit verbindet</strong>, zu. Schreibe die richtigen Buchstaben (A und B) in die Lücken.<br />Ordne außerdem jedem Werbefilm einen <strong>Grund für das Missverständnis</strong> zu: Ähnlichkeit (ähnliches Aussehen), Zusammenhang (von einem Hinweis auf etwas anderes schließen) oder Konvention (gemeinsam vereinbarte oder erlernte Bedeutung). <strong>Begründe deine Zuordnung in ein bis zwei kurzen Sätzen.</strong></p>
             </section>
-            <section v-for="(scene, index) in scenes" :key="scene.title" class="video-section">
+            <section v-for="(scene, index) in pageScenes" :key="scene.title" class="video-section">
               <div class="scene-heading">
-                <span class="scene-number">{{ String(index + 1).padStart(2, '0') }}</span>
+                <span class="scene-number">{{ String(pageIndex * 2 + index + 1).padStart(2, '0') }}</span>
                 <div><h3>Werbefilm „{{ scene.title }}“</h3><p class="perspective">{{ scene.perspective }}</p></div>
               </div>
               <table class="matching-table" :aria-label="`Aussagen zum Werbefilm ${scene.title}`">
                 <tbody><tr v-for="(option, optionIndex) in scene.options" :key="option.text"><th scope="row"><span class="option-letter">{{ String.fromCharCode(65 + optionIndex) }}</span></th><td>{{ option.text }}</td></tr></tbody>
               </table>
               <div class="scene-answers">
-                <div><strong>Zeichen / Zeichengruppe:</strong><span class="answer-line" :class="{ 'solution-answer': solutions }">{{ solutions ? solutionLetter(scene, 'sign') : '' }}</span></div>
-                <div><strong>Gedanke:</strong><span class="answer-line" :class="{ 'solution-answer': solutions }">{{ solutions ? solutionLetter(scene, 'meaning') : '' }}</span></div>
+                <div><strong>{{ pageIndex === 0 ? 'Zeichen:' : 'Zeichen / Zeichengruppe:' }}</strong><span class="answer-line" :class="{ 'solution-answer': solutions }">{{ solutions ? solutionLetter(scene, 'sign') : '' }}</span></div>
+                <div><strong>Bedeutung:</strong><span class="answer-line" :class="{ 'solution-answer': solutions }">{{ solutions ? solutionLetter(scene, 'meaning') : '' }}</span></div>
                 <div><strong>Grund:</strong><span class="answer-line" :class="{ 'solution-reason': solutions }">{{ solutions ? scene.reason : '' }}</span></div>
               </div>
+              <p class="justification-prompt">Begründung</p>
+              <p v-if="solutions" class="justification-solution">{{ scene.explanation }}</p>
+              <div v-else class="justification-lines" aria-label="Zwei Schreibzeilen für die Begründung"><span></span><span></span></div>
             </section>
 
           </div>
-          <footer class="worksheet-footer"><span>3TGG1/2 · Gestaltungs- und Medientechnik</span><span>2 / 3</span></footer>
+          <footer class="worksheet-footer"><span>3TGG1/2 · Gestaltungs- und Medientechnik</span><span>{{ pageIndex + 1 }} / 2</span></footer>
         </article>
       </div>
-      <div class="paper-frame" :style="{ height: `${1122.52 * scale}px` }">
-        <article class="a4-paper" :style="{ transform: `scale(${scale})` }" aria-label="Arbeitsblatt Zeichen und ihre Bedeutung – Aufgabe 4">
-          <header class="worksheet-header">
-            <img src="/designvorlagen/chs.svg" width="128" height="44" alt="CHS-Logo" />
-            <h2>{{ subject }}</h2><p>{{ byline }}</p>
-          </header>
-          <div class="worksheet-body">
-            <div class="sheet-heading"><h2>Warum verstehen wir Zeichen unterschiedlich?</h2><span v-if="solutions">LÖSUNG</span></div>
-            <section class="reflection-task">
-              <p class="optional-note">Optional: Nur für Schnelle</p>
-              <div class="scene-heading">
-                <span class="scene-number">04</span>
-                <div><h3>Warum kann dasselbe Zeichen bei verschiedenen Menschen unterschiedliche Gedanken auslösen?</h3></div>
-              </div>
-              <p>Antworte in eigenen Worten.</p>
-              <div class="reflection-answer">
-                <p v-if="solutions" class="reflection-solution">Menschen haben unterschiedliche Erfahrungen und unterschiedliches Vorwissen. Auch ihre Erwartungen und die Situation beeinflussen, wie sie ein Zeichen deuten. Deshalb kann dasselbe Zeichen verschiedene Gedanken auslösen.</p>
-                <div v-else class="writing-lines" aria-label="Sechs Schreibzeilen"><span v-for="line in 6" :key="line"></span></div>
-              </div>
-            </section>
-          </div>
-          <footer class="worksheet-footer"><span>3TGG1/2 · Gestaltungs- und Medientechnik</span><span>3 / 3</span></footer>
-        </article>
-      </div>
+
     </div>
   </main>
 </template>
@@ -189,7 +150,7 @@ h1 { font-size: 30px; font-weight: 500; margin: 24px 0; letter-spacing: -.02em; 
 .subtitle { margin: 7px 0 0; color: #6b6b6b; font-size: 12px; }
 .assignment { margin-top: 4mm; padding: 3.5mm 4mm; border-left: 3px solid #777777; border-radius: 0; background: #f2f2f2; }
 .assignment h3 { font-size: 12px; line-height: 1.3; font-weight: 600; margin: 0 0 6px; color: #404040; }
-.assignment p { margin: 0; line-height: 1.55; }
+.assignment p { margin: 0; line-height: 1.55; font-weight: 400; }
 .video-section { margin-top: 7mm; break-inside: avoid; }
 .scene-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 3mm; }
 .scene-number { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; flex-shrink: 0; border-radius: 0; background: #eeeeee; color: #404040; font-size: 16px; font-weight: 500; }
@@ -208,12 +169,18 @@ h1 { font-size: 30px; font-weight: 500; margin: 24px 0; letter-spacing: -.02em; 
 .scene-answers strong { font-weight: 500; color: #444444; white-space: nowrap; }
 .scene-answers > div:nth-child(-n+2) .answer-line { flex: 0 0 7mm; width: 7mm; min-width: 7mm; }
 .answer-line { display: inline-block; flex: 1; min-width: 13mm; min-height: 5mm; border-bottom: 1px solid #999999; text-align: center; }
+.justification-solution { margin: 1.47mm 0 0; min-height: 20mm; font-size: 12px; line-height: 1.6; color: #444444; }
+.justification-lines { margin-top: 1.47mm; }
+.justification-lines span { display: block; height: 10mm; border-bottom: 1px solid #bbbbbb; }
+.justification-prompt { font-size: 12px; line-height: 1.5; margin: 2mm 0 0; }
 .solution-answer,.solution-reason { color: #444444; font-weight: 600; }
 .worksheet-footer { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid #dddddd; font-size: 10px; color: #6b6b6b; }
 @media (max-width: 700px) { .design-template-page { padding: 16px; } }
 .plenary-section { margin-top: 9mm; break-inside: avoid; }
-.keyword-answer { display: flex; align-items: baseline; gap: 3mm; margin-top: 4mm; font-size: 12px; }
-.keyword-line { display: inline-block; width: 65mm; height: 6mm; border-bottom: 1px solid #bbbbbb; }
+.keyword-answer { display: grid; grid-template-columns: auto minmax(20mm, 1fr); align-items: end; column-gap: 3mm; row-gap: 2mm; margin-top: 4mm; font-size: 12px; }
+.keyword-line { display: block; width: 100%; height: 6mm; border-bottom: 1px solid #bbbbbb; }
+.keyword-line-extra { grid-column: 1 / -1; }
+.keyword-line.solution-answer { height: auto; min-height: 6mm; }
 .reflection-task { margin-top: 5mm; break-inside: avoid; }
 .optional-note { font-weight: 600; margin-bottom: 3mm !important; }
 .reflection-task .scene-heading { margin-bottom: 2mm; }

@@ -116,6 +116,7 @@ export async function exportPlanWord(root, mode, title, topic) {
   }
   const children = []
   for (const page of source.children) {
+    if (page.classList.contains('appendix-page')) children.push(new Paragraph({ children: [new PageBreak()] }))
     children.push(...blocks(page))
     if (page.classList.contains('cover-page')) children.push(new Paragraph({ children: [new PageBreak()] }))
     else if (landscape) children.push(new Paragraph({ spacing: { after: 60 } }))

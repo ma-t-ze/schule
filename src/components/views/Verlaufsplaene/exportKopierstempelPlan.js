@@ -2,6 +2,7 @@ import pagedScript from '../../../../node_modules/pagedjs/dist/paged.polyfill.js
 import regularFont from '../../../assets/fonts/Roboto-Regular.ttf?url'
 import boldFont from '../../../assets/fonts/Roboto-Bold.ttf?url'
 import langformCss from './kopierstempelLangform.css?raw'
+import zeichenLangformCss from './unterrichtLangform.css?raw'
 import verlaufCss from './kopierstempelVerlauf.css?raw'
 
 // Render the original document HTML and CSS. No reconstructed jsPDF tables,
@@ -11,6 +12,7 @@ export async function exportKopierstempelPlan(root, mode, options = {}) {
   if (!source) throw new Error('Dokument konnte nicht geladen werden.')
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas'), import('jspdf')])
   const landscape = mode === 'verlauf'
+  const zeichenLangform = !landscape && options.filenamePrefix === 'Repraesentationsformen_von_Zeichen'
   const frame = document.createElement('iframe')
   frame.title = 'PDF-Satz der Originalvorlage'
   frame.setAttribute('aria-hidden', 'true')
@@ -38,6 +40,7 @@ export async function exportKopierstempelPlan(root, mode, options = {}) {
       .doc { max-width: none; }
       .page { padding: 0; border-bottom: none; }
       .cover-page { break-after: page; }
+      .appendix-page { break-before: page; }
       table, tr { break-inside: avoid; }
       h2, h3, h4 { break-after: avoid; }
       p { orphans: 3; widows: 3; }
@@ -48,8 +51,17 @@ export async function exportKopierstempelPlan(root, mode, options = {}) {
       @font-face { font-family: Roboto; src: url('${regularFont}'); font-weight: 400; }
       @font-face { font-family: Roboto; src: url('${boldFont}'); font-weight: 700; }
       body { margin: 0; background: white; }
-      ${landscape ? verlaufCss : langformCss}
+      ${landscape ? verlaufCss : options.filenamePrefix === 'Repraesentationsformen_von_Zeichen' ? zeichenLangformCss : langformCss}
       ${printRules}
+      ${zeichenLangform ? `
+        @page { size: A4; margin: 25mm 25mm 20mm; }
+        .doc, .doc * { box-sizing: border-box; }
+        .doc { width: 100%; }
+        .page + .page { break-before: page; }
+        .cover-page { break-after: auto; }
+        .toc { break-inside: auto; }
+        .toc tr { break-inside: avoid; }
+      ` : ''}
       .pagedjs_page { margin: 0; background: white; box-shadow: none; }
     `
     const clone = source.cloneNode(true)

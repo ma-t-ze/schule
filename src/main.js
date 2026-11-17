@@ -278,6 +278,12 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/helligkeit-und-saettigung',
+    name: '3tgg12-helligkeit-und-saettigung',
+    component: () => import('./components/views/TGG12/HelligkeitUndSaettigung.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/3tgg12/farbe',
     name: '3tgg12-farbe',
     component: () => import('./components/views/TGG12/Farbe.vue'),
