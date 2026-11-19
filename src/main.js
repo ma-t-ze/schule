@@ -17,6 +17,18 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/schulwiki/krank-bei-klassenarbeiten',
+    name: 'schulwiki-krank-bei-klassenarbeiten',
+    component: () => import('./components/views/Schulwiki/KrankBeiKlassenarbeiten.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/unterricht-planen/unterrichtsbaukasten',
+    name: 'unterrichtsbaukasten',
+    component: () => import('./components/views/Unterrichtsbaukasten/Unterrichtsbaukasten.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3tgg12/zeichen-und-bezeichnetes',
     name: '3tgg12-zeichen-und-bezeichnetes',
     component: () => import('./components/views/TGG12/ZeichenUndBezeichnetes.vue'),

@@ -1,7 +1,7 @@
 <script setup>
 import { nextTick, ref, watch } from 'vue'
 import Checkbox from 'primevue/checkbox'
-import InputText from 'primevue/inputtext'
+import Password from 'primevue/password'
 import Button from 'primevue/button'
 const props = defineProps({ step: { type: Number, default: 1 } })
 const unlocked = ref(false)
@@ -85,7 +85,7 @@ const panels = [
         <p>Gib den Code ein, um die Klassenarbeit zu öffnen.</p>
         <form class="access-form" @submit.prevent="unlock">
           <label for="access-code">Zugangscode</label>
-          <InputText id="access-code" v-model="accessCode" type="password" autocomplete="off" required :aria-invalid="!!accessError" :aria-describedby="accessError ? 'access-error' : undefined" @input="accessError = ''" />
+          <Password input-id="access-code" v-model="accessCode" toggle-mask :feedback="false" autocomplete="off" required :invalid="!!accessError" :input-props="{ 'aria-describedby': accessError ? 'access-error' : undefined }" @update:model-value="accessError = ''" />
           <p v-if="accessError" id="access-error" class="access-error" role="alert">{{ accessError }}</p>
           <Button type="submit" label="Klassenarbeit öffnen" />
         </form>
@@ -163,7 +163,8 @@ const panels = [
 <style scoped>
 @import './indesignTutorial.css';
 .access-form { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-.access-form :deep(.p-inputtext) { width: 100%; max-width: 360px; }
+.access-form :deep(.p-password) { width: 100%; max-width: 360px; }
+.access-form :deep(.p-inputtext) { width: 100%; }
 .access-error { color: #b42318; margin: 0; }
 .table-scroll { overflow-x: auto; margin-bottom: 24px; }
 table { width: 100%; border-collapse: collapse; line-height: 1.6; }

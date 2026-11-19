@@ -188,8 +188,14 @@ const tgg12Dates = 5
         <Popover ref="sickLeaveInfo"><div class="webuntis-info"><strong>Krankmeldung</strong><p>Per E-Mail gerne auch schon früher krankmelden. Wenn möglich, Aufgaben an die Abteilungsleitung mitschicken, die die SuS bearbeiten könnten.</p><p>Bei TG-Beteiligung auch an der CES krankmelden.</p></div></Popover>
       </Panel>
 
+      <Panel header="Schulwiki" toggleable collapsed>
+        <nav class="link-list" aria-label="Schulwiki">
+          <RouterLink :to="{ name: 'schulwiki-krank-bei-klassenarbeiten' }">Krank bei Klassenarbeiten</RouterLink>
+        </nav>
+      </Panel>
       <Panel header="Unterricht planen" toggleable collapsed>
         <nav class="link-list" aria-label="Unterricht planen">
+          <RouterLink :to="{ name: 'unterrichtsbaukasten' }">Unterrichtsbaukasten</RouterLink>
           <a href="/material/unterricht-planen/Vorlage_Langform.docx" download="Vorlage_Langform.docx">Vorlage Langform (Word)</a>
         </nav>
       </Panel>

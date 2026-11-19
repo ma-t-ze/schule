@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevtools from 'vite-plugin-vue-devtools';
 import localGradesPlugin from './dev/localGradesPlugin.js';
+import localLessonPlugin from './dev/localLessonPlugin.js';
 import { fileURLToPath } from 'node:url';
 import path from 'path'; // Import the 'path' module to work with file paths
 
@@ -9,6 +10,7 @@ export default defineConfig(({ command }) => ({
   base: command === 'build' ? 'https://visualizer.matthiasheckel.com/' : '/',
   plugins: [
     localGradesPlugin(fileURLToPath(new URL('.', import.meta.url))),
+    localLessonPlugin(fileURLToPath(new URL('.', import.meta.url))),
     vue(),
     vueDevtools()
   ],

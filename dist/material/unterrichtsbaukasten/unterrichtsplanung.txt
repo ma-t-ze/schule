@@ -1,0 +1,1862 @@
+Unterrichtsplanung — D25 Grundkurs 1 Unterrichtsplanung Skript
+Text automatisch aus dem bereitgestellten PDF erkannt. Bei Unklarheiten gilt das Original-PDF.
+
+--- PDF-Seite 1 ---
+Pädagogik
+Grundkurs Unterrichtsvorbereitung
+Inhaltsverzeichnis
+Überblick: Unterrichtsplanung in vier Schritten..
+I. Sache, Bedeutungen und Sinn klären - die Thematik festlegen
+II. Zweiter Planungsschritt: Entscheiden ..
+lla. Lernziele...
+Allgemeine Hinweise: Was sind Lernziele, wofür sind sie gut und wie werden sie formuliert? .. 6
+Klassifikation von Lernzielen nach drei Verhaltensbereichen
+Hinweise zur richtigen Formulierung von (v. a. kognitiven) Lernzielen.....
+Modell 1: Kognitive Ziele in der Lernzieltaxonomie von Anderson und Krathwohl (2001)…..
+Modell 2: Affektive Lernziele nach Krathwohl, Bloom & Masia (1975).
+Modell 3: Lernziele in den Einheitlichen Prüfungsanforderungen (EPA) ..
+Ziele in der Unterrichtsplanung ..
+Ziele bündeln: Thematik überprüfen und festlegen
+Ilb. Formen der Lern-Evaluation ..
+Ilc. Entscheidung für ein Lehr-Lern-Arrangement
+III. Verlaufsplan: Wer macht was wann wie mit wem und wie bleibt's hängen?...
+Vom Ziel zum Unterricht - Bedingungsfelder und Denkweisen.
+Grundlegendes zu Sozialformen des Unterrichts
+Exkurs: Unterrichtseinstiege.
+IV. Evaluation
+Zusammenfassung: Prozessbeschreibung Unterrichtsvorbereitung
+Feedback-Fragen zur Unterrichtsplanung ...
+Anhang...
+Wie kann ich abschätzen, wie lange eine Unterrichtsphase dauert?.
+Bildungsplanauszug.
+Lernfeldbildungsplan
+Bildungsplan in der T-Struktur
+Einige Abkürzungen im Schulwesen
+Ausblick auf die Prüfung
+..2
+3
+6
+6
+.. 7
+.. 8
+..9
+10
+...12
+... 13
+... 14
+.. 15
+..16
+...17
+... 17
+.. 18
+20
+.. 23
+24
+.. 26
+.27
+..27
+28
+28
+30
+.. 31
+.. 32
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 1
+Berufliche Schulen
+
+--- PDF-Seite 2 ---
+Überblick: Unterrichtsplanung in vier Schritten
+Im Folgenden lernen Sie eine Möglichkeit kennen, Unterricht systematisch in vier Schritten zu
+planen:
+Klären
+Entscheiden
+Gestalten
+Evaluieren
+Die Sache, die Bedingungen und den Sinn klären: Es hilft, sich zuerst über den
+Rahmen Gedanken zu machen, bevor mit der eigentlichen Planung begonnen
+wird. In diesem Abschnitt wird Ihnen ein entsprechender Fragenkatalog vorge-
+stellt.
+(Kompetenz-)Ziele festlegen: erfolgreicher Unterricht ist strukturiert und ziel-
+orientiert. Möglichkeiten, das zu entwickeln, finden Sie in diesem Kapitel.
+Hierzu gehört es auch, sich darauf festzulegen, wie der Lernerfolg gemessen
+und welchen Charakter die Stunde haben soll.
+Sich für ein Lehr-Lern-Arrangement entscheiden und die Evaluation planen:
+Welchem Grundbaumuster soll Ihre Stunde folgen und wie können Sie heraus-
+finden, ob die Schülerinnen und Schüler wirklich etwas gelernt haben?
+Planung des Verlaufs: „Wer macht was wann wie warum mit wem und wie
+bleibt's hängen?" Die konkrete Unterrichtsplanung, die Schritt für Schritt die
+Vorgehensweise in einer Stunde plant.
+Durchführung Umsetzung der Unterrichtsplanung
+Nach der Unterrichtsdurchführung erfolgt ein weiterer Schritt: die Evaluation,
+zur Qualitätssicherung und zur Planung der nachfolgenden Unterrichtsstunde
+(-sequenz). Hier reflektiert die Lehrperson den realen Unterrichtsverlauf im
+Vergleich zur Planung.
+In den einzelnen Phasen der Planung werden folgende Aspekte berücksichtigt:
+Klären
+Entscheiden
+Gestalten
+Sache
+Lernziele
+Bedingungen
+Bedeutungen
+und Sinn
+Thematik
+Lehr-Lern-
+Lern-Evaluation Arrangements
+Phasen/Aktivitäten/Medien
+Durchführung
+Evaluieren
+Reflexion und Weiterentwicklung
+Abbildung 1: Das Planungsinstrument im Überblick
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.2
+* Senina tür Ausberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 3 ---
+I. Sache, Bedeutungen und Sinn klären - die Thematik festlegen
+Im ersten Schritt geht es darum, sich mit dem Thema zu befassen, ohne gleich die konkrete
+Stundenplanung ins Auge zu fassen. Es lohnt sich, sich dafür Zeit zu nehmen. Oft sind es die
+elementaren Dinge, an denen Unterricht scheitern oder gelingen kann.
+Im Einzelnen ist zu beachten:
+• Die Reihenfolge der Fragen ist beliebig.
+• Nicht alle Fragen sind für alle Themen relevant oder überhaupt zu beantworten.
+• Die Fragen können Sie genauso auf eine einzelne Stunde wie auch auf eine mehrstündige Un-
+terrichtseinheit anwenden. Die ausführliche Beantwortung der Fragen mündet in eine länger-
+fristige Unterrichtsplanung und ist sicher nicht für eine einzelne Stunde machbar.
+• Es ist beabsichtigt, den Unterrichtsgegenstand möglichst weit und von verschiedenen Ge-
+sichtspunkten aus zu reflektieren, daher kann es bei den Fragen auch zu Redundanzen kom-
+men.
+Vgl. zum ganzen Abschnitt Helmke 2021, S. 256 sowie Ziener 2010, S. 36-40 und 46, Zumsteg, S. 11f. (z. T. wörtliche
+Übernahme). Im Hintergrund spielt hier Klafkis didaktische Analyse eine Rolle, vgl. z. B. bei Jank / Meyer 2009, S.
+205f.
+Die Sache klären
+Bedeutungen und Sinn klären
+Lehrplan
+Fachliche Quellen
+Struktur darstellen
+Lehrmittel
+Bezüge und
+Ressourcen von
+Lp./Sch.
+Fachdidaktische Aspekte
+(Prinzipien, Konzeptionen)
+Personales/Sozial
+Die Bedingungen klären
+Strukturelles
+Soziokultureller
+Hintergrund,
+Heterogenität
+Material
+Räume
+Zeiten
+Medien
+Klassenregeln
+Schüler/-innen:
+Individ. Wissen,
+Interessen,
+Fertigkeiten,
+Bedürfnisse
+Lehrplan
+Lehrmittel
+Lehrpersonen:
+Wissen, Interessen,
+Voraussetzungen
+Vorwissen
+und Lernstand
+Thematik
+groß :
+Sinr
+klein !.
+Klären
+Lehrperson
+gemeinsame
+Schüler/-in
+Verantwortung
+Zumsteg u.a. S. 11
+Hinweise zur Grafik
+Die Sache klären
+Was ist der fachwissenschaftliche Wissensstand? Was ist der fachdidaktische Wissensstand?
+Es geht auch darum, dass Sie sich selbst und Ihren eigenen Wissensstand überprüfen.
+Was weiß ich zum Thema, wo habe ich Lücken?
+• Wie ist der Stoff strukturiert, was könnten Schwerpunkte sein?
+Welchen Bezug habe ich selbst zum Thema?
+• Welche eigenen Erfahrungen kann ich einbringen, um den Unterricht z. B. anschaulich zu ma-
+chen?
+• Welchen gefühlsmäßigen Bezug zum Thema habe ich? Es wird Themen geben, die Sie mehr
+und andere, die Sie weniger begeistern. Sie können damit vermutlich besser umgehen, wenn
+Sie sich das bewusst machen.
+Wie passt mein eigener fachlicher Zugang zum Lehrplan?
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.3
+a erlankerte alten und fortlung | Bauliche Seulen
+
+--- PDF-Seite 4 ---
+Die Bedingungen klären
+In welcher Schulart findet der Unterricht statt? Was folgt daraus? Welche Vorerfahrungen mit
+Schule und Lernen sind in dieser Schulart wahrscheinlich (z. B. Berufsschulklasse mit überwie-
+gend Abiturienten vs. AV-Dual-Klasse mit überwiegend Schülerinnen und Schüler ohne Schul-
+abschluss).
+Wann und wo findet die Stunde statt? Wie groß ist die Klasse? Wie ist der Raum?
+• In welcher Stunde findet der Unterricht statt? Was steht zuvor auf dem Stundenplan? Davon
+abhängig wird die geistige und körperliche Frische der Klasse sein ...
+• Was liegt an dem Tag noch an? Werden Klassenarbeiten geschrieben? Was ist außerschu-
+lisch relevant (Fasching, Fußball-WM...)?
+• Wie viele Schülerinnen und Schüler sind in der Klasse und wie ist die Sitzordnung? Es kann
+sein, dass manche Form der Unterrichtsgestaltung schon an dieser Stelle ausscheidet oder
+eben erhöhten Aufwand mit sich bringen wird.
+• Was sind die sonstigen räumlichen Bedingungen, wie ist die Medienausstattung?
+Was ist in der Klasse zurzeit wichtig?
+• Gibt es Gruppen oder Außenseiter?
+• Wie geht die Klasse mit Erfolg und Misserfolg um? Welche Vorerfahrungen hat die Klasse mit
+meinem Fach? Welche mit Schule und Lernen überhaupt? Gerade in Schularten, die an die
+Hauptschule anschließen, sind häufig Schülerinnen und Schüler, deren gesamte Schulkarri-
+ere von Frustration, Misserfolg und Beschämung geprägt gewesen ist.
+Was kann über die einzelnen Schülerinnen und Schüler gesagt werden?
+• Gibt es entwicklungspsychologisch relevante Aspekte?
+• Spielt das Geschlecht der Schülerinnen und Schüler bei dem Thema eine Rolle?
+• Aus welchem sozialen Umfeld kommen die Schülerinnen und Schüler?
+Was bringen die Schülerinnen und Schüler fachlich-inhaltlich mit?
+• Welches Vorwissen ist anzunehmen? Was davon will ich wie erheben?
+Bedeutungen und Sinn klären
+Zumweg u. a. ziehen in diesem Abschnitt zwei Pole auf:
+• Themen, bei denen es einen großen Spielraum und viele Optionen bei der Gestaltung gibt
+und solche,
+• bei denen es einen kleinen Spielraum mit wenigen Optionen gibt.
+Je nachdem, wo der jeweilige Unterricht anzusiedeln ist, werden die nun folgenden Fragen mehr
+oder weniger Raum in der Unterrichtsvorbereitung einnehmen.
+Wo gibt es Möglichkeiten, die Inhalte an die Lebens- und Denkwelt der Schülerinnen und Schü-
+ler anzubinden?
+• Welcher Art sind die Berufsweltbezüge?
+• Gibt es Aspekte der Jugendkultur, die bei dem Thema eine Rolle spielen?
+• Was passiert zurzeit in der Politik oder in den Medien, das in einem Bezug zum Thema steht?
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+R Baden-Württemberg
+Berufliche Schulen
+S.4
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 5 ---
+• Welche Bedeutung hat das Thema für meine Schülerinnen und Schüler? Welche sollte es
+meines Erachtens haben?
+• Welche Bedeutung wird das Thema in Zukunft für meine Schülerinnen und Schüler haben
+können (z. B. im Beruf, privat, als Bürgerinnen und Bürger ...)?
+• Welche Veranschaulichungsmittel oder Möglichkeiten, Sachverhalte auszudrücken gibt es
+bei diesem Thema?
+• Wie können Schülerinnen und Schüler in die Themenwahl miteinbezogen werden?
+• „Mit welchen Phänomenen, Situationen, Versuchen, Verfahren, Handlungen kann dieses
+Thema, dieser Inhalt, diese Sache erfahrbar gemacht werden?" (Zumweg, S. 17)
+Unterrichtsforschung
+Die Klärungen im Spiegel von Qualitätsmerkmalen des Unterrichts
+Die Bedeutsamkeit dieser Fragen für den Unterrichtserfolg ist in der Literatur zu Unterrichtsplanung und
+-evaluation Konsens. Helmke 2012 stellt ausdrücklich z. B. den Lebensweltbezug als entscheidenden Moti-
+vationsfaktor heraus (S. 223f.). Auch die Fähigkeit, nicht nur fachlich fit zu sein, sondern dieses Wissen al-
+ters- und situationsgemäß anzuwenden, wird immer wieder ausdrücklich herausgestellt (vgl. ebd. S. 112).
+Schlussfolgerung: die Thematik festlegen
+An dieser Stelle der Planung lohnt es sich, einmal inne zu halten und die Thematik festzulegen.
+Natürlich handelt es sich zum jetzigen Zeitpunkt nur um eine erste Festlegung. Bei der Ausar-
+beitung der Stunde können andere Themenschwerpunkte in den Vordergrund rücken. Die fol-
+gende Aufstellung ist stark an Zumweg u. a. (S. 19) orientiert.
+Bezogen auf die Sache - worum geht es?
+• Bauen
+• Wetterphänomene
+• Transportmittel in aller Welt
+Bezogen auf Kompetenzen - was sollen die Schülerinnen und Schüler am Ende können?
+• Die Schülerinnen und Schüler können Bilder wahrnehmen, beobachten und darüber reflektie-
+ren.
+• Die Schülerinnen und Schüler können sich mit dem Körper und mit Materialien ausdrücken,
+eine Bewegungsfolge Choreografieren und präsentieren.
+Bezogen auf Lehr-Lern-Arrangements - welche Arbeitsformen sollen bei dieser Gelegenheit
+eingeübt werden?
+• Stationenarbeit einführen
+• Texte eigenständig formulieren
+• Quellenauswertung
+• Arbeit mit der Placemat-Methode kennenlernen und anwenden
+• Projektarbeit
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 5
+
+--- PDF-Seite 6 ---
+Bezogen auf Evaluation - wie soll das Lernen sichtbar gemacht werden? Welches Lernprodukt,
+welche Lernhandlung steht am Ende?
+• Lernwege dokumentieren
+• Feedback-Formen erarbeiten und umsetzen
+• Gedicht vortragen und beurteilen
+Bildungsplanauszug als Beispiel: siehe am Ende des Skripts.
+II. Zweiter Planungsschritt: Entscheiden
+Thematik
+Entscheid für Lernziele im Hinblick auf
+die zu erwerbenden Kompetenzen
+Entscheid für
+Formen der Lern-Evaluation
+Entscheid für
+Lehr-Lern-Arrangements
+eldimensionen
+Lar nai
+Lern-
+prozesse
+optimieren,
+Lern-
+ergebnisse
+personal
+Fremd-
+einschätzung
+Lehrpersonen-/
+: Peer-
+: Feedback,
+aktuellen
+: Lernstand
+erfassen
+Selbst-
+einschätzung
+Selbst-
+regulierung
+-überprüfung
+des Lern-
+prozesses
+Entscheiden
+überfachlich
+sozial
+Lern-
+ergebnisse
+bewerten
+Zielerreichung summativ
+festlegen
+prüfen
+benoten
+basale Ziele
+erweiterte Ziele
+Fremd-
+steuerung
+Selbst-
+steuerung
+Im zweiten Schritt trifft die Lehrperson Entscheidungen bezüglich:
+1. Welche Lernziele will ich verfolgen? Welche Kompetenzen sollen gefördert werden?
+Die Form(-en) der Lern-Evaluation (bzw. Kontrollen):
+Sie überlegen sich, wie sie die Lernprozesse der SuS erkennen und fördern sowie die
+Lernergebnisse sichtbar machen und ggf. kontrollieren können.
+Ill.
+Das Lehr-Lern-Arrangement:
+Sie wählen angepasste Lehr- und Lern-Arrangements aus und legen damit den grund-
+sätzlichen Charakter der Unterrichtsstunde fest.
+Ila. Lernziele
+Allgemeine Hinweise: Was sind Lernziele, wofür sind sie gut und wie werden
+sie formuliert?
+„Wer nicht weiß, wo er eigentlich hin will, darf sich nicht wundern, wenn er plötzlich irgendwo
+ist, wo er nie hin wollte"
+(Robert Mager, zit. nach Kliemann (1997), S. 151)
+• Ein Lernziel ist eine möglichst konkrete, beobachtbare Beschreibung einer Handlung, zu der
+die Lehrperson ihre Schülerinnen und Schüler im Unterricht veranlassen will.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.6
+R Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 7 ---
+• Die Lernzielbereiche geben an, ob diese Handlung im Denken („kognitiv"), im Fühlen („affek-
+tiv") oder im Tun („psychomotorisch") stattfindet.
+• Lernzieltaxonomien ordnen die Lernziele so an, dass sie auf höheren Stufen immer komplexer
+werden.
+• Operatoren: die bei der Lernzielformulierung verwendeten Verben; sie beschreiben, was ge-
+tan werden soll.
+Es gibt in der Pädagogik verschiedene Lernzielkataloge. Das spiegelt sich auch in unserem Se-
+minar wider, wo es von Fach zu Fach bis zu fünf verschiedene Verfahrensweisen bei der Lern-
+zielformulierung gibt:
+1. kognitive Lernziele nach Anderson / Krathwohl (2001) (z. B. teilweise in Deutsch, Reli-
+gion und Ethik) - unter (nur Fachbereiche Wirtschaftswissenschaften und z. T. Ingenieur-
+wissenschaften) oder ohne Berücksichtigung von Wissensarten,
+2. kognitive Lernziele in Anlehnung an die „Einheitlichen Prüfungsanforderungen für das
+Abitur" (= EPA) (z. B. in GGP, Gesundheit, Chemie, GGK, teilweise in Deutsch),
+3. affektive Lernziele nach Krathwohl (z. B. in Religion),
+4. psychomotorische Lernziele (in Sport),
+5. freie Formulierungen (überwiegend in Fremdsprachen, in Sport).
+In der Fachdidaktik werden Sie erfahren, welcher Katalog dafür gilt ...
+Trotz dieser großen Vielfalt gibt es auch Gemeinsamkeiten bei der Lernzielformulierung, die zu-
+nächst vorgestellt werden sollen. Dann wird Ihnen gezeigt, wie Lernziele bei der Unterrichtspla-
+nung helfen und schließlich werden Ihnen die erwähnten Kataloge vorgestellt.
+Domänen, in denen Lernziele angesiedelt sein können
+Fachkompetenz
+• Z. B. zentrale Begriffe, die verstanden werden müssen verstanden, Fakten .
+• Routinen oder fachspezifische Tätigkeiten, die zu beherrschen sind.
+Überfachliche Kompetenzen
+• Soziale Fähigkeiten, z. B. die konstruktive Arbeit in einem Team.
+• Werthaltungen, die mit dem Thema verbunden werden können.
+• Anliegen im Sinne des Erziehungsauftrags .
+Mehr dazu erfahren Sie in der Sitzung zu Kompetenzorientierung.
+Klassifikation von Lernzielen nach drei Verhaltensbereichen
+Kognitive Lernziele haben mit intellektuellen Prozessen wie Wissen, Wahrnehmen, Erkennen,
+Denken Auffassen, Beurteilen und Begründen zu tun. Hat ein Schüler z. B. Schwierigkeiten, rich-
+tig zu buchstabieren, dann hat dies mit dem kognitiven Bereich zu tun.
+Affektive Lernziele haben etwas mit Gefühl, Emotion, Einstellung, Anerkennung oder Wert-
+schätzung zu tun. Langweilt ein Schüler sich beispielsweise, wenn er einen Text lesen soll, so
+hat dies mit seiner Einstellung, d. h. mit dem affektiven Bereich zu tun.
+Psychomotorische Lernziele haben mit Bewegungsfertigkeiten zu tun, z. B. mit Hand oder Ma-
+schine schreiben, Ball spielen, tanzen oder ein Musikinstrument spielen.
+Padagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.7
+R Baden-Württemberg
+Berufliche Schulen
+* Seminar für Ausbildung und Fortbildung
+4 der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 8 ---
+Keiner dieser Verhaltensbereiche ist von den anderen isoliert zu sehen, dennoch ist es oft sinn-
+voll, sie getrennt zu analysieren.
+Hinweise zur richtigen Formulierung von (v. a. kognitiven) Lernzielen
+Die Formulierung von Lernzielen erfolgt umso präziser, je eindeutiger und operationalisierter die
+Lernziele beschrieben werden. Die Formulierung kann Auskunft geben über
+• den Lerninhalt,
+• die Bedingungen, unter welchen das Lernziel erreicht werden soll,
+• die Lernhandlung.
+Präzise formulierte Lernziele erleichtern die Erfolgsprüfung, da die Form der Überprüfung be-
+reits in der Formulierung festgelegt ist.
+Beispiele für Lernziele mit Lernzielkomponenten
+Der Schüler soll ...
+den Begriff „Rechtsfähigkeit"
+ohne Hilfsmittel
+erklären können
+Personengruppen, die geschäftsunfähig sind,
+auswendig
+nennen können
+= Lerninhalt
+= Bedingung
+= Lernhandeln
+= Lerninhalt
+= Bedingung
+= Lernhandeln
+= Lerninhalt
+die Gültigkeit eines von einem beschränkt Geschäftsfähigen im Rahmen seines
+Taschengeldes getätigten Kaufes
+unter Zuhilfenahme des Gesetzestextes
+beurteilen können
+= Bedingung
+- Lernhandelr
+Beispiele für unpräzise und präzise Verben in Lernzielformulierungen
+Beispiele für unpräzise Verben → zu vermeiden
+Beispiele für geeignete, präzise Verben (direkt
+(nicht direkt beobachtbar):
+beobachtbar):
+wissen
+auswendig hersagen
+kennen
+aufzählen
+verstehen
+unterscheiden (ist nur im Zusammenhang präzise)
+glauben
+erklären (ist nur im Zusammenhang präzise)
+berechnen
+gegenüberstellen (ist nur im Zusammenhang prä-
+zise)
+Überprüfbarkeit des Lernhandelns möglich
+Überprüfbarkeit des erreichten Lernhandelns nicht
+möglich
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.8
+* Seminatur tumberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 9 ---
+Modell 1: Kognitive Ziele in der Lernzieltaxonomie von Anderson und
+Krathwohl (2001)
+Das Modell umfasst zwei Aspekte:
+1. eine Taxonomie im engeren Sinne, die bei einfach strukturierten Denkvorgängen beginnt (z.
+B. „etwas auswendig aufsagen") und dann zunehmend komplex wird (z. B. „aus einem Text
+etwas ableiten"),
+2. die Zuordnung verschiedener Lernziele zu „Wissensarten". Diese Unterscheidung basiert auf
+der Einsicht, dass „Wissen, dass" ein anderer Denkprozess ist als „Wissen, wie". Die Wissens-
+arten werden hier nicht vorgestellt, da sie in den im Kurs vertretenen Fächern nicht ausge-
+wiesen werden müssen.
+Die Taxonomie im Überblick
+(Er)Schaffen
+Bewerten
+Analysieren
+Anwenden
+Verstehen
+Erinnern
+Stufe
+Schlüsselwörter und Operato-
+ren
+Beispiele
+Stufe I: Erinnern
+Relevantes Wissen aus
+dem Gedächtnis abrufen
+identifizieren, abrufen, sagen,
+nennen, reproduzieren, auflis-
+ten, wiederholen, darlegen...
+• Markiere das gleichschenklige Dreieck
+auf dem Arbeitsblatt.
+• Nenne die chemische Formel für Salz-
+säure.
+Stufe Il: Verstehen
+paraphrasieren, klären, darstel- • Zeichne ein Parallelogramm.
+Bedeutung/Relevanz von
+len, übersetzen, illustrieren,
+Formuliere eine Überschrift für den Text-
+Wissen erkennen/erläutern
+klassifizieren, argumentieren,
+abschnitt.
+anpassen, erklären, beschrei-
+• Erkläre, warum das Herz mit einer
+ben, veranschaulichen, disku-
+Pumpe verglichen werden kann.
+tieren, vergleichen...
+Stufe Ill: Anwenden
+ausführen, demonstrieren, um-
+• Korrigiere den Fehler im folgenden Satz.
+Gelerntes in neuen Situati-
+setzen, erfassen, lösen, durch-
+• Führe das folgende Experiment durch: ...
+onen anwenden
+führen, voraussagen, modifizie-
+ren, handhaben, benutzen, im-
+Stufe IV: Analysieren
+differenzieren, unterscheiden,
+Material in seine konstitu-
+kennzeichnen, charakterisie-
+ierenden Teile gliedern und ren, auswählen, organisieren,
+ihre Wechselwirkungen
+strukturieren, ableiten ...
+zw. ihre Beziehung zu e
+ler übergeordneten Struk
+tur bestimmen
+• Sortiere die Begriffe in eine Tabelle und
+formuliere passende Oberbegriffe.
+• Lies das Werbeblatt des Politikers und
+leite seinen politischen Standpunkt ab.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.9
+* Semina für Ausbierg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 10 ---
+Stufe V: Bewerten
+Urteile auf der Basis von
+Kriterien und Standards
+fällen
+Stufe VI: (Er)Schaffen
+Elemente zu einem neuen,
+kohärenten, funktionieren-
+den Ganzen zusammen-
+führen
+überprüfen, abstimmen, ermit-
+• Nutze die Rubrik, um die Präsentation zu
+teln, testen, überwachen, beur-
+bewerten.
+teilen, evaluieren, auswerten,
+• Beurteile die Überzeugungskraft der Ar-
+kritisieren, einschätzen ...
+gumente pro und kontra Astrologie.
+planen, kreieren, entwerfen, er- • Entwirf einen Fragebogen zum Thema
+finden, produzieren, konstruie-
+Ernährungsgewohnheiten.
+ren...
+• Schreibe einen Maßnahmenplan zur Re-
+duzierung des Energieverbrauchs unse-
+rer Schule.
+Abb. ThILLM-Hefte 126 „Gehirngerechtes Klassenzimmer': Unterrichtsplanung mit Hilfe von Lernzieltaxonomien, S. 30,
+http://www.hum.tsn.at/cms/upload/pdf/2011/Unterrichtsplanung_mit_Lerntaxonomien.pdf (22.11.11).
+Modell 2: Affektive Lernziele nach Krathwohl, Bloom & Masia (1975)
+• Ebenfalls hierarchisch strukturiert: vom bloßen Aufmerksamwerden bis hin zu einer Verhal-
+tensänderung aufgrund einer neu gewonnenen Überzeugung
+• Grundlage der Hierarchie ist, in welchem Ausmaß ein bestimmter Wert sich zu eigen ge-
+macht wird
+• Konkret: Schülerinnen und Schüler wird ein Wert angeboten, sie verarbeiten ihn eigenstän-
+dig, entscheiden, wie sie ihn in ihre eigene Lebensphilosophie integrieren
+• Ziel ist also ethisch fundierte Persönlichkeitsbildung.
+• Es liegt in der Natur der Sache, dass es nicht immer beobachtet werden kann, ob affektive
+Lernziele erreicht werden. Insofern gelten die Regeln für die Lernzielformulierung hier nur mit
+Einschränkung.
+Vgl. http://arbeitsblaetter.stangl-taller.at/LERNZIELE/#Affektive Lernziele (12.11.12)
+Die Taxonomie affektiver Lernziele im Überblick
+Wertesystem
+aufbauen
+Erfülltsein /
+Verhaltens-
+änderung
+Werten
+4
+Reagieren
+Aufmerksam
+werden
+Stufe
+Schlüsselwörter und
+Operatoren
+Stufe I: aufmerksam werden / bemerken, aufmerksam
+beachten - etwas kommt ins
+werden auf, wahrnehmen,
+Bewusstsein, ist aber noch
+erkennen
+nicht mit einem moralischen
+Wert verbunden
+Beispiele
+• ... auf ein wirtschaftsethisches Problem
+aufmerksam werden
+• ... zur Kenntnis nehmen, dass sich bei der
+Durchführung eines Experiments Hitze
+entwickelt
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.10
+* Semina tir Ausbiete
+Berufliche Schulen
+* Ser Lenke karlsrung und Fortbildung
+
+--- PDF-Seite 11 ---
+Stufe Il: reagieren - es wird
+eher unbewusst auf einen
+Reiz reagiert
+wollen, sind bereit zu, ha- • ... Bereitschaft entwickeln, sich mit einem
+ben das Bedürfnis, öffnen
+wirtschaftsethischen Problem zu befas-
+sich für, machen gern, ent-
+sen
+wickeln Freude an
+• ... bereit sein, Umgangsregeln beim Expe-
+rimentieren zu entwickeln
+Stufe III: werten
+ein Wert wird (isoliert) entwi-
+ckelt, es entsteht Bereit-
+schaft, sich für ihn einzuset-
+zen
+halten (z. B. Fairness) für
+wichtig, beharren gegen-
+über anderen auf (z. B
+Fairness)
+• ... bei einem wirtschaftsethischen Problem
+eine Position beziehen
+• .. gegenüber anderen eigene Vorstellung
+von Umgangsregeln bei Experimenten
+vertreten
+Stufe IV: Strukturierter Auf-
+au eines Wertsystems, aus
+einem Problem eine Haltung
+ableiten, die auch auf andere
+Kontexte angewandt werden
+entwickeln ein Verhal-
+tenssystem, verbinden
+verschiedene Werte zu ei-
+ner Meinung darüber, wie
+..., entwickeln eine Werte-
+hierarchie
+• ... sich die ethischen Prinzipien bewusst
+machen, die hinter der eigenen Positionie-
+rung stehen
+• ... Grundeinstellungen klären, welches
+Verhalten bei Experimenten sinnvoll ist
+Stufe V: Erfülltsein durch ei-
+nen Wert oder eine Wert-
+struktur - tatsächliche Ver-
+haltensänderung, Handeln auf
+Grundlage eines Wertesys-
+tems
+umsetzen, in unterschied-
+• ... aufgrund der vorherigen Beschäftigung
+lichen Lebenslagen be-
+das eigene Konsumverhalten ändern
+wusst anwenden
+• ... sich beim nächsten Experiment bewusst
+vorsichtig verhalten
+Affektive Lernziele
+Darf Schule affektive Lernziele verfolgen? Mit welcher Berechtigung maßt sich
+Schule, maßen sich einzelne Lehrpersonen an, Werte vorzugeben, nach denen
+sich Schülerinnen und Schüler bilden sollen?
+Zur Diskus-
+sion
+3
+„Labermann und Söhne?": wenn das Ziel langfristige Persönlichkeitsbildung ist
+und wenn der Unterrichtserfolg nicht völlig im Ungefähren bleiben soll, welche
+Möglichkeiten gibt es dann, zumindest Anzeichen dafür zu finden, dass die Arbeit
+an affektiven Lernzielen erfolgreich gewesen ist?
+Gegenüberstellung von kognitiven und affektiven Lernzielen an zwei Beispielen
+Kognitive Lernziele
+Affektive Lernziele
+... erläutern das Toleranz-Konzept Lessings
+... integrieren das Konzept in ihr Verhaltensre-
+pertoire
+... leiten aus einem Text Vorsichtsmaßnahmen
+für Experimente ab
+.... achten darauf, bei Experimenten angemes-
+sen vorsichtig zu sein
+• An den Beispielen sehen Sie vielleicht, dass es absolut wünschenswert ist, affektive
+Lernziele zu verfolgen (beim zweiten Beispiel ist es unerlässlich).
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 11
+E orientalen un reilung
+Berufliche Schulen
+
+--- PDF-Seite 12 ---
+• Gleichzeitig ergibt sich das Problem der Überprüfbarkeit: Die Handlungen, die dem Ziel
+entsprechen, finden oft nicht im Unterricht statt.
+Modell 3: Lernziele in den Einheitlichen Prüfungsanforderungen (EPA)
+Für die Erstellung von Abitursaufgaben hat die KMK „Einheitliche Prüfungsanforderungen" er-
+stellen lassen. Auch sie eignen sich, um Lernziele zu staffeln. Allerdings gibt es hierfür kein ei-
+genes KMK-Dokument, das eine fächerunabhängige Auflistung bieten würde. Ludger Brüning
+und Tobias Saum (2012) legen die folgende Einteilung zugrunde:
+„Anforderungsniveaus in allen Schulformen und -stufen
+1. Aneignung und Reproduktion von Wissen
+Der Anforderungsbereich 1 umfasst die Wiedergabe von Sachverhalten aus einem begrenz-
+ten Gebiet und im gelernten Zusammenhang sowie die Verwendung gelernter und geübter
+Arbeitstechniken und Methoden.
+2. Reorganisation und Transfer
+Der Anforderungsbereich 2 umfasst das selbständige Bearbeiten, Ordnen und Erklären be-
+kannter Sachverhalte sowie das angemessene Anwenden gelernter Inhalte und Methoden
+auf andere Sachverhalte.
+3. Reflexion, Problemlösung und Beurteilung
+Die Reflexion und Problemlösung gehört zum dritten Bereich. Der Anforderungsbereich 3
+umfasst daher den reflexiven Umgang mit neuen Problemstellungen sowie das selbständige
+Anwenden von Methoden mit dem Ziel, zu eigenen, begründeten Urteilen zu gelangen."
+Stufe
+Schlüsselwörter und Operatoren
+Dazu kann z. B. gehören
+Anforderungsbe-
+beschreiben, darstellen (i. S. einer • Inhalt eines Textes oder fachbezogene
+reich I: Aneignung
+einfachen Wiedergabe), wiederge-
+Sachverhalte eigenständig wiedergeben
+und Reproduktion
+ben, Argumentationsgang wieder-
+auflisten von „Indikatoren der Unterent-
+von Wissen
+geben, benennen, charakterisie-
+wicklung" in der Dritten Welt
+Relevantes Wissen
+ren, ermitteln, herausarbeiten,
+• grafisches Umsetzen einer Tabelle
+aus dem Gedächtnis
+entnehmen, unkommentiert ent-
+• bestimmen einer Quellenart
+abrufen
+nehmen...
+• bestimmen von Raum und Zeit historischer
+Sachverhalte
+Anforderungsbe-
+analysieren (Texte, Materialien
+reich Il: Reorganisa- oder Sachverhalte systematisch
+tion / Transfer
+und gezielt untersuchen), auswer-
+Bedeutung/Relevanz
+ten und Strukturen herausarbei-
+von Wissen erken-
+ten, darstellen (i. S. einer struktu-
+nen/erläutern
+rierenden, systematisierenden
+Wiedergabe), erklären, erläutern,
+gliedern, vergleichen
+• vergleichen der Entwicklungsprobleme ei-
+nes bekannten mit denen eines nicht be-
+kannten Raumes
+• Argumentation eines Textes beschreiben
+analysieren von Quellen oder Darstellungen
+• sinvolles verknupfen historischer sach-
+verhalte zu Verläufen und Strukturen
+Anforderungsbe-
+beurteilen, bewerten, Beziehun-
+reich Ill: Reflexion
+gen herstellen, interpretieren, be-
+Problemlösung, Be- urteilen, Stellung nehmen zu, er-
+urteilung
+örtern, auseinandersetzen mit, be-
+gründen, erschließen,
+• diskutieren historischer Probleme
+•
+reflektieren eigener Urteilsbildung unter
+Berücksichtigung historischer ethischer Ka-
+tegorien
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.12
+* Semina tür Aubergi
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 13 ---
+(über)prüfen, bewerten, gestalten,
+entwerfen
+in einem Text vertretene Positionen in um-
+fassendere problembezogene oder theore-
+tische Zusammenhänge einordnen
+aus den Ergebnissen einer Texterschlie-
+Bung oder Erörterung begründete Schlüsse
+ziehen
+http://www2.klett.de/sixcms/media.php/229/104002_1102_.pdf (12.6.16)
+http://www.kmk.org/fileadmin/veroeffentlichungen_beschluesse/1989/1989_12_01-EPA-Deutsch.pdf (15.6.16)
+https://www.kmk.org/fileadmin/Dateien/veroeffentlichungen_beschluesse/1989/1989_12_01-EPA-Geschichte.pdf
+(15.6.16)
+Ziele in der Unterrichtsplanung
+Am Ende der Klärungen haben Sie das Thema der Stunde festgelegt, z. B.
+• „Folgen der französischen Revolution für Baden"
+• „Gleichungen mit mehreren Unbekannten"
+• „Die indirekte Rede"
+• „Das Skelett der Fische"
+Daraus leiten Sie nun das Hauptziel für die Stunde ab: „Am Ende sollen alle ... können"
+• Es ist entscheidend, diesen Schritt zu gehen, weil es ganz anders ist, ob sie einen Film zeigen
+oder eine Quellenarbeit machen und am Ende die Ergebnisse in einer Diskussion vertreten
+lassen - das Thema bleibt gleich, das Ziel ist deutlich verschieden.
+Wenn Sie das Ziel haben, dann legen Sie den Charakter der Stunde fest. Hier können Sie kreativ
+sein, die Formulierung dient zunächst nur Ihnen.
+• Beispiele: „Übungsstunde"
+', „Staun-Stunde", „Selbstklärungsstunde", „Lerntechnik-Lern-
+stunde", „Wie-gehe-ich-die-Arbeit-an-Strategie-Entwicklungs-Stunde"
+• Legen Sie fest, in welchem Verhaltensbereich der Schwerpunkt der Stunde liegt (kognitiv,
+affektiv oder psychomotorisch - siehe unten).
+Sie werden unten noch Bau-Rezepte kennenlernen, Lehr-Lern-Arrangements.
+Aus dem Hauptziel sinnvolle Teilziele ableiten:
+Wenn das Hauptziel steht, dann leiten Sie daraus ab, welche Teilschritte gegangen werden
+müssen, um dahin zu kommen.
+Sie stellen dafür eine sehr einfache Frage, die auf Gerhard Ziener zurückgeht (daher hat sich im
+Seminar das Verb „zienern" für diese Tätigkeit eingebürgert): „Was kann jemand, der ... kann?"
+So entsteht eine Liste von zahlreichen Teilzielen. Am Beispiel der indirekten Rede ergibt sich
+daraus:
+„Was kann jemand, der die indirekte Rede bilden kann?" Er kann z. B.
+• erkennen, wenn in einem Text direkte Rede vorkommt,
+• Verben erkennen und bestimmen, ob sie im Singular oder im Plural stehen,
+• entscheiden, ob die indirekte folglich mit Konjunktiv I oder mit Konjunktiv II zu bilden ist,
+• die Konjunktiv I-Formen der Verben bilden,
+• die Konjunktiv II-Formen der Verben bilden,
+• die Ersatzformen für diese Verben bilden,
+• die Regel anwenden, dass Personalpronomina von der ersten und zweiten in die dritte
+Person umzuwandeln sind,
+• dafür muss er wissen, was Personalpronomina sind
+• und dafür muss er wissen, was die Personen des Verbs im Singular und im Plural sind ...
+Pädagogik
+Grundkurs Unterrichtsplanung
+R Baden-Württemberg
+Lutz Eisele
+S.13
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+Berufliche Schulen
+
+--- PDF-Seite 14 ---
+Auch an diesem Beispiel wird deutlich, dass diese Liste noch nicht 1:1 für den Unterricht verwen-
+det werden kann, vielmehr muss eventuell ...
+• gestrichen werden,
+• aus einer Stunde mehrere Stunden gemacht werden,
+• die Reihenfolge verändert werden.
+Hinweis: diese Ziele müssen nicht sklavisch zu den Lernzielkatalogen in Ihrer Ausbildung pas-
+sen, meist werden sie sich aber leichter tun, wenn Sie auf diese Formulierungshilfen zurückgrei-
+fen. Jetzt sollten Sie in der Lage sein, den Gedankengang Ihrer Stunde in ein bis zwei Sätzen zu-
+sammenzufassen. Beispiel: „Am Ende der Stunde sollen die Schülerinnen und Schüler XY be-
+herrschen. Um das zu können, müssen sie zuerst XY wissen, es dann von XY unterscheiden und
+daraus können sie sich die Vorgehensweise für XY dann selbst ableiten. Zur Kontrolle und Ver-
+tiefung wird das dann noch in einem anderen Zusammenhang geübt". Wenn Sie nicht in der
+Lage sind, Ihre Unterrichtsziele in dieser Weise zu skizzieren, dann können Sie kaum erwarten,
+dass Ihre Klasse hinter Ihren Bemühungen den roten Faden findet!
+„Operatoren": Lernzielformulierungen helfen beim Aufgabenerstellen
+Die Verben, die in Lernzielformulierungen vorkommen, eignen sich hervorragend, um schriftlich
+(und mündlich) Aufgaben zu formulieren.
+Zur Erläuterung ein (echtes) Beispiel: In einer GGK-Arbeit (2BFW) heißt es: „Welche Ursachen
+haben zum Untergang der Weimarer Republik geführt?". Ein Schüler schreibt: „1. Demokratie
+ohne Demokraten, 2. hohe Reparaturzahlungen, 3. Weltwirtschaftskrise".
+Die Lehrerin kommentiert: „Begründungen fehlen" und verweigert die volle Punktzahl für die je-
+weiligen Antworten. Dabei gibt es an der Antwort nichts zu beanstanden, weil die Lehrerin auf
+die Verwendung von „Operatoren", also präzisen Beschreibungen ihrer Erwartung verzichtet
+hat. Mögliche Alternativen wären z. B. gewesen:
+• „Nenne vier Gründe, warum ..."
+• „Erläutere vier Gründe, warum ..."
+• „Gib in eigenen Worten wieder, welche Gründe im Schulbuchtext ... genannt werden, wa-
+rum..."
+Für die Abiturprüfungen sind diese Operatoren jeweils für einzelne Fächer einheitlich definiert
+(„EPA - einheitliche Prüfungsanforderungen", vgl. http://www.kmk.org/dokumentation/ver-oeffentlichun-
+gen-beschluesse/bildung-schule/allgemeine-bildung.html, 21.11.12).
+Es wird manchmal eingewandt, Schülerinnen und Schüler seien darauf konditioniert, nur bei w-
+Fragen in den Antwort-Modus zu schalten. Das entspricht nicht den aktuellen Vorgaben für Prü-
+fungsformulierungen, dennoch können Sie z. B. im Unterrichtsgespräch oder auf Arbeitsblättern
+Operatoren und w-Fragen kombinieren: „Welche Ursachen haben zum Untergang der Weimarer
+Republik geführt? Nenne vier und erläutere sie in vollständigen Sätzen." Wenn Operatoren aus-
+schließlich in Klassenarbeiten verwendet werden, fällt es Schülerinnen und Schüler schwerer
+ihre Bedeutung zu verinnerlichen!
+Ziele bündeln: Thematik überprüfen und festlegen
+Nachdem die Lernziele als Ergebnis der Klärung der Sache, Bedingungen Bedeutung und Sinn
+formuliert wurden lohnt es sich nochmal die Thematik der Unterrichtsstunde zu überprüfen, ggf.
+zu präzisieren und abschließend festzulegen.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.14
+R Baden-Württemberg
+Berufliche Schulen
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 15 ---
+Ilb. Formen der Lern-Evaluation
+Thematik
+Entscheid für Lernziele im Hinblick auf
+die zu erwerbenden Kompetenzen
+fachlich
+er nzi eld
+imensionen
+personal
+sozial
+mathe-
+disch
+basale Ziele
+erweiterte Ziele
+Abbildung 2. Zumsteg u.a. 2018, S. 11
+Entscheid für
+Formen der Lern-Evaluation
+Lern-
+prozesse
+optimieren,
+Lern-
+ergebnisse
+Fremd-
+einschätzung
+Lehrpersonen-
+Peer-
+Feedback,
+| aktuellen
+; Lernstand
+erfassen
+Selbst-
+einschätzung
+Selbst
+regulierung
+-überprüfung
+des Lern-
+prozesses
+Lern-
+ergebnisse
+bewerten
+Zielerreichung summativ
+festlegen
+prüfen
+benoten
+Entscheid für
+Lehr-Lern-Arrangements
+Montre tion
+Selbst-
+konstruktion
+Entscheiden
+Fremd-
+steuerung
+Selbst™
+steuerung
+Schon der lernzielorientierte Unterricht besteht darauf, dass am Ende eine Lernzielkontrolle ste-
+hen muss. Beim kompetenzorientierten Unterricht gilt dies in gleicher Weise.
+Zur Zeit ist es in der Pädagogik beliebt, sich darüber Rechenschaft abzulegen, woran eigentlich
+erkannt werden kann, dass etwas gelernt wurde und auf welche Weise Schülerinnen und Schü-
+ler das erfahren. Das Lernen soll also evaluiert werden und soll eine Rückmeldung stattfinden.
+Wenn die Ziele festgelegt sind, können Sie entscheiden
+1. ob die Schülerinnen und Schüler ihre Lernleistung selbst evaluieren können (Selbstein-
+schätzung),
+2. ob ein Peer-Feedback möglich ist, d. h. ob die Schülerinnen und Schüler sich gegenseitig
+Feedback geben können,
+3. ob es ein Experten-Feedback von Ihnen braucht.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.15
+Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 16 ---
+Ilc. Entscheidung für ein Lehr-Lern-Arrangement
+Lehr-Lern-Arrangement: welche Art von Stunde soll es werden?
+Besonders am Anfang kann es hilfreich sein, sich bestimmte Grundmuster von Stunden zurecht-
+zulegen. Die folgende Grafik ist bearbeitet nach Zumweg u. a. S. 23. Sie werden im Laufe der
+Ausbildung verschiedene dieser Arrangements kennen lernen - in der Fachdidaktik oder in Pä-
+dagogik.
+Am Anfang Ihrer Ausbildung wird es vielleicht noch nicht so sein, dass Sie Ihre Planungen an
+einem Modell ausrichten. Fürs Erste genügt es dann auch, wenn Sie den Charakter Ihrer Stunde
+vielleicht auch sloganhaft zusammenfassen können („Staun-Stunde", „Pauk-Stunde", „Diskussi-
+onsstunde"). Dazu unten mehr.
+Selbstkonstruktion
+Tendenziell verstehensorientiert
+Tendenziell problemlösungsorien-
+tiert
+Selbstorganisiertes Ler-
+Projektunterricht
+nen
+Planspiel
+Fallstudien
+Lernen durch Leh-
+ren
+Lernen aus Lösungsbei-
+spielen
+angeleitetes Experimentie-
+ren
+direkte Instruktion
+Tendenziell autonomieorientiert
+Selbststeuerung
+Nachkonstruktion Tendenziell effizienzorien-
+tiert
+Fremdsteuerung
+Die fettgedruckten Arrangements werden Sie in der Sitzung „Unterrichtskonzepte" näher ken-
+nenlernen.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.16
+E orientale un reilung
+Berufliche Schulen
+
+--- PDF-Seite 17 ---
+III. Verlaufsplan: Wer macht was wann wie mit wem und wie
+bleibt's hängen?
+Vom Ziel zum Unterricht - Bedingungsfelder und Denkweisen
+Aus der Beschaffenheit Ihrer Lernziele ergibt sich die weitere Planung. Es kann sein, dass sich in
+diesem Prozess auch die Ziele noch ändern, trotzdem ist es sinnvoll, bei ihnen zu beginnen.
+Wie aus Zielen die eigentliche Planung abgeleitet werden kann, soll mit Hilfe der folgenden Fra-
+gen dargestellt werden. Es bietet sich an, die Fragen in dieser Reihenfolge zu bearbeiten, nicht
+zuletzt, weil das auch effizienten Umgang mit Vorbereitungszeit begünstigt. Gleichzeitig ist es
+auch hier so, dass die Antworten auf eine spätere Frage die Ergebnisse von früheren Überlegun-
+gen verändern können, weil eine Wechselwirkung vorliegt. Wesentliche Anregungen hierzu ent-
+stammen dem „Berliner Modell".
+1. Welche Sozialform ist in einer Phase angemessen, sollen die Schülerinnen und Schüler al-
+leine (= Einzelarbeit), zu zweit (= Partnerarbeit), in Gruppen oder im Klassenverband arbei-
+ten? Uberlegungen wie die folgenden sind hierzu sinnvoll:
+• Gibt es kurz vor einer Klassenarbeit eine Wiederholungsstunde? Dann liegt evtl. Einzel-
+arbeit nahe.
+• Ist es sinnvoll, dass sich die Schülerinnen und Schüler mit ihren Sitznachbarn über die
+Aufgabe austauschen können? Dann könnte Partnerarbeit sinnvoll sein.
+2. Welche Methoden sind jeweils angemessen? Mit „Methode" wird die Art und Weise bezeich-
+net, wie der Unterricht organisiert wird. Es gibt eine enge Verbindung zur Frage nach der So-
+zialform. Beispiele für Methoden sind: Lehrervortrag, Lehrerdemonstration, fragend-entwi-
+ckelnder Unterricht, Diskussion, Rollenspiel, Fallstudie, Experiment, aber auch Streitge-
+spräch, Podiumsdiskussion, Textarbeit, Kartenarbeit, Anfertigen einer Collage/Wandzeitung,
+Erkundungsgang, Interview, Arbeit mit Standbildern, Geschichtenerzählen, Lernspiel etc.
+Hier können Gedankengänge wie die folgenden hilfreich sein:
+• Ist es bedeutsam, dass etwas auf Grundlage von Expertenwissen im Zusammenhang er-
+läutert wird? Dann kann ein Lehrervortrag sinnvoll sein.
+• Ist es wichtig, dass die Schülerinnen und Schüler untereinander in eine längere Diskus-
+sion eintreten? Dann kann es sinnvoll sein, ein Diskussionsspiel durchzuführen, das es
+erlaubt, dass alle einander sehen können und das es wahrscheinlich macht, dass sich
+möglichst viele beteiligen.
+• Gibt es viele Informationen, die sich die Klasse aus Texten, Bildern usw. erschließen soll,
+und sind diese Informationen in etwa gleich große Päckchen aufzuteilen? Dann kann ein
+Gruppenpuzzle sinnvoll sein.
+• Tipp: gehen Sie von fachspezifischen Handlungen aus („Was macht man, wenn man Ma-
+the macht?") und achten Sie darauf, dass diese Handlungen eingeübt und erprobt wer-
+den. Dabei helfen Ihnen die EPA-Formulierungen, ganz egal, ob Sie sie im Rahmen des
+Referendariats verwenden.
+• Tipp: arbeiten Sie mit einem, maximal mit zwei Methodenbüchern, legen Sie sich auf
+Grundlage der Seminar-Unterlagen (z. B. aus dem Methodentraining) eine eigene Samm-
+lung von Methoden an und nehmen Sie sich vor, Neues auszuprobieren.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.17
+R Baden-Württemberg
+» Seminar für Ausbildung und Fortbildung
+der Lehrkräfte Karlsruhe
+Berufliche Schulen
+
+--- PDF-Seite 18 ---
+3. Welche Medien sind angemessen? Medien sollen nie Selbstzweck sein, schon gar nicht (was
+häufig vorkommt) der eigentliche Ausgangspunkt der Unterrichtsplanung!
+• Medien können entscheidend dabei helfen, Lebensweltorientierung herzustellen, weil sie
+sichtbar machen, in welcher Hinsicht das Thema für die Schülerinnen und Schüler wich-
+tig ist bzw. sein wird oder könnte.
+• Ist es wichtig, dass die Klasse z. B. eine bestimmte Lebenssituation wahrnimmt? Dann
+kann ein Film sinnvoll sein.
+• Ist es wichtig, dass die Klasse zum Diskutieren angeregt wird? Dann kann ein provokan-
+tes Zitat, das an die Tafel geschrieben wird, sinnvoll sein.
+4. Welcher Einstieg in die Stunde bietet sich an? (siehe Exkurs „Unterrichtseinstiege")
+• Der Einstieg sollte Ziele und Nutzen der Stunde transparent machen.
+• Er hat darüber hinaus weitere mögliche Funktionen (z. B. Aktivierung, Disziplinierung).
+5. Abschließende Kontrollfragen (für jede Phase und für die ganze Stunde). Wenn Sie diese Pla-
+nungsfragen für sich bearbeitet haben, lohnt es sich, noch weitere anzufügen:
+• Wie viel Zeit brauche ich dafür und halte ich das für angemessen? Wenn nein, dann müs-
+sen Sie erneut über die Methoden oder Medien nachdenken!
+• In welcher Weise sorge ich für Reflexion? Es reicht nicht, die Dinge lediglich zu tun, son-
+dern es ist wichtig, Lernwege bewusst zu machen (vgl. prozedurales Wissen und me-
+takognitives Wissen).
+• In welcher Weise sorge ich für Ergebnissicherung? Es reicht nicht, die Dinge lediglich zu
+sagen, sondern sie müssen auch in sinnvoller Weise festgehalten werden. Dies geschieht
+natürlich in Abhängigkeit von den Zielen. Wenn es Ihnen primär um einen Denkweg und
+nur in zweiter Linie um ein inhaltliches Beispiel geht, dann muss sich diese Gewichtung
+auch im Schülerheft widerspiegeln.
+• Wo kann ich individuellen Bedürfnissen gerecht werden? Gibt es Zusatzaufgaben für
+Schnellere? Gibt es die Möglichkeit, die Klasse zwischen zwei Vorgehensweisen wählen
+zu lassen?
+Grundlegendes zu Sozialformen des Unterrichts
+Die folgende Auflistung soll Ihnen Anregungen bieten, Sozialformen bewusst und gezielt einzu-
+setzen. Im weiteren Verlauf der Ausbildung wird es noch Vertiefungen geben, v. a. bei der Grup-
+penarbeit.
+Einzelarbeit (EA)
+Wenn es wichtig ist, dass Schülerinnen und Schüler ...
+• eine Aufgabe alleine bewältigen können, z. B. weil sie das in einer anstehenden Klassenarbeit
+auch können müssen.
+• sich alleine Gedanken machen können, weil das Thema persönlich oder zumindest individu-
+ell ist (z. B. Selbsteinschätzungen),
+• sich alleine Gedanken machen können, weil Ideen gesammelt werden müssen. In der ersten
+Brainstorming-Phase sind Menschen alleine kreativer!
+• einmal zur Ruhe kommen. Das mag ein Nebenaspekt sein, aber es tut allen gut, wenn in einer
+Stunde für einige Minuten absolute Ruhe herrscht ..
+Padagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 18
+R Baden-Württemberg
+Berufliche Schulen
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 19 ---
+Dabei ist zu beachten, dass ..
+• wirklich Ruhe herrscht, Fragen werden mit der Lehrerin / dem Lehrer geklärt,
+• das Niveau nicht zu hoch ist,
+• unterschiedliches Lerntempo erlaubt wird (z. B. Zusatzaufgaben für Schnellere).
+Weiterarbeit
+• Besprechung im Plenum
+• Gegenseitige Korrektur anhand eines Lösungsblatts in Partner- oder Gruppenarbeit
+• Anschließende Aufgabe, die auf Grundlage der Ergebnisse der Einzelarbeit zu bewältigen ist
+(z. B. auf Grundlage der Brainstorming-Ergebnisse), so dass die Resultate indirekt abgeprüft
+werden.
+Partnerarbeit (PA)
+• Zwischenform, die sich z. B. eignet, wenn neue oder komplexe Inhalte angewandt werden
+sollen, so dass die Wahrscheinlichkeit hoch ist, dass sich die Schülerinnen und Schüler ge-
+genseitig helfen wollen.
+• Gut geeignet, um Schülerinnen und Schüler ins Gespräch miteinander zu bringen (Fremd-
+sprachenunterricht).
+• Zu beachten, dass daraus nicht Kleingruppenarbeit wird (ansonsten ist das gleich frei zu
+Triade
+Klein-Ausgabe der Gruppenarbeit, die Trittbrettfahren fast unmöglich macht und es z. B. ermög-
+licht ...
+• sich auf einer persönlicheren Ebene auszutauschen,
+• sich zu erbrachten Leistungen Feedback zu geben, so dass alle wirklich auch ein Feedback
+erhalten.
+• ein Mini-Rollenspiel mit Feedbackgeber durchzuführen (A und B führen das Rollenspiel
+durch, C beobachtet und gibt anschließend Feedback
+Gruppenarbeit (GA)
+• Eignet sich für eher komplexe, umfängliche Aufgaben.
+• Achten Sie darauf, ungünstige Effekte zu verhindern (Trittbrettfahrertum, das Mädchen
+schreibt usw.), indem Sie z. B. Gruppenrollen verteilen und dokumentieren lassen, offen las-
+sen, wer präsentiert, enge Zeitvorgaben setzen, klare Erwartungen ans Ergebnis formulieren
+• Eher ungeeignet, um kreativ zu sein, Ideen zu entwickeln usw. - das können die meisten bes-
+ser alleine!
+• Wenn Sie Gruppen bilden, dann ruhig leistungsheterogen - Leistungsstarke profitieren im-
+mer, die anderen mehr, wenn die Gruppen gemischt sind.
+Varianten
+• Themengleiche (Problem: Präsentation langweilig?) oder themendifferente Arbeit
+• Gruppenpuzzle
+Plenum / Frontalunterricht
+• Frontalunterricht muss nicht lehrerzentriert sein, sondern kann auch als Klassendiskussion
+gestaltet werden, bei der die Lehrperson nicht einmal moderieren muss.
+• Für die Wahl der Sozialform leitend kann z. B. sein, ob alle das mitbekommen müssen, was
+Thema ist.
+Padagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.19
+* Seminatür Aumbiding und Fortbildung
+Berufliche Schulen
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 20 ---
+Gruppenarbeit
+Was macht die Lehrperson während der Gruppenarbeit? Ist es günstiger, herum
+zu gehen oder still am Pult zu sitzen? Diskutieren Sie die Frage auch unter Be-
+rücksichtigung der Fragen, welches Verständnis von Lernen, welches Verständnis
+Ihrer eigenen Rolle als Lehrperson Sie leitet.
+Halten Sie es für sinnvoll, dass Schülerinnen und Schüler über eine längere Zeit
+hinweg in festen Gruppen arbeiten? Nehmen Sie abwägend Stellung
+Leistungshomogene oder leistungsheterogene Gruppen bilden? Nehmen Sie auf
+Grundlage Ihrer Erfahrungen Stellung.
+Zur Diskus-
+sion
+3
+Exkurs: Unterrichtseinstiege
+Die folgende Übersicht zeigt Reinformen; in der Praxis können natürlich Elemente kombiniert
+werden.
+Informierender Einstieg nach
+Grell / Grell
+Unterrichtseinstieg mit etwas
+Einstieg mit Lernsituation -
+Interessantem / Problemorien- Sonderform des Aufhängers
+tierter Einstieg
+L legt zu Beginn offen, was in
+L präsentiert etwas, das Auf-
+L. präsentiert eine knifflige Si-
+der Stunde gelernt werden
+merksamkeit weckt, Reaktio-
+tuation, ein Problem oder ein
+soll, wozu das nützlich ist und
+nen hervorruft und erarbeitet
+Phänomen, die die Sus noch
+wie methodisch gearbeitet
+dann meist fragend-entwi-
+nicht bewältigen oder erklären
+werden soll. Das kann visuali-
+ckelnd das eigentliche Thema
+können
+siert werden.
+der Stunde.
+Reinform: Anschließend wer-
+Problemorientierte Variante:
+den die SuS befragt, ob sie
+anhand eines Mediums wird
+einverstanden sind oder me-
+fragend-entwickelnd eine
+thodisch anders vorgehen
+Problemfrage erarbeitet (bes.
+wollen
+GGK)
+Ziel: Transparenz
+Ziel: Aufmerksamkeit erregen,
+Ziel: Grundlage für Kompeten-
+Problembewusstsein fördern
+zentwicklung schaffen
+SuS motivieren sich selbst,
+SuS werden durch den Aufhä- SuS werden durch die Aus-
+wenn sie im Einstieg die Un-
+nger motiviert, z. B. weil er le-
+sicht auf Kompetenzzuwachs
+terrichtsziele erfahren und für
+bensnah, witzig oder kontro-
+motiviert
+lohnend befinden
+vers ist
+SuS entwickeln Interesse an
+der Fragestellung, es geht
+nicht nur um unverbundene
+Lerninhalte
+Auf der sachlich-inhaltlichen
+Auf der Ebene der Berufs- und
+Auf der Ebene der Berufs- und
+und sprachlichen Ebene an
+Lebenswelt an das Vorver-
+Lebenswelt an das Vorver-
+das Vorverständnis anknüpfen
+ständnis anknüpfen
+ständnis anknüpfen
+eher deduktiv
+eher induktiv
+eher induktiv
+Hinweis: der Aspekt „wofür
+Hinweis: vermeiden Sie es, das Hinweis: zu einem solchen Ein-
+das nützlich ist" kann sehr
+Thema erraten zu lassen
+stieg gehört zwangsläufig eine
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 20
+* Semina tür Ausberg
+| Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 21 ---
+wohl auch interessant darge-
+stellt werden.
+(Begründung folgt). Einstiegs- spezifisches Lernprodukt, das
+Medium so wählen, dass
+am Ende steht und genau das
+Thema / Problemfrage er-
+abbildet, was gelernt werden
+schlossen werden können.
+soll.
+Ablaufschema für informierenden Einstieg
+Motto: „Karten auf den Tisch!". Metapher: Flussdiagramm
+• Dauer: max. 4 Minuten
+• Lehrer gibt Übersicht über den geplanten Stundenverlauf (z. B. Folie) → nur Hauptgedanken-
+gang, nicht Teillernziele!
+• Lehrer verwendet knappe, einprägsame Formulierungen.
+• Lehrer drückt positive Erwartungen hinsichtlich des Lernens, des Lernerfolgs und der Rele-
+vanz des Themas aus.
+• Lehrer gibt zu erkennen, wie er zum Lehrstoff steht.
+• Lehrer stellt Zusammenhang her zu früheren bzw. folgenden Stunden.
+• Schüler werden ermutigt, Stellung zu beziehen.
+Ablaufschema für Einstieg mit Verpackung
+Motto: „guck mal, ist das nicht bemerkenswert, hättest du Lust, darüber nachzudenken?"
+pher: Reisekatalog
+• Dauer: bis zu 10 Minuten
+• Präsentation: Experiment, Umfrage, Bild, Lied, Gedicht usw. werden präsentiert
+• Erarbeitung - hier möglichst einen handelnden Umgang der SuS mit dem Einstieg ermögli-
+chen
+• Stummer Impuls: L kommentiert gar nicht, sondern sammelt Eindrücke → das muss dann
+aber auch durchgehalten werden, am Ende doch ganz genaue Vorstellungen haben, was
+da herauskommen soll, das passt nicht!
+• Wenn das Gezeigte beschrieben werden soll, dann darauf achten, dass zuerst wirklich nur
+beschrieben wird (,Beschreibt, was Ihr seht")
+• Fragend-entwickelnd zur Kernaussage des Gezeigten und dann zum eigentlichen Thema
+hinführen. Vorsicht: das Stundenthema raten zu lassen, kann ausufern und gelernt wird
+dabei nichts. Deshalb lieber gleich sagen, worum es gehen soll.
+• Stundenthema festhalten, evtl. Stundenablauf vorstellen.
+Ablaufschema für Einstieg mit Verpackung - problemorientierten Einstieg
+Motto: „guck mal, ist das nicht bemerkenswert, hättest du Lust, darüber nachzudenken?". Meta-
+pher: Streitfrage für Podiumsveranstaltung
+• Dauer: bis zu 10 Minuten
+• Präsentation: Experiment, Umfrage, Bild, Karikatur, Lied, Gedicht usw. werden präsentiert
+• Erarbeitung - hier möglichst einen handelnden Umgang der SuS mit dem Einstieg ermögli-
+• Beschreibung des Gezeigten (Methodentraining!) → daraus Fragestellung entwickeln
+• Evtl. kontrastierend etwas weniger Komplexes als Gegenpol zeigen → führt zu einer kont-
+roversen Fragestellung
+• Problemfrage festhalten, evtl. Stundenablauf vorstellen.
+Ablaufschema für Einstieg mit Lernsituation
+Motto: „seht ihr, der Reifen an diesem Fahrrad ist platt. Am Ende werdet ihr ihn flicken können".
+Metapher: Bastelladen
+• Dauer: bis zu 10 Minuten
+Padagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 21
+R Baden-Württemberg
+Berufliche Schulen
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 22 ---
+• Präsentation: Berufs- oder Alltagssituation, Experiment, Umfrage, kontroverse Entschei-
+dungsfrage, ethisches Problem werden präsentiert
+• Bestandsaufnahme, z. B.
+• Vorwissen wird sichtbar gemacht - welche Lösungsstrategien gibt es schon?
+• SuS positionieren sich, z. B. in einer Meinungslinie, Argumente werden abgefragt.
+• Stundenziel festhalten, evtl. Stundenablauf vorstellen.
+Unterrichtseinstiege
+Wozu überhaupt Unterrichtseinstiege? In der Praxis führen viele Kolleginnen und
+Kollegen überhaupt keinen Einstieg durch, sondern beginnen nach der Begrüßung
+den Unterricht. Nehmen Sie Stellung zu der Frage, warum überhaupt Unterrichts-
+einstiege gemacht werden sollten.
+Risiken und Nebenwirkungen: alle gezeigten Formen des Unterrichtseinstiegs ha-
+ben jeweils spezifische Schwachpunkte und Stärken bei der häuslichen Unter-
+richtsvorbereitung und bei der Durchführung in der Klasse. Stellen Sie Für und Wi-
+der beider Grundformen des Unterrichtseinstiegs einander gegenüber und bezie-
+hen Sie Stellung.
+Zur Diskus-
+sion
+3
+Das Wichtigste in Kürze
+Unterrichtseinstiege
+Was Sie immer machen können: Sagen Sie Ihren Schülerinnen und Schüler,
+• worum es in der Stunde gehen soll,
+• wozu das gut ist und welche Ziele der Unterricht verfolgt (vgl. „Lohnende Fragen" und Zielanalyse),
+• wie gearbeitet werden soll.
+Wenn Sie dann in der Vorbereitung noch Zeit und Ideen haben, können Sie das Ganze ansprechend verpacken
+durch eine Filmsequenz, ein Rollenspiel, eine Verkleidung ... Dabei kommt es auch darauf an, keine der skizzierten
+unerwünschten Nebenwirkungen hervorzurufen. Besonders mit der Aufmerksamkeit der Klasse ist behutsam um-
+zugehen!
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.22
+Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 23 ---
+IV. Evaluation
+Überraschungen: was lief anders als geplant (2-3 Situationen). Woran kann es gelegen ha-
+ben? (nach Ulf Mühlhausen)
+Vermeidbare Überraschungen aufgrund von Mängeln ...
+• im Entwurf (z. B. offenbar falsche Zeitplanung)
+• oder im Unterrichtskonzept (z. B. falsche Vorstellung über Motivationsstrategien)
+Vermeidbare Überraschungen aufgrund von Inszenierungsschnitzern bei der Umsetzung des
+Entwurfs ...
+• Arbeitsauftrag schludrig vorgetragen
+• Vom Thema abgeschweift und einen Schwank aus dem eigenen Leben erzählt, damit
+Chaos ausgelöst ...
+Unvermeidbare Überraschungen
+• Zielirritationen (z. B. „Unterricht verfolgen" vs. „Störung bearbeiten")
+• Missverständnisse in der Kommunikation
+• Sperrigkeit der SuS gegen von außen initiierte Veränderungen (z. B. kein Interesse, Ar-
+beit in der nächsten Stunde ...)
+• Sperrigkeit des Unterrichtsgegenstands (z.B. fachliche Lücken der Lehrkraft)
+• Sperrigkeit der Lehrkraft gegen ihre Instrumentalisierung (z. B. schlechte Laune, Müdig-
+keit, private Probleme ...)
+• Niveauüberraschung: die Lehrkraft hat das Leistungsvermögen einzelner, mancher oder
+aller SuS falsch eingeschätzt
+Tipp: seien Sie überraschungsoffen - Uberraschungsoffene Lehrpersonen „sind neugierig auf
+ihre Schüler und nicht beleidigt, wenn diese anders reagieren als erwartet" (Mühlhausen, Unter-
+richtsqualität, S. 109; vgl. Helmke 2021, S. 232).
+Wann ging's rund bei Ihnen?
+Knackstellen-Analyse: was waren die Momente in der Stunde, in denen Ihre persönliche Prä-
+senz-Kurve nach oben ging (z. B. weil etwas geklappt hat, weil sie angespannt waren, weil et-
+was nicht so lief wie geplant)? Was lernen Sie daraus?
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.23
+Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+, der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 24 ---
+Zusammenfassung: Prozessbeschreibung Unterrichtsvorberei-
+tung
+Arbeitsprozess planen
+1. Ablauf für die Unterrichtsvorbereitung festlegen - effektiv planen
+• Schreiben Sie auf, wie viel Zeit Sie für die Stundenvorbereitung zur Verfügung haben.
+Halten Sie sich daran.
+2. Identifizieren und vermeiden Sie Zeitfresser in der Vorbereitung, zum Beispiel
+• Internetrecherche, aber auch sehr lange Buchrecherche
+• Unterrichtsmaterialien selbst entwickeln (Arbeitsblätter usw.) und toll formatieren
+• Scannen, Digitalisieren, Schneiden von Videos, Bildbearbeitung
+• Tipp: legen Sie sich einen Fundus weniger guter Schulbücher oder weniger (!) digitaler
+Materialiensammlungen zu und arbeiten Sie vor allem damit!
+• Tipp: nutzen Sie KI gezielt, indem Sie einzelne Arbeitsschritte zunehmend verbessern
+(z.B. mit gpts oder immer wieder den gleichen chats).
+Vorarbeit, Thema einengen - Klären
+3. Klärungen auswerten und Thema der Stunde festlegen.
+• Überfliegen Sie die Fragen, die unter „Klären" aufgezählt werden, und halten Sie wenige
+zentrale Einfälle fest, die sich daraus ergeben.
+• Achten Sie besonders auf Alltags- und Berufsweltbezug. Das hilft z.B. beim Einstieg oder
+bei Aufgaben.
+(kurze Notfallrecherche, wenn Sie vom Thema gar keine Ahnung haben - verschaffen Sie sich
+einen ersten, wikipediamäßigen Überblick!)
+4. Grenzen Sie das Thema der Stunde sinnvoll ein:
+• Thema: „In dieser Stunde geht es um ..." (z. B. privater Geschäftsbrief)
+• Kompetenzen (~ Stundenziel): „Das sollen die Schülerinnen und Schüler am Ende kön-
+nen" (z. B. auf Grundlage von gegebenen Textbausteinen einen eigenen Geschäftsbrief
+schreiben").
+• Arbeitsformen, die eingeübt werden sollen (selbständiges Schreiben)
+• Evaluation: welches Lernprodukt oder welche Lernhandlung steht am Ende?
+• Schreiben Sie sich den Charakter der Stunde auf. Seien Sie dabei ruhig kreativ („Übungs-
+stunde", „Staun-Stunde", „Selbstklärungsstunde", „Lerntechnik-Lernstunde", „Wie-gehe-
+ich-die-Arbeit-an-Strategie-Entwicklungs-Stunde" ...)
+Weichen stellen - Entscheiden
+5. Ziele festlegen (→ spart Zeit für Materialrecherche und garantiert einen roten Faden!)
+• Legen Sie auf Grundlage von 4. das Hauptziel fest („Am Ende sollen alle ...").
+• Zienern Sie nun das Hauptziel („Was kann jemand, der ... kann"). Auf diese Weise leiten
+Sie die Teilziele ab. Es kann sein, dass Sie aus der Liste, die Sie erhalten, manches strei-
+chen müssen oder dass Ihnen plötzlich klar wird, dass Sie daraus zwei Stunden machen
+müssen usw. Reduzieren Sie zuletzt diese Liste auf ein Zielgerüst für Ihre Stunde.
+• Hinweis: diese Ziele müssen nicht sklavisch zu den Lernzielkatalogen in Ihrer Ausbildung
+passen, meist werden sie sich aber leichter tun, wenn Sie auf diese Formulierungshilfen
+zurückgreifen.
+• Jetzt sollten Sie in der Lage sein, den Gedankengang Ihrer Stunde in ein bis zwei Sätzen
+zusammenzufassen. Beispiel: „Am Ende der Stunde sollen die Schülerinnen und Schüler
+XY beherrschen. Um das zu können, müssen sie zuerst XY wissen, es dann von XY
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+R Baden-Württemberg
+S.24
+Seminar für Ausbildung und Fortbildung
+der Lehrkräfte Karlsruhe
+Berufliche Schulen
+
+--- PDF-Seite 25 ---
+unterscheiden und daraus können sie sich die Vorgehensweise für XY dann selbst ablei-
+ten. Zur Kontrolle und Vertiefung wird das dann noch in einem anderen Zusammenhang
+geübt". Wenn Sie nicht in der Lage sind, Ihre Unterrichtsziele in dieser Weise zu skizzie-
+ren, dann sehen vermutlich auch die Schüler keinen roten Faden!
+6. Recherchieren
+len.
+• Legen Sie fest, wo Sie recherchieren wollen und wie viel Zeit Sie dafür verwenden wol-
+• Unterscheiden Sie inhaltliche Recherche von methoden-/ medienbezogener Recherche.
+7. Evaluation planen, vorläufigen Einstieg und Lehr-Lern-Arrangement festlegen
+• Evaluation: bei welchen Zielen ist eine Rückmeldung nötig, wer kann sie geben (erste
+Wahl: jeder sich selbst; zweite Wahl: Peer-Feedback; dritte Wahl: Lehrpersonen-Feed-
+• Einstieg: das ist ein Zeitfresser, also legen Sie einen vorläufigen Einstieg fest, z.B. fünf
+Zeilen lange Lernsituation („Ein Kunde ...").
+• Setzen Sie ein Kreuz im Diagramm „Lehr-Lern-Arrangements"
+• Wenn Sie sich bereits mit didaktischen Konzepten befasst haben, können Sie auch da-
+rauf zurückgreifen.
+Weichen stellen - Entscheiden
+8. Notfallprogramm
+• Bereiten Sie in mehreren Durchgängen vor: Im ersten Durchgang bereiten Sie die Stunde
+möglichst zügig komplett vor, so dass Sie in den Unterricht gehen könnten. Notfall-Plan:
+Seiten aus dem Lehrbuch notieren oder Texte, Übungsaufgaben usw. zum Kopieren aus-
+• Wenn Sie dann noch Zeit haben, dann können Sie einzelne Phasen gründlicher ausarbei-
+ten. So vermeiden Sie es, dass Sie beim Einstieg hängen bleiben ...
+• Tipp: im Grunde könnten Sie ja alles in Form eines Lehrervortrags oder Textlektüre ab-
+halten. Es kann helfen, wenn Sie von dieser Grundform ausgehen und dann sukzessive
+die einzelnen Phasen durch andere, schüleraktivere Methoden ersetzen.
+9. Vom Ziel zum Unterricht - Wer macht was wann wie mit wem und wie bleibt's hängen?
+• Für jede Phase in Abhängigkeit vom gesteckten Ziel festlegen
+• Sozialform
+• Methode
+• Medien
+• Kontrollfragen durchgehen
+• Steht die in jeder Phase aufgewandte Unterrichtszeit in einem angemessenen Ver-
+hältnis zum Ertrag?
+• In welcher Weise sorge ich für Reflexion über das Lernen?
+• In welcher Weise sorge ich für Ergebnissicherung?
+• Wo kann ich individuellen Bedürfnissen gerecht werden?
+• Einstieg überarbeiten:
+• Minimalform Informierender Einstieg („Mein Ziel für heute ist, ... Deshalb werden
+wir erstens ….., zweitens ...).
+Maximalform: ausgearbeitete Lernsituation / Handlungssituation / Problemorien-
+tierter Einstieg.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.25
+R Baden-Württemberg
+Berufliche Schulen
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 26 ---
+Feedback-Fragen zur Unterrichtsplanung
+• Ist die gewählte Sozialform stimmig?
+• Passt die Unterrichtsmethode zum Ziel?
+• Sind die gewählten Medien stimmig?
+• Stehen die angestrebten Ergebnisse in einem guten Verhältnis zur aufgewandten Unter-
+• Findet eine zu den Zielen passende Ergebnissicherung statt, sind Lernprodukt oder Lern-
+handlung stimmig?
+• Wird dazu angeregt, über Lernprozesse nachzudenken?
+• Gibt es Ansätze zur Individualisierung?
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+Baden-Württemberg
+Bemena türtubeing und Fortbildung Berufliche Schulen
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 27 ---
+Anhang
+Wie kann ich abschätzen, wie lange eine Unterrichtsphase dauert?
+Wenn der Stundenverlauf und Ihre Planung nicht übereinstimmen, gibt es verschiedene Mög-
+lichkeiten:
+1. Das Leben kam zu Besuch, das können Sie nicht planen! Das kann z. B. passieren, wenn
+eine Schülerin eine wirklich interessante, absolut wichtige Frage stellt, die nicht zu er-
+warten gewesen wäre. Freuen Sie sich, wenn so etwas passiert! ... und keine Sorge: in
+Lehrproben passiert es nie!
+2. Sie haben sorgfältig geplant, sind dabei aber von falschen Annahmen hinsichtlich des
+Leistungsstands ausgegangen. Seien Sie gnädig mit sich selbst, besonders im ersten
+Ausbildungsabschnitt, in dem Sie die Klassen noch nicht so gut kennen.
+3. Sie haben im eigentlichen Sinne falsch geplant, weil Sie von unrealistischen Vorstellun-
+gen ausgegangen sind, wie lange etwas dauert.
+So können Sie Ihre Fähigkeit, die Dauer einer Phase einzuschätzen, verbessern
+• Vermeiden Sie klassische Zeitfresser oder planen Sie Zeit dafür ein, z. B. Abschreiben von der
+Tafel, Umbauphasen vor Gruppenarbeiten, Gruppeneinteilung, fragend-entwickelnde Phasen
+• Hospitieren Sie zielgerichtet: Wenn eine Lehrperson in einer Stunde einen Auftrag erteilt oder
+eine Phase beginnt, dann notieren Sie auf einem Blatt, wie lange das Ihres Erachtens wohl
+dauert. Vergleichen Sie das mit der tatsächlichen Dauer.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.27
+Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 28 ---
+Bildungsplanauszug
+Lernfeldbildungsplan
+Kaufmann für Büromanagement und Kauffrau für Büromanagement
+2
+Inhaltsverzeichnis
+Teil l
+Teil II
+Teil III
+Teil IV
+Teil V
+Teil VI
+Teil VII
+Vorbemerkungen
+3
+Bildungsauftrags- und Erziehungsauftrag der Berufsschule
+Didaktische Grundsätze
+4
+6
+Berufsbezogene Vorbemerkungen
+Lernfelder
+8
+10
+Kompetenzbeschreibungen für den Unterricht in der kaufmännischen
+Berufsschule im Prüfungsbereich „Wirtschafts- und Sozialkunde"
+Lesehinweise
+27
+31
+Übersicht über die Lernfelder für den Ausbildungsberuf
+Kaufmann für Büromanagement und Kauffrau für Büromanagement
+Lernfelder
+Nr.
+1
+Die eigene Rolle im Betrieb mitgestalten und den
+Betrieb präsentieren
+2
+Büroprozesse gestalten und Arbeitsvorgange
+organisieren
+3
+Aufträge bearbeiten
+4
+Sachgüter und Dienstleistungen beschaffen und
+Verträge schließen
+Zeitrichtwerte
+in Unterrichtsstunden
+1. Jahr
+2. Jahr
+40
+3. Jahr
+80
+80
+120
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 28
+Semina für Ausbiding und Fortbildung Berufliche Schulen
+der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 29 ---
+Lernfeld 1: Die eigene Rolle im Betrieb mitgestalten
+und den Betrieb präsentieren
+1. Ausbildungsjahr
+Zeitrichtwert: 40 Stunden
+Die Schülerinnen und Schüler besitzen die Kompetenz, ihre Rolle innerhalb des Betriebs
+aktiv zu gestalten und ihren Betrieb adressatengerecht zu präsentieren.
+Die Schülerinnen und Schüler klären ihren Verantwortungsbereich im Betrieb und identifizieren sich
+mit ihren Rollen als Auszubildende und als zukünftige Arbeitnehmerinnen und Arbeitnehmer, die
+auf unterschiedlichen rechtlichen Grundlagen basieren.
+Die Schülerinnen und Schüler analysieren ihre eigenen Rechte und Pflichten, informieren sich über
+Inhalte und Regelungen der Ausbildungsverträge sowie ihre Mitbestimmungsrechte durch die
+Jugend- und Auszubildendenvertretung. Sie informieren sich über geltendes Recht (Berufs-
+bildungsgesetz, Jugendarbeitsschutzgesetz) und das für sie geltende Tarifrecht. Ebenso erkunden
+sie Möglichkeiten beruflicher Fort- und Weiterbildung.
+Die Schülerinnen und Schüler recherchieren und bewerten Informationen und deren Quellen zur
+Darstellung ihres Betriebes, auch mit digitalen Medien, und überprüfen die Validität der Informa-
+tionen. Sie erschließen das Leistungsspektrum ihres Betriebes, die eingesetzten betriebswirtschaft-
+lichen Produktionsfaktoren, auch unter Berucksichtigung von Aspekten der Nachhaltigkeit. Sie ana-
+lysieren die Ziele ihres Betriebes sowie dessen Stellung in der arbeitsteiligen Wirtschaft und inner-
+halb des erweiterten Wirtschaftskreislaufes.
+Sie erfassen ihre Stellung innerhalb des Aufbaus des Betriebes und die wesentlichen Arbeits- und
+Geschaftsprozesse des Betriebes sowie ihren eigenen Handlungsrahmen (Vertretungsvoll-
+machten).
+Die Schülerinnen und Schüler entwickeln auf der Grundlage von Rechten und Pflichten ihre Kom-
+petenzen im Betrieb weiter und initiieren eine zielorientierte, auf ständiger Weiterentwicklung ba-
+sierende Einstellung zum lebenslangen Lernen als engagierte Mitarbeiterinnen und Mitarbeiter. Sie
+setzen sich realistische Ziele. Sie wahlen für ihre Ergebnisse eine Prasentationsform, auch digital,
+und berücksichtigen dabei die Rahmenbedingungen und Präsentationsregeln sowie die Vorschrif-
+ten zum Datenschutz und zum Urheberrecht. Zur Reflexion und Bewertung von Präsentationen
+erstellen sie einen Kriterienkatalog.
+Die Schülerinnen und Schüler werden ihrer Rolle im Betrieb gerecht. Sie beachten und nutzen die
+gesetzlichen und vertraglichen Regelungen. Sie erledigen ihre Aufgabenstellungen selbstständig
+und sind bereit, mit Kolleginnen und Kollegen zusammenzuarbeiten. Sie nehmen anstehende
+Arbeiten aufmerksam wahr und erledigen diese unaufgefordert und eigenverantwortlich.
+Sie präsentieren ihren Betrieb mediengestützt. Sie wenden Arbeitsstrategien (Informationsbe-
+schaffungsstrategie, Elaborationsstrategie) an und finden für einfache und komplexe Anforde-
+rungen selbstständig Lösungen. Sie stellen sich schwierigen Situationen und kämpfen gegen innere
+Widerstände an. Sie zeigen Durchhaltevermögen, um längerfristige Ziele zu erreichen.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.29
+R Baden-Württemberg
+Berufliche Schulen
+* Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 30 ---
+Bildungsplan in der T-Struktur
+BPE 3
+Deutschland, Europa und die Welt nach 1945
+40
+Die Schülerinnen und Schüler beschreiben machtpolitische Interessen, ideologische Gegensätze und Wertvor-
+stellungen im Rahmen des Ost-West-Konflikts und charakterisieren den Ost-West-Konflikt als ein globales und
+auf vielfache Weise politisch, kulturell und wirtschaftlich verflochtenes Geschehen. Dabei stellen sie Ziele,
+Aufgaben und Funktionsweisen verschiedener Akteure dar und setzen sich mit deren Perspektiven, Interessen,
+Handlungsspielräumen und Interaktionsmöglichkeiten auseinander.
+Die Schülerinnen und Schüler analysieren aktuelle globale Problemfelder vor dem Hintergrund der weltpoliti-
+schen Ordnung. In diesem Zusammenhang bewerten sie Entscheidungsprozesse und beurteilen verschiedene
+Lösungsansätze.
+BPE 3.1
+Die Schülerinnen und Schüler beschreiben die Ursachen und die Entstehung des
+Ost-West-Konflikts und stellen die Teilung Deutschlands und Europas vor dem Hinter-
+grund dieses Konflikts dar. Sie setzen sich unter Beachtung der globalen Dimension
+mit dem Kalten Krieg auseinander und beurteilen in diesem Zusammenhang zentrale
+Organisationen und Institutionen.
+Ideologische Gegensätze und Folgen für
+Deutschland und Europa
+- Potsdamer Abkommen
+- Truman-Doktrin und Zwei-Lager-
+Theorie
+z. B. Kommunismus und Kapitalismus,
+Flucht und Vertreibung, Aufteilung
+Deutschlands, wesentliche Etappen
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S. 30
+Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+* der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 31 ---
+Einige Abkürzungen im Schulwesen
+Schule / Seminar / RP / KM
+Abkürzung | Erklärung
+Schulleitung
+AL
+TL
+WL
+LIA
+Abteilungsleitung
+Technischer Lehrkraft
+Wissenschaftlicher Lehrkraft
+Lehrkraft in Ausbildung
+StR/ OStR
+KL
+(L)BT
+(L)BTW
+(L)P
+BLK
+SSA
+GLK
+Studienrat / Oberstudienrat
+Klassenlehrkraft
+Berufstheorie
+Berufstheorie Werkstatt
+Berufspraktischer Unterricht
+Beratungslehrkraft
+Schulsozialarbeit
+(Staatl. Schulamt)
+Gesamtlehrerkonferenz
+Unterricht
+Abkürzung | Erklärung
+EA
+Einzelarbeit
+PA
+Partnerarbeit
+GA
+UG
+Gruppenarbeit
+Unterrichtsgespräch
+SOL / SRL
+Selbstorganisiertes / selbstregulier-
+tes Lernen
+AB
+AA
+LF
+LS
+LA
+HU
+SVP
+Arbeitsblatt
+Arbeitsauftrag
+Lernfeld
+Lernsituation
+Lernarrangement
+Handlungsorientierter Unterricht
+Stoffverteilungsplan
+GFS
+VIP
+KA
+HA
+Gleichwertige Feststellung einer
+Schülerleistung (= verpflichtende
+Präsentation o.ä., zählt wie eine KA)
+Vertiefung, Individualisierung, Pro-
+jektunterricht
+Klassenarbeit
+Hausaufgabe
+DB
+FS
+FD
+Päd/
+PädPsy
+SR/ SO
+PS
+D-Kurs
+R-Kurs
+LÜ
+(B)UB
+LLPA
+LV
+RP
+KM
+ZSL
+Dienstbesprechung / Dienstbe-
+urteilung
+Fachschaft
+Fachdidaktik
+Pädagogik und pädagogische
+Psychologie
+Schulrecht / Schulorganisation
+Pädagogische Schulung (TL)
+Direkteinstieg
+Referendariat (Lehramtsstudie-
+rende)
+Lehrübung
+(Beratender) Unterrichtsbesuch
+Landeslehrerprüfungsamt
+Lehrveranstaltung
+Lehrervortrag
+Regierungspräsidium
+Kultusministerium ( Ministerium
+für Kultur, Jugend und Sport)
+Zentrum für Schulentwicklung
+und Lehrerfortbildung
+Nach A. Bratzler, J. Möhlmann
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.31
+En trateronig und Forbildung | Berline Schulen
+der Lehrkräfte Karlsruhe
+
+--- PDF-Seite 32 ---
+Ausblick auf die Prüfung
+Das sind die Anforderungen, die an Sie gestellt werden ...
+Ziele im Rahmen der Ausbildung:
+Die Referendarinnen und Referendare:
+- können allgemeindidaktisch und lernpsychologisch fundierte Lehr-Lern-Arrangements
+planen und reflektieren (Klafkis Grundfragen der Didaktischen Analyse, kompetenzorien-
+tierter Unterricht).
+- Formulieren operationalisierbare Lern- und Kompetenzziele unter Berücksichtigung der
+Taxonomien von Anderson & Krathwohl (kognitive Lernziele, affektive und psychomoto-
+rische Lernziele nach Bloom).
+So werde ich in der mündlichen Prüfung überprüfen, ob Sie die Anforderungen
+erfüllen ...
+• Fragen zum Wissensbestand (Skript):
+• Unterrichtseinstieg: mit Anforderungs- / Lernsituation und informierende Einstiege
+• drei verschiedene Lernzieldimensionen
+• Merkmale präzise formulierter Lernziele
+• Strukturmerkmale der Lernzieltaxonomie nach Anderson / Krathwohl (also nicht jede ein-
+zelne Stufe, sondern beschreiben können, wie sie aufgebaut ist).
+• Die im Skript angeführten Fragen zur Diskussion, das ist aber keine abschließende Liste!
+Beispiele für Transfer-Aufgaben und Fälle in der Prüfung
+• Sie bekommen eine knifflige Unterrichtssituation vorgegeben und entwickeln Ideen, was bei
+ihrer Analyse gefragt werden könnte. Sie entwickeln konkrete Ideen für eine Lösung
+• Sie bekommen Lernziele vorgegeben und analysieren und bewerten sie.
+• Sie bekommen Lernziele vorgegeben und entwickeln daraus Ideen für die unterrichtliche Ge-
+staltung.
+• Sie bekommen ein Haupt-Ziel für eine Stunde vorgegeben und entwickeln daraus ein Ziel-
+• Sie bekommen einen Unterrichtseinstieg geschildert. Sie bewerten ihn.
+• Sie können eine eigene* systematisch und fachwissenschaftlich fundierte Prozessbeschrei-
+bung bei der Unterrichtsplanung darstellen (*kann sich auch ganz an die vorgeschlagene
+Vorgehensweise anlehnen, darf aber auch gerne gut begründet originell sein).
+• Sie können begründen, welche Sozialform geeignet ist, um ein vorgegebenes Ziel zu errei-
+chen. Sie können auch darlegen, worauf bei dieser Sozialform zu achten ist.
+Pädagogik
+Lutz Eisele
+Grundkurs Unterrichtsplanung
+S.32
+R Baden-Württemberg
+Berufliche Schulen
+Seminar für Ausbildung und Fortbildung
+der Lehrkräfte Karlsruhe
