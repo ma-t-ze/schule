@@ -1,11 +1,12 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { outputDocuments, exactTemplateInstruction, outputDocumentContext, validOutputDocumentIds, storyMappingTemplate, storyMappingInstruction, ensureStoryMappingPrompt } from './outputDocuments.js'
+import { outputDocuments, outputDocumentContext, validOutputDocumentIds, storyMappingTemplate, storyMappingInstruction, ensureStoryMappingPrompt } from './outputDocuments.js'
 
-test('the required template instruction is verbatim and always included', () => {
-  assert.equal(exactTemplateInstruction, 'Bitte exakt an die Vorlage halten. Informationen die nicht existieren einfach aussparen.')
-  assert(outputDocumentContext([]).includes(exactTemplateInstruction))
+test('the removed template instruction is absent from generated prompts', () => {
+  for (const ids of [[], ['langform']]) {
+    assert(!outputDocumentContext(ids).includes('Bitte exakt an die Vorlage halten. Informationen die nicht existieren einfach aussparen.'))
+  }
   assert(!outputDocumentContext([]).includes('Originalvorlage'))
 })
 test('only selected output templates enter the prompt', () => {

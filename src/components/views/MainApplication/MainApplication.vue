@@ -199,9 +199,6 @@ const tgg12Dates = 5
           <a href="/material/unterricht-planen/Vorlage_Langform.docx" download="Vorlage_Langform.docx">Vorlage Langform (Word)</a>
         </nav>
       </Panel>
-      <Panel header="Verlaufspläne" toggleable collapsed>
-        <nav class="link-list" aria-label="Verlaufspläne"><RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink><RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink><RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink><RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink></nav>
-      </Panel>
       <Panel header="Prüfungen" toggleable collapsed>
         <nav class="link-list" aria-label="Prüfungsunterlagen">
           <a href="/pruefungen/Terminplan_D25_Pruefungen.pdf" target="_blank" rel="noopener noreferrer">Terminplan D25 – Prüfungen (PDF) ↗</a>
@@ -212,26 +209,7 @@ const tgg12Dates = 5
           <a href="/pruefungen/Klassen_UBs.jpg" target="_blank" rel="noopener noreferrer">Klassenauswahl für die unterrichtspraktischen Prüfungen (JPG) ↗</a>
         </nav>
       </Panel>
-      <Panel v-if="isDev" header="Sitzpläne" toggleable collapsed>
-        <nav class="link-list" aria-label="Lokale Sitzpläne"><RouterLink to="/sitzplaene">Sitzpläne öffnen</RouterLink></nav>
-      </Panel>
-      <Panel header="Lehrpläne" toggleable collapsed>
-        <nav class="link-list" aria-label="Lehrpläne">
-          <a href="/lehrplaene/Lehrplan_GMT.pdf" target="_blank" rel="noopener noreferrer">Lehrplan GMT (PDF) ↗</a>
-          <a href="/lehrplaene/Lehrplan_BKGD.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BKGD (PDF) ↗</a>
-          <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
-        </nav>
-      </Panel>
-      <Panel header="Designvorlagen" toggleable collapsed>
-        <nav class="link-list" aria-label="Designvorlagen">
-          <Panel header="Klassenarbeiten" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="Klassenarbeiten"><RouterLink :to="{ name: 'designvorlage-klassenarbeit-grd' }">3BKGD1_1_GRD</RouterLink><RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg12' }">3TGG1/2</RouterLink></nav>
-          </Panel>
-          <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="Designvorlage A4"><RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink><RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink></nav>
-          </Panel>
-        </nav>
-      </Panel>
+      <RouterLink class="sidebar-link" :to="{ name: 'notengebung' }">Notengebung</RouterLink>
     </aside>
     <div class="center-column">
       <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>
@@ -300,6 +278,8 @@ const tgg12Dates = 5
 .document-preview { display: block; width: 100%; height: 80vh; min-height: 480px; border: 1px solid #e2e5df; border-radius: 4px; background: white; }
 .plans-panel { min-width: 0; background: #f1f2ef; }
 .sidebar { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.sidebar-link { display: block; padding: 20px; background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; color: inherit; font: 500 21px 'Jost', sans-serif; text-decoration: none; }
+.sidebar-link:hover { background: #e7ebe5; }
 .sidebar :deep(.p-panel), .calendar-column, .exams-column { background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; }
 .school-home :deep(.p-panel-header) { padding: 20px; gap: 8px; }
 .school-home :deep(.p-panel-title) { font: 500 21px 'Jost', sans-serif; }

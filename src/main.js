@@ -17,6 +17,12 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/notengebung',
+    name: 'notengebung',
+    component: () => import('./components/views/Notengebung/Notengebung.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/schulwiki/krank-bei-klassenarbeiten',
     name: 'schulwiki-krank-bei-klassenarbeiten',
     component: () => import('./components/views/Schulwiki/KrankBeiKlassenarbeiten.vue'),
@@ -350,6 +356,32 @@ const routes = [
     name: 'medientechnik',
     component: () => import('./components/views/Medientechnik/MedientechnikPage.vue'),
     props: { level: 'overview' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/figma',
+    name: 'medientechnik-figma',
+    component: () => import('./components/views/Medientechnik/FigmaPage.vue'),
+    props: { level: 'overview' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/figma/lerninhalte',
+    name: 'medientechnik-figma-lerninhalte',
+    component: () => import('./components/views/Medientechnik/FigmaPage.vue'),
+    props: { level: 'lessons' },
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/figma/tutorial/1',
+    name: 'medientechnik-figma-tutorial-1',
+    component: () => import('./components/views/Medientechnik/FigmaErsterSchritt.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/figma/tutorial/2',
+    name: 'medientechnik-figma-tutorial-2',
+    component: () => import('./components/views/Medientechnik/FigmaZweiterSchritt.vue'),
     meta: { requiresAuth: false }
   },
   {

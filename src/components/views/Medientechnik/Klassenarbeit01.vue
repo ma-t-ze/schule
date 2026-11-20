@@ -92,7 +92,7 @@ const panels = [
       </section>
     </template>
     <template v-else>
-    <header><p class="eyebrow">KLASSENARBEIT 01 · SCHRITT {{ step }} VON {{ steps.length }}</p><h1 ref="heading" tabindex="-1">{{ steps[step - 1] }}</h1></header>
+    <header><p class="eyebrow">KLASSENARBEIT 01 · SCHRITT {{ step }} VON {{ steps.length }} · <span class="exam-duration">BEARBEITUNGSZEIT: 80 MINUTEN</span></p><h1 ref="heading" tabindex="-1">{{ steps[step - 1] }}</h1></header>
     <nav class="step-links" aria-label="Die sechs Schritte"><RouterLink v-for="(title, index) in steps" :key="title" :to="link(index + 1)" :aria-current="step === index + 1 ? 'step' : undefined" :aria-label="`Schritt ${index + 1}: ${title}`">{{ index + 1 }}</RouterLink></nav>
 
     <template v-if="step === 1">
@@ -162,6 +162,7 @@ const panels = [
 
 <style scoped>
 @import './indesignTutorial.css';
+.exam-duration { display: inline-block; background: white; color: #a02b62; border: 1px solid #e4c3d2; border-radius: 6px; padding: 5px 9px; font-weight: 600; }
 .access-form { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .access-form :deep(.p-password) { width: 100%; max-width: 360px; }
 .access-form :deep(.p-inputtext) { width: 100%; }

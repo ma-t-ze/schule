@@ -95,6 +95,7 @@ label { display: block; margin: 24px 0 8px; }
 .count, .stem { color: #59665e; }
 .answer-panel { margin: 12px 0; }
 .answer-panel p { margin-bottom: 0; }
+.answer-panel p { white-space: pre-line; }
 .answer-sources { margin-top: 18px; padding-top: 12px; border-top: 1px solid #cdd8d0; font-size: 14px; }
 .answer-sources h5 { font-size: 14px; margin: 14px 0 8px; }
 .answer-sources ul { margin: 0; padding-left: 20px; }

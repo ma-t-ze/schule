@@ -31,6 +31,8 @@ test('oral legacy grades and written grades retain their category', () => {
   assert.equal(gradeType(parsed[1]), 'written')
   assert.deepEqual(gradesForStudent(parsed, 'student-1', 'oral'), [entry])
   assert.deepEqual(gradesForStudent(parsed, 'student-1', 'written'), [written])
+  const practical = { ...entry, id: 'practical-1', type: 'practical' }
+  assert.deepEqual(gradesForStudent(parseGrades(encode([practical]), 'test-class'), 'student-1', 'practical'), [practical])
   assert.deepEqual(gradesForStudent(parsed, 'other-student', 'oral'), [])
   assert.throws(() => parseGrades(encode([{ ...written, type: 'unknown' }]), 'test-class'))
 })

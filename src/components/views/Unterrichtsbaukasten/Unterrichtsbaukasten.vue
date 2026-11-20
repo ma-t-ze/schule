@@ -320,6 +320,35 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
       <div class="builder-columns">
         <aside class="prerequisites column" aria-labelledby="prerequisites-heading">
           <div class="column-heading"><p class="eyebrow">01 · VORGABEN</p><h2 id="prerequisites-heading">Unterrichtsvorbereitung</h2></div>
+          <Panel header="Lehrpläne" toggleable collapsed class="choice-panel">
+            <nav class="lesson-plan-links" aria-label="Lehrpläne">
+              <a href="/lehrplaene/Lehrplan_GMT.pdf" target="_blank" rel="noopener noreferrer">Lehrplan GMT (PDF) ↗</a>
+              <a href="/lehrplaene/Lehrplan_BKGD.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BKGD (PDF) ↗</a>
+              <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
+            </nav>
+          </Panel>
+          <Panel header="Verlaufspläne" toggleable collapsed class="choice-panel">
+            <nav class="lesson-plan-links" aria-label="Verlaufspläne">
+              <RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink>
+              <RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink>
+              <RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink>
+              <RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="Designvorlagen" toggleable collapsed class="choice-panel">
+            <Panel header="Klassenarbeiten" toggleable collapsed class="choice-panel">
+              <nav class="lesson-plan-links" aria-label="Designvorlagen für Klassenarbeiten">
+                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-grd' }">3BKGD1_1_GRD</RouterLink>
+                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg12' }">3TGG1/2</RouterLink>
+              </nav>
+            </Panel>
+            <Panel header="Designvorlage A4" toggleable collapsed class="choice-panel">
+              <nav class="lesson-plan-links" aria-label="Designvorlage A4">
+                <RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink>
+                <RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink>
+              </nav>
+            </Panel>
+          </Panel>
           <Panel header="Klasse" toggleable collapsed class="choice-panel">
             <div class="choice-list"><div v-for="item in classes" :key="item.id" class="checkbox-row"><Checkbox v-model="classIds" :input-id="`class-${item.id}`" :value="item.id" /><label :for="`class-${item.id}`">{{ item.label }}</label></div></div>
           </Panel>
@@ -507,6 +536,8 @@ p { line-height: 1.6; }
 .review { background: #f0f1ed; }
 .proposal { padding: 4px 0; }
 .choice-panel, .prompt-panel, .notes-panel { margin-top: 16px; }
+.lesson-plan-links { display: grid; gap: 12px; }
+.lesson-plan-links a { color: #202d32; line-height: 1.5; overflow-wrap: anywhere; text-underline-offset: 3px; }
 :deep(.p-panel-header) { padding: 14px; font-size: 16px; }
 :deep(.p-panel-content) { padding: 0 14px 16px; }
 .preparation-action { display: flex; align-items: center; gap: 10px; }

@@ -8,18 +8,18 @@ import LocalOralGrades from './LocalOralGrades.vue'
 import { gradesForStudent } from './localOralGrades'
 import { originalPositions, validPositions, migrateSeating, validLayout, normalizePositions, resizeSeating } from './seatingPositions'
 
-const props = defineProps({ classId: { type: String, default: '' } })
+const props = defineProps({ classId: { type: String, default: '' }, embedded: { type: Boolean, default: false } })
 // Both globs live exclusively in the DEV-only route. All personal data is gitignored.
 const datasets = import.meta.glob('../../../local-sitzplaene/klassen/*/klasse.json', { eager: true, import: 'default' })
 const photos = import.meta.glob('../../../local-sitzplaene/klassen/*/*.{png,jpg,jpeg,webp,PNG,JPG,JPEG,WEBP}', { eager: true, query: '?url', import: 'default' })
 const classes = Object.entries(datasets).map(([path, data]) => ({ ...data, directory: path.slice(0, path.lastIndexOf('/')) }))
 const currentClass = computed(() => classes.find(item => item.id === props.classId))
-const seats = ref(originalPositions())
 const oralGrades = ref(null)
-const gradeTypes = [['oral', 'Mündlich'], ['written', 'Schriftlich']]
+const gradeTypes = [['oral', 'M'], ['written', 'S'], ['practical', 'P']]
 function studentGrades(student, type) {
   return gradesForStudent(oralGrades.value?.entries || [], student.id, type)
 }
+const seats = ref(originalPositions())
 // Temporary attendance follows the person, never the seat or persistence payload.
 const presentStudents = ref(new Set())
 function toggleAttendance(position) {
@@ -45,7 +45,9 @@ const revision = ref(0)
 let csrf = ''
 let generation = 0
 const endpoint = '/site-auth/seating.php'
-const storageKey = computed(() => `local-seating:v3:${props.classId}`)
+const storageKey = computed(() => `local-seating:${props.classId === '3tgg2' ? 'v4' : 'v3'}:${props.classId}`)
+// The previous 3TGG2 roster included a student at index 1. Preserve every other seat.
+const migrate3tgg2Positions = positions => positions.map(value => value === 1 ? null : value !== null && value > 1 ? value - 1 : value)
 const studentAt = position => currentClass.value?.students[position]
 async function request(url, options = {}) {
   const response = await fetch(url, { credentials: 'include', cache: 'no-store', signal: AbortSignal.timeout(15000), ...options })
@@ -74,7 +76,8 @@ async function loadServer() {
     if (data.positions !== null) {
       const loadedColumns = data.columns ?? 6
       const loadedRows = data.rows ?? 5
-      const normalized = normalizePositions(data.positions, currentClass.value.students.length)
+      const positions = props.classId === '3tgg2' ? migrate3tgg2Positions(data.positions) : data.positions
+      const normalized = normalizePositions(positions, currentClass.value.students.length)
       if (!validLayout(loadedColumns, loadedRows) || data.positions.length !== loadedColumns * loadedRows || !normalized) throw new Error('Der gespeicherte Sitzplan passt nicht zur lokalen Klasse.')
       seats.value = normalized
       columns.value = draftColumns.value = loadedColumns
@@ -111,10 +114,12 @@ watch(currentClass, () => {
   seats.value = originalPositions(currentClass.value?.students.length || 0, columns.value * rowCount.value)
   if (!currentClass.value) return
   try {
-    const raw = localStorage.getItem(storageKey.value)
+    const oldRaw = props.classId === '3tgg2' ? localStorage.getItem(`local-seating:v3:${props.classId}`) : null
+    const raw = localStorage.getItem(storageKey.value) || oldRaw
     if (raw) {
       const saved = JSON.parse(raw)
-      const normalized = normalizePositions(saved.positions, currentClass.value.students.length)
+      const positions = oldRaw && !localStorage.getItem(storageKey.value) ? migrate3tgg2Positions(saved.positions) : saved.positions
+      const normalized = normalizePositions(positions, currentClass.value.students.length)
       if (!validLayout(saved.columns, saved.rows) || !normalized || normalized.length !== saved.columns * saved.rows) throw new Error('Invalid seating cache')
       seats.value = normalized
       columns.value = draftColumns.value = saved.columns
@@ -278,15 +283,14 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
 
 <template>
   <main class="seating-page">
-    <RouterLink :to="classId ? '/sitzplaene' : '/'">← {{ classId ? 'Sitzpläne' : 'Zur Startseite' }}</RouterLink>
-    <h1>{{ currentClass?.title || 'Sitzpläne' }}</h1>
+    <RouterLink v-if="!embedded" :to="classId ? '/sitzplaene' : '/'">← {{ classId ? 'Sitzpläne' : 'Zur Startseite' }}</RouterLink>
+    <h1 v-if="!embedded">{{ currentClass?.title || 'Sitzpläne' }}</h1>
     <Message severity="info" :closable="false">Lokale Ansicht · nur im Dev-Modus verfügbar</Message>
     <template v-if="!classId">
       <nav class="class-links" aria-label="Klassen mit Sitzplan"><RouterLink v-for="entry in classes" :key="entry.id" :to="`/sitzplaene/${entry.id}`">{{ entry.title }}</RouterLink></nav>
       <p v-if="!classes.length">Noch keine lokalen Klassen vorhanden.</p>
     </template>
     <template v-else-if="currentClass">
-      <LocalOralGrades :key="currentClass.id" ref="oralGrades" :classroom="currentClass" />
       <div class="name-game-start"><Button label="Spiel beginnen" :disabled="!gameStudents.length" @click="startGame" /></div>
       <Dialog v-model:visible="gameOpen" modal header="Namen lernen" :style="{ width: '30rem', maxWidth: 'calc(100vw - 2rem)' }">
         <div v-if="gameStudent" class="name-game">
@@ -299,10 +303,10 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
       </Dialog>
       <form class="layout-controls" @submit.prevent="applyLayout"><div><label for="seat-columns">Spalten</label><InputNumber input-id="seat-columns" v-model="draftColumns" :min="1" :max="20" :use-grouping="false" show-buttons :disabled="loading || saving" /></div><span>×</span><div><label for="seat-rows">Reihen</label><InputNumber input-id="seat-rows" v-model="draftRows" :min="1" :max="20" :use-grouping="false" show-buttons :disabled="loading || saving" /></div><Button label="Raster anwenden" type="submit" :disabled="loading || saving" /></form>
       <Message v-if="layoutError" severity="warn" :closable="false">{{ layoutError }}</Message>
-      <p>{{ columns }} Plätze pro Reihe · {{ rowCount }} Reihen. Ziehe eine Person auf einen anderen Platz. Alternativ: erst den Ausgangsplatz, dann den Zielplatz anklicken. Belegte Plätze werden getauscht.</p>
+      <p>{{ columns }} Plätze pro Reihe · {{ rowCount }} Reihen. Klicke auf eine Person für ihre Noten. Ziehe eine Person auf einen anderen Platz oder wähle „Platz tauschen“ und anschließend den Zielplatz.</p>
       <div class="seat-toolbar"><span role="status">{{ selected !== null ? 'Wähle jetzt den Zielplatz.' : status }}</span><Button v-if="selected !== null" label="Auswahl aufheben" text size="small" @click="selected = null" /></div>
       <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
-      <div class="sync-actions"><Button label="Anwesenheit Lokal speichern" size="small" :loading="attendancePdfBusy" :disabled="loading || saving" @click="saveAttendanceLocally" /><Button label="Exportieren als PDF" size="small" outlined :loading="pdfBusy" :disabled="loading" @click="exportPdf" /><Button label="Auf STRATO speichern" size="small" :loading="saving" :disabled="!ready || loading || !dirty" @click="persist" /><Button label="Serverstand laden" size="small" outlined :loading="loading" :disabled="saving" @click="loadServer" /></div>
+      <div class="sync-actions"><Button label="Anwesenheit Lokal speichern" size="small" :loading="attendancePdfBusy" :disabled="loading || saving" @click="saveAttendanceLocally" /><Button label="Exportieren als PDF" size="small" outlined :loading="pdfBusy" :disabled="loading" @click="exportPdf" /></div>
       <p v-if="attendanceMessage" role="status">{{ attendanceMessage }}</p>
       <Message v-if="attendanceError" severity="error" :closable="false">{{ attendanceError }}</Message>
       <p v-if="pdfMessage" role="status">{{ pdfMessage }}</p>
@@ -310,23 +314,20 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
       <div class="seating-scroll" tabindex="0" role="region" :aria-label="`Sitzplan mit ${columns} Spalten und ${rowCount} Reihen`">
         <div class="seating-grid" :style="{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, minWidth: `${columns * 130}px` }">
           <div v-for="(position, index) in seats" :key="index" class="seat-card" :class="{ empty: !studentAt(position) }">
-          <button class="seat" :class="{ selected: selected === index, empty: !studentAt(position) }" :draggable="!!studentAt(position) && !saving && !loading" :disabled="saving || loading" :aria-pressed="selected === index" :aria-label="`Reihe ${Math.floor(index / columns) + 1}, Platz ${index % columns + 1}: ${studentAt(position)?.name || 'frei'}`" @click="choose(index)" @keydown.esc="selected = null" @dragstart="startDrag($event, index)" @dragend="dragged = null" @dragover.prevent @drop.prevent="drop(index)">
+          <button class="seat" :class="{ selected: selected === index, empty: !studentAt(position) }" :draggable="!!studentAt(position) && !saving && !loading" :disabled="saving || loading" :aria-label="`Reihe ${Math.floor(index / columns) + 1}, Platz ${index % columns + 1}: ${studentAt(position)?.name || 'frei'}`" @click="selected !== null ? choose(index) : studentAt(position) && oralGrades?.showOverview(studentAt(position))" @keydown.esc="selected = null" @dragstart="startDrag($event, index)" @dragend="dragged = null" @dragover.prevent @drop.prevent="drop(index)">
             <span class="seat-number">{{ Math.floor(index / columns) + 1 }} · {{ index % columns + 1 }}</span>
             <template v-if="studentAt(position)"><img :src="photo(studentAt(position))" :alt="studentAt(position).name" draggable="false" /><strong>{{ studentAt(position).name }}</strong></template>
             <span v-else class="empty-label">Freier Platz</span>
           </button>
-          <div v-if="studentAt(position)" class="student-grades">
-            <Button v-for="[type, label] in gradeTypes" :key="type" class="grade-button" text size="small"
-              :aria-label="`${label}e Noten für ${studentAt(position).name} bearbeiten`"
-              @click.stop="oralGrades?.show(studentAt(position), type)">
-              <span class="grade-kind">{{ label }}</span>
-              <span class="grade-values">{{ studentGrades(studentAt(position), type).map(entry => entry.grade).join(' · ') || '—' }}</span>
-            </Button>
+          <div v-if="studentAt(position)" class="grade-preview" aria-label="Notenvorschau">
+            <span v-for="[type, label] in gradeTypes" :key="type"><strong>{{ label }}:</strong> {{ studentGrades(studentAt(position), type).map(entry => entry.grade).join(' · ') || '–' }}</span>
           </div>
+          <Button v-if="studentAt(position)" label="Platz tauschen" text size="small" @click="choose(index)" />
           <Button v-if="studentAt(position)" unstyled type="button" class="attendance-toggle" :class="{ present: presentStudents.has(position) }" :aria-pressed="presentStudents.has(position)" :aria-label="`Anwesenheit für ${studentAt(position).name}`" :title="presentStudents.has(position) ? 'Anwesend – zum Leeren anklicken' : 'Nicht markiert – als anwesend markieren'" @click.stop="toggleAttendance(position)" />
           </div>
         </div>
       </div>
+      <LocalOralGrades :key="currentClass.id" ref="oralGrades" :classroom="currentClass" />
     </template>
     <Message v-else severity="warn" :closable="false">Diese Klasse ist lokal nicht vorhanden.</Message>
   </main>
@@ -365,6 +366,7 @@ h1 { font-size: 28px; font-weight: 500; }
 .seat { width: 100%; height: 100%; box-sizing: border-box; font: inherit; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 180px; padding: 24px 8px 12px; gap: 8px; background: #f4f7f3; border: 0; border-radius: 6px 6px 0 0; color: inherit; cursor: grab; }
 .seat-card:has(.seat.selected) { border-color: #007c4a; }
 .seat.selected { background: #e4f2e9; }
+.grade-preview { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 9px; padding: 4px 6px; font-size: 13px; }
 .seat:focus-visible { outline: 3px solid #007c4a; outline-offset: 2px; }
 .seat-card.empty { border-style: dashed; }
 .seat.empty { cursor: pointer; }

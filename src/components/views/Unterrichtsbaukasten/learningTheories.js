@@ -160,6 +160,21 @@ const learningDimensionSections = [
     { prefix: 'Psychomotorisch', text: '– praktische Bewegungsabläufe / etwas ausführen. Beispiel – eine Schneidebewegung sauber ausführen.' }
   ] }
 ]
+const languageSimplificationSections = [
+  { heading: '1. Maßnahmen zur Textoptimierung', items: [
+    { prefix: 'Inhaltsebene:', text: 'Inhalte logisch und schrittweise aufbauen.' },
+    { prefix: 'Wortebene:', text: 'Einfache Wörter, Fachbegriffe erklären, Nominalisierungen vermeiden, einheitliche Begriffe verwenden.' },
+    { prefix: 'Satzebene:', text: 'Kurze Sätze, einfache Satzstrukturen, klare Verknüpfungen.' },
+    { prefix: 'Textebene:', text: 'Absätze, Zwischenüberschriften, Hervorhebungen.' },
+    { prefix: 'Gestaltungsebene:', text: 'Übersichtliches Layout, gute Lesbarkeit.' }
+  ] },
+  { heading: '2. Einsatz im Unterricht', items: [
+    { prefix: 'Einheitlich:', text: 'Ein optimierter Text für alle.' },
+    { prefix: 'Differenziert:', text: 'Gleicher Inhalt in unterschiedlichen Sprachniveaus.' },
+    { prefix: 'Arbeitsteilig:', text: 'Unterschiedliche Texte mit gemeinsamer Ergebnissicherung.' },
+    { prefix: 'Fachwortschatz:', text: 'Vokabellisten und Beispielsätze.' }
+  ] }
+]
 function methodText(title, sections) {
   return title + '\n\n' + sections.map(section => [
     section.heading || '', section.paragraph || '',
@@ -168,6 +183,15 @@ function methodText(title, sections) {
 }
 
 export const learningTheoryDocuments = [
+  {
+    id: 'sprachliche-vereinfachung',
+    name: 'Sprachliche Vereinfachung',
+    title: 'Sprachliche Vereinfachung',
+    custom: true,
+    sections: languageSimplificationSections,
+    summary: methodText('Sprachliche Vereinfachung', languageSimplificationSections),
+    application: 'Berücksichtige diese vom Nutzer hinterlegten Maßnahmen zur Textoptimierung und ihren Einsatz im Unterricht bei der Planung und Prüfung.'
+  },
   {
     id: 'lehrervortrag',
     name: 'Lehrervortrag',

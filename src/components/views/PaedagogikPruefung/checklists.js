@@ -314,7 +314,7 @@ export const checklists = {
           {
             "id": "paed-sprache-1",
             "statement": "Ich kann erläutern, wie ich Texte vereinfache und damit in meinen Unterrichtsfächern arbeite.",
-            "answer": "Eisele unterscheidet Inhalts- und Gestaltungsebene, Wort-, Satz- und Textebene. Ich führe Inhalte schrittweise ein, nutze hilfreiche Strukturen, vermeide Nominalisierungen, erkläre Fachwörter und benenne dieselbe Sache konsistent. Fachbegriffe bleiben erhalten. Kurze Sätze und klare Verknüpfungen erleichtern das Lesen. Im Unterricht kann ich einen optimierten Text für alle, verschiedene Fassungen desselben Textes oder unterschiedliche Texte mit gemeinsamer Sicherung einsetzen. Fachwortschatz übe ich mit Vokabellisten und Beispielsätzen. Eigenes Beispiel: Aus einem abstrakten Auftrag zur Hierarchisierung wird eine klare Frage zur Reihenfolge der Informationen, deren Beurteilung weiterhin begründet werden muss.",
+            "answer": "1. Maßnahmen zur Textoptimierung\n• Inhaltsebene: Inhalte logisch und schrittweise aufbauen.\n• Wortebene: Einfache Wörter, Fachbegriffe erklären, Nominalisierungen vermeiden, einheitliche Begriffe verwenden.\n• Satzebene: Kurze Sätze, einfache Satzstrukturen, klare Verknüpfungen.\n• Textebene: Absätze, Zwischenüberschriften, Hervorhebungen.\n• Gestaltungsebene: Übersichtliches Layout, gute Lesbarkeit.\n\n2. Einsatz im Unterricht\n• Einheitlich: Ein optimierter Text für alle.\n• Differenziert: Gleicher Inhalt in unterschiedlichen Sprachniveaus.\n• Arbeitsteilig: Unterschiedliche Texte mit gemeinsamer Ergebnissicherung.\n• Fachwortschatz: Vokabellisten und Beispielsätze.\n\n3. Eigenes Beispiel (Gestaltung)\nVorher: „Analysieren Sie die visuelle Hierarchisierung der Informationselemente.“\nNachher: „Welche Informationen fallen zuerst ins Auge? Beschreibe die Reihenfolge und begründe sie.“\n\nGrundsatz: Sprache vereinfachen, fachliche Anforderungen beibehalten.",
             "sources": [
               {
                 "label": "Eisele: Sprache, S. 2–5",
@@ -326,7 +326,7 @@ export const checklists = {
           {
             "id": "paed-sprache-2",
             "statement": "Ich kann begründen, warum sprachliche Vereinfachung sinnvoll sein kann.",
-            "answer": "Unnötige Sprachhürden können fachliches Lernen und den Nachweis vorhandener Fähigkeiten behindern. Verständliche Aufträge ermöglichen mehr Lernenden, sich mit dem eigentlichen Inhalt auseinanderzusetzen. Die Vereinfachung betrifft deshalb zunächst die sprachliche Verpackung, nicht automatisch das Anspruchsniveau. Ich prüfe an den Ergebnissen, ob die Lernenden die Fachinhalte anschließend selbst ausdrücken können.",
+            "answer": "• Sprachhürden abbauen: Fachliches Lernen erleichtern.\n• Chancengerechtigkeit: Mehr Lernenden Zugang zu Inhalten ermöglichen.\n• Anspruchsniveau erhalten: Sprache vereinfachen, nicht den Fachinhalt.\n• Lernerfolg überprüfen: Können SuS Fachinhalte selbstständig ausdrücken?",
             "sources": [
               {
                 "label": "Eisele: Sprache, S. 1 und 7",
@@ -338,7 +338,7 @@ export const checklists = {
           {
             "id": "paed-sprache-3",
             "statement": "Ich kann zum Einwand eines Niveauverlusts durch sprachliche Vereinfachung kritisch Stellung nehmen.",
-            "answer": "Sprachliche Vereinfachung soll nach Eisele zunächst den Zugang zum fachlichen Kern ermöglichen, ohne diesen automatisch abzusenken. Das Skript nennt aber ausdrücklich auch Situationen, in denen Aufgaben für leistungsschwächere Klassen inhaltlich reduziert werden, damit überhaupt Lernen möglich wird. Ich unterscheide daher Sprachentlastung von einer bewussten Änderung des Anforderungsniveaus und mache beide Entscheidungen kenntlich. In einer gemeinsamen Sicherung bleiben die wesentlichen Inhalte für alle zugänglich. So beantworte ich den Einwand „Niveauverlust“ differenziert statt mit einem pauschalen Nein.",
+            "answer": "• Sprachentlastung: Sprachhürden abbauen, fachliches Niveau erhalten.\n• Inhaltliche Reduktion: Anforderungen bei leistungsschwächeren Klassen bewusst anpassen.\n• Differenzierung: Sprachliche Vereinfachung und inhaltliche Reduktion unterscheiden.\n• Gemeinsame Sicherung: Wesentliche Fachinhalte für alle zugänglich machen.\n\nMerksatz: Sprachliche Vereinfachung bedeutet nicht automatisch Niveauverlust.",
             "sources": [
               {
                 "label": "Eisele: Sprache, S. 1 und 3–4",

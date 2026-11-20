@@ -20,7 +20,7 @@ const lessons = [
 </script>
 
 <template>
-  <main class="media-page">
+  <main class="media-page" :class="{ 'overview-page': level === 'overview' }">
     <div class="page-shell">
       <nav class="breadcrumbs" aria-label="Seitennavigation">
         <RouterLink to="/">Schule</RouterLink>
@@ -32,8 +32,9 @@ const lessons = [
         <h1>{{ level === 'overview' ? '3BKGD1_1_MET' : level === 'basics' ? 'Grundlagen' : level === 'indesign' ? 'Adobe InDesign' : level === 'mini' ? 'Mini Tutorials' : 'Übersicht Lerninhalte' }}</h1>
       </header>
       <div v-if="level === 'overview'" class="topic-list">
-        <RouterLink class="topic-link" to="/medientechnik/grundlagen"><span>Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
-        <RouterLink class="topic-link" to="/medientechnik/adobe-indesign"><span>Adobe InDesign</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link basics-link" to="/medientechnik/grundlagen"><span>Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link indesign-link" to="/medientechnik/adobe-indesign"><span>Adobe InDesign</span><span aria-hidden="true">→</span></RouterLink>
+        <RouterLink class="topic-link figma-link" to="/medientechnik/figma"><span>Figma</span><span aria-hidden="true">→</span></RouterLink>
       </div>
       <RouterLink v-else-if="level === 'basics'" class="topic-link" to="/medientechnik/grundlagen/imac"><span>iMac Grundlagen</span><span aria-hidden="true">→</span></RouterLink>
       <div v-else-if="level === 'indesign'" class="topic-list">
@@ -66,4 +67,11 @@ const lessons = [
 
 <style scoped>
 @import './mediaPage.css';
+.overview-page { background: #f1f1f1; }
+.topic-link.basics-link { background: #d9d9d9; border: 1px solid #bdbdbd; border-top: 4px solid #969696; color: #292929; }
+.topic-link.basics-link:hover { background: #c8c8c8; }
+.topic-link.figma-link { background: #fbd2cf; border: 1px solid #f2aaa6; border-top: 4px solid #ee7d7a; color: #361a1a; }
+.topic-link.figma-link:hover { background: #f4aaa8; }
+.topic-link.indesign-link { background: #f5d7e5; border: 1px solid #d8a5be; border-top: 4px solid #a02b62; color: #4b2034; }
+.topic-link.indesign-link:hover { background: #ecc1d5; }
 </style>

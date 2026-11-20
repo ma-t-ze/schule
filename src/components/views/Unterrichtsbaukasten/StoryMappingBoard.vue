@@ -140,7 +140,8 @@ function dropCard(target) {
       </div>
     </div>
     <p v-else class="empty-board">Noch keine Aktivitäten vorhanden. Füge über „Neue Karte“ eine Aktivität hinzu.</p>
-    <details v-if="map.extraRows.length || map.remainder" class="story-notes"><summary>Ergänzende Angaben</summary><section v-for="row in map.extraRows" :key="row.label"><h4>{{ row.label }}</h4><p v-for="value in row.values" :key="value.phase"><strong>{{ value.phase }}: </strong><StoryText :text="value.text" /></p></section><StoryText v-if="map.remainder" :text="map.remainder" /></details>
+    <details v-if="map.extraRows.length" class="story-notes"><summary>Ergänzende Angaben</summary><section v-for="row in map.extraRows" :key="row.label"><h4>{{ row.label }}</h4><p v-for="value in row.values" :key="value.phase"><strong>{{ value.phase }}: </strong><StoryText :text="value.text" /></p></section></details>
+    <section v-if="map.remainder" class="story-notes" aria-label="Ergänzungen zum Storymapping"><template v-for="(line, index) in map.remainder.split('\n').filter(line => line.trim())" :key="index"><h4 v-if="/^#{1,6}\s/.test(line)"><StoryText :text="line.replace(/^#{1,6}\s+/, '')" /></h4><p v-else><StoryText :text="line" /></p></template></section>
     <Dialog v-model:visible="titleDialog" header="Unterrichtstitel bearbeiten" modal :style="{ width: 'min(560px, calc(100vw - 32px))' }">
       <label for="story-title">Titel</label>
       <InputText id="story-title" v-model="editedTitle" fluid autofocus @keydown.enter.prevent="saveTitle" />

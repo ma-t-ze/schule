@@ -2,7 +2,7 @@ import { createHash, randomUUID } from 'node:crypto'
 import { mkdir, readFile, writeFile, rename, unlink, rmdir } from 'node:fs/promises'
 import path from 'node:path'
 import { createLocalAttendanceStore } from './localAttendanceStore.js'
-import { parseGrades, serializeGrades } from '../src/components/views/MainApplication/localOralGrades.js'
+import { parseGrades, serializeGrades, validateWeights, validateFinalGrades } from '../src/components/views/MainApplication/localOralGrades.js'
 
 const digest = text => createHash('sha256').update(text).digest('hex')
 const missing = error => error.code === 'ENOENT'
@@ -18,7 +18,11 @@ export function createLocalGradeStore(root) {
     await roster(classId)
     try {
       const text = await readFile(path.join(directory, `Noten_${classId}.json`), 'utf8')
-      return { entries: parseGrades(text, classId), revision: digest(text) }
+      const weights = JSON.parse(text).weights ?? null
+      const finalGrades = JSON.parse(text).finalGrades ?? {}
+      if (weights !== null && !validateWeights(weights)) throw new Error('Ungültige Gewichtung.')
+      if (!validateFinalGrades(finalGrades)) throw new Error('Ungültige Endnoten.')
+      return { entries: parseGrades(text, classId), revision: digest(text), ...(weights ? { weights } : {}), finalGrades }
     } catch (error) {
       if (missing(error)) return { entries: [], revision: null }
       throw error
@@ -27,6 +31,8 @@ export function createLocalGradeStore(root) {
   async function save(classId, payload) {
     const classroom = await roster(classId)
     const entries = parseGrades(JSON.stringify(payload), classId)
+    if (payload.weights != null && !validateWeights(payload.weights)) throw new Error('Ungültige Gewichtung.')
+    if (payload.finalGrades != null && !validateFinalGrades(payload.finalGrades)) throw new Error('Ungültige Endnoten.')
     await mkdir(directory, { recursive: true, mode: 0o700 })
     const lock = path.join(directory, `.lock-${classId}`)
     try { await mkdir(lock) } catch (error) {
@@ -37,7 +43,7 @@ export function createLocalGradeStore(root) {
     try {
       const existing = await read(classId)
       if (payload.revision !== existing.revision) throw Object.assign(new Error('Die Datei wurde inzwischen geändert. Bitte „Dateistand laden“ anklicken und erneut speichern.'), { status: 409 })
-      const text = serializeGrades(classId, classroom.title, classroom.students, entries)
+      const text = serializeGrades(classId, classroom.title, classroom.students, entries, payload.weights ?? null, payload.finalGrades ?? {})
       temporary = path.join(directory, `.tmp-${randomUUID()}`)
       await writeFile(temporary, text, { flag: 'wx', mode: 0o600 })
       await rename(temporary, path.join(directory, `Noten_${classId}.json`))

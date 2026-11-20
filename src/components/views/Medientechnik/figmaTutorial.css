@@ -1,0 +1,9 @@
+.lesson-page { background: #fff7f6; color: #342424; }
+.eyebrow { color: #964c49; }
+.back, .source, .pager span { color: #755451; }
+dl div { border-color: #f1bfbc; }
+.practice { background: #fff; border-color: #f3c2bf; }
+.check { background: #fbd2cf; }
+.pager a { background: #ffe9e7; border-color: #eeaaa7; }
+.pager a:hover { background: #fbd2cf; }
+a:focus-visible { outline-color: #a34b48; }

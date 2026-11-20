@@ -23,10 +23,15 @@ test('fixed local file, revisions and corrupt-file protection', async () => {
     const second = await store.save('test-class', payload(first.revision, [{ ...entry, grade: '1-', updatedAt: 200 }]))
     assert.notEqual(first.revision, second.revision)
     assert.equal((await store.read('test-class')).entries[0].grade, '1-')
+    const weights = { written: 40, practical: 30, oral: 30 }
+    const weighted = await store.save('test-class', { ...payload(second.revision), weights, finalGrades: { 'student-1': '2' } })
+    assert.deepEqual((await store.read('test-class')).weights, weights)
+    assert.deepEqual((await store.read('test-class')).finalGrades, { 'student-1': '2' })
+    await assert.rejects(store.save('test-class', { ...payload(weighted.revision), weights: { ...weights, oral: 120 } }))
     await assert.rejects(store.read('../test-class'))
-    await assert.rejects(store.save('test-class', payload(second.revision, [{ ...entry, date: 'invalid' }])))
+    await assert.rejects(store.save('test-class', payload(weighted.revision, [{ ...entry, date: 'invalid' }])))
     await writeFile(filename, 'corrupt original')
-    await assert.rejects(store.save('test-class', payload(second.revision)))
+    await assert.rejects(store.save('test-class', payload(weighted.revision)))
     assert.equal(await readFile(filename, 'utf8'), 'corrupt original')
   } finally { await rm(root, { recursive: true, force: true }) }
 })
