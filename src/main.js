@@ -373,15 +373,17 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/medientechnik/figma/tutorial/1',
+    path: '/medientechnik/figma/tutorial/1/:step([1-3])?',
     name: 'medientechnik-figma-tutorial-1',
     component: () => import('./components/views/Medientechnik/FigmaErsterSchritt.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
     meta: { requiresAuth: false }
   },
   {
-    path: '/medientechnik/figma/tutorial/2',
+    path: '/medientechnik/figma/tutorial/2/:step(11|10|[1-9])?',
     name: 'medientechnik-figma-tutorial-2',
     component: () => import('./components/views/Medientechnik/FigmaZweiterSchritt.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
     meta: { requiresAuth: false }
   },
   {
