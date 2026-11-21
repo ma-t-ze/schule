@@ -70,7 +70,7 @@ export const checklists = {
           {
             "id": "paed-planung-5",
             "statement": "Ich kann mein Vorgehen bei der Unterrichtsvorbereitung darstellen und begründet vertreten.",
-            "answer": "Eiseles Planungsmodell umfasst Klären, Entscheiden, Gestalten und Evaluieren. Zunächst kläre ich Sache, Bedingungen sowie Bedeutung und Sinn und grenze die Thematik ein. Dann lege ich Ziele, Lern-Evaluation und Lehr-Lern-Arrangement fest. Aus dem Hauptziel leite ich mit der Frage „Was kann jemand, der das kann?“ Teilziele ab. Im Verlaufsplan bestimme ich Aktivitäten, Sozialformen, Methoden, Medien, Zeiten und Sicherung. Nach der Durchführung vergleiche ich Verlauf und Lernertrag mit der Planung. Ein Zeitbudget und ein zunächst vollständig vorbereitetes Grundgerüst verhindern, dass die Vorbereitung am Einstieg hängen bleibt.",
+            "answer": "Eiseles Planungsmodell umfasst Klären, Entscheiden, Gestalten und Evaluieren. Zunächst kläre ich Sache, Bedingungen sowie Bedeutung und Sinn und grenze die Thematik ein. Dann lege ich das Hauptziel fest und leite daraus mit der Frage „Was kann jemand, der das kann?“ Teilziele ab. Anschließend bestimme ich Lern-Evaluation und Lehr-Lern-Arrangement passend zu den Zielen. Im Verlaufsplan bestimme ich Aktivitäten, Sozialformen, Methoden, Medien, Zeiten und Sicherung. Nach der Durchführung vergleiche ich Verlauf und Lernertrag mit der Planung. Ein Zeitbudget und ein zunächst vollständig vorbereitetes Grundgerüst verhindern, dass die Vorbereitung am Einstieg hängen bleibt.",
             "sources": [
               {
                 "label": "Eisele: Unterrichtsplanung, S. 2–6 und 23–26",

@@ -184,6 +184,28 @@ function methodText(title, sections) {
 
 export const learningTheoryDocuments = [
   {
+    id: 'leistungsdiagnostik',
+    name: 'Leistungsdiagnostik',
+    title: 'Leistungsdiagnostik und Leistungsbewertung',
+    custom: true,
+    sections: [
+      { paragraph: 'Die drei Arten der Leistungsdiagnostik bzw. Leistungsbewertung werden nach dem Zeitpunkt und Zweck der Bewertung unterschieden.' },
+      { columns: ['Art', 'Wann?', 'Wozu?', 'Beispiel'], rows: [
+        ['Diagnostisch', 'Vor dem Lernen', 'Vorwissen und Lernstand feststellen', 'Eingangstest'],
+        ['Formativ', 'Während des Lernens', 'Lernfortschritt erkennen und fördern', 'Feedback zu einem Entwurf'],
+        ['Summativ', 'Nach dem Lernen', 'Lernergebnis abschließend bewerten', 'Benotete Klassenarbeit']
+      ] },
+      { heading: 'Merksatz', items: [
+        { prefix: 'Diagnostisch:', text: 'Wo stehen die Schüler?' },
+        { prefix: 'Formativ:', text: 'Wie können sie sich verbessern?' },
+        { prefix: 'Summativ:', text: 'Was haben sie gelernt?' }
+      ] },
+      { paragraph: 'Die Unterscheidung hilft Lehrkräften, Lernstände zu erkennen, den Unterricht anzupassen und Leistungen am Ende zu bewerten.' }
+    ],
+    summary: 'Die drei Arten der Leistungsdiagnostik bzw. Leistungsbewertung unterscheiden sich nach Zeitpunkt und Zweck: Diagnostisch vor dem Lernen – Vorwissen und Lernstand feststellen, z. B. Eingangstest. Formativ während des Lernens – Lernfortschritt erkennen und fördern, z. B. Feedback zu einem Entwurf. Summativ nach dem Lernen – Lernergebnis abschließend bewerten, z. B. benotete Klassenarbeit. Merksatz: Diagnostisch: Wo stehen die Schüler? Formativ: Wie können sie sich verbessern? Summativ: Was haben sie gelernt? Die Unterscheidung hilft Lehrkräften, Lernstände zu erkennen, den Unterricht anzupassen und Leistungen am Ende zu bewerten.',
+    application: 'Berücksichtige bei der Unterrichtsplanung passende diagnostische, formative und summative Möglichkeiten entsprechend Lernziel und Unterrichtsphase.'
+  },
+  {
     id: 'sprachliche-vereinfachung',
     name: 'Sprachliche Vereinfachung',
     title: 'Sprachliche Vereinfachung',

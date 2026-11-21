@@ -8,12 +8,12 @@ test('six taxonomy levels offer unique selectable goals', () => {
   assert(cognitiveGoalLevels.every(level => level.goals.length > 0))
 })
 test('only valid selected goals enter the overview and AI context', () => {
-  const ids = ['begriffe-erklaeren', 'ergebnis-beurteilen', 'unknown', 'begriffe-erklaeren']
-  assert.deepEqual(validCognitiveGoalIds(ids), ['begriffe-erklaeren', 'ergebnis-beurteilen'])
+  const ids = ['anderson-verstehen-1', 'anderson-bewerten-1', 'unknown', 'anderson-verstehen-1']
+  assert.deepEqual(validCognitiveGoalIds(ids), ['anderson-verstehen-1', 'anderson-bewerten-1'])
   assert.equal(selectedCognitiveGoals(ids).length, 2)
   const context = cognitiveGoalContext(ids)
-  assert(context.includes('Verstehen: Begriffe mit eigenen Worten erklären'))
-  assert(context.includes('Bewerten: Ein Ergebnis anhand von Kriterien beurteilen'))
-  assert(!context.includes('Fachbegriffe nennen'))
+  assert(context.includes('Verstehen: erklären'))
+  assert(context.includes('Bewerten: beurteilen'))
+  assert(!context.includes('Erinnern: nennen'))
   assert.equal(cognitiveGoalContext([]), '')
 })

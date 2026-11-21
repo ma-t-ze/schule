@@ -198,6 +198,28 @@ const tgg12Dates = 5
           <RouterLink :to="{ name: 'unterrichtsbaukasten' }">Unterrichtsbaukasten</RouterLink>
           <a href="/material/unterricht-planen/Vorlage_Langform.docx" download="Vorlage_Langform.docx">Vorlage Langform (Word)</a>
         </nav>
+          <Panel header="Verlaufspläne" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="Verlaufspläne">
+              <RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink>
+              <RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink>
+              <RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink>
+              <RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="Designvorlagen" toggleable collapsed class="class-subpanel">
+            <Panel header="Klassenarbeiten" toggleable collapsed class="class-subpanel">
+              <nav class="link-list" aria-label="Designvorlagen für Klassenarbeiten">
+                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-grd' }">3BKGD1_1_GRD</RouterLink>
+                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg12' }">3TGG1/2</RouterLink>
+              </nav>
+            </Panel>
+            <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
+              <nav class="link-list" aria-label="Designvorlage A4">
+                <RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink>
+                <RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink>
+              </nav>
+            </Panel>
+          </Panel>
       </Panel>
       <Panel header="Prüfungen" toggleable collapsed>
         <nav class="link-list" aria-label="Prüfungsunterlagen">
