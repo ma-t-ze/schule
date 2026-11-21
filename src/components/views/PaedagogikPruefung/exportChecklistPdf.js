@@ -1,9 +1,12 @@
 import { jsPDF } from 'jspdf'
 import { checklists } from './checklists.js'
+import { checklistKeyPoints } from './checklistKeyPoints.js'
+import { checklistCustomExport } from './checklistCustomExport.js'
+import { cognitiveGoalLevels } from '../Unterrichtsbaukasten/cognitiveGoals.js'
 
 const filenames = {
-  paedagogik: 'Ich_kann_Liste_Paedagogik_mit_Antworten.pdf',
-  psychologie: 'Ich_kann_Liste_Paed_Psychologie_mit_Antworten.pdf'
+  paedagogik: 'Ich_kann_Liste_Paedagogik_mit_Stichwortschemata.pdf',
+  psychologie: 'Ich_kann_Liste_Paed_Psychologie_mit_Stichwortschemata.pdf'
 }
 
 // Export the complete data, independently of search results and collapsed panels.
@@ -15,7 +18,7 @@ export function createChecklistPdf(subject, fonts) {
   pdf.addFont('Jost-Regular.ttf', 'Jost', 'normal')
   pdf.addFileToVFS('Jost-Medium.ttf', fonts.bold)
   pdf.addFont('Jost-Medium.ttf', 'Jost', 'bold')
-  pdf.setProperties({ title: `${checklist.title} – Fragen und Antworten`, author: 'Matthias Heckel' })
+  pdf.setProperties({ title: `${checklist.title} – Stichwortschemata`, author: 'Matthias Heckel' })
 
   const left = 18, width = 174, top = 26, bottom = 276
   let y = top
@@ -44,7 +47,7 @@ export function createChecklistPdf(subject, fonts) {
 
   write(checklist.title, { size: 22, weight: 'bold', gap: 3, color: [0, 108, 65] })
   const total = checklist.groups.reduce((sum, group) => sum + group.items.length, 0)
-  write(`${total} Ich-kann-Aussagen mit vollständigen Musterantworten`, { size: 12, gap: 7 })
+  write(`${total} Ich-kann-Aussagen mit verfügbaren Stichwortschemata`, { size: 12, gap: 7 })
   write(checklist.intro, { size: 10 })
   write(checklist.notice || 'Die Aussagen stammen aus der Vorlage. Die Antworten sind eigene Lernhilfen. Ergänze deine tatsächlichen Unterrichtserfahrungen und Beispiele.', { size: 10 })
   if (checklist.reviewNote) write(checklist.reviewNote, { size: 9 })
@@ -61,18 +64,34 @@ export function createChecklistPdf(subject, fonts) {
     for (const note of checklist.scopeNotes) write(`• ${note}`, { size: 10, gap: 2 })
   }
 
-  function itemDetails(item) {
-    return [
-      ...(item.basisLabel ? [{ text: item.basisLabel }] : []),
-      ...(item.sourceNote ? [{ text: `Hinweis zur Quelle: ${item.sourceNote}` }] : []),
-      ...(item.sources || []).map(source => ({ text: `Fundstelle: ${source.label}`, href: source.href }))
-    ]
+  function schema(item) {
+    if (item.id === 'paed-methoden-4') return `Fragend-entwickelnder Unterricht
+• Gesprächsziel transparent machen
+• Offene, weite Einzelfragen stellen
+• Denkzeit geben
+• Viele beteiligen
+• Suggestiv- und Kettenfragen vermeiden
+  – Immer enger hintereinander fragen, um auf eine bestimmte Antwort zu kommen
+  – Besser: weite Fragen stellen und verschiedene Antworten zulassen
+Gedanke: Schüler denken nach und beschreiben ihre Erkenntnisse in Alltagssprache. Ich ordne diese ein und gebe anschließend die Fachbegriffe. Schüler sollen Begriffe nicht erraten.
+• Qualifiziert rückmelden
+• Ergebnisse am Ende sichern
+Zusätzlich: Leitfrage formulieren. Das Gespräch soll lebendig bleiben.
+Grundgedanke: Schüler denken nach und beschreiben ihre Erkenntnisse allgemein. Ich lenke das Gespräch und gebe die Fachbegriffe. Schüler sollen Begriffe nicht erraten.`
+    if (item.id === 'paed-methoden-5') {
+      const points = checklistKeyPoints[item.id]
+      return ['Lehrervortrag', ...points.slice(0, 4).map(([key, text]) => `• ${key}: ${text}`), 'Lehrergespräch', ...points.slice(4).map(([key, text]) => `• ${key}: ${text}`)].join('\n')
+    }
+    const custom = checklistCustomExport[item.id]
+    const points = custom || checklistKeyPoints[item.id]?.map(([key, text]) => `• ${key}: ${text}`).join('\n')
+    if (!points) return 'Für diese Aussage ist noch kein Stichwortschema vorhanden.'
+    if (item.id !== 'paed-planung-4') return points
+    return `${points}\n\nTaxonomiestufen nach Anderson und Krathwohl:\n${cognitiveGoalLevels.map(level => `${level.level}. ${level.name}: ${level.goals.map(goal => goal.text).join(', ')}`).join('\n')}\nMerksatz: Die kognitiven Anforderungen steigen vom einfachen Wiedergeben von Wissen bis zum eigenständigen Entwickeln neuer Lösungen.\n\nEPA-Anforderungsbereiche:\n• AFB I – Reproduktion: Gelerntes Wissen wiedergeben; drei Gestaltungsprinzipien nennen.\n• AFB II – Reorganisation und Transfer: Wissen anwenden und Zusammenhänge untersuchen; ein Plakat hinsichtlich seiner Gestaltungsprinzipien analysieren.\n• AFB III – Reflexion und Problemlösung: Eigenständig Lösungen entwickeln und begründet beurteilen; ein Plakat anhand definierter Anforderungen bewerten und Verbesserungen entwickeln.`
   }
   function itemHeight(item, number) {
     const questionHeight = lines(`${number}. ${item.statement}`, 11, 'bold').length * 11 * 0.3528 * 1.42
-    const answerHeight = lines(item.answer).length * 10.5 * 0.3528 * 1.42
-    const detailsHeight = itemDetails(item).reduce((sum, detail) => sum + lines(detail.text, 9).length * 9 * 0.3528 * 1.42 + 2, 0)
-    return { questionHeight, blockHeight: questionHeight + answerHeight + detailsHeight + 23 }
+    const schemaHeight = schema(item).split('\n').reduce((sum, line) => sum + lines(line || ' ', 10.5).length * 10.5 * 0.3528 * 1.42, 0)
+    return { questionHeight, blockHeight: questionHeight + schemaHeight + 18 }
   }
 
   let number = 0
@@ -87,14 +106,12 @@ export function createChecklistPdf(subject, fonts) {
     for (const item of group.items) {
       const statement = `${++number}. ${item.statement}`
       const { questionHeight, blockHeight } = itemHeight(item, number)
-      const details = itemDetails(item)
       // Keep a question and answer together whenever they fit on one page.
       const required = blockHeight <= bottom - top ? blockHeight : questionHeight + 22
       if (y + required > bottom) nextPage()
       write(statement, { size: 11, weight: 'bold', gap: 2 })
-      write('Musterantwort', { size: 9, weight: 'bold', gap: 1, color: [83, 100, 90] })
-      write(item.answer, { gap: 4 })
-      for (const detail of details) write(detail.text, { size: 9, gap: 2, color: [83, 100, 90], href: detail.href })
+      write('Stichwortschema', { size: 9, weight: 'bold', gap: 1, color: [83, 100, 90] })
+      for (const line of schema(item).split('\n')) write(line || ' ', { gap: 1 })
       y += 5
     }
   }
@@ -108,7 +125,7 @@ export function createChecklistPdf(subject, fonts) {
     pdf.text(checklist.title, left, 14)
     pdf.setDrawColor(205, 216, 208)
     pdf.line(left, 18, left + width, 18)
-    pdf.text('Ich-kann-Liste · Fragen und Antworten', left, 287)
+    pdf.text('Ich-kann-Liste · Stichwortschemata', left, 287)
     pdf.text(`${page} / ${pages}`, left + width, 287, { align: 'right' })
   }
   return pdf

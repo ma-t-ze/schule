@@ -101,6 +101,20 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/designvorlagen/klassenarbeit/3tgg2',
+    name: 'designvorlage-klassenarbeit-tgg2',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageKlassenarbeitTGG12.vue'),
+    props: { tgg2: true },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/designvorlagen/a4/3tgg2',
+    name: 'designvorlage-a4-tgg2',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageA4.vue'),
+    props: { tgg2: true },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/pruefungen/paedagogik-psychologie',
     name: 'pruefung-paedagogik-psychologie',
     component: () => import('./components/views/PaedagogikPruefung/PaedagogikPruefung.vue'),
@@ -181,6 +195,12 @@ const routes = [
     name: '3tgg2-design-thinking-admin',
     component: () => import('./components/views/TGG2/DesignThinkingAdmin.vue'),
     meta: { requiresAuth: false }
+  },
+  {
+    path: '/3tgg2/klassenarbeit-01',
+    name: '3tgg2-klassenarbeit-01',
+    component: () => import('./components/views/TGG2/Klassenarbeit01.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/3tgg2',

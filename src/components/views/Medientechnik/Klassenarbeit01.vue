@@ -8,7 +8,7 @@ const unlocked = ref(false)
 const accessCode = ref('')
 const accessError = ref('')
 async function unlock() {
-  if (accessCode.value !== '17112026_MET') {
+  if (accessCode.value !== '21112026_MET') {
     accessError.value = 'Der Code ist nicht richtig. Versuche es erneut.'
     return
   }

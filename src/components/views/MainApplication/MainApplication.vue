@@ -121,7 +121,10 @@ const tgg12Dates = 5
           <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-spiel' }">Spiel, Repräsentationsformen von Zeichen</RouterLink><RouterLink :to="{ name: '3tgg12-ikon-und-symbol' }">Ikon und Symbol</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink></nav>
           </Panel>
-          <RouterLink v-for="[label, name] in classes.filter(([, route]) => route !== '3tgg12')" :key="name" :to="{ name }">{{ label }}</RouterLink>
+          <Panel header="3TGG2" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="3TGG2"><RouterLink :to="{ name: '3tgg2' }">Themenübersicht</RouterLink><RouterLink :to="{ name: '3tgg2-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
+          </Panel>
+          <RouterLink v-for="[label, name] in classes.filter(([, route]) => route !== '3tgg12' && route !== '3tgg2')" :key="name" :to="{ name }">{{ label }}</RouterLink>
         </nav>
       </Panel>
       <Panel header="Archiv" toggleable collapsed>
@@ -211,11 +214,13 @@ const tgg12Dates = 5
               <nav class="link-list" aria-label="Designvorlagen für Klassenarbeiten">
                 <RouterLink :to="{ name: 'designvorlage-klassenarbeit-grd' }">3BKGD1_1_GRD</RouterLink>
                 <RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg12' }">3TGG1/2</RouterLink>
+                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg2' }">3TGG2</RouterLink>
               </nav>
             </Panel>
             <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
               <nav class="link-list" aria-label="Designvorlage A4">
                 <RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink>
+                <RouterLink :to="{ name: 'designvorlage-a4-tgg2' }">3TGG2</RouterLink>
                 <RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink>
               </nav>
             </Panel>

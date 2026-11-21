@@ -36,6 +36,22 @@ const groups = computed(() => {
     items: group.items.map(item => ({ ...item, number: ++number })).filter(item => `${group.title} ${item.statement} ${item.answer} ${item.sourceNote || ''} ${item.sources?.map(source => source.label).join(' ') || ''}`.toLocaleLowerCase('de').includes(term))
   })).filter(group => group.items.length)
 })
+function structuredSchema(item) {
+  const points = checklistKeyPoints[item.id] || []
+  const leadLabels = ['Grundidee', 'Definition', 'Ausgangspunkt', 'IEGL', 'AVEM', 'Untersuchung', 'Bestandsaufnahme', 'Wissensnetz', 'Repräsentationsformen', 'Sensorischer Speicher', 'Belastungen', 'Unterricht', 'Enger Gewaltbegriff', 'Personale Faktoren', 'Wahrnehmung']
+  const intro = points.length && leadLabels.includes(points[0][0]) ? points[0] : null
+  const main = [], examples = [], notes = []
+  let takeaway = ''
+  for (const point of points) {
+    if (point === intro) continue
+    const [label, text] = point
+    if (label === 'Merksatz') takeaway = text
+    else if (label.startsWith('Beispiel') || label === 'Unterrichtsbeispiel') examples.push(point)
+    else if (label === 'Wichtig' || label === 'Einordnung' || label === 'Grenze') notes.push(point)
+    else main.push(point)
+  }
+  return { intro, main, examples, notes, takeaway }
+}
 function sources(group) {
   const catalog = props.subject === 'paedagogik' ? topics : psychologyTopics
   const links = [...(catalog.find(topic => topic.id === group.topicId)?.sourceLinks || []), ...(group.extraSources || [])]
@@ -48,8 +64,8 @@ function sources(group) {
     <h2>{{ checklist.title }}</h2>
     <p>{{ checklist.intro }}</p>
     <div class="export-actions">
-      <Button :label="subject === 'paedagogik' ? 'Pädagogik: PDF mit allen Antworten' : 'Päd. Psychologie: PDF mit allen Antworten'" :loading="exporting" :disabled="exporting" @click="exportPdf" />
-      <p>Der Export enthält alle {{ total }} Aussagen und Antworten, auch bei aktiver Suche.</p>
+      <Button :label="subject === 'paedagogik' ? 'Pädagogik: PDF mit Stichwortschemata' : 'Päd. Psychologie: PDF mit Stichwortschemata'" :loading="exporting" :disabled="exporting" @click="exportPdf" />
+      <p>Der Export enthält alle {{ total }} Aussagen und vorhandenen Stichwortschemata, auch bei aktiver Suche.</p>
     </div>
     <Message v-if="exportError" severity="error" :closable="false">{{ exportError }}</Message>
     <a :href="checklist.original" target="_blank" rel="noopener noreferrer">{{ checklist.originalLabel || 'Originale Ich-kann-Liste öffnen (DOCX)' }}</a>
@@ -242,6 +258,58 @@ function sources(group) {
             <p><strong>Meine Position:</strong> Ich befürworte Inklusion, wenn sie tatsächliche Teilhabe und individuelle Förderung ermöglicht. Dafür müssen aber die notwendigen Rahmenbedingungen geschaffen werden.</p>
             <p><strong>Merksatz:</strong> Inklusion ist nicht allein die gemeinsame Anwesenheit, sondern die Möglichkeit, gemeinsam erfolgreich zu lernen.</p>
           </template>
+          <template v-else-if="item.id === 'klassenfuehrung-342-0'">
+            <ul><li><strong>Unterrichtsstörung:</strong> Der Lehr-Lern-Prozess wird beeinträchtigt.<br /><em>Beispiel:</em> Der Beamer fällt aus oder ein Arbeitsauftrag ist unverständlich.</li><li><strong>Disziplinproblem:</strong> Schüler verstoßen gegen Regeln des Zusammenlebens.<br /><em>Beispiel:</em> Ein Schüler beleidigt einen Mitschüler oder redet trotz Ermahnung ständig dazwischen.</li><li><strong>Einordnung:</strong> Nicht jede Unterrichtsstörung ist ein Disziplinproblem.<br /><em>Beispiel:</em> Schüler arbeiten nicht, weil sie die Aufgabe nicht verstanden haben.</li></ul>
+          </template>
+          <template v-else-if="item.id === 'motivation-316-2'">
+            <h5>Leistungsmotivation</h5>
+            <p><strong>Leistungsmotivation</strong> ist der Antrieb, die eigene Leistungsfähigkeit an einem <strong>Gütemaßstab</strong> zu messen und zu verbessern.</p>
+            <ul><li><strong>Zielgerichtetheit:</strong> Ein bestimmtes Leistungsziel verfolgen.</li><li><strong>Intensität:</strong> Sich für das Ziel anstrengen.</li><li><strong>Ausdauer:</strong> Auch bei Schwierigkeiten dranbleiben.</li><li><strong>Selbstbewertung:</strong> Die eigene Leistung beurteilen und Fortschritte erkennen.</li></ul>
+            <p><strong>Beispiel:</strong> Eine Schülerin überarbeitet ihren Entwurf mehrfach, weil sie ihre Gestaltung verbessern möchte.</p>
+            <p><strong>Merksatz:</strong> Leistungsmotivation bedeutet, etwas gut machen und die eigene Leistung verbessern zu wollen.</p>
+          </template>
+          <template v-else-if="item.id === 'motivation-493-5'">
+            <h5>Kausalattribution nach Weiner</h5>
+            <p><strong>Kausalattribution bedeutet:</strong> Wie erkläre ich mir meinen Erfolg oder Misserfolg?</p>
+            <p>Weiner unterscheidet drei Dimensionen:</p>
+            <ul><li><strong>Intern / extern:</strong> Liegt die Ursache bei mir oder außerhalb?</li><li><strong>Stabil / variabel:</strong> Bleibt die Ursache bestehen oder kann sie sich verändern?</li><li><strong>Kontrollierbar / unkontrollierbar:</strong> Kann ich die Ursache selbst beeinflussen?</li></ul>
+            <div class="table-scroll"><table><thead><tr><th scope="col"></th><th scope="col">Stabil</th><th scope="col">Variabel</th></tr></thead><tbody><tr><th scope="row">Intern</th><td>„Ich bin nicht begabt.“</td><td>„Ich habe zu wenig gelernt.“</td></tr><tr><th scope="row">Extern</th><td>„Die Lehrkraft erklärt immer schlecht.“</td><td>„Die Arbeit war diesmal zu schwer.“</td></tr></tbody></table></div>
+            <p><strong>Bedeutung für die Motivation:</strong> Wer einen Misserfolg auf veränderbare Ursachen zurückführt, bleibt eher motiviert, es erneut zu versuchen.</p>
+            <p><strong>Für den Unterricht:</strong> Schüler sollen lernen, Misserfolge möglichst realistisch zu erklären und beeinflussbare Ursachen zu erkennen, statt grundsätzlich an ihren Fähigkeiten zu zweifeln.</p>
+            <p><strong>Merksatz:</strong> Nicht nur Erfolg oder Misserfolg beeinflussen die Motivation, sondern auch, wie ich mir ihre Ursachen erkläre.</p>
+          </template>
+          <template v-else-if="item.id === 'motivation-371-7'">
+            <h5>Die beiden Leistungsmotivausprägungen</h5>
+            <p>Das Modell unterscheidet <strong>erfolgszuversichtliche</strong> und <strong>misserfolgsvermeidende</strong> Menschen.</p>
+            <div class="table-scroll"><table><thead><tr><th scope="col"></th><th scope="col">Erfolgszuversichtlich</th><th scope="col">Misserfolgsvermeidend</th></tr></thead><tbody>
+              <tr><th scope="row">Aufgabenwahl</th><td>Mittelschwere, realistische Aufgaben</td><td>Sehr leichte oder sehr schwere Aufgaben</td></tr>
+              <tr><th scope="row">Erfolg</th><td>„Ich habe mich angestrengt und etwas gelernt.“</td><td>„Ich hatte Glück.“</td></tr>
+              <tr><th scope="row">Misserfolg</th><td>„Ich muss mich besser vorbereiten.“</td><td>„Ich bin einfach nicht begabt.“</td></tr>
+              <tr><th scope="row">Gefühle</th><td>Freude über Erfolg überwiegt</td><td>Angst vor Misserfolg überwiegt</td></tr>
+            </tbody></table></div>
+            <p><strong>Merksatz:</strong> Erfolgszuversichtliche wollen Erfolg erreichen. Misserfolgsvermeidende wollen vor allem Misserfolg vermeiden.</p>
+            <p>Das sind <strong>Motivausprägungen</strong>, keine unveränderlichen Persönlichkeitseigenschaften.</p>
+          </template>
+          <template v-else-if="item.id === 'motivation-376-8'">
+            <h5>Bezugsnormen und ihre Bedeutung für die Motivation</h5>
+            <p><strong>Bezugsnormen</strong> sind Maßstäbe, mit denen Schülerleistungen verglichen und bewertet werden.</p>
+            <div class="table-scroll"><table><thead><tr><th scope="col">Bezugsnorm</th><th scope="col">Erklärung</th><th scope="col">Beispiel</th></tr></thead><tbody>
+              <tr><th scope="row">Sozial</th><td>Vergleich mit anderen Schülern</td><td>„Du bist besser als der Klassendurchschnitt.“</td></tr>
+              <tr><th scope="row">Sachlich (Sachnorm)</th><td>Vergleich mit festgelegten Anforderungen</td><td>„Du hast 8 von 10 Kriterien erfüllt.“</td></tr>
+              <tr><th scope="row">Individuell</th><td>Vergleich mit der eigenen früheren Leistung</td><td>„Du hast dich deutlich verbessert.“</td></tr>
+            </tbody></table></div>
+            <h5>Bedeutung für die Motivation:</h5>
+            <ul><li><strong>Individuell:</strong> Macht Lernfortschritte sichtbar und stärkt die Erfolgserwartung.</li><li><strong>Sozial:</strong> Kann motivieren, aber schwächere Schüler auch entmutigen.</li><li><strong>Sachlich (Sachnorm):</strong> Macht Anforderungen und Lernziele transparent.</li></ul>
+            <p><strong>Merksatz:</strong> Individuelle Bezugsnormen fördern die Motivation durch sichtbare Fortschritte. Bei der Benotung bleiben fachliche Kriterien entscheidend.</p>
+          </template>
+          <template v-else-if="subject === 'psychologie' && item.number >= 33">
+            <h5>{{ item.statement.replace(/^\s*[.…]+\s*/, '').replace(/\s+/g, ' ').trim() }}</h5>
+            <p v-if="structuredSchema(item).intro"><strong>{{ structuredSchema(item).intro[0] }}:</strong> {{ structuredSchema(item).intro[1] }}</p>
+            <ul v-if="structuredSchema(item).main.length"><li v-for="[feature, explanation] in structuredSchema(item).main" :key="feature"><strong>{{ feature }}:</strong> {{ explanation }}</li></ul>
+            <div v-for="[feature, explanation] in structuredSchema(item).examples" :key="feature" class="schema-extra"><strong>{{ feature }}:</strong> {{ explanation }}</div>
+            <div v-for="[feature, explanation] in structuredSchema(item).notes" :key="feature" class="schema-extra"><strong>{{ feature }}:</strong> {{ explanation }}</div>
+            <p v-if="structuredSchema(item).takeaway" class="schema-extra"><strong>Merksatz:</strong> {{ structuredSchema(item).takeaway }}</p>
+          </template>
           <ul v-else><li v-for="[feature, explanation] in checklistKeyPoints[item.id]" :key="feature"><strong>{{ feature }}:</strong> {{ explanation }}</li></ul>
         </div>
         <div v-if="item.id === 'paed-planung-4'" class="taxonomy-reference">
@@ -292,6 +360,7 @@ label { display: block; margin: 24px 0 8px; }
 .key-points { margin-bottom: 24px; padding: 16px 18px; background: #f1f6f2; border-radius: 10px; }
 .key-points ul { margin: 0; padding-left: 20px; }
 .key-points li + li { margin-top: 6px; }
+.schema-extra { margin-top: 14px; line-height: 1.65; }
 .key-points h5 { margin: 18px 0 6px; font-size: 15px; }
 .key-points p { margin: 0 0 10px; }
 .key-points h5 + p { margin-bottom: 12px; }

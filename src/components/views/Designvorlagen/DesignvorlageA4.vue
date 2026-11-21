@@ -5,8 +5,10 @@ import Message from 'primevue/message'
 import regularFont from '../../../assets/fonts/Jost-Regular.ttf?url'
 import mediumFont from '../../../assets/fonts/Jost-Medium.ttf?url'
 
+const props = defineProps({ tgg2: { type: Boolean, default: false } })
 const subject = 'GESTALTUNGS- UND MEDIENTECHNIK'
-const byline = 'Eingangsklasse | CHS | Heckel'
+const className = props.tgg2 ? '3TGG2' : '3TGG1/2'
+const byline = `${props.tgg2 ? 'Jahrgangsstufe 1' : 'Eingangsklasse'} | CHS | Heckel`
 const container = ref(null)
 const paper = ref(null)
 const scale = ref(1)
@@ -39,7 +41,7 @@ async function downloadPdf() {
     canvas.width = 640; canvas.height = 220
     canvas.getContext('2d').drawImage(logo, 0, 0, 640, 220)
     const pdf = new jsPDF({ unit: 'mm', format: 'a4', compress: true })
-    pdf.setProperties({ title: 'Designvorlage A4 · 3TGG1/2' })
+    pdf.setProperties({ title: `Designvorlage A4 · ${className}` })
     pdf.addFileToVFS('Jost-Regular.ttf', regular); pdf.addFont('Jost-Regular.ttf', 'Jost', 'normal')
     pdf.addFileToVFS('Jost-Medium.ttf', medium); pdf.addFont('Jost-Medium.ttf', 'Jost', 'bold')
     pdf.setTextColor(32, 45, 50)
@@ -57,9 +59,9 @@ async function downloadPdf() {
     pdf.line(137, 49, 198, 49)
     pdf.setDrawColor(211, 218, 214); pdf.line(12, 281, 198, 281)
     pdf.setFontSize(7.5)
-    pdf.text('3TGG1/2 · Gestaltungs- und Medientechnik', 12, 287)
+    pdf.text(`${className} · Gestaltungs- und Medientechnik`, 12, 287)
     pdf.text('1 / 1', 198, 287, { align: 'right' })
-    pdf.save('Designvorlage_A4_3TGG1_2.pdf')
+    pdf.save(props.tgg2 ? 'Designvorlage_A4_3TGG2.pdf' : 'Designvorlage_A4_3TGG1_2.pdf')
   } catch { error.value = 'Die PDF konnte nicht erstellt werden. Bitte erneut versuchen.' }
   finally { busy.value = false }
 }
@@ -69,7 +71,7 @@ async function downloadPdf() {
   <main class="design-template-page">
     <div class="screen-only">
       <RouterLink to="/">← Zur Startseite</RouterLink>
-      <h1>Designvorlage A4 · 3TGG1/2</h1>
+      <h1>Designvorlage A4 · {{ className }}</h1>
       <div class="template-actions"><Button label="Als PDF herunterladen" :loading="busy" @click="downloadPdf" /></div>
       <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
       <p class="preview-label">Vorschau · DIN A4, Hochformat · 210 × 297 mm</p>
@@ -87,7 +89,7 @@ async function downloadPdf() {
             <div><span>Zeitvorgabe:</span><span class="write-line"></span></div>
           </div>
           <div class="worksheet-body"></div>
-          <footer class="worksheet-footer"><span>3TGG1/2 · Gestaltungs- und Medientechnik</span><span>1 / 1</span></footer>
+          <footer class="worksheet-footer"><span>{{ className }} · Gestaltungs- und Medientechnik</span><span>1 / 1</span></footer>
         </article>
       </div>
     </div>

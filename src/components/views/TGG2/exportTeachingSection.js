@@ -58,6 +58,21 @@ export function collectTeachingBlocks(root) {
       if (value) blocks.push({ kind: 'heading', level: Number(tag[1]), text: value })
       return
     }
+    if (el.matches('.learning-objectives > li')) {
+      const title = el.querySelector(':scope > strong')
+      const index = [...el.parentElement.children].indexOf(el) + 1
+      if (title) blocks.push({ kind: 'objective', text: `${index}. ${text(title)}` })
+      for (const child of el.children) if (child !== title) visit(child, inCard)
+      return
+    }
+    if (el.matches('.exam-notice')) {
+      blocks.push({ kind: 'notice', text: text(el) })
+      return
+    }
+    if (el.matches('.term-content > .eyebrow')) {
+      blocks.push({ kind: 'eyebrow', text: text(el) })
+      return
+    }
     if (el.matches('.term-definition')) {
       for (const line of el.textContent.split(/\n+/).map(value => value.trim()).filter(Boolean)) blocks.push({ kind: 'paragraph', text: line })
       return
@@ -120,6 +135,7 @@ export async function downloadTeachingSection(root, section) {
   const ink = [23, 43, 68], blue = [33, 86, 160], pale = section.yellow ? [255, 246, 210] : [229, 239, 252]
   let y = 40
   function header() {
+    if (section.yellow) { pdf.setFillColor(255, 252, 240); pdf.rect(0, 0, 210, 297, 'F') }
     pdf.setFillColor(...pale); pdf.roundedRect(10, 9, 190, 24, 3, 3, 'F')
     pdf.setFillColor(...(section.yellow ? [216, 178, 61] : [54, 116, 183])); pdf.rect(10, 9, 190, 1.2, 'F')
     pdf.setFont('Jost', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...ink)
@@ -165,12 +181,13 @@ export async function downloadTeachingSection(root, section) {
       continue
     }
     const heading = block.kind === 'heading'
-    const size = heading ? (block.level === 2 ? 16 : block.level === 3 ? 13 : 11.5) : 11
-    pdf.setFont('Jost', heading || block.kind === 'label' ? 'bold' : 'normal')
+    const emphasized = heading || ['label', 'objective', 'notice'].includes(block.kind)
+    const size = heading ? (block.level === 2 ? 16 : block.level === 3 ? 13 : 11.5) : block.kind === 'eyebrow' ? 9 : 11
+    pdf.setFont('Jost', emphasized ? 'bold' : 'normal')
     pdf.setFontSize(size)
     const lines = pdf.splitTextToSize(block.text, block.card ? 176 : 182)
     const lineHeight = heading ? 6 : 5.3
-    pageIfNeeded(heading ? Math.max(23, lines.length * lineHeight + 12) : block.kind === 'label' ? 38 : lineHeight + 5)
+    pageIfNeeded(block.kind === 'eyebrow' ? 40 : heading ? Math.max(23, lines.length * lineHeight + 12) : ['label', 'objective', 'notice'].includes(block.kind) ? 30 : lineHeight + 5)
     if (heading) y += 3
     for (const line of lines) {
       pageIfNeeded(lineHeight + 2)
@@ -179,9 +196,9 @@ export async function downloadTeachingSection(root, section) {
         pdf.setDrawColor(...blue); pdf.setLineWidth(.6); pdf.line(12, y - 1, 12, y + lineHeight - .5)
       }
       // A page header changes the active font; restore body style before each line.
-      pdf.setFont('Jost', heading || block.kind === 'label' ? 'bold' : 'normal')
+      pdf.setFont('Jost', emphasized ? 'bold' : 'normal')
       pdf.setFontSize(size)
-      pdf.setTextColor(...(section.yellow ? [63, 49, 9] : heading || block.kind === 'link' ? blue : ink))
+      pdf.setTextColor(...(block.kind === 'notice' ? [154, 52, 18] : section.yellow ? [63, 49, 9] : heading || block.kind === 'link' ? blue : ink))
       pdf.text(line, block.card ? 17 : 14, y + 3.5)
       if (block.kind === 'link') pdf.link(14, y, 182, lineHeight, { url: block.href })
       y += lineHeight
