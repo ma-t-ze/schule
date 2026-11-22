@@ -196,6 +196,13 @@ const tgg12Dates = 5
           <RouterLink :to="{ name: 'schulwiki-krank-bei-klassenarbeiten' }">Krank bei Klassenarbeiten</RouterLink>
         </nav>
       </Panel>
+      <Panel header="Lehrpläne" toggleable collapsed>
+        <nav class="link-list" aria-label="Lehrpläne">
+          <a href="/lehrplaene/Lehrplan_GMT.pdf" target="_blank" rel="noopener noreferrer">Lehrplan GMT (PDF) ↗</a>
+          <a href="/lehrplaene/Lehrplan_BKGD.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BKGD (PDF) ↗</a>
+          <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
+        </nav>
+      </Panel>
       <Panel header="Unterricht planen" toggleable collapsed>
         <nav class="link-list" aria-label="Unterricht planen">
           <RouterLink :to="{ name: 'unterrichtsbaukasten' }">Unterrichtsbaukasten</RouterLink>
@@ -228,6 +235,7 @@ const tgg12Dates = 5
       </Panel>
       <Panel header="Prüfungen" toggleable collapsed>
         <nav class="link-list" aria-label="Prüfungsunterlagen">
+          <a href="/pruefungen/Beratungsbesuche_Ausbildungsgespraeche.pdf" target="_blank" rel="noopener noreferrer">Beratungsbesuche und verbindliche Ausbildungsgespräche (PDF) ↗</a>
           <a href="/pruefungen/Terminplan_D25_Pruefungen.pdf" target="_blank" rel="noopener noreferrer">Terminplan D25 – Prüfungen (PDF) ↗</a>
           <a href="/pruefungen/D25_Pruefungsbestandteile.pdf" target="_blank" rel="noopener noreferrer">D25 – Prüfungsbestandteile (PDF) ↗</a>
           <a href="/pruefungen/Meldung_Kolloquien_Paed-PaedPsy_D.pdf" target="_blank" rel="noopener noreferrer">Meldung Kolloquien Päd-PädPsy D (PDF) ↗</a>

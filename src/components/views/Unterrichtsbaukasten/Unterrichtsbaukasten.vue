@@ -6,7 +6,6 @@ import { PhCaretDown, PhCheckCircle } from '@phosphor-icons/vue'
 import Checkbox from 'primevue/checkbox'
 import Message from 'primevue/message'
 import Panel from 'primevue/panel'
-import RadioButton from 'primevue/radiobutton'
 import Textarea from 'primevue/textarea'
 import { classes, endings, templates, basicPreparationFields, basicPreparationContext, learningArrangements, socialForms, lessonDesignContext, makePrompt, initialForm, lessonDurations, distributeDuration } from './planning.js'
 import { entryTemplates, perspectives, designPrompt, parseDesign, lessonText, reviewPrompt, parseReview } from './studio.js'
@@ -17,6 +16,7 @@ import { affectiveGoalColumns, affectiveGoalRows, validAffectiveGoalIds, selecte
 import { outputDocuments, validOutputDocumentIds, outputDocumentContext, storyMappingTemplate, storyMappingInstruction, ensureStoryMappingPrompt } from './outputDocuments.js'
 import MaterialsDialog from './MaterialsDialog.vue'
 import StoryMappingBoard from './StoryMappingBoard.vue'
+import { addSuggestedSubtasks, replaceEntrySubtasks, replaceTaskSubtasks } from './lessonSubtasks.js'
 import { materialDocumentContext, restoreMaterialDocuments } from './materialDocuments.js'
 
 const workflowStep = ref('goal')
@@ -60,6 +60,20 @@ const promptStale = ref(false)
 const phases = reactive({ entry: null, main: null, end: null })
 const notes = ref('')
 const lessonDraft = ref('')
+const entryGuidance = ref('')
+const boardVersion = ref(0)
+const taskGuidance = reactive({ erarbeitung: '', hoehepunkt: '', katastrophe: '' })
+const jobTarget = ref('')
+const emptyStoryMapping = `# Storymapping
+
+| Aktivität | Einleitung | Hauptteil | Schluss |
+| --- | --- | --- | --- |
+| Tasks | 1. Exposition: Der Einstieg | 2. Steigende Handlung: Erarbeitung<br>3. Höhepunkt: Sicherung & Erkenntnisgewinn | 4. Lösung: Abschluss & Ausblick |
+`
+const visibleStoryMapping = computed({
+  get: () => lessonDraft.value.trim() ? lessonDraft.value : emptyStoryMapping,
+  set: value => { lessonDraft.value = value }
+})
 const draftHistory = ref(exampleDrafts())
 const activeDraftId = ref('')
 const legacyDraft = ref('')
@@ -77,6 +91,7 @@ const jobId = ref('')
 const jobType = ref('design')
 const jobPerspectives = ref([])
 const jobSource = ref('')
+const jobMapping = ref('')
 const busy = ref(false)
 const error = ref('')
 const storageError = ref('')
@@ -93,7 +108,18 @@ const zienernInstructions = `Zienere das folgende Lernziel. Leite daraus ab, wel
 const automaticPrompt = computed(() => {
   if (workflowStep.value === 'goal') return `Formuliere ein konkretes, überprüfbares Lernziel auf Deutsch. Gib ausschließlich das Lernziel aus.\n\n${basicPreparationContext(form)}\nKlasse: ${classes.filter(item => classIds.value.includes(item.id)).map(item => item.label).join(', ') || 'nicht angegeben'}`
   if (workflowStep.value === 'features') return `Zienere das folgende Lernziel und gib die Merkmale als bearbeitbare Liste aus.\n\n${basicPreparationContext(form)}\nLernziel: ${form.goal}`
-  if (workflowStep.value === 'lesson') return `Schlage passend zu den folgenden Vorgaben jeweils genau einen Einstieg, ein Lehr-Lern-Arrangement und eine Sozialform vor. Erstelle kein Storymapping. Antworte ausschließlich mit einem JSON-Objekt ohne Markdown: {"entry": "ID", "arrangement": "Name", "socialForm": "ID"}. Wähle entry ausschließlich aus ${entryTemplates.map(item => `${item.id} (${item.label}: ${item.description})`).join('; ')}; arrangement ausschließlich aus ${learningArrangements.join(', ')}; socialForm ausschließlich aus ${socialForms.map(item => `${item.id} (${item.label})`).join(', ')}.\n\n${basicPreparationContext(form)}\nKlasse: ${classes.filter(item => classIds.value.includes(item.id)).map(item => item.label).join(', ') || 'nicht angegeben'}\nLernziel: ${form.goal}\nMerkmale: ${form.evidence || 'keine angegeben'}\nVorgaben: ${form.requirements || 'keine angegeben'}${cognitiveGoalContext(selectedCognitiveGoalIds.value)}${affectiveGoalContext(selectedAffectiveGoalIds.value)}${learningTheoryText.value}\nUnterrichtsdauer: ${totalMinutes.value} Minuten.`
+  if (workflowStep.value === 'lesson') return `Schlage einen kurzen, prägnanten Unterrichtstitel vor und ergänze das bestehende Storymapping um konkrete Subtasks passend zu Lernziel und Angaben. Die Aktivitäten und Tasks Exposition, Steigende Handlung (Erarbeitung), Höhepunkt und Lösung: Abschluss & Ausblick bleiben unverändert. Gib ausschließlich ein JSON-Objekt ohne Markdown zurück, mit genau diesen fünf Schlüsseln: "titel", "exposition", "erarbeitung", "hoehepunkt", "katastrophe". "titel" enthält den kurzen Unterrichtstitel als einzeilige Zeichenkette. Jeder der vier anderen Werte ist ein Array mit ein bis zwei kurzen, unterschiedlichen Sätzen aus Schülersicht im Muster „Als Schüler will ich …“. Erfinde keine Materialien oder Links. Berücksichtige bereits vorhandene Subtasks und vermeide Wiederholungen.
+
+${basicPreparationContext(form)}
+Klasse: ${classes.filter(item => classIds.value.includes(item.id)).map(item => item.label).join(', ') || 'nicht angegeben'}
+Lernziel: ${form.goal}
+Gewählter Einstieg: ${entryTemplates.filter(item => entryIds.value.includes(item.id)).map(item => `${item.label}: ${item.description}`).join('; ') || 'frei vorschlagen'}
+Lehr-Lern-Arrangement: ${form.arrangement || 'frei vorschlagen'}
+Merkmale: ${form.evidence || 'keine angegeben'}
+Vorgaben: ${form.requirements || 'keine angegeben'}${cognitiveGoalContext(selectedCognitiveGoalIds.value)}${affectiveGoalContext(selectedAffectiveGoalIds.value)}${learningTheoryText.value}
+
+Bestehendes Storymapping:
+${visibleStoryMapping.value}`
   return designPrompt(makePrompt({ ...form, zienern: false }) + (form.evidence.trim() ? `\nZu berücksichtigende Merkmale des Lernziels:\n${form.evidence.trim()}\n` : '') + materialDocumentContext(materialDocuments.value) + cognitiveGoalContext(selectedCognitiveGoalIds.value) + affectiveGoalContext(selectedAffectiveGoalIds.value) + outputDocumentContext(selectedOutputDocumentIds.value).replace(storyMappingInstruction, '').trim() + learningTheoryText.value + (designMode.value === 'adapt' && lessonDraft.value.trim() ? `\n\nPasse das folgende bestehende Storymapping anhand der aktuellen Vorgaben an. Erhalte passende Inhalte und gib das vollständige aktualisierte Storymapping aus:\n${lessonDraft.value}` : ''), classIds.value, entryIds.value)
 })
 const prompt = computed({ get: () => workflowStep.value === 'design' ? (promptOverride.value ?? automaticPrompt.value).replace(storyMappingInstruction, '').trim() : (promptOverride.value ?? automaticPrompt.value), set: value => { promptOverride.value = value } })
@@ -103,35 +129,31 @@ const hasDesign = computed(() => Boolean(lessonDraft.value.trim()))
 const currentSource = computed(() => JSON.stringify({ classes: classIds.value, topic: form.topic, priorKnowledge: form.priorKnowledge, connections: form.connections, topicScope: form.topicScope, goal: form.goal, evidence: form.evidence, requirements: form.requirements, zienern: form.zienern, arrangement: form.arrangement, mediaMaterials: form.mediaMaterials, materialDocuments: materialDocuments.value, socialForm: form.socialForm, cognitiveGoals: selectedCognitiveGoalIds.value, affectiveGoals: selectedAffectiveGoalIds.value, outputDocuments: selectedOutputDocumentIds.value, theories: learningTheoryText.value, times: [form.entryMinutes, form.mainMinutes, form.endMinutes], draft: lessonDraft.value }))
 const fullPrompt = computed(() => workflowStep.value === 'features' ? `${prompt.value}\n\n${zienernInstructions}` : workflowStep.value === 'design' ? ensureStoryMappingPrompt(prompt.value) : prompt.value)
 const promptTooLarge = computed(() => new TextEncoder().encode(fullPrompt.value).length > 60_000)
-const canSend = computed(() => (workflowStep.value === 'goal' ? form.topic.trim() : ['features', 'lesson'].includes(workflowStep.value) ? form.goal.trim() : classIds.value.length && form.goal.trim() && validTimes.value) && !promptTooLarge.value && prompt.value.trim() && !promptStale.value && !busy.value && !jobId.value && service.value === 'ready')
+const canSend = computed(() => workflowStep.value !== 'design' && (workflowStep.value === 'goal' ? form.topic.trim() : ['features', 'lesson'].includes(workflowStep.value) ? form.goal.trim() : classIds.value.length && form.goal.trim() && validTimes.value) && !promptTooLarge.value && prompt.value.trim() && !promptStale.value && !busy.value && !jobId.value && service.value === 'ready')
 const canReview = computed(() => hasDesign.value && selectedPerspectives.value.length && !busy.value && !jobId.value && service.value === 'ready')
-const phasesLocked = computed(() => busy.value && jobType.value === 'design')
+const phasesLocked = computed(() => busy.value && ['design', 'lesson', 'entry', 'task-adjust'].includes(jobType.value))
 watch(automaticPrompt, () => { if (promptOverride.value !== null) promptStale.value = true })
 function chooseDuration(minutes) {
   const times = distributeDuration(minutes, [form.entryMinutes, form.mainMinutes, form.endMinutes])
   if (times) [form.entryMinutes, form.mainMinutes, form.endMinutes] = times
 }
-function setStep(step) { if (busy.value || jobId.value) return; workflowStep.value = step; refreshPrompt() }
+function setStep(step) { if (busy.value || jobId.value || workflowStep.value === step) return; workflowStep.value = step; refreshPrompt() }
+function openStepPrompt(step) { if (busy.value || jobId.value) return; setStep(step); promptDialogOpen.value = true }
 function chooseDesignMode(mode) { if (busy.value || jobId.value) return; designMode.value = mode; setStep('design') }
 function startNewGoal() {
   if (busy.value || jobId.value) return
-  archiveDraft()
-  form.evidence = ''
-  form.zienern = false
-  lessonDraft.value = ''
-  activeDraftId.value = ''
-  rawResponse.value = ''
-  designMode.value = 'new'
   setStep('goal')
+  if (canSend.value) submit('goal')
+}
+function startFeatureSuggestion() {
+  if (busy.value || jobId.value) return
+  setStep('features')
+  if (canSend.value) submit('features')
 }
 function startLessonSuggestion() {
   if (busy.value || jobId.value) return
-  archiveDraft()
-  lessonDraft.value = ''
-  activeDraftId.value = ''
-  rawResponse.value = ''
-  designMode.value = 'new'
   setStep('lesson')
+  if (canSend.value) submit('lesson')
 }
 function refreshPrompt() { promptOverride.value = null; promptStale.value = false }
 function isReviewStale(id) { return Boolean(reviews[id]) && reviewSources[id] !== currentSource.value }
@@ -141,14 +163,14 @@ function save() {
     localStorage.setItem(storageKey, JSON.stringify({
       version: 2, draftHistory: draftHistory.value, activeDraftId: activeDraftId.value, materialDocuments: materialDocuments.value, selectedOutputDocumentIds: selectedOutputDocumentIds.value, selectedAffectiveGoalIds: selectedAffectiveGoalIds.value, selectedCognitiveGoalIds: selectedCognitiveGoalIds.value, selectedTheoryIds: selectedTheoryIds.value, form: { ...form }, workflowStep: workflowStep.value, classIds: classIds.value, entryIds: entryIds.value,
       skills: skillOverride.value, activity: activityOverride.value, prompt: promptOverride.value, promptStale: promptStale.value,
-      lessonDraft: lessonDraft.value, phases: { ...phases }, notes: notes.value, legacyDraft: legacyDraft.value, rawResponse: rawResponse.value,
+      lessonDraft: lessonDraft.value, entryGuidance: entryGuidance.value, taskGuidance: { ...taskGuidance }, jobTarget: jobTarget.value, phases: { ...phases }, notes: notes.value, legacyDraft: legacyDraft.value, rawResponse: rawResponse.value,
       selectedPerspectives: selectedPerspectives.value, reviews: { ...reviews }, reviewSources: { ...reviewSources },
-      jobId: jobId.value, jobType: jobType.value, jobPerspectives: jobPerspectives.value, jobSource: jobSource.value
+      jobId: jobId.value, jobType: jobType.value, jobPerspectives: jobPerspectives.value, jobSource: jobSource.value, jobMapping: jobMapping.value
     }))
     storageError.value = ''
   } catch { storageError.value = 'Die Eingaben können in diesem Browser nicht gespeichert werden. Kopiere deinen Entwurf vor dem Schließen, um ihn zu sichern.' }
 }
-watch([workflowStep, materialDocuments, selectedOutputDocumentIds, selectedAffectiveGoalIds, selectedCognitiveGoalIds, draftHistory, activeDraftId, selectedTheoryIds, form, classIds, entryIds, skillOverride, activityOverride, promptOverride, promptStale, lessonDraft, phases, notes, legacyDraft, rawResponse, selectedPerspectives, reviews, reviewSources, jobId, jobType, jobPerspectives, jobSource], save, { deep: true })
+watch([workflowStep, materialDocuments, selectedOutputDocumentIds, selectedAffectiveGoalIds, selectedCognitiveGoalIds, draftHistory, activeDraftId, selectedTheoryIds, form, classIds, entryIds, skillOverride, activityOverride, promptOverride, promptStale, lessonDraft, entryGuidance, taskGuidance, jobTarget, phases, notes, legacyDraft, rawResponse, selectedPerspectives, reviews, reviewSources, jobId, jobType, jobPerspectives, jobSource, jobMapping], save, { deep: true })
 const draftToDelete = ref(null)
 const deleteDraftDialogOpen = ref(false)
 function requestDeleteDraft(record) {
@@ -169,20 +191,59 @@ function deleteDraft() {
   draftToDelete.value = null
   save()
 }
-function archiveDraft() {
-  if (!ready || !lessonDraft.value.trim()) return
+function archiveDraft(force = false) {
+  const hasInputs = [form.topic, form.priorKnowledge, form.connections, form.topicScope, form.goal, form.evidence, form.requirements, form.mediaMaterials, entryGuidance.value, ...Object.values(taskGuidance)].some(value => value.trim()) || classIds.value.length || selectedTheoryIds.value.length || selectedCognitiveGoalIds.value.length || selectedAffectiveGoalIds.value.length || materialDocuments.value.length
+  if (!ready || (!lessonDraft.value.trim() && !(force && hasInputs))) return
+  const draftText = lessonDraft.value.trim() ? lessonDraft.value : emptyStoryMapping
   if (!activeDraftId.value) activeDraftId.value = crypto.randomUUID()
   const existing = draftHistory.value.find(item => item.id === activeDraftId.value)
-  if (existing?.text === lessonDraft.value) return
+  if (!force && existing?.text === draftText) return
   const record = {
-    id: activeDraftId.value, title: draftTitle(lessonDraft.value, form.goal), text: lessonDraft.value,
-    isExample: false, form: { ...form }, classIds: [...classIds.value], entryIds: [...entryIds.value],
+    id: activeDraftId.value, title: draftText === emptyStoryMapping ? (form.topic.trim() || form.goal.trim() || 'Unterrichtsentwurf').slice(0, 100) : draftTitle(draftText, form.goal), text: draftText,
+    isExample: false, form: { ...form }, classIds: [...classIds.value], entryIds: [...entryIds.value], entryGuidance: entryGuidance.value, taskGuidance: { ...taskGuidance },
     selectedTheoryIds: [...selectedTheoryIds.value], selectedCognitiveGoalIds: [...selectedCognitiveGoalIds.value], selectedAffectiveGoalIds: [...selectedAffectiveGoalIds.value], selectedOutputDocumentIds: [...selectedOutputDocumentIds.value], materialDocuments: materialDocuments.value.map(item => ({ ...item })), updatedAt: new Date().toISOString()
   }
   if (existing) Object.assign(existing, record)
   else draftHistory.value.unshift(record)
 }
-watch(lessonDraft, archiveDraft, { flush: 'sync' })
+watch(lessonDraft, () => archiveDraft(), { flush: 'sync' })
+function newLessonDraft() {
+  if (busy.value || jobId.value) return
+  archiveDraft(true)
+  ready = false
+  Object.assign(form, initialForm())
+  classIds.value = []
+  entryIds.value = []
+  entryGuidance.value = ''
+  for (const key of Object.keys(taskGuidance)) taskGuidance[key] = ''
+  materialDocuments.value = []
+  selectedTheoryIds.value = []
+  selectedOutputDocumentIds.value = []
+  selectedCognitiveGoalIds.value = []
+  selectedAffectiveGoalIds.value = []
+  selectedPerspectives.value = []
+  expandedPerspectives.value = []
+  for (const key of Object.keys(reviews)) delete reviews[key]
+  for (const key of Object.keys(reviewSources)) delete reviewSources[key]
+  for (const key of Object.keys(phases)) phases[key] = null
+  skillOverride.value = null
+  activityOverride.value = null
+  notes.value = ''
+  legacyDraft.value = ''
+  rawResponse.value = ''
+  lessonDraft.value = ''
+  activeDraftId.value = ''
+  workflowStep.value = 'goal'
+  designMode.value = 'new'
+  promptOverride.value = null
+  promptStale.value = false
+  error.value = ''
+  jobMapping.value = ''
+  jobTarget.value = ''
+  boardVersion.value++
+  ready = true
+  save()
+}
 async function openDraft(record) {
   if (busy.value) return
   archiveDraft()
@@ -193,6 +254,8 @@ async function openDraft(record) {
   if (record.form) for (const key of Object.keys(form)) if (typeof record.form[key] === typeof form[key]) form[key] = record.form[key]
   classIds.value = (record.classIds || []).filter(id => classes.some(item => item.id === id))
   entryIds.value = (record.entryIds || []).filter(id => entryTemplates.some(item => item.id === id))
+  entryGuidance.value = typeof record.entryGuidance === 'string' ? record.entryGuidance : ''
+  for (const key of Object.keys(taskGuidance)) taskGuidance[key] = typeof record.taskGuidance?.[key] === 'string' ? record.taskGuidance[key] : ''
   selectedTheoryIds.value = (record.selectedTheoryIds || []).filter(id => learningTheoryDocuments.some(item => item.id === id))
   materialDocuments.value = restoreMaterialDocuments(record.materialDocuments)
   selectedOutputDocumentIds.value = validOutputDocumentIds(record.selectedOutputDocumentIds)
@@ -235,12 +298,25 @@ async function poll() {
       } else if (jobType.value === 'features') {
         form.evidence = job.result.trim(); form.zienern = true; refreshPrompt()
       } else if (jobType.value === 'lesson') {
-        const result = JSON.parse(job.result.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, ''))
-        if (!entryTemplates.some(item => item.id === result.entry) || !learningArrangements.includes(result.arrangement) || !socialForms.some(item => item.id === result.socialForm)) throw new Error('Ungültiger Unterrichtsvorschlag')
-        entryIds.value = [result.entry]
-        form.arrangement = result.arrangement
-        form.socialForm = result.socialForm
+        if (!jobMapping.value || visibleStoryMapping.value !== jobMapping.value) throw new Error('Das Storymapping wurde während der Anfrage verändert.')
+        lessonDraft.value = addSuggestedSubtasks(jobMapping.value, job.result)
+        jobMapping.value = ''
+        await nextTick()
+        centerHeading.value?.focus()
         refreshPrompt()
+      } else if (jobType.value === 'entry') {
+        if (!jobMapping.value || visibleStoryMapping.value !== jobMapping.value) throw new Error('Das Storymapping wurde während der Anfrage verändert.')
+        lessonDraft.value = replaceEntrySubtasks(jobMapping.value, job.result)
+        jobMapping.value = ''
+        await nextTick()
+        centerHeading.value?.focus()
+      } else if (jobType.value === 'task-adjust') {
+        if (!jobMapping.value || visibleStoryMapping.value !== jobMapping.value) throw new Error('Das Storymapping wurde während der Anfrage verändert.')
+        lessonDraft.value = replaceTaskSubtasks(jobMapping.value, job.result, jobTarget.value)
+        jobMapping.value = ''
+        jobTarget.value = ''
+        await nextTick()
+        centerHeading.value?.focus()
       } else if (jobType.value === 'review') {
         const result = parseReview(job.result, jobPerspectives.value)
         Object.assign(reviews, result)
@@ -269,6 +345,7 @@ async function resumeJob() { if (jobId.value) { busy.value = true; error.value =
 async function submit(type) {
   if ((type !== 'review' && !canSend.value) || (type === 'review' && !canReview.value)) return
   jobType.value = type
+  jobMapping.value = type === 'lesson' ? visibleStoryMapping.value : ''
   jobPerspectives.value = [...selectedPerspectives.value]
   jobSource.value = currentSource.value
   const submittedPrompt = type === 'review' ? reviewPrompt(form, classIds.value, lessonDraft.value, '', jobPerspectives.value) + '\n\n' + basicPreparationContext(form) + '\n' + lessonDesignContext(form) + materialDocumentContext(materialDocuments.value) + cognitiveGoalContext(selectedCognitiveGoalIds.value) + affectiveGoalContext(selectedAffectiveGoalIds.value) + outputDocumentContext(selectedOutputDocumentIds.value, { review: true }) + learningTheoryText.value : fullPrompt.value
@@ -276,6 +353,55 @@ async function submit(type) {
   busy.value = true; error.value = ''
   try {
     const job = await request('jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: submittedPrompt }) })
+    jobId.value = job.id
+    save(); schedulePoll()
+  } catch (cause) { busy.value = false; error.value = cause.message }
+}
+async function adjustEntrySubtasks() {
+  if (busy.value || jobId.value || !entryGuidance.value.trim()) return
+  if (service.value !== 'ready') { error.value = 'Der lokale Dienst ist nicht verfügbar. Bitte die Verbindung prüfen.'; return }
+  const selected = entryTemplates.filter(item => entryIds.value.includes(item.id)).map(item => `${item.label}: ${item.description}`).join('; ') || 'nicht festgelegt'
+  const requestText = `Passe ausschließlich die Subtasks der Exposition an. Nutze die zusätzlichen Angaben, den ausgewählten Einstieg und den bestehenden Unterrichtskontext. Gib ausschließlich JSON ohne Markdown zurück: {"subtasks":["Als Schüler will ich …"]}. Gib ein bis sechs kurze, konkrete Subtasks aus; die Liste ersetzt die bisherigen Expositions-Subtasks. Ändere keine anderen Karten und erfinde keine Materialien oder Links.
+
+${basicPreparationContext(form)}
+Klasse: ${classes.filter(item => classIds.value.includes(item.id)).map(item => item.label).join(', ') || 'nicht angegeben'}
+Lernziel: ${form.goal || 'nicht angegeben'}
+Ausgewählter Einstieg: ${selected}
+Zusätzliche Informationen: ${entryGuidance.value.trim()}
+
+Bestehendes Storymapping:
+${visibleStoryMapping.value}`
+  if (new TextEncoder().encode(requestText).length > 60_000) { error.value = 'Der Auftrag ist zu lang. Bitte die zusätzlichen Informationen kürzen.'; return }
+  jobType.value = 'entry'
+  jobMapping.value = visibleStoryMapping.value
+  busy.value = true; error.value = ''
+  try {
+    const job = await request('jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: requestText }) })
+    jobId.value = job.id
+    save(); schedulePoll()
+  } catch (cause) { busy.value = false; error.value = cause.message }
+}
+const taskNames = { erarbeitung: 'Steigende Handlung: Erarbeitung', hoehepunkt: 'Höhepunkt: Sicherung & Erkenntnisgewinn', katastrophe: 'Lösung: Abschluss & Ausblick' }
+async function adjustTaskSubtasks(key) {
+  if (busy.value || jobId.value || !taskNames[key] || !taskGuidance[key].trim()) return
+  if (service.value !== 'ready') { error.value = 'Der lokale Dienst ist nicht verfügbar. Bitte die Verbindung prüfen.'; return }
+  const requestText = `Passe ausschließlich die Subtasks von „${taskNames[key]}“ an. Nutze die zusätzlichen Angaben und den Unterrichtskontext. Gib ausschließlich JSON ohne Markdown zurück: {"subtasks":["Als Schüler will ich …"]}. Gib ein bis sechs kurze, konkrete Subtasks aus; die Liste ersetzt die bisherigen Subtasks dieser Karte. Ändere keine anderen Karten und erfinde keine Materialien oder Links.
+
+${basicPreparationContext(form)}
+Klasse: ${classes.filter(item => classIds.value.includes(item.id)).map(item => item.label).join(', ') || 'nicht angegeben'}
+Lernziel: ${form.goal || 'nicht angegeben'}
+Lehr-Lern-Arrangement: ${form.arrangement || 'nicht angegeben'}
+Zusätzliche Informationen: ${taskGuidance[key].trim()}
+
+Bestehendes Storymapping:
+${visibleStoryMapping.value}`
+  if (new TextEncoder().encode(requestText).length > 60_000) { error.value = 'Der Auftrag ist zu lang. Bitte die zusätzlichen Informationen kürzen.'; return }
+  jobType.value = 'task-adjust'
+  jobTarget.value = key
+  jobMapping.value = visibleStoryMapping.value
+  busy.value = true; error.value = ''
+  try {
+    const job = await request('jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: requestText }) })
     jobId.value = job.id
     save(); schedulePoll()
   } catch (cause) { busy.value = false; error.value = cause.message }
@@ -315,6 +441,9 @@ onMounted(async () => {
         for (const id of ['entry', 'main', 'end']) phases[id] = typeof saved.phases?.[id] === 'string' ? saved.phases[id] : null
         promptOverride.value = typeof saved.prompt === 'string' && !/Teilfähigkeiten, die in der Stunde|Ausgabeformat für die drei bearbeitbaren Bereiche|Unterrichtsstruktur \(/.test(saved.prompt) ? saved.prompt : null
         notes.value = typeof saved.notes === 'string' ? saved.notes : ''
+        entryGuidance.value = typeof saved.entryGuidance === 'string' ? saved.entryGuidance : ''
+        for (const key of Object.keys(taskGuidance)) taskGuidance[key] = typeof saved.taskGuidance?.[key] === 'string' ? saved.taskGuidance[key] : ''
+        jobTarget.value = typeof saved.jobTarget === 'string' ? saved.jobTarget : ''
         lessonDraft.value = typeof saved.lessonDraft === 'string' ? saved.lessonDraft : ['entry', 'main', 'end'].every(id => typeof phases[id] === 'string' && phases[id].trim()) ? lessonText(form, phases, notes.value) : ''
         rawResponse.value = typeof saved.rawResponse === 'string' ? saved.rawResponse : ''
         selectedPerspectives.value = Array.isArray(saved.selectedPerspectives) ? saved.selectedPerspectives.filter(id => perspectives.some(item => item.id === id)) : ['students']
@@ -326,9 +455,10 @@ onMounted(async () => {
         legacyDraft.value += `\n\n## Bisheriger manueller Prompt\n\n${saved.prompt}`
       }
       jobId.value = /^[a-f0-9-]{36}$/.test(saved.jobId) ? saved.jobId : ''
-      jobType.value = ['review', 'goal', 'features', 'lesson'].includes(saved.jobType) ? saved.jobType : 'design'
+      jobType.value = ['review', 'goal', 'features', 'lesson', 'entry', 'task-adjust'].includes(saved.jobType) ? saved.jobType : 'design'
       jobPerspectives.value = Array.isArray(saved.jobPerspectives) ? saved.jobPerspectives.filter(id => perspectives.some(item => item.id === id)) : []
       jobSource.value = typeof saved.jobSource === 'string' ? saved.jobSource : ''
+      jobMapping.value = typeof saved.jobMapping === 'string' ? saved.jobMapping : ''
       await nextTick(); promptStale.value = promptOverride.value !== null && Boolean(saved.promptStale)
     }
   } catch { storageError.value = 'Die gespeicherten Eingaben konnten nicht vollständig geladen werden.' }
@@ -350,7 +480,22 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
   <main class="builder-page">
     <div class="builder-shell">
       <RouterLink to="/" class="back">← Unterricht planen</RouterLink>
-      <header class="page-header"><div><p class="eyebrow">UNTERRICHT PLANEN</p><h1>Unterrichtsbaukasten</h1></div></header>
+      <header class="page-header"><p class="eyebrow">UNTERRICHT PLANEN</p><div class="page-title-row"><h1>Unterrichtsbaukasten</h1><Button label="Neuer Unterrichtsentwurf" outlined :disabled="busy || !!jobId" @click="newLessonDraft" /></div></header>
+      <section class="theories-area" aria-label="Lerntheorien für die Unterrichtsplanung">
+        <Panel header="Lerntheorien" toggleable collapsed class="theories-panel">
+          <p class="theories-intro">Lerntheorien für den Unterrichtsvorschlag auswählen. Der Name öffnet die Beschreibung.</p>
+          <div class="theories-grid">
+            <div v-for="document in learningTheoryDocuments" :key="document.id" class="theory-document">
+              <div class="checkbox-row">
+                <Checkbox v-model="selectedTheoryIds" :input-id="`theory-${document.id}`" :value="document.id" :aria-label="`${document.name} bei der Planung verwenden`" />
+                <Button v-if="document.summary" :label="document.name" text class="theory-trigger" @click="activeTheory = document; theoryDialogOpen = true" />
+                <a v-else :href="document.href" target="_blank" rel="noopener noreferrer">{{ document.name }}</a>
+              </div>
+            </div>
+          </div>
+        </Panel>
+        <p v-if="selectedTheoryIds.length" class="theories-selection">{{ selectedTheoryIds.length }} {{ selectedTheoryIds.length === 1 ? 'Lerntheorie ausgewählt' : 'Lerntheorien ausgewählt' }}</p>
+      </section>
       <Message v-if="storageError" severity="warn" :closable="false">{{ storageError }}</Message>
       <Message v-if="error" severity="error" :closable="false">{{ error }}</Message>
       <div v-if="busy" class="job-status" role="status">{{ jobType === 'review' ? 'Codex prüft den aktuellen Unterrichtsentwurf aus den ausgewählten Sichtweisen …' : 'Codex bearbeitet deinen aktuellen Auftrag …' }}</div>
@@ -365,96 +510,37 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
               <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
             </nav>
           </Panel>
-          <Panel header="Klasse" toggleable collapsed class="choice-panel">
-            <div class="choice-list"><div v-for="item in classes" :key="item.id" class="checkbox-row"><Checkbox v-model="classIds" :input-id="`class-${item.id}`" :value="item.id" /><label :for="`class-${item.id}`">{{ item.label }}</label></div></div>
-          </Panel>
-          <p class="selection-note">{{ classes.filter(item => classIds.includes(item.id)).map(item => item.label).join(', ') || 'Noch keine Klasse ausgewählt' }}</p>
           <div v-for="field in basicPreparationFields" :key="field.key" class="field">
             <label :for="`preparation-${field.key}`">{{ field.label }}</label>
             <Textarea :id="`preparation-${field.key}`" v-model="form[field.key]" rows="3" auto-resize />
           </div>
-          <Button label="Lernziel vorschlagen" class="goal-suggestion-button" @click="startNewGoal" />
+          <div class="column-prompt"><div class="prompt-heading"><div class="prompt-status"><strong>Prompt</strong><span class="service-status" role="status">{{ service === 'ready' ? 'Lokaler Dienst bereit' : service === 'checking' ? 'Verbindung wird geprüft …' : service === 'missing' ? 'Codex nicht gefunden' : 'Dienst nicht erreichbar' }}</span><Button v-if="service === 'missing' || service === 'offline'" label="Erneut prüfen" text size="small" @click="checkService" /></div><Button label="› Prompt öffnen" outlined size="small" aria-haspopup="dialog" :disabled="busy || !!jobId" @click="openStepPrompt('goal')" /></div><Message v-if="workflowStep === 'goal' && promptStale" severity="warn" :closable="false">Die Vorgaben haben sich geändert. Bitte den Prompt prüfen.</Message></div>
+          <Button label="Lernziel vorschlagen" class="goal-suggestion-button" :loading="busy && jobType === 'goal'" :disabled="busy || !!jobId" @click="startNewGoal" /><p v-if="workflowStep === 'goal' && !form.topic.trim()" class="help">Ergänze zuerst das Thema.</p>
         </section>
         <section class="prerequisites column"><div class="column-heading"><p class="eyebrow">02 · LERNZIEL</p><h2>Didaktisch vorbereiten</h2></div>
-            <div class="field"><label for="learning-goal">Was sollen die SuS am Ende können?</label><Textarea id="learning-goal" v-model="form.goal" rows="5" auto-resize /><Button label="Merkmale vorschlagen" class="goal-suggestion-button" @click="setStep('features')" /></div>
+            <div class="field"><label for="learning-goal">Was sollen die SuS am Ende können?</label><Textarea id="learning-goal" v-model="form.goal" rows="5" auto-resize /><Button label="Merkmale vorschlagen" class="goal-suggestion-button" @click="startFeatureSuggestion" /></div>
             <div class="field"><label for="lesson-requirements">Vorgaben</label><Textarea id="lesson-requirements" v-model="form.requirements" rows="4" auto-resize /></div>
-              <div class="field cognitive-choice">
-                <Button label="Kognitive Lernziele" text class="theory-trigger" aria-haspopup="dialog" @click="cognitiveDialogOpen = true" />
-                <ul v-if="cognitiveSelection.length" class="cognitive-selection"><li v-for="goal in cognitiveSelection" :key="goal.id">{{ goal.level }} – {{ goal.text }}</li></ul>
+              <div class="goal-types" role="group" aria-label="Lernzieltypen und Anforderungsbereiche">
+                <Button label="Kognitiv" text class="theory-trigger" aria-label="Kognitive Lernziele" aria-haspopup="dialog" @click="cognitiveDialogOpen = true" />
+                <Button label="Affektiv" text class="theory-trigger" aria-label="Affektive Lernziele" aria-haspopup="dialog" @click="affectiveDialogOpen = true" />
+                <Button label="EPA (Einheitliche Prüfungsanforderungen in der Abiturprüfung)" text class="theory-trigger" aria-label="EPA (Einheitliche Prüfungsanforderungen in der Abiturprüfung)" aria-haspopup="dialog" @click="epaDialogOpen = true" />
               </div>
-              <div class="field cognitive-choice">
-                <Button label="Affektive Lernziele" text class="theory-trigger" aria-haspopup="dialog" @click="affectiveDialogOpen = true" />
-                <ul v-if="affectiveSelection.length" class="cognitive-selection"><li v-for="goal in affectiveSelection" :key="goal.id">{{ goal.category }} – {{ goal.text }}</li></ul>
-              </div>
-              <div class="field cognitive-choice"><Button label="EPA Anforderungsbereiche" text class="theory-trigger" aria-haspopup="dialog" @click="epaDialogOpen = true" /></div>
+              <ul v-if="cognitiveSelection.length" class="cognitive-selection"><li v-for="goal in cognitiveSelection" :key="goal.id">{{ goal.level }} – {{ goal.text }}</li></ul>
+              <ul v-if="affectiveSelection.length" class="cognitive-selection"><li v-for="goal in affectiveSelection" :key="goal.id">{{ goal.category }} – {{ goal.text }}</li></ul>
           <div class="field"><label for="goal-features">Merkmale des Lernziels</label><Textarea id="goal-features" v-model="form.evidence" rows="5" auto-resize placeholder="Merkmale vorschlagen lassen oder selbst bearbeiten" /></div>
-          <div class="actions"><Button label="Unterricht vorschlagen" class="goal-suggestion-button" @click="startLessonSuggestion" /></div>
+          <div class="column-prompt"><div class="prompt-heading"><div class="prompt-status"><strong>Prompt</strong><span class="service-status" role="status">{{ service === 'ready' ? 'Lokaler Dienst bereit' : service === 'checking' ? 'Verbindung wird geprüft …' : service === 'missing' ? 'Codex nicht gefunden' : 'Dienst nicht erreichbar' }}</span><Button v-if="service === 'missing' || service === 'offline'" label="Erneut prüfen" text size="small" @click="checkService" /></div><Button label="› Prompt öffnen" outlined size="small" aria-haspopup="dialog" :disabled="busy || !!jobId" @click="openStepPrompt('lesson')" /></div><Message v-if="workflowStep === 'lesson' && promptStale" severity="warn" :closable="false">Die Vorgaben haben sich geändert. Bitte den Prompt prüfen.</Message></div>
+          <div class="actions"><Button label="Unterricht vorschlagen" class="goal-suggestion-button" :loading="busy && jobType === 'lesson'" :disabled="busy || !!jobId" @click="startLessonSuggestion" /></div><p v-if="workflowStep === 'lesson' && !form.goal.trim()" class="help">Ergänze zuerst das Lernziel.</p>
         </section>
-        <section class="prerequisites column"><div class="column-heading"><p class="eyebrow">03 · GESTALTUNG</p><h2>Unterricht gestalten</h2></div>
-            <Panel header="Lerntheorien" toggleable collapsed class="choice-panel">
-              <div v-for="document in learningTheoryDocuments" :key="document.id" class="theory-document">
-                <div class="checkbox-row">
-                  <Checkbox v-model="selectedTheoryIds" :input-id="`theory-${document.id}`" :value="document.id" :aria-label="`${document.name} bei der Planung verwenden`" />
-                  <Button v-if="document.summary" :label="document.name" text class="theory-trigger" @click="activeTheory = document; theoryDialogOpen = true" />
-                  <a v-else :href="document.href" target="_blank" rel="noopener noreferrer">{{ document.name }}</a>
-                </div>
-              </div>
-            </Panel>
-            <Panel header="Unterrichtsdauer" toggleable collapsed class="choice-panel">
-              <div class="choice-list">
-                <div v-for="minutes in lessonDurations" :key="minutes" class="checkbox-row">
-                  <Checkbox :input-id="`duration-${minutes}`" :model-value="totalMinutes === minutes" binary @update:model-value="selected => { if (selected) chooseDuration(minutes) }" />
-                  <label :for="`duration-${minutes}`">{{ minutes }} Minuten</label>
-                </div>
-              </div>
-              <p class="help">Die Zeit wird anteilig auf die drei Phasen verteilt.</p>
-            </Panel>
-            <p class="selection-note">{{ totalMinutes }} Minuten</p>
-            <Panel header="Einstieg" toggleable collapsed class="choice-panel">
-              <div v-for="item in entryTemplates" :key="item.id" class="entry-choice"><div class="checkbox-row"><Checkbox v-model="entryIds" :input-id="`entry-${item.id}`" :value="item.id" :aria-label="`${item.label} auswählen`" /><Button :label="item.label" text class="theory-trigger" @click="activeTheory = { title: item.title, summary: item.description, custom: true }; theoryDialogOpen = true" /></div></div>
-            </Panel>
-            <p class="selection-note">{{ entryTemplates.filter(item => entryIds.includes(item.id)).map(item => item.label).join(', ') || 'Einstieg frei vorschlagen lassen' }}</p>
-            <Panel header="Lehr-Lern-Arrangement" toggleable collapsed class="choice-panel">
-              <div class="choice-list"><div v-for="(arrangement, index) in learningArrangements" :key="arrangement" class="checkbox-row">
-                <Checkbox :input-id="`arrangement-${index}`" :model-value="form.arrangement === arrangement" binary :aria-label="`${arrangement} auswählen`" @update:model-value="selected => { form.arrangement = selected ? arrangement : '' }" />
-                <Button :label="arrangement" text class="theory-trigger" aria-haspopup="dialog" @click="activeTheory = { title: arrangement, summary: arrangementDescriptions[arrangement], custom: true }; theoryDialogOpen = true" />
-              </div></div>
-            </Panel>
-            <p class="selection-note">{{ form.arrangement || 'Noch kein Arrangement ausgewählt' }}</p>
-            <div class="field"><div class="preparation-action"><Button label="Medien/Material" outlined class="preparation-button" aria-haspopup="dialog" @click="materialsDialogOpen = true" /><PhCheckCircle v-if="form.mediaMaterials.trim() || materialDocuments.length" :size="20" weight="fill" class="preparation-complete" aria-label="Medien/Material hinterlegt" role="img" /></div></div>
-            <Panel header="Sozialform" toggleable collapsed class="choice-panel">
-              <div class="choice-list"><div v-for="item in socialForms" :key="item.id" class="checkbox-row"><RadioButton v-model="form.socialForm" :input-id="`social-${item.id}`" name="social-form" :value="item.id" /><label :for="`social-${item.id}`">{{ item.label }}</label></div></div>
-            </Panel>
-            <p class="selection-note">{{ socialForms.find(item => item.id === form.socialForm)?.label || 'Noch keine Sozialform ausgewählt' }}</p>
-          <Panel header="Ausgabedokumente" toggleable collapsed class="choice-panel">
-            <p class="help">Der Unterricht wird immer als Storymapping ausgegeben. Dokumente und Links werden direkt in der jeweiligen Subtask verlinkt.</p>
-            <p class="help"><a :href="storyMappingTemplate.href" target="_blank" rel="noopener noreferrer">Vorlage Storymapping</a></p>
-            <div class="choice-list">
-              <div v-for="document in outputDocuments" :key="document.id" class="checkbox-row theory-document">
-                <Checkbox v-model="selectedOutputDocumentIds" :input-id="`output-${document.id}`" :value="document.id" :aria-label="`${document.name} erstellen`" />
-                <a :href="document.href" target="_blank" rel="noopener noreferrer">{{ document.name }}</a>
-              </div>
-            </div>
-          </Panel>
-          <p class="selection-note">{{ outputDocuments.filter(document => selectedOutputDocumentIds.includes(document.id)).map(document => document.name).join(', ') || 'Keine zusätzlichen Ausgabedokumente ausgewählt' }}</p>
-          <div class="actions"><Button label="Storymapping vorschlagen" class="goal-suggestion-button" @click="chooseDesignMode('new')" /></div>
-        </section>
-        <aside class="proposal column"><div class="column-heading"><p class="eyebrow">AKTUELLER AUFTRAG</p><div class="prompt-heading"><h2>Prompt</h2><Button label="› Prompt öffnen" outlined size="small" aria-haspopup="dialog" @click="promptDialogOpen = true" /></div></div>
-          <Dialog v-model:visible="promptDialogOpen" header="Aktueller Prompt" modal dismissable-mask :style="{ width: 'min(780px, calc(100vw - 32px))' }">
-            <label for="lesson-prompt" class="sr-only">Bearbeitbarer Prompt für Codex</label><Textarea id="lesson-prompt" ref="promptInput" v-model="prompt" rows="12" class="prompt-input" style="width: 100%; box-sizing: border-box; min-height: 240px; max-height: 50vh; overflow-y: auto; resize: vertical;" />
-            <details v-if="workflowStep === 'features'" class="zienern-details"><summary>Vorgaben zum Zienern anzeigen</summary><p>{{ zienernInstructions }}</p><p class="help">Diese Vorgaben werden zusammen mit dem Prompt gesendet.</p></details>
-            <details v-if="workflowStep === 'design'" class="zienern-details"><summary>Story Mapping</summary><p>{{ storyMappingInstruction }}</p><p class="help">Diese Vorgaben werden zusammen mit dem Prompt gesendet.</p></details>
-            <Message v-if="promptStale" severity="warn" :closable="false">Die Vorgaben haben sich geändert. Aktualisiere den Prompt (ersetzt manuelle Änderungen) oder prüfe und behalte deinen manuellen Prompt.</Message>
-            <div class="actions"><Button v-if="promptOverride !== null" label="Aus Eingaben aktualisieren" size="small" outlined @click="refreshPrompt" /><Button v-if="promptStale" label="Manuellen Prompt beibehalten" size="small" outlined @click="promptStale = false" /></div>
-          </Dialog>
-          <Message v-if="promptStale" severity="warn" :closable="false">Die Vorgaben haben sich geändert. Bitte öffne und prüfe den Prompt.</Message>
-          <div class="prompt-actions"><Button :label="workflowStep === 'goal' ? 'Lernziel vorschlagen' : workflowStep === 'features' ? 'Merkmale vorschlagen' : workflowStep === 'lesson' ? 'Unterricht vorschlagen' : (designMode === 'adapt' ? 'Storymapping anpassen' : 'Storymapping erzeugen')" :loading="busy && jobType === workflowStep" :disabled="!canSend" @click="submit(workflowStep)" />
-              <div class="design-status"><p v-if="workflowStep === 'goal' && !form.topic.trim()" class="help">Ergänze zuerst das Thema.</p><p v-else-if="(workflowStep === 'features' || workflowStep === 'lesson') && !form.goal.trim()" class="help">Ergänze zuerst das Lernziel.</p><p v-else-if="workflowStep === 'design' && (!classIds.length || !form.goal.trim())" class="help">Wähle mindestens eine Klasse und ergänze das Lernziel.</p><Message v-if="!validTimes" severity="warn" :closable="false">Je Phase sind 1 bis 240 ganze Minuten möglich.</Message><span v-if="service === 'ready'" class="service-status">Lokaler Dienst bereit</span><template v-else><p class="help">{{ service === 'checking' ? 'Verbindung wird geprüft …' : service === 'missing' ? 'Codex wurde lokal nicht gefunden.' : 'Für die Generierung die Website lokal mit „npm run serve“ öffnen.' }}</p><Button label="Verbindung prüfen" text size="small" @click="checkService" /></template></div>
-            </div>
-        </aside>
+
       </div>
+      <Dialog v-model:visible="promptDialogOpen" :header="workflowStep === 'goal' ? 'Prompt · Lernziel vorschlagen' : workflowStep === 'lesson' ? 'Prompt · Unterricht vorschlagen' : 'Aktueller Prompt'" modal dismissable-mask :style="{ width: 'min(780px, calc(100vw - 32px))' }">
+        <label for="lesson-prompt" class="sr-only">Bearbeitbarer Prompt für Codex</label><Textarea id="lesson-prompt" ref="promptInput" v-model="prompt" rows="12" class="prompt-input" style="width: 100%; box-sizing: border-box; min-height: 240px; max-height: 50vh; overflow-y: auto; resize: vertical;" />
+        <Message v-if="promptStale" severity="warn" :closable="false">Die Vorgaben haben sich geändert. Aktualisiere den Prompt oder behalte den manuellen Prompt.</Message>
+        <div class="actions"><Button v-if="promptOverride !== null" label="Aus Eingaben aktualisieren" size="small" outlined @click="refreshPrompt" /><Button v-if="promptStale" label="Manuellen Prompt beibehalten" size="small" outlined @click="promptStale = false" /></div>
+      </Dialog>
       <section class="mapping-section" aria-labelledby="proposal-heading"><div class="column-heading"><p class="eyebrow">STUNDENENTWURF</p><h2 id="proposal-heading" ref="centerHeading" tabindex="-1">Aktuelles Storymapping</h2></div>
-        <p v-if="!lessonDraft" class="help">Hier erscheint dein Storymapping, sobald es erzeugt wurde.</p>
+        <p v-if="!lessonDraft" class="help">Das Grundgerüst ist noch unausgefüllt. Ergänze passende Handlungsschritte oder erstelle einen Vorschlag.</p>
+          <StoryMappingBoard :key="boardVersion" v-model:text="visibleStoryMapping" v-model:entry-ids="entryIds" v-model:entry-guidance="entryGuidance" @adjust-entry="adjustEntrySubtasks" :task-guidance="taskGuidance" @update:task-guidance="value => Object.assign(taskGuidance, value)" @adjust-task="adjustTaskSubtasks" v-model:class-ids="classIds" v-model:arrangement="form.arrangement" :arrangement-descriptions="arrangementDescriptions" :readonly="phasesLocked" />
           <Panel header="Vergangene Unterrichtsentwürfe" toggleable collapsed class="history-panel">
             <p v-if="!draftHistory.length" class="help">Keine gespeicherten Unterrichtsentwürfe vorhanden.</p>
             <div class="history-list">
@@ -467,7 +553,6 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
               </div>
             </div>
           </Panel>
-          <StoryMappingBoard v-if="lessonDraft" v-model:text="lessonDraft" :readonly="phasesLocked" />
           <Panel v-if="rawResponse" header="Antwort im Original" toggleable class="notes-panel"><label for="raw-response" class="sr-only">Vollständige Antwort bearbeiten</label><Textarea id="raw-response" v-model="rawResponse" rows="12" /></Panel>
           <Panel v-if="legacyDraft" header="Bisheriger vollständiger Entwurf" toggleable collapsed class="notes-panel"><p class="help">Dein Entwurf aus der vorherigen Ansicht bleibt hier erhalten.</p><label for="legacy-draft" class="sr-only">Bisherigen Entwurf bearbeiten</label><Textarea id="legacy-draft" v-model="legacyDraft" rows="12" /></Panel>
           
@@ -549,14 +634,18 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
 .builder-page { min-height: 100vh; background: #f8f7f3; color: #202d32; font-family: 'Jost', Arial, sans-serif; }
 .builder-shell { width: 100%; max-width: 1920px; box-sizing: border-box; padding: 28px 24px 60px; margin: auto; }
 .back { color: #526166; font-size: 14px; text-underline-offset: 4px; }
-.page-header { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0 28px; }
+.page-header { padding: 22px 0 12px; }
+.page-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.page-title-row h1 { margin: 0; }
 .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .12em; color: #536c5a; margin: 0 0 10px; }
 h1 { font-size: clamp(30px, 3vw, 44px); font-weight: 500; letter-spacing: -.03em; margin: 0; }
 h2 { font-size: 23px; font-weight: 500; line-height: 1.3; margin: 0 0 12px; }
 h3 { font-size: 21px; font-weight: 500; margin: 0; }
 p { line-height: 1.6; }
 .page-header p:last-child { margin-bottom: 0; }
-.builder-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(280px, 1.1fr); gap: 20px; align-items: start; }
+.column-prompt { margin: 20px 0 12px; }
+.inactive-design { opacity: .48; }
+.builder-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
 .mapping-section { margin-top: 36px; }
 .review-details { margin-top: 24px; }
 .review-details summary { cursor: pointer; font-weight: 500; }
@@ -565,6 +654,14 @@ p { line-height: 1.6; }
 .prerequisites, .review { padding: 20px 16px; border: 1px solid #dce3d9; border-radius: 14px; background: #eef2eb; }
 .review { background: #f0f1ed; }
 .proposal { padding: 4px 0; }
+ .theories-area { margin: 0 0 28px; }
+.theories-panel { border: 1px solid #d9e2d7; border-radius: 10px; background: #fff; overflow: hidden; }
+.theories-panel :deep(.p-panel-header) { padding: 14px 18px; }
+.theories-panel :deep(.p-panel-content) { padding: 0 18px 18px; }
+.theories-intro { margin: 0 0 16px; color: #526166; font-size: 13px; line-height: 1.5; }
+.theories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px 24px; }
+.theories-grid .theory-document + .theory-document { margin-top: 0; }
+.theories-selection { margin: 8px 2px 0; font-size: 13px; color: #526166; }
 .choice-panel, .prompt-panel, .notes-panel { margin-top: 16px; }
 .lesson-plan-links { display: grid; gap: 12px; }
 .lesson-plan-links a { color: #202d32; line-height: 1.5; overflow-wrap: anywhere; text-underline-offset: 3px; }
@@ -584,7 +681,7 @@ label { font-weight: 500; font-size: 14px; line-height: 1.5; overflow-wrap: anyw
 .theory-document + .theory-document { margin-top: 18px; }
 .theory-trigger { padding: 0; color: inherit; text-align: left; font-size: 14px; line-height: 1.5; text-decoration: underline; text-underline-offset: 3px; }
 .theory-trigger :deep(.p-button-label) { font-weight: 400; }
-.cognitive-choice > .p-button { align-self: flex-start; }
+.goal-types { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 20px 0 12px; }
 .cognitive-selection { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
 .cognitive-selection li + li { margin-top: 6px; }
 .cognitive-intro { line-height: 1.6; margin-top: 0; }
@@ -650,6 +747,7 @@ label { font-weight: 500; font-size: 14px; line-height: 1.5; overflow-wrap: anyw
 .prompt-actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; margin-top: 16px; }
 .prompt-actions > :deep(.p-button) { width: 100%; justify-content: center; }
 .prompt-actions :deep(.p-button-label) { white-space: normal; }
+.prompt-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .prompt-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .prompt-heading h2 { margin: 0; }
 .prompt-input { max-height: none; overflow-y: hidden; resize: none; }
@@ -665,7 +763,7 @@ label { font-weight: 500; font-size: 14px; line-height: 1.5; overflow-wrap: anyw
 .job-status { padding: 14px 18px; border-radius: 10px; margin-bottom: 20px; background: #e5eee0; font-size: 14px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 @media (max-width: 1100px) {
-  .builder-columns { grid-template-columns: minmax(230px, 1fr) minmax(0, 2fr); }
+  .builder-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .review { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .review .column-heading, .review > .p-button, .review > .help { grid-column: 1 / -1; }
   .perspective-card { margin-bottom: 0; }

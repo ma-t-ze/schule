@@ -1,6 +1,6 @@
 import { storyPhaseContent, storyPhaseHeading } from './storyMapping.js'
 const clone = value => JSON.parse(JSON.stringify(value))
-const stripTaskNumber = text => text.replace(/^(\*\*)?\d+[.)]\s*/, '$1')
+const stripTaskNumber = text => text.replace(/^\s*(?:\*\*)?\d+[.)](?:\*\*)?\s*/, '').replace(/^(?:\*\*\*\*\s*)+/, '')
 const stripSubtaskNumber = text => text.replace(/^\s*(?:[-*]\s+)?(?:\*\*)?\d+\.\d+(?:\.\d+)*\.?(?:\*\*)?\s*[:·–-]?\s+(?=\S)/, '')
 const cell = text => String(text || '').replace(/\\\|/g, '|').replace(/\|/g, '\\|').replace(/\r?\n/g, '<br>')
 const cardText = text => String(text || '').replace(/\r?\n/g, '&#10;')

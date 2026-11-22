@@ -50,7 +50,7 @@ test('review checks the storymapping format without replacing the review respons
 })
 
 test('the first generation is explicitly a short student-story architecture rather than detailed lesson text', () => {
-  for (const phrase of ['grober Entwurf der Unterrichtsarchitektur', 'genau einen kurzen Satz', 'Als Schüler will ich …', 'Feinplanung folgt erst auf ausdrückliche Anforderung', 'höchstens zwei Tasks pro Phase', 'keine zusätzlichen Begründungs- oder Detailzeilen']) assert(storyMappingInstruction.includes(phrase), phrase)
+  for (const phrase of ['grober Entwurf der Unterrichtsarchitektur', 'genau einen kurzen Satz', 'Als Schüler will ich …', 'Feinplanung folgt erst auf ausdrückliche Anforderung', 'genau vier dramaturgische Tasks', 'keine zusätzlichen Begründungs- oder Detailzeilen']) assert(storyMappingInstruction.includes(phrase), phrase)
   const context = outputDocumentContext(['langform'])
   assert(context.includes('noch nicht vollständig aus'))
   assert(!context.includes('Zusätzliche Begründungen oder Merkmale dürfen'))
