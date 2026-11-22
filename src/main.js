@@ -352,6 +352,17 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/3tgg12/projektion-nach-din-iso-5456/:step([1-5])',
+    name: '3tgg12-projektion-schritt',
+    component: () => import('./components/views/TGG12/ProjektionTutorial.vue'),
+    props: route => ({ step: Number(route.params.step) }),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/3tgg12/projektion-nach-din-iso-5456',
+    redirect: { name: '3tgg12-projektion-schritt', params: { step: 1 } }
+  },
+  {
     path: '/3tgg12',
     name: '3tgg12',
     component: () => import('./components/views/TGG12/TGG12.vue'),

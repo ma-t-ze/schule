@@ -119,7 +119,7 @@ const tgg12Dates = 5
             </nav>
           </Panel>
           <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-spiel' }">Spiel, Repräsentationsformen von Zeichen</RouterLink><RouterLink :to="{ name: '3tgg12-ikon-und-symbol' }">Ikon und Symbol</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink></nav>
+            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink></nav>
           </Panel>
           <Panel header="3TGG2" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="3TGG2"><RouterLink :to="{ name: '3tgg2' }">Themenübersicht</RouterLink><RouterLink :to="{ name: '3tgg2-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
