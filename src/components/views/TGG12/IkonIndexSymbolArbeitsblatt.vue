@@ -34,7 +34,7 @@ async function downloadPdf() {
 }
 </script>
 <template>
-  <main class="worksheet-page"><div class="screen-only"><RouterLink to="/">← Zur Startseite</RouterLink><h1>Ikon, Index und Symbol</h1><div class="actions"><Button :label="solutions ? 'Lösung ausblenden' : 'Lösung anzeigen'" outlined :disabled="busy" :aria-pressed="solutions" @click="solutions = !solutions" /><Button :label="solutions ? 'Lösungsblatt als PDF' : 'Arbeitsblatt als PDF'" :loading="busy" @click="downloadPdf" /></div><Message v-if="error" severity="error" :closable="false">{{ error }}</Message><p class="preview-label">{{ solutions ? 'Lösungsblatt' : 'Arbeitsblatt' }} · 1 Seite · DIN A4, Hochformat</p></div>
+  <main class="worksheet-page"><div class="screen-only"><RouterLink to="/3tgg12">← Zur Übersicht 3TGG1/2</RouterLink><h1>Ikon, Index und Symbol</h1><div class="actions"><Button :label="solutions ? 'Lösung ausblenden' : 'Lösung anzeigen'" outlined :disabled="busy" :aria-pressed="solutions" @click="solutions = !solutions" /><Button :label="solutions ? 'Lösungsblatt als PDF' : 'Arbeitsblatt als PDF'" :loading="busy" @click="downloadPdf" /></div><Message v-if="error" severity="error" :closable="false">{{ error }}</Message><p class="preview-label">{{ solutions ? 'Lösungsblatt' : 'Arbeitsblatt' }} · 1 Seite · DIN A4, Hochformat</p></div>
     <div ref="container" class="paper-container"><div class="paper-frame" :style="{ height: `${1122.52 * scale}px` }"><article ref="paper" class="a4-paper" :style="{ transform: `scale(${scale})` }">
       <header class="worksheet-header"><img src="/designvorlagen/chs.svg" width="128" height="44" alt="CHS-Logo"><h2>GESTALTUNGS- UND MEDIENTECHNIK</h2><p>Eingangsklasse | CHS | Heckel</p></header>
       <div class="worksheet-body">
