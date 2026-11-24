@@ -47,7 +47,7 @@ test('written slots survive serialization and old written grades are excluded af
   assert.deepEqual(applyWrittenReset(parsed, 299), parsed)
   assert.equal(hasFixedWrittenSlots('3bkgd1-1-grd'), true)
   assert.equal(hasFixedWrittenSlots('3tgg2'), false)
-  assert.throws(() => parseGrades(encode([{ ...written, examSlot: 5 }]), 'test-class'))
+  assert.throws(() => parseGrades(encode([{ ...written, examSlot: 6 }]), 'test-class'))
   assert.throws(() => parseGrades(encode([{ ...written, type: 'oral' }]), 'test-class'))
 })
 
@@ -72,7 +72,19 @@ test('direct written slot entry supports adding, updating and clearing without c
   assert.equal(writtenSlot(cleared, 'student-1', 1), null)
   assert.equal(cleared[1].deleted, true)
   assert.deepEqual(cleared[0], entry)
-  assert.throws(() => updateWrittenSlot([], 'student-1', 5, '2', options))
+  assert.throws(() => updateWrittenSlot([], 'student-1', 6, '2', options))
+})
+
+test('3TGG1/2 uses five written slots and assigns P notes to presentations', async () => {
+  const { writtenSlots, assignTggOralSlots, writtenSlotAverage } = await import('./localOralGrades.js')
+  assert.deepEqual(writtenSlots('3tgg1-2'), [1, 2, 3, 4, 5])
+  assert.deepEqual(writtenSlots('3bkgd1-1-grd'), [1, 2, 3, 4])
+  const records = [entry, { ...entry, id: 'p1', note: 'P' }, { ...entry, id: 'p2', note: 'P' }]
+  const assigned = assignTggOralSlots(records, 300)
+  assert.deepEqual(assigned.map(item => item.oralSlot), ['participation', 'presentation', 'presentation'])
+  assert.deepEqual(assignTggOralSlots(assigned, 400), assigned)
+  assert.equal(writtenSlotAverage([{ ...entry, type: 'written', examSlot: 5 }], 'student-1'), null)
+  assert.equal(writtenSlotAverage([{ ...entry, grade: '2', type: 'written', examSlot: 5 }], 'student-1'), 2)
 })
 
 test('oral slots follow chronological order and preserve grades, dates and notes', async () => {

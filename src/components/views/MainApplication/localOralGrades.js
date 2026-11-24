@@ -14,7 +14,7 @@ export function parseGrades(text, classId) {
   if (data?.format !== gradeFormat || data.version !== 1 || data.classId !== classId || !Array.isArray(data.entries) || data.entries.length > 50000) throw new Error('Die Notendatei ist ungültig oder gehört zu einer anderen Klasse.')
   const ids = new Set()
   const entries = data.entries.map(entry => {
-    if (!entry || typeof entry.id !== 'string' || !entry.id || entry.id.length > 100 || ids.has(entry.id) || typeof entry.studentId !== 'string' || !entry.studentId || entry.studentId.length > 150 || !validGradeDate(entry.date) || typeof entry.grade !== 'string' || !entry.grade.trim() || entry.grade.length > 20 || typeof entry.note !== 'string' || entry.note.length > 2000 || !Number.isSafeInteger(entry.updatedAt) || entry.updatedAt < 0 || typeof entry.deleted !== 'boolean' || (entry.type !== undefined && !['oral', 'written', 'practical'].includes(entry.type)) || (entry.examSlot !== undefined && (!Number.isInteger(entry.examSlot) || entry.examSlot < 1 || entry.examSlot > 4 || entry.type !== 'written')) || (entry.oralSlot !== undefined && (!['participation', 'presentation'].includes(entry.oralSlot) || (entry.type !== undefined && entry.type !== 'oral')))) throw new Error('Die Notendatei enthält ungültige oder doppelte Einträge.')
+    if (!entry || typeof entry.id !== 'string' || !entry.id || entry.id.length > 100 || ids.has(entry.id) || typeof entry.studentId !== 'string' || !entry.studentId || entry.studentId.length > 150 || !validGradeDate(entry.date) || typeof entry.grade !== 'string' || !entry.grade.trim() || entry.grade.length > 20 || typeof entry.note !== 'string' || entry.note.length > 2000 || !Number.isSafeInteger(entry.updatedAt) || entry.updatedAt < 0 || typeof entry.deleted !== 'boolean' || (entry.type !== undefined && !['oral', 'written', 'practical'].includes(entry.type)) || (entry.examSlot !== undefined && (!Number.isInteger(entry.examSlot) || entry.examSlot < 1 || entry.examSlot > 5 || entry.type !== 'written')) || (entry.oralSlot !== undefined && (!['participation', 'presentation'].includes(entry.oralSlot) || (entry.type !== undefined && entry.type !== 'oral')))) throw new Error('Die Notendatei enthält ungültige oder doppelte Einträge.')
     ids.add(entry.id)
     return { id: entry.id, studentId: entry.studentId, date: entry.date, grade: entry.grade, note: entry.note, updatedAt: entry.updatedAt, deleted: entry.deleted, ...(entry.type !== undefined ? { type: entry.type } : {}), ...(entry.examSlot !== undefined ? { examSlot: entry.examSlot } : {}), ...(entry.oralSlot !== undefined ? { oralSlot: entry.oralSlot } : {}) }
   })
@@ -46,7 +46,7 @@ export function gradesForStudent(entries, studentId, type) {
 }
 
 export const oralSlotLabels = { participation: 'Wortmeldungen', presentation: 'Präsentationen' }
-export const hasFixedOralSlots = classId => classId === '3bkgd1-1-grd'
+export const hasFixedOralSlots = classId => ['3bkgd1-1-grd', '3tgg1-2'].includes(classId)
 export function oralSlot(entries, studentId, slot) {
   return gradesForStudent(entries, studentId, 'oral').find(entry => entry.oralSlot === slot) || null
 }
@@ -67,6 +67,13 @@ export function assignOralSlots(entries, now = Date.now()) {
   }
   return replacements.size ? entries.map(entry => replacements.get(entry.id) || entry) : entries
 }
+export function assignTggOralSlots(entries, now = Date.now()) {
+  return entries.map(entry => {
+    if (entry.deleted || gradeType(entry) !== 'oral' || entry.oralSlot) return entry
+    const oralSlot = /^p$/i.test(entry.note.trim()) ? 'presentation' : 'participation'
+    return { ...entry, oralSlot, updatedAt: Math.max(now, entry.updatedAt + 1) }
+  })
+}
 export function updateOralSlot(entries, studentId, slot, value, options) {
   if (!Object.hasOwn(oralSlotLabels, slot) || typeof value !== 'string' || value.trim().length > 20 || !validGradeDate(options.date) || !Number.isSafeInteger(options.updatedAt)) throw new Error('Ungültige Eingabe für die mündliche Note.')
   const grade = value.trim()
@@ -79,12 +86,13 @@ export function updateOralSlot(entries, studentId, slot, value, options) {
   return previous ? entries.map(entry => entry.id === previous.id ? next : entry) : [...entries, next]
 }
 
-export const hasFixedWrittenSlots = classId => classId === '3bkgd1-1-grd'
+export const hasFixedWrittenSlots = classId => ['3bkgd1-1-grd', '3tgg1-2'].includes(classId)
+export const writtenSlots = classId => Array.from({ length: classId === '3tgg1-2' ? 5 : 4 }, (_, i) => i + 1)
 export function writtenSlot(entries, studentId, slot) {
   return gradesForStudent(entries, studentId, 'written').find(entry => entry.examSlot === slot) || null
 }
 export function updateWrittenSlot(entries, studentId, slot, value, options) {
-  if (!Number.isInteger(slot) || slot < 1 || slot > 4 || typeof value !== 'string' || value.trim().length > 20 || !validGradeDate(options.date) || !Number.isSafeInteger(options.updatedAt)) throw new Error('Ungültige Eingabe für die Klassenarbeit.')
+  if (!Number.isInteger(slot) || slot < 1 || slot > 5 || typeof value !== 'string' || value.trim().length > 20 || !validGradeDate(options.date) || !Number.isSafeInteger(options.updatedAt)) throw new Error('Ungültige Eingabe für die Klassenarbeit.')
   const grade = value.trim()
   const previous = writtenSlot(entries, studentId, slot)
   if (!previous && !grade) return entries
@@ -95,7 +103,7 @@ export function updateWrittenSlot(entries, studentId, slot, value, options) {
   return previous ? entries.map(entry => entry.id === previous.id ? next : entry) : [...entries, next]
 }
 export function writtenSlotAverage(entries, studentId) {
-  const slots = [1, 2, 3, 4].map(slot => writtenSlot(entries, studentId, slot)).filter(Boolean)
+  const slots = [1, 2, 3, 4, 5].map(slot => writtenSlot(entries, studentId, slot)).filter(Boolean)
   if (!slots.length) return null
   const values = slots.map(entry => {
     const text = entry.grade.trim().replace(',', '.')

@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf'
 import fontUrl from '../../../assets/fonts/Graphit-Regular.ttf?url'
-import { gradesForStudent, weightedAverage, hasFixedWrittenSlots, writtenSlot } from './localOralGrades'
+import { gradesForStudent, weightedAverage, hasFixedWrittenSlots, writtenSlots, writtenSlot } from './localOralGrades'
 
 const categories = ['written', 'practical', 'oral']
 
@@ -16,11 +16,12 @@ export async function createGradesPdf({ classroom, entries, weights, finalGrades
   pdf.setFont('Graphit')
   pdf.setProperties({ title: `Notenliste · ${classroom.title}` })
   const fixedWritten = hasFixedWrittenSlots(classroom.id)
-  const columns = fixedWritten ? [37, 12, 12, 12, 12, 25, 25, 27, 28] : [42, 32, 32, 32, 30, 22]
+  const slots = writtenSlots(classroom.id)
+  const columns = fixedWritten ? [37, ...slots.map(() => classroom.id === '3tgg1-2' ? 10 : 12), 25, 25, 27, classroom.id === '3tgg1-2' ? 26 : 28] : [42, 32, 32, 32, 30, 22]
   const x = columns.map((_, index) => 10 + columns.slice(0, index).reduce((sum, value) => sum + value, 0))
   const rows = classroom.students.map(person => {
     const average = weightedAverage(entries, person.id, weights)
-    const gradeCells = fixedWritten ? [...[1, 2, 3, 4].map(slot => writtenSlot(entries, person.id, slot)?.grade || '–'), ...['practical', 'oral'].map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–')] : categories.map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–')
+    const gradeCells = fixedWritten ? [...slots.map(slot => writtenSlot(entries, person.id, slot)?.grade || '–'), ...['practical', 'oral'].map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–')] : categories.map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–')
     return [person.name, ...gradeCells, average === null ? '–' : average.toFixed(2).replace('.', ','), finalGrades[person.id] ?? (average === null ? '–' : String(Math.round(average)))]
   })
   let fontSize = 9
@@ -37,8 +38,8 @@ export async function createGradesPdf({ classroom, entries, weights, finalGrades
   pdf.setFontSize(16)
   pdf.text(`Notenliste · ${classroom.title}`, 10, 14)
   pdf.setFontSize(fontSize)
-  const titles = fixedWritten ? ['Name', 'KA 1', 'KA 2', 'KA 3', 'KA 4', `Praktisch (${weights.practical == null ? '–' : `${weights.practical} %`})`, `Mündlich (${weights.oral == null ? '–' : `${weights.oral} %`})`, 'Durchschnitt', 'Endnote'] : ['Name', ...categories.map((key, i) => `${['Schriftlich', 'Praktisch', 'Mündlich'][i]} (${weights[key] == null ? '–' : `${weights[key]} %`})`), 'Durchschnitt', 'Endnote']
-  if (fixedWritten) { pdf.setFontSize(8); pdf.text(`Schriftlich: KA 1–4 (${weights.written == null ? '–' : `${weights.written} %`})`, 10, 20); pdf.setFontSize(fontSize) }
+  const titles = fixedWritten ? ['Name', ...slots.map(slot => `KA ${slot}`), `Praktisch (${weights.practical == null ? '–' : `${weights.practical} %`})`, `Mündlich (${weights.oral == null ? '–' : `${weights.oral} %`})`, 'Durchschnitt', 'Endnote'] : ['Name', ...categories.map((key, i) => `${['Schriftlich', 'Praktisch', 'Mündlich'][i]} (${weights[key] == null ? '–' : `${weights[key]} %`})`), 'Durchschnitt', 'Endnote']
+  if (fixedWritten) { pdf.setFontSize(8); pdf.text(`Schriftlich: KA 1–${slots.length} (${weights.written == null ? '–' : `${weights.written} %`})`, 10, 20); pdf.setFontSize(fontSize) }
   let y = fixedWritten ? 25 : 22
   pdf.setFillColor(232, 239, 232)
   pdf.rect(10, y, 190, 9, 'F')

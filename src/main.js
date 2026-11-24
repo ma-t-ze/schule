@@ -37,8 +37,7 @@ const routes = [
   {
     path: '/3tgg12/arbeitsblatt-ikon-index-symbol',
     name: '3tgg12-arbeitsblatt-ikon-index-symbol',
-    component: () => import('./components/views/TGG12/IkonIndexSymbolArbeitsblatt.vue'),
-    meta: { requiresAuth: true }
+    component: () => import('./components/views/TGG12/IkonIndexSymbolArbeitsblatt.vue')
   },
   {
     path: '/3tgg12/zeichen-objekt-interpretant',
