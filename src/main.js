@@ -35,6 +35,18 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/3tgg12/arbeitsblatt-ikon-index-symbol',
+    name: '3tgg12-arbeitsblatt-ikon-index-symbol',
+    component: () => import('./components/views/TGG12/IkonIndexSymbolArbeitsblatt.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/3tgg12/zeichen-objekt-interpretant',
+    name: '3tgg12-zeichen-objekt-interpretant',
+    component: () => import('./components/views/TGG12/ZeichenObjektInterpretant.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3tgg12/zeichen-und-bezeichnetes',
     name: '3tgg12-zeichen-und-bezeichnetes',
     component: () => import('./components/views/TGG12/ZeichenUndBezeichnetes.vue'),
@@ -65,6 +77,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/3bkgd1-1-grd/indesign-seiten-uebernehmen',
+    name: 'grd-indesign-seiten-uebernehmen',
+    component: () => import('./components/views/BKGD1GRD/SeitenUebernehmenArbeitsblatt.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3bkgd1-1-grd/klassenarbeit-01',
     name: 'grd-klassenarbeit-01',
     component: () => import('./components/views/BKGD1GRD/Klassenarbeit01.vue'),
@@ -86,6 +104,12 @@ const routes = [
     path: '/1bfd1/umfang-klassenarbeit-01',
     name: 'umfang-klassenarbeit-01',
     component: () => import('./components/views/BFD1/UmfangKlassenarbeit01.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/designvorlagen/a4/3bkgd1-1-grd',
+    name: 'designvorlage-a4-grd',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageA4GRD.vue'),
     meta: { requiresAuth: true }
   },
   {

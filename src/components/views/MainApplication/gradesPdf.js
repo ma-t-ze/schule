@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf'
 import fontUrl from '../../../assets/fonts/Graphit-Regular.ttf?url'
-import { gradesForStudent, weightedAverage } from './localOralGrades'
+import { gradesForStudent, weightedAverage, hasFixedWrittenSlots, writtenSlot } from './localOralGrades'
 
 const categories = ['written', 'practical', 'oral']
 
@@ -15,11 +15,13 @@ export async function createGradesPdf({ classroom, entries, weights, finalGrades
   pdf.addFont('Graphit.ttf', 'Graphit', 'normal')
   pdf.setFont('Graphit')
   pdf.setProperties({ title: `Notenliste · ${classroom.title}` })
-  const columns = [42, 32, 32, 32, 30, 22]
-  const x = [10, 52, 84, 116, 148, 178]
+  const fixedWritten = hasFixedWrittenSlots(classroom.id)
+  const columns = fixedWritten ? [37, 12, 12, 12, 12, 25, 25, 27, 28] : [42, 32, 32, 32, 30, 22]
+  const x = columns.map((_, index) => 10 + columns.slice(0, index).reduce((sum, value) => sum + value, 0))
   const rows = classroom.students.map(person => {
     const average = weightedAverage(entries, person.id, weights)
-    return [person.name, ...categories.map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–'), average === null ? '–' : average.toFixed(2).replace('.', ','), finalGrades[person.id] ?? (average === null ? '–' : String(Math.round(average)))]
+    const gradeCells = fixedWritten ? [...[1, 2, 3, 4].map(slot => writtenSlot(entries, person.id, slot)?.grade || '–'), ...['practical', 'oral'].map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–')] : categories.map(type => gradesForStudent(entries, person.id, type).map(entry => entry.grade).join(', ') || '–')
+    return [person.name, ...gradeCells, average === null ? '–' : average.toFixed(2).replace('.', ','), finalGrades[person.id] ?? (average === null ? '–' : String(Math.round(average)))]
   })
   let fontSize = 9
   let lineHeight, lines, heights
@@ -28,15 +30,16 @@ export async function createGradesPdf({ classroom, entries, weights, finalGrades
     lineHeight = fontSize * 0.3528 * 1.2
     lines = rows.map(row => row.map((value, i) => pdf.splitTextToSize(value, columns[i] - 4)))
     heights = lines.map(row => Math.max(6, Math.max(...row.map(cell => cell.length)) * lineHeight + 2))
-    if (heights.reduce((sum, value) => sum + value, 0) <= 250) break
+    if (heights.reduce((sum, value) => sum + value, 0) <= (fixedWritten ? 247 : 250)) break
     fontSize -= 0.5
   } while (fontSize >= 5)
   if (fontSize < 5) throw new Error('Die Notenliste ist zu umfangreich für eine lesbare DIN-A4-Seite.')
   pdf.setFontSize(16)
   pdf.text(`Notenliste · ${classroom.title}`, 10, 14)
   pdf.setFontSize(fontSize)
-  const titles = ['Name', ...categories.map((key, i) => `${['Schriftlich', 'Praktisch', 'Mündlich'][i]} (${weights[key] == null ? '–' : `${weights[key]} %`})`), 'Durchschnitt', 'Endnote']
-  let y = 22
+  const titles = fixedWritten ? ['Name', 'KA 1', 'KA 2', 'KA 3', 'KA 4', `Praktisch (${weights.practical == null ? '–' : `${weights.practical} %`})`, `Mündlich (${weights.oral == null ? '–' : `${weights.oral} %`})`, 'Durchschnitt', 'Endnote'] : ['Name', ...categories.map((key, i) => `${['Schriftlich', 'Praktisch', 'Mündlich'][i]} (${weights[key] == null ? '–' : `${weights[key]} %`})`), 'Durchschnitt', 'Endnote']
+  if (fixedWritten) { pdf.setFontSize(8); pdf.text(`Schriftlich: KA 1–4 (${weights.written == null ? '–' : `${weights.written} %`})`, 10, 20); pdf.setFontSize(fontSize) }
+  let y = fixedWritten ? 25 : 22
   pdf.setFillColor(232, 239, 232)
   pdf.rect(10, y, 190, 9, 'F')
   for (let i = 0; i < columns.length; i++) {

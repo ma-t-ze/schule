@@ -36,3 +36,60 @@ test('oral legacy grades and written grades retain their category', () => {
   assert.deepEqual(gradesForStudent(parsed, 'other-student', 'oral'), [])
   assert.throws(() => parseGrades(encode([{ ...written, type: 'unknown' }]), 'test-class'))
 })
+
+test('written slots survive serialization and old written grades are excluded after reset', async () => {
+  const { writtenSlot, applyWrittenReset, hasFixedWrittenSlots } = await import('./localOralGrades.js')
+  const written = { ...entry, id: 'written-slot', type: 'written', examSlot: 2, updatedAt: 300 }
+  const parsed = parseGrades(encode([entry, written]), 'test-class')
+  assert.equal(writtenSlot(parsed, 'student-1', 2).grade, '2+')
+  assert.equal(writtenSlot(parsed, 'student-1', 1), null)
+  assert.deepEqual(applyWrittenReset(parsed, 300), [entry])
+  assert.deepEqual(applyWrittenReset(parsed, 299), parsed)
+  assert.equal(hasFixedWrittenSlots('3bkgd1-1-grd'), true)
+  assert.equal(hasFixedWrittenSlots('3tgg2'), false)
+  assert.throws(() => parseGrades(encode([{ ...written, examSlot: 5 }]), 'test-class'))
+  assert.throws(() => parseGrades(encode([{ ...written, type: 'oral' }]), 'test-class'))
+})
+
+test('written slot preview averages entered numeric KA grades without inventing missing grades', async () => {
+  const { writtenSlotAverage } = await import('./localOralGrades.js')
+  const grade = (examSlot, value) => ({ ...entry, id: `written-${examSlot}`, type: 'written', examSlot, grade: value })
+  assert.equal(writtenSlotAverage([], 'student-1'), null)
+  assert.equal(writtenSlotAverage([grade(1, '2'), grade(3, '3,5')], 'student-1'), 2.75)
+  assert.equal(writtenSlotAverage([grade(1, '2+'), grade(2, '3')], 'student-1'), null)
+  assert.equal(writtenSlotAverage([grade(1, '2')], 'other-student'), null)
+})
+
+test('direct written slot entry supports adding, updating and clearing without changing other grades', async () => {
+  const { updateWrittenSlot, writtenSlot } = await import('./localOralGrades.js')
+  const options = { id: 'ka-1', date: '2026-11-23', updatedAt: 400 }
+  const added = updateWrittenSlot([entry], 'student-1', 1, '2,5', options)
+  assert.equal(writtenSlot(added, 'student-1', 1).grade, '2,5')
+  const updated = updateWrittenSlot(added, 'student-1', 1, '2', options)
+  assert.equal(writtenSlot(updated, 'student-1', 1).grade, '2')
+  assert(updated[1].updatedAt > added[1].updatedAt)
+  const cleared = updateWrittenSlot(updated, 'student-1', 1, '', options)
+  assert.equal(writtenSlot(cleared, 'student-1', 1), null)
+  assert.equal(cleared[1].deleted, true)
+  assert.deepEqual(cleared[0], entry)
+  assert.throws(() => updateWrittenSlot([], 'student-1', 5, '2', options))
+})
+
+test('oral slots follow chronological order and preserve grades, dates and notes', async () => {
+  const { assignOralSlots, oralSlot, updateOralSlot } = await import('./localOralGrades.js')
+  const earlier = { ...entry, id: 'earlier', type: 'oral', date: '2026-10-01', grade: '2', note: 'mündlich' }
+  const later = { ...entry, id: 'later', type: 'oral', date: '2026-11-01', grade: '3', note: 'Präsentation' }
+  const assigned = assignOralSlots([later, earlier], 300)
+  assert.equal(oralSlot(assigned, 'student-1', 'participation').id, 'earlier')
+  assert.equal(oralSlot(assigned, 'student-1', 'presentation').id, 'later')
+  assert.equal(oralSlot(assigned, 'student-1', 'presentation').note, 'Präsentation')
+  assert.deepEqual(assignOralSlots(assigned, 400), assigned)
+  const changed = updateOralSlot(assigned, 'student-1', 'presentation', '2,5', { id: 'new', date: '2026-11-23', updatedAt: 500 })
+  assert.equal(oralSlot(changed, 'student-1', 'presentation').grade, '2,5')
+  assert.equal(oralSlot(changed, 'student-1', 'presentation').note, 'Präsentation')
+  assert.equal(oralSlot(changed, 'student-1', 'participation').grade, '2')
+  const cleared = updateOralSlot(changed, 'student-1', 'presentation', '', { id: 'new', date: '2026-11-23', updatedAt: 600 })
+  assert.equal(oralSlot(cleared, 'student-1', 'presentation'), null)
+  assert.throws(() => parseGrades(encode([{ ...earlier, oralSlot: 'other' }]), 'test-class'))
+  assert.throws(() => parseGrades(encode([{ ...earlier, type: 'written', oralSlot: 'participation' }]), 'test-class'))
+})

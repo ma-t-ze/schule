@@ -5,7 +5,7 @@ import Button from 'primevue/button'
 import InputNumber from 'primevue/inputnumber'
 import Dialog from 'primevue/dialog'
 import LocalOralGrades from './LocalOralGrades.vue'
-import { gradesForStudent } from './localOralGrades'
+import { gradesForStudent, hasFixedWrittenSlots, writtenSlotAverage } from './localOralGrades'
 import { originalPositions, validPositions, migrateSeating, validLayout, normalizePositions, resizeSeating } from './seatingPositions'
 
 const props = defineProps({ classId: { type: String, default: '' }, embedded: { type: Boolean, default: false } })
@@ -18,6 +18,11 @@ const oralGrades = ref(null)
 const gradeTypes = [['oral', 'M'], ['written', 'S'], ['practical', 'P']]
 function studentGrades(student, type) {
   return gradesForStudent(oralGrades.value?.entries || [], student.id, type)
+}
+function writtenPreview(student) {
+  if (!oralGrades.value?.fileLoaded) return '–'
+  const average = writtenSlotAverage(oralGrades.value.entries || [], student.id)
+  return average === null ? '–' : average.toFixed(2).replace('.', ',')
 }
 const seats = ref(originalPositions())
 // Temporary attendance follows the person, never the seat or persistence payload.
@@ -320,7 +325,7 @@ watch(currentClass, () => { gameOpen.value = false; gameStudent.value = null; ga
             <span v-else class="empty-label">Freier Platz</span>
           </button>
           <div v-if="studentAt(position)" class="grade-preview" aria-label="Notenvorschau">
-            <span v-for="[type, label] in gradeTypes" :key="type"><strong>{{ label }}:</strong> {{ studentGrades(studentAt(position), type).map(entry => entry.grade).join(' · ') || '–' }}</span>
+            <template v-for="[type, label] in gradeTypes" :key="type"><span v-if="type === 'written' && hasFixedWrittenSlots(currentClass.id)"><strong>S:</strong> {{ writtenPreview(studentAt(position)) }}</span><span v-else><strong>{{ label }}:</strong> {{ studentGrades(studentAt(position), type).map(entry => entry.grade).join(' · ') || '–' }}</span></template>
           </div>
           <Button v-if="studentAt(position)" label="Platz tauschen" text size="small" @click="choose(index)" />
           <Button v-if="studentAt(position)" unstyled type="button" class="attendance-toggle" :class="{ present: presentStudents.has(position) }" :aria-pressed="presentStudents.has(position)" :aria-label="`Anwesenheit für ${studentAt(position).name}`" :title="presentStudents.has(position) ? 'Anwesend – zum Leeren anklicken' : 'Nicht markiert – als anwesend markieren'" @click.stop="toggleAttendance(position)" />

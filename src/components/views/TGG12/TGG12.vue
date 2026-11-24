@@ -42,6 +42,7 @@
         #12 Helligkeit und Sättigung
       </router-link>
       <router-link class="topic-link" :to="{ name: '3tgg12-projektion-schritt', params: { step: 1 } }">#13 Projektion nach DIN ISO 5456</router-link>
+      <a class="topic-link" href="/material/3tgg12/3TGG1_2_Zeichen_Objekt_Interpretant.pdf">#14 Zeichen_Objekt_Interpretant</a>
     </nav>
   </main>
 </template>

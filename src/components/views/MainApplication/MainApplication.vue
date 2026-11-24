@@ -22,7 +22,7 @@ async function openDocument(event) {
   const link = event.target.closest('a[href]')
   if (!link || link.hasAttribute('download')) return
   const url = new URL(link.href, window.location.href)
-  if (url.origin !== window.location.origin || !/^\/(sitzplaene|designvorlagen|pruefungen|lehrplaene)(\/|$)/.test(url.pathname)) return
+  if (url.origin !== window.location.origin || !/^\/(sitzplaene|designvorlagen|pruefungen|lehrplaene|korrekturzeichen|notenschluessel)(\/|$)/.test(url.pathname)) return
   event.preventDefault()
   event.stopPropagation()
   const src = url.pathname + url.search + url.hash
@@ -109,7 +109,7 @@ const tgg12Dates = 5
             <nav class="link-list" aria-label="3BKGD1/1 MET"><RouterLink v-for="[label, name] in metLinks" :key="name" :to="{ name }">{{ label }}</RouterLink></nav>
           </Panel>
           <Panel header="3BKGD1_1_GRD" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3BKGD1_1_GRD"><RouterLink :to="{ name: 'grd-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
+            <nav class="link-list" aria-label="3BKGD1_1_GRD"><RouterLink :to="{ name: 'grd-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: 'grd-indesign-seiten-uebernehmen' }">Arbeitsblatt: InDesign-Seiten übernehmen</RouterLink></nav>
           </Panel>
           <Panel header="1BFD1 BPK" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="1BFD1 BPK">
@@ -119,7 +119,7 @@ const tgg12Dates = 5
             </nav>
           </Panel>
           <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink></nav>
+            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-objekt-interpretant' }">Arbeitsblatt: Zeichen, Objekt und Interpretant</RouterLink><RouterLink :to="{ name: '3tgg12-arbeitsblatt-ikon-index-symbol' }">Arbeitsblatt: Ikon, Index und Symbol</RouterLink></nav>
           </Panel>
           <Panel header="3TGG2" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="3TGG2"><RouterLink :to="{ name: '3tgg2' }">Themenübersicht</RouterLink><RouterLink :to="{ name: '3tgg2-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
@@ -226,6 +226,7 @@ const tgg12Dates = 5
             </Panel>
             <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
               <nav class="link-list" aria-label="Designvorlage A4">
+                <RouterLink :to="{ name: 'designvorlage-a4-grd' }">3BKGD1_1_GRD</RouterLink>
                 <RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink>
                 <RouterLink :to="{ name: 'designvorlage-a4-tgg2' }">3TGG2</RouterLink>
                 <RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink>
@@ -244,7 +245,16 @@ const tgg12Dates = 5
           <a href="/pruefungen/Klassen_UBs.jpg" target="_blank" rel="noopener noreferrer">Klassenauswahl für die unterrichtspraktischen Prüfungen (JPG) ↗</a>
         </nav>
       </Panel>
-      <RouterLink class="sidebar-link" :to="{ name: 'notengebung' }">Notengebung</RouterLink>
+      <Panel header="Notengebung" toggleable collapsed>
+        <nav class="link-list" aria-label="Notengebung">
+          <RouterLink :to="{ name: 'notengebung' }">Klassenlisten</RouterLink>
+          <a href="/notenschluessel/Notenschluessel_30p.pdf" target="_blank" rel="noopener noreferrer">Notenschlüssel 30p</a>
+          <div class="correction-link">
+            <a href="/korrekturzeichen/Korrekturzeichen.png" target="_blank" rel="noopener noreferrer">Korrekturzeichen</a>
+            <a class="correction-download" href="/korrekturzeichen/Korrekturzeichen.png" download="Korrekturzeichen.png" aria-label="Korrekturzeichen herunterladen" title="Korrekturzeichen herunterladen"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3" /></svg></a>
+          </div>
+        </nav>
+      </Panel>
     </aside>
     <div class="center-column">
       <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>
@@ -324,6 +334,8 @@ const tgg12Dates = 5
 .class-subpanel :deep(.p-panel-content) { padding: 0 12px 12px; }
 .link-list { display: flex; flex-direction: column; gap: 6px; }
 .link-list a { padding: 10px 0; color: inherit; text-decoration: none; font-size: 17px; overflow-wrap: anywhere; }
+.correction-link { display: flex; align-items: center; gap: 10px; }
+.link-list .correction-download { display: inline-flex; align-items: center; justify-content: center; padding: 8px; }
 .link-list a:hover { color: #176746; text-decoration: underline; text-underline-offset: 5px; }
 .link-list a:focus-visible { outline: 2px solid #176746; outline-offset: 4px; }
 .archive-links a { font-size: 17px; }

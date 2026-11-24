@@ -20,9 +20,11 @@ export function createLocalGradeStore(root) {
       const text = await readFile(path.join(directory, `Noten_${classId}.json`), 'utf8')
       const weights = JSON.parse(text).weights ?? null
       const finalGrades = JSON.parse(text).finalGrades ?? {}
+      const writtenResetAt = JSON.parse(text).writtenResetAt ?? null
+      if (writtenResetAt !== null && (!Number.isSafeInteger(writtenResetAt) || writtenResetAt < 0)) throw new Error('Ungültiger Notenstand.')
       if (weights !== null && !validateWeights(weights)) throw new Error('Ungültige Gewichtung.')
       if (!validateFinalGrades(finalGrades)) throw new Error('Ungültige Endnoten.')
-      return { entries: parseGrades(text, classId), revision: digest(text), ...(weights ? { weights } : {}), finalGrades }
+      return { entries: parseGrades(text, classId), revision: digest(text), ...(weights ? { weights } : {}), finalGrades, ...(writtenResetAt !== null ? { writtenResetAt } : {}) }
     } catch (error) {
       if (missing(error)) return { entries: [], revision: null }
       throw error
@@ -33,6 +35,7 @@ export function createLocalGradeStore(root) {
     const entries = parseGrades(JSON.stringify(payload), classId)
     if (payload.weights != null && !validateWeights(payload.weights)) throw new Error('Ungültige Gewichtung.')
     if (payload.finalGrades != null && !validateFinalGrades(payload.finalGrades)) throw new Error('Ungültige Endnoten.')
+    if (payload.writtenResetAt != null && (!Number.isSafeInteger(payload.writtenResetAt) || payload.writtenResetAt < 0)) throw new Error('Ungültiger Notenstand.')
     await mkdir(directory, { recursive: true, mode: 0o700 })
     const lock = path.join(directory, `.lock-${classId}`)
     try { await mkdir(lock) } catch (error) {
@@ -43,7 +46,7 @@ export function createLocalGradeStore(root) {
     try {
       const existing = await read(classId)
       if (payload.revision !== existing.revision) throw Object.assign(new Error('Die Datei wurde inzwischen geändert. Bitte „Dateistand laden“ anklicken und erneut speichern.'), { status: 409 })
-      const text = serializeGrades(classId, classroom.title, classroom.students, entries, payload.weights ?? null, payload.finalGrades ?? {})
+      const text = serializeGrades(classId, classroom.title, classroom.students, entries, payload.weights ?? null, payload.finalGrades ?? {}, payload.writtenResetAt ?? null)
       temporary = path.join(directory, `.tmp-${randomUUID()}`)
       await writeFile(temporary, text, { flag: 'wx', mode: 0o600 })
       await rename(temporary, path.join(directory, `Noten_${classId}.json`))

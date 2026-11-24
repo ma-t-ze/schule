@@ -52,3 +52,19 @@ test('local API rejects remote clients and foreign origins', async () => {
     assert(result.error)
   }
 })
+
+test('written reset metadata and exam slot survive the local file round trip', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'school-grade-reset-'))
+  try {
+    const roster = path.join(root, 'src/local-sitzplaene/klassen/test-class')
+    await mkdir(roster, { recursive: true })
+    await writeFile(path.join(roster, 'klasse.json'), JSON.stringify({ id: 'test-class', title: 'Testklasse', students: [{ id: 'student-1', name: 'Testperson' }] }))
+    const store = createLocalGradeStore(root)
+    const result = await store.save('test-class', { ...payload(null, [{ ...entry, type: 'written', examSlot: 3, updatedAt: 301 }]), writtenResetAt: 300 })
+    const saved = await store.read('test-class')
+    assert.equal(saved.revision, result.revision)
+    assert.equal(saved.writtenResetAt, 300)
+    assert.equal(saved.entries[0].examSlot, 3)
+    await assert.rejects(store.save('test-class', { ...payload(result.revision), writtenResetAt: -1 }))
+  } finally { await rm(root, { recursive: true, force: true }) }
+})
