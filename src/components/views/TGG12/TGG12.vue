@@ -44,6 +44,7 @@
       <router-link class="topic-link" :to="{ name: '3tgg12-projektion-schritt', params: { step: 1 } }">#13 Projektion nach DIN ISO 5456</router-link>
       <a class="topic-link" href="/material/3tgg12/3TGG1_2_Zeichen_Objekt_Interpretant.pdf">#14 Zeichen_Objekt_Interpretant</a>
       <a class="topic-link" href="/material/3tgg12/3TGG1_2_Ikon_Index_Symbol.pdf">#15 Ikon, Index und Symbol</a>
+      <a class="topic-link" href="/material/3tgg12/3TGG1_2_Plakatwettbewerb_Zeichenanalyse.pdf">#16 Plakatwettbewerb Zeichenanalyse</a>
     </nav>
   </main>
 </template>

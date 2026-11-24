@@ -17,6 +17,12 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/3tgg12/plakatwettbewerb-zeichenanalyse',
+    name: '3tgg12-plakatwettbewerb-zeichenanalyse',
+    component: () => import('./components/views/TGG12/PlakatwettbewerbArbeitsblatt.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/notengebung',
     name: 'notengebung',
     component: () => import('./components/views/Notengebung/Notengebung.vue'),

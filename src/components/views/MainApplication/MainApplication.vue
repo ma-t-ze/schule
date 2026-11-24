@@ -119,7 +119,7 @@ const tgg12Dates = 5
             </nav>
           </Panel>
           <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-objekt-interpretant' }">Arbeitsblatt: Zeichen, Objekt und Interpretant</RouterLink><RouterLink :to="{ name: '3tgg12-arbeitsblatt-ikon-index-symbol' }">Arbeitsblatt: Ikon, Index und Symbol</RouterLink></nav>
+            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-objekt-interpretant' }">Arbeitsblatt: Zeichen, Objekt und Interpretant</RouterLink><RouterLink :to="{ name: '3tgg12-arbeitsblatt-ikon-index-symbol' }">Arbeitsblatt: Ikon, Index und Symbol</RouterLink><RouterLink :to="{ name: '3tgg12-plakatwettbewerb-zeichenanalyse' }">Arbeitsblatt: Plakatwettbewerb – Zeichenanalyse</RouterLink></nav>
           </Panel>
           <Panel header="3TGG2" toggleable collapsed class="class-subpanel">
             <nav class="link-list" aria-label="3TGG2"><RouterLink :to="{ name: '3tgg2' }">Themenübersicht</RouterLink><RouterLink :to="{ name: '3tgg2-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
