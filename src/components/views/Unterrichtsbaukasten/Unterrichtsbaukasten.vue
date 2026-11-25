@@ -15,6 +15,7 @@ import { cognitiveGoalLevels, validCognitiveGoalIds, selectedCognitiveGoals, cog
 import { affectiveGoalColumns, affectiveGoalRows, validAffectiveGoalIds, selectedAffectiveGoals, affectiveGoalContext } from './affectiveGoals.js'
 import { outputDocuments, validOutputDocumentIds, outputDocumentContext, storyMappingTemplate, storyMappingInstruction, ensureStoryMappingPrompt } from './outputDocuments.js'
 import MaterialsDialog from './MaterialsDialog.vue'
+import GmtFortschritt from './GmtFortschritt.vue'
 import StoryMappingBoard from './StoryMappingBoard.vue'
 import { addSuggestedSubtasks, replaceEntrySubtasks, replaceTaskSubtasks } from './lessonSubtasks.js'
 import { materialDocumentContext, restoreMaterialDocuments } from './materialDocuments.js'
@@ -41,6 +42,7 @@ const cognitiveDialogOpen = ref(false)
 const selectedCognitiveGoalIds = ref([])
 const cognitiveSelection = computed(() => selectedCognitiveGoals(selectedCognitiveGoalIds.value))
 const materialsDialogOpen = ref(false)
+const gmtDialogOpen = ref(false)
 const materialDocuments = ref([])
 function saveMaterials(value) { form.mediaMaterials = value.text; materialDocuments.value = value.documents }
 const selectedOutputDocumentIds = ref([])
@@ -480,7 +482,17 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
   <main class="builder-page">
     <div class="builder-shell">
       <RouterLink to="/" class="back">← Unterricht planen</RouterLink>
-      <header class="page-header"><p class="eyebrow">UNTERRICHT PLANEN</p><div class="page-title-row"><h1>Unterrichtsbaukasten</h1><Button label="Neuer Unterrichtsentwurf" outlined :disabled="busy || !!jobId" @click="newLessonDraft" /></div></header>
+      <header class="page-header"><p class="eyebrow">UNTERRICHT PLANEN</p><div class="page-title-row"><h1>Unterricht planen</h1><Button label="Neuer Unterrichtsentwurf" outlined :disabled="busy || !!jobId" @click="newLessonDraft" /></div></header>
+      <p><a href="/material/unterricht-planen/Vorlage_Langform.docx" download="Vorlage_Langform.docx">Vorlage Langform (Word) herunterladen</a></p>
+      <p><RouterLink to="/stoffverteilungsplaene">Stoffverteilungspläne öffnen</RouterLink></p>
+      <Panel header="Verlaufspläne" toggleable collapsed class="choice-panel">
+        <nav class="lesson-plan-links" aria-label="Verlaufspläne">
+          <RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink>
+          <RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink>
+          <RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink>
+          <RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink>
+        </nav>
+      </Panel>
       <section class="theories-area" aria-label="Lerntheorien für die Unterrichtsplanung">
         <Panel header="Lerntheorien" toggleable collapsed class="theories-panel">
           <p class="theories-intro">Lerntheorien für den Unterrichtsvorschlag auswählen. Der Name öffnet die Beschreibung.</p>
@@ -506,6 +518,7 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
           <Panel header="Lehrpläne" toggleable collapsed class="choice-panel">
             <nav class="lesson-plan-links" aria-label="Lehrpläne">
               <a href="/lehrplaene/Lehrplan_GMT.pdf" target="_blank" rel="noopener noreferrer">Lehrplan GMT (PDF) ↗</a>
+              <Button label="3TGG · Eingangsklasse" text class="theory-trigger" aria-haspopup="dialog" @click="gmtDialogOpen = true" />
               <a href="/lehrplaene/Lehrplan_BKGD.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BKGD (PDF) ↗</a>
               <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
             </nav>
@@ -574,6 +587,7 @@ onBeforeUnmount(() => { disposed = true; clearTimeout(pollTimer); save() })
         </aside>
       </details>
     </div>
+    <GmtFortschritt v-model:visible="gmtDialogOpen" />
     <MaterialsDialog v-model:visible="materialsDialogOpen" :text="form.mediaMaterials" :documents="materialDocuments" @save="saveMaterials" />
     <Dialog v-model:visible="deleteDraftDialogOpen" header="Unterrichtsentwurf löschen" modal :style="{ width: 'min(480px, calc(100vw - 32px))' }">
       <p>„{{ draftToDelete?.title }}“ endgültig löschen?</p>

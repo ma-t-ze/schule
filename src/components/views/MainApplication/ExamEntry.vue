@@ -49,6 +49,8 @@ const checklist = ref(null)
 
 <style scoped>
 .exam-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.exam-date-button:not(.marked-appointment) { color: var(--school-primary); }
+.exam-date-button:not(.marked-appointment):hover { color: var(--school-primary); text-decoration: underline; text-underline-offset: 4px; }
 .exam-date-button { flex: 1; min-width: 0; text-align: left; justify-content: flex-start; padding: .25rem 0; font: inherit; }
 .exam-date-button.marked-appointment { background: var(--appointment-bg); color: var(--appointment-ink); border-left: 4px solid var(--appointment-border); padding: 6px 8px; gap: 8px; }
 .exam-date-button > span { min-width: 0; overflow-wrap: anywhere; }
@@ -57,7 +59,7 @@ const checklist = ref(null)
 .checklist-preview :deep(.p-checkbox) { width: 16px; height: 16px; opacity: 1; }
 .checklist-preview :deep(.p-checkbox-box) { width: 16px; height: 16px; }
 .checklist-preview :deep(.p-checkbox.p-disabled .p-checkbox-box) { border: 1.5px solid #64748b; background: #fff; }
-.checklist-preview :deep(.p-checkbox.p-checkbox-checked .p-checkbox-box) { border-color: #176746; background: #176746; }
+.checklist-preview :deep(.p-checkbox.p-checkbox-checked .p-checkbox-box) { border-color: var(--school-primary); background: var(--school-primary); }
 .checklist-preview :deep(.p-checkbox-checked .p-checkbox-icon) { color: #fff; }
 .checklist-preview :deep(.p-checkbox-icon) { width: 10px; height: 10px; }
 .exam-toggle { flex-shrink: 0; width: 2rem; height: 2rem; }

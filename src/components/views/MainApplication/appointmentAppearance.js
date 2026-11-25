@@ -14,7 +14,7 @@ const palette = {
 export function appointmentStyle(item) {
   const colors = palette[item?.event_color] || (item?.category === 'exam'
     ? { background: '#b91c1c', ink: '#ffffff', border: '#991b1b' }
-    : { background: '#d8ebdf', ink: '#22563a', border: '#afd0bb' })
+    : { background: 'color-mix(in srgb, var(--school-primary) 10%, var(--school-surface))', ink: 'var(--school-text)', border: 'var(--school-border)' })
   return {
     '--appointment-bg': colors.background,
     '--appointment-ink': colors.ink,

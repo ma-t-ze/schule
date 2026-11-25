@@ -150,11 +150,11 @@ onMounted(load)
 </template>
 <style scoped>
 .accommodations { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
-.accommodation-count { font-size: 14px; font-weight: 600; color: #176746; white-space: nowrap; }
-.accommodation-trigger { width: 1.75rem; height: 1.75rem; padding: 0; border: 1px solid #176746; border-radius: 5px; color: #176746; background: transparent; font-weight: 600; }
-.accommodation-trigger:hover { color: #115033; border-color: #115033; background: #e8f2ec; }
+.accommodation-count { font-size: 14px; font-weight: 600; color: var(--school-primary); white-space: nowrap; }
+.accommodation-trigger { width: 1.75rem; height: 1.75rem; padding: 0; border: 1px solid var(--school-primary); border-radius: 5px; color: var(--school-primary); background: transparent; font-weight: 600; }
+.accommodation-trigger:hover { color: var(--school-primary); border-color: var(--school-primary); background: color-mix(in srgb, var(--school-primary) 10%, var(--school-surface)); }
 .accommodation-content { padding: .5rem 0; }
-.person { margin-bottom: 16px; padding: 16px; border: 1px solid #dce3dd; border-radius: 8px; background: #f6f8f5; }
+.person { margin-bottom: 16px; padding: 16px; border: 1px solid var(--school-border); border-radius: 8px; background: var(--school-background); }
 .person-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .person-heading h3 { margin: 0; font-size: 18px; overflow-wrap: anywhere; min-width: 0; }
 .person-heading :deep(.p-button) { flex-shrink: 0; }

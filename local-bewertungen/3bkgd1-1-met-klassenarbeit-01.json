@@ -1,0 +1,971 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": 1,
+      "name": "Agkho",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png nicht exakt vorhanden. Zusätzliche Doppelseiten-PDF vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Spalten und Linien vorhanden."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Einleitung kräftig."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv vollständig, Ausschnitt nahe der Vorlage."
+        },
+        {
+          "score": 1,
+          "evidence": "Gelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite); PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.jpg",
+        "Klassenarbeit_01_Agkho.indd",
+        "Klassenarbeit_01_Agkho.pdf",
+        "Bild_1.png",
+        "Klassenarbeit_01_Agkho doppelseite.pdf"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "BarzegarAslani",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Einleitung wenig betont."
+        },
+        {
+          "score": 2,
+          "evidence": "Bild wirkt proportional; beide Teile auf zwei PDF-Seiten."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_BarzegarAslani.indd",
+        "Klassenarbeit_01_BarzegarAslani.pdf",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Benzler",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben. Einzelne geforderte Bedienfelder sind nicht sichtbar; vollständige Einrichtung prüfen."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Linien sichtbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Titel und Fließtext blau; Schriftwirkung weicht deutlich ab."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv wirkt proportional und ist auf der zweiten Seite sichtbar."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Benzler.pdf",
+        "Bild_1.png",
+        "Klassenarbeit_01_Benzler.indd"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Gbolahan",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte, zwei Textspalten und Linien erkennbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Initial D und Titel vorhanden; Untertitel in Versalien."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv weitgehend vorlagennah."
+        },
+        {
+          "score": 1,
+          "evidence": "Gelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Gbolahan.pdf",
+        "Klassenarbeit_01_Gbolahan.indd",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Göhner",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png, Bild_1.png nicht exakt vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben. Einzelne geforderte Bedienfelder sind nicht sichtbar; vollständige Einrichtung prüfen."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Linien vorhanden."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Zwischenüberschrift wenig hervorgehoben."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv vollständig und proportional wirkend."
+        },
+        {
+          "score": 0,
+          "evidence": "Bildunterschrift weiß; die gelbe Fläche wirkt kräftig statt hellgelb."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsfläche.png",
+        "Klassenarbeit_01_Göhner.indd",
+        "Klassenarbeit_01_Göhner.pdf"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Graf",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png nicht exakt vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Format und Seitenumfang sind im PDF erkennbar; 15-mm-Ränder und 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Schmale Schrift auch in Einleitung und Untertitel; Wirkung weicht ab."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv groß und proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsfläche.png",
+        "Klassenarbeit_01_Graf.indd",
+        "Klassenarbeit_01_Graf.pdf",
+        "Doppelseite_Magazin.png",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "KellerZayas",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png nicht exakt vorhanden. Zusätzlicher Unterordner vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte, Textspalten und Linien vorhanden."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Untertitel stark schmal gesetzt."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 0,
+          "evidence": "Gelbe Fläche rechteckig statt abgeschrägt; Bildunterschrift weiß."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Klassenarbeit_01_KellerZayas.indd",
+        "Bild_1.png",
+        "Abeitsflaeche.png",
+        "Klassenarbeit_01_KellerZayas/Klassenarbeit_01_KellerZayas.indd",
+        "Klassenarbeit_01_KellerZayas/Klassenarbeit_01_KellerZayas.pdf",
+        "Klassenarbeit_01_KellerZayas/Bild_1.png",
+        "Klassenarbeit_01_KellerZayas/Abeitsflaeche.png"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Kilinc",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien vorhanden."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Einleitung kaum hervorgehoben."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Gelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Kilinc.indd",
+        "Bild_1.png",
+        "Klassenarbeit_01_Kilinc.pdf"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Kniffka",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Infospalte und Textspalten erkennbar; Textbereich beginnt deutlich höher."
+        },
+        {
+          "score": 3,
+          "evidence": "Initial D vorhanden; Titel weicht in der Schriftwirkung ab."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Doppelseite_Magazin.png",
+        "Klassenarbeit_01_Kniffka.indd",
+        "Klassenarbeit_01_Kniffka.pdf",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Knodel",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png nicht exakt vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien vorhanden."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel eng gestellt; Initial D und Untertitel sichtbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Klassenarbeit_01_Knodel.indd",
+        "Arbeitsfleache.png",
+        "Bild_1.png",
+        "Klassenarbeit_01_Knodel.pdf"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Lederle",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Infospalte beginnt deutlich höher als die Textspalten."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden."
+        },
+        {
+          "score": 1,
+          "evidence": "Bild auf der zweiten Seite sichtbar pixelig."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Klassenarbeit_01_Lederle.pdf",
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Lederle.indd",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Lißke",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png nicht exakt vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Format und Seitenumfang sind im PDF erkennbar; 15-mm-Ränder und 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Text wirkt sehr klein."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsfläche.png",
+        "Klassenarbeit_01_Lißke.pdf",
+        "Doppelseite_Magazin.png",
+        "Klassenarbeit_01_Lißke.indd",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Lyzlova",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Klassenarbeit_01_Lyzlova.indd, Klassenarbeit_01_Lyzlova.pdf, Arbeitsflaeche.png nicht exakt vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben. Einzelne geforderte Bedienfelder sind nicht sichtbar; vollständige Einrichtung prüfen."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Fließtext stark schmal gesetzt; Schriftwirkung weicht deutlich ab."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsfläche.jpg",
+        "Klassenarbeit_01_Lyzlova-.pdf",
+        "Klassenarbeit_01_Lyzlova (1).indd",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Marakhovska",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel, betonte Einleitung und Initial D vorhanden."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Marakhovska.pdf",
+        "Klassenarbeit_01_Marakhovska.indd",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Oroszi",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Arbeitsflaeche.png nicht exakt vorhanden. Zusätzlicher Unterordner vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Initial D vorhanden; Einleitung nicht deutlich hervorgehoben."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Klassenarbeit_01_Oroszi/Klassenarbeit_01_Oroszi.indd",
+        "Klassenarbeit_01_Oroszi/Arbeitsfläsche.png",
+        "Klassenarbeit_01_Oroszi/Klassenarbeit_01_Oroszi.pdf",
+        "Klassenarbeit_01_Oroszi/Bild_1.png"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Otter",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Infospalte und zwei Textspalten sichtbar; zusätzliche Rahmenlinien im PDF."
+        },
+        {
+          "score": 2,
+          "evidence": "Initial D und Titel vorhanden; sichtbare Rahmen verändern die Typografie."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv vorhanden; sichtbarer äußerer Rahmen."
+        },
+        {
+          "score": 0,
+          "evidence": "Hellgelbe Fläche fehlt sichtbar; Bildunterschrift vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Otter.indd",
+        "Klassenarbeit_01_Otter.pdf",
+        "Doppelseite_Magazin.png",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Rümmele",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel und Initial D vorhanden; Einleitung kursiv gesetzt."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 0,
+          "evidence": "Gelbe Fläche sichtbar; Bildunterschrift sehr dunkel und kontrastarm."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 1,
+          "evidence": "Doppelseiten-PDF (eine A3-Seite). Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Klassenarbeit_01_Rümmele.pdf",
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Rümmele.indd",
+        "Bild_1.png"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Schikotanz",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Bild_1.png nicht exakt vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Initial D vorhanden; Einleitung nicht deutlich hervorgehoben."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Bild_1 2.png",
+        "Klassenarbeit_01_Schikotanz.indd",
+        "Klassenarbeit_01_Schikotanz.pdf"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Vikhtinska",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Abweichung: Klassenarbeit_01_Vikhtinska.indd, Klassenarbeit_01_Vikhtinska.pdf, Arbeitsflaeche.png, Bild_1.png nicht exakt vorhanden. Die PDF- und INDD-Namen unterscheiden sich."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben. Einzelne geforderte Bedienfelder sind nicht sichtbar; vollständige Einrichtung prüfen."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Titel, betonte Einleitung und Initial D vorhanden."
+        },
+        {
+          "score": 2,
+          "evidence": "Motiv proportional wirkend."
+        },
+        {
+          "score": 1,
+          "evidence": "Hellgelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Klassenarbeit_01_VitalinaVikhtitinsk.indd",
+        "Bildschirmfoto 2026-11-20 um 10.15.29.png",
+        "Klassenarbeit_01_VitalinaVikhtitinska.pdf"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Yasko",
+      "criteria": [
+        {
+          "score": null,
+          "evidence": "Vorgegebene Dateinamen vorhanden."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot zeigt A4, zwei Seiten, Doppelseite und 15-mm-Ränder; 3-mm-Anschnitt im Originaldokument prüfen."
+        },
+        {
+          "score": null,
+          "evidence": "Screenshot abgegeben; sichtbare Arbeitsoberfläche prüfen. Nicht sichtbare oder verdeckte Bedienfelder sind nicht sicher beurteilbar."
+        },
+        {
+          "score": 3,
+          "evidence": "Infospalte und zwei Textspalten mit Trennlinien sichtbar."
+        },
+        {
+          "score": 2,
+          "evidence": "Initial B statt des vorgegebenen D; Titel und Untertitel vorhanden."
+        },
+        {
+          "score": 1,
+          "evidence": "Bild auf der zweiten Seite sichtbar pixelig."
+        },
+        {
+          "score": 1,
+          "evidence": "Gelbe Fläche und weiße Bildunterschrift sichtbar."
+        },
+        {
+          "score": null,
+          "evidence": "INDD-Datei abgegeben; Bearbeitbarkeit und Textüberlauf im Originaldokument prüfen."
+        },
+        {
+          "score": 0,
+          "evidence": "PDF mit zwei A4-Einzelseiten. Gefordert ist eine vollständige Doppelseite nebeneinander."
+        }
+      ],
+      "files": [
+        "Arbeitsflaeche.png",
+        "Klassenarbeit_01_Yasko.indd",
+        "Bild_1.png",
+        "Klassenarbeit_01_Yasko.pdf"
+      ]
+    }
+  ]
+}

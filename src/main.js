@@ -6,6 +6,10 @@ import App from './App.vue'
 import store from './store'
 import { checkSiteSession } from './services/siteAuth'
 import { installNewTabLinks } from './navigation/newTabLinks'
+import { loadStyleKit, STYLE_KIT_KEY } from './styles/styleKit'
+
+loadStyleKit()
+window.addEventListener('storage', event => { if (event.key === STYLE_KIT_KEY || event.key === null) loadStyleKit() })
 
 const app = createApp(App)
 app.use(PrimeVue, {
@@ -16,6 +20,48 @@ app.use(PrimeVue, {
 })
 
 const routes = [
+  {
+    path: '/designvorlagen/style-kit',
+    name: 'style-kit',
+    component: () => import('./components/views/StyleKit/StyleKit.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/vorschau/primevue',
+    name: 'primevue-vorschau',
+    component: () => import('./components/views/Designvorschau/PrimeVueVorschau.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/vorschau/quasar',
+    name: 'quasar-vorschau',
+    component: () => import('./components/views/Designvorschau/QuasarVorschau.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/vorschau',
+    name: 'design-vorschau',
+    component: () => import('./components/views/Designvorschau/Designvorschau.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/unterricht-planen/arbeitsauftraege',
+    name: 'arbeitsauftraege-planen',
+    component: () => import('./components/views/Arbeitsauftraege/Arbeitsauftraege.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/3bkgd1-1-met/korrekturvorschlaege-klassenarbeit-01',
+    name: 'met-korrekturvorschlaege-klassenarbeit-01',
+    component: () => import('./components/views/BKGD1MET/BewertungsentwuerfeKlassenarbeit01.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/3bkgd1-1-met/bewertungsbogen-klassenarbeit-01',
+    name: 'met-bewertungsbogen-klassenarbeit-01',
+    component: () => import('./components/views/BKGD1MET/BewertungsbogenKlassenarbeit01.vue'),
+    meta: { requiresAuth: true }
+  },
   {
     path: '/3tgg12/plakatwettbewerb-zeichenanalyse',
     name: '3tgg12-plakatwettbewerb-zeichenanalyse',
@@ -83,6 +129,13 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/designvorlagen/klassenarbeiten/3bkgd1-1-met',
+    name: 'designvorlage-klassenarbeit-met',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageKlassenarbeitTGG12.vue'),
+    props: { met: true },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3bkgd1-1-grd/indesign-seiten-uebernehmen',
     name: 'grd-indesign-seiten-uebernehmen',
     component: () => import('./components/views/BKGD1GRD/SeitenUebernehmenArbeitsblatt.vue'),
@@ -116,6 +169,13 @@ const routes = [
     path: '/designvorlagen/a4/3bkgd1-1-grd',
     name: 'designvorlage-a4-grd',
     component: () => import('./components/views/Designvorlagen/DesignvorlageA4GRD.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/designvorlagen/a4/3bkgd1-1-met',
+    name: 'designvorlage-a4-met',
+    component: () => import('./components/views/Designvorlagen/DesignvorlageA4.vue'),
+    props: { met: true },
     meta: { requiresAuth: true }
   },
   {

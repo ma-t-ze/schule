@@ -1,9 +1,11 @@
 <script setup>
-import { nextTick, ref } from 'vue'
+import { computed, nextTick, onActivated, ref } from 'vue'
 import Panel from 'primevue/panel'
 import Button from 'primevue/button'
 import Popover from 'primevue/popover'
 import Toolbar from 'primevue/toolbar'
+import SelectButton from 'primevue/selectbutton'
+import { PhBell } from '@phosphor-icons/vue'
 import { classServiceUrls } from './classServiceUrls'
 import SchoolCalendar from './SchoolCalendar.vue'
 import UpcomingNotes from './UpcomingNotes.vue'
@@ -11,8 +13,26 @@ import ExamEntry from './ExamEntry.vue'
 import ExamAccommodations from './ExamAccommodations.vue'
 import { examDateLabel } from './classExamEvents'
 import { schoolYearPlanUrl } from './schoolYearEvents'
-import PlansOverview from '../Stoffverteilungsplaene/PlansOverview.vue'
 
+const calendarFocus = ref(new Date())
+const calendarView = ref('week')
+const calendarTitle = computed(() => {
+  const date = calendarFocus.value
+  if (calendarView.value === 'month') return date.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })
+  const monday = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  monday.setDate(monday.getDate() - (monday.getDay() + 6) % 7)
+  const sunday = new Date(monday); sunday.setDate(sunday.getDate() + 6)
+  return `${monday.toLocaleDateString('de-DE')} – ${sunday.toLocaleDateString('de-DE')}`
+})
+function navigateCalendar(direction) {
+  const date = calendarFocus.value
+  if (calendarView.value === 'month') calendarFocus.value = new Date(date.getFullYear(), date.getMonth() + direction, 1)
+  else { const next = new Date(date); next.setDate(next.getDate() + direction * 7); calendarFocus.value = next }
+}
+const calendarViews = [{ label: 'Woche', value: 'week' }, { label: 'Monat', value: 'month' }]
+const classesCollapsed = ref(true)
+const calendarCollapsed = ref(false)
+onActivated(() => { classesCollapsed.value = true; calendarCollapsed.value = false })
 const openDocuments = ref([])
 function documentId(url) {
   return `document-${encodeURIComponent(url)}`
@@ -59,16 +79,6 @@ const sickLeaveInfo = ref(null)
 const repairInfo = ref(null)
 const sabineHeitmannInfo = ref(null)
 
-const classes = [
-  ['3TGG1/2', '3tgg12'], ['3TGG2', '3tgg2']
-]
-const metLinks = [
-  ['Kahoot Farbmischsysteme und Programme BKGD', 'bkgd-live-quiz'],
-  ['Medientechnik', 'medientechnik'],
-  ['Programme im ersten Jahr Medientechnik', 'programme-medientechnik'],
-  ['Hardwarekomponenten', 'hardwarekomponenten'],
-  ['Farbmischsysteme', 'farbmischsysteme']
-]
 const classKeys = ['2026-27-3bkgd1-1-met', '2026-27-3bkgd1-1-grd', '2026-27-3tgg1-2', '2026-27-3tgg2', '2026-27-1bfd1-bpk']
 const exams = ['3BKGD1/1 MET', '3BKGD1_1_GRD', '3TGG1/2', '3TGG2', '1BFD1 BPK']
 const serviceGroups = [{ key: 'teams', label: 'Teams' }, { key: 'figma', label: 'Figma' }]
@@ -91,70 +101,44 @@ const tgg12Dates = 5
         <nav v-for="group in serviceGroups" :key="group.key" class="service-group" :aria-label="`${group.label} – Klassenlinks`">
           <h2>{{ group.label }}</h2>
           <div class="service-links">
-            <Button v-for="(name, index) in exams" :key="classKeys[index]" :label="name"
-              :as="classServiceUrls[group.key][classKeys[index]] ? 'a' : 'button'"
-              :href="classServiceUrls[group.key][classKeys[index]] || undefined"
-              :disabled="!classServiceUrls[group.key][classKeys[index]]"
-              :title="classServiceUrls[group.key][classKeys[index]] ? `${group.label} · ${name}` : 'Link noch nicht hinterlegt'"
-              outlined size="small" target="_blank" rel="noopener noreferrer" />
-            <Button v-if="group.key === 'figma'" label="Export" as="a" :href="classServiceUrls.figma.export" outlined size="small" target="_blank" rel="noopener noreferrer" />
+            <template v-for="(name, index) in exams" :key="classKeys[index]">
+              <a v-if="classServiceUrls[group.key][classKeys[index]]" :href="classServiceUrls[group.key][classKeys[index]]" :title="`${group.label} · ${name}`" target="_blank" rel="noopener noreferrer">{{ name }}</a>
+              <span v-else class="service-unavailable" title="Link noch nicht hinterlegt">{{ name }}</span>
+            </template>
+            <a v-if="group.key === 'figma'" :href="classServiceUrls.figma.export" target="_blank" rel="noopener noreferrer">Export</a>
           </div>
         </nav>
       </template>
     </Toolbar>
     <aside class="sidebar" aria-label="Unterricht und Organisation" @click.capture="openDocument">
-      <Panel header="Klassen 2026/27" toggleable>
-        <nav class="link-list" aria-label="Klassen 2026/27">
-          <Panel header="3BKGD1/1 MET" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3BKGD1/1 MET"><RouterLink v-for="[label, name] in metLinks" :key="name" :to="{ name }">{{ label }}</RouterLink></nav>
-          </Panel>
-          <Panel header="3BKGD1_1_GRD" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3BKGD1_1_GRD"><RouterLink :to="{ name: 'grd-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: 'grd-indesign-seiten-uebernehmen' }">Arbeitsblatt: InDesign-Seiten übernehmen</RouterLink></nav>
-          </Panel>
-          <Panel header="1BFD1 BPK" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="1BFD1 BPK">
-              <RouterLink :to="{ name: '1bfd1' }">Themenübersicht</RouterLink>
-              <RouterLink :to="{ name: 'umfang-klassenarbeit-01' }">Umfang Klassenarbeit 01</RouterLink>
-              <RouterLink :to="{ name: 'kaefer-retuschieren' }">Photoshop: Käfer retuschieren</RouterLink>
-            </nav>
-          </Panel>
-          <Panel header="3TGG1/2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG1/2"><RouterLink :to="{ name: '3tgg12' }">Themenübersicht</RouterLink><RouterLink :to="{ name: 'tgg12-klassenarbeit-01' }">Klassenarbeit 01</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-und-bezeichnetes' }">Arbeitsblatt: Zeichen und Bezeichnetes</RouterLink><RouterLink :to="{ name: '3tgg12-zeichen-objekt-interpretant' }">Arbeitsblatt: Zeichen, Objekt und Interpretant</RouterLink><RouterLink :to="{ name: '3tgg12-arbeitsblatt-ikon-index-symbol' }">Arbeitsblatt: Ikon, Index und Symbol</RouterLink><RouterLink :to="{ name: '3tgg12-plakatwettbewerb-zeichenanalyse' }">Arbeitsblatt: Plakatwettbewerb – Zeichenanalyse</RouterLink></nav>
-          </Panel>
-          <Panel header="3TGG2" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="3TGG2"><RouterLink :to="{ name: '3tgg2' }">Themenübersicht</RouterLink><RouterLink :to="{ name: '3tgg2-klassenarbeit-01' }">Klassenarbeit 01</RouterLink></nav>
-          </Panel>
-          <RouterLink v-for="[label, name] in classes.filter(([, route]) => route !== '3tgg12' && route !== '3tgg2')" :key="name" :to="{ name }">{{ label }}</RouterLink>
+      <Panel v-model:collapsed="classesCollapsed" header="Klassen 2026/27" toggleable>
+        <nav class="link-list class-list" aria-label="Klassen 2026/27">
+          <RouterLink :to="{ name: 'medientechnik' }">3BKGD1/1 MET</RouterLink>
+          <span class="class-unavailable" title="Für diese Klasse ist noch keine Schülerseite vorhanden">3BKGD1_1_GRD</span>
+          <RouterLink :to="{ name: '1bfd1' }">1BFD1 BPK</RouterLink>
+          <RouterLink :to="{ name: '3tgg12' }">3TGG1/2</RouterLink>
+          <RouterLink :to="{ name: '3tgg2' }">3TGG2</RouterLink>
         </nav>
       </Panel>
-      <Panel header="Archiv" toggleable collapsed>
-        <nav class="link-list archive-links" aria-label="Archiv">
-          <Panel header="Prüfungen" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="Prüfungen im Archiv">
-              <RouterLink :to="{ name: 'pruefung-schulrecht' }">Prüfung Schulrecht und Schulorganisation</RouterLink>
-              <RouterLink :to="{ name: 'pruefung-paedagogik-psychologie' }">Prüfung Pädagogik und Pädagogische Psychologie</RouterLink>
-            </nav>
-          </Panel>
-          <Panel header="BKGD" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="BKGD">
-              <RouterLink :to="{ name: 'conversepage' }">Converse</RouterLink>
-              <RouterLink :to="{ name: 'bkgdpage' }">BKGD Plattform</RouterLink>
-              <RouterLink :to="{ name: 'variablefont' }">Variable Font</RouterLink>
-            </nav>
-          </Panel>
-          <Panel header="GMT" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="GMT">
-              <RouterLink :to="{ name: '3dprint' }">3DPrint</RouterLink>
-              <RouterLink :to="{ name: 'bridgepage' }">Paperbridge</RouterLink>
-              <RouterLink :to="{ name: 'chaos' }">Gesetz der Nähe</RouterLink>
-            </nav>
-          </Panel>
-          <Panel header="Privat" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="Privat"><RouterLink :to="{ name: 'rally' }">Rally</RouterLink><RouterLink :to="{ name: 'free-creatures' }">FreeCreatures</RouterLink></nav>
-          </Panel>
+      <Panel header="Unterricht planen" toggleable collapsed>
+        <nav class="link-list" aria-label="Unterricht planen">
+          <RouterLink :to="{ name: 'unterrichtsbaukasten' }">Unterricht planen</RouterLink>
+          <RouterLink :to="{ name: 'arbeitsauftraege-planen' }">Arbeitsaufträge planen</RouterLink>
         </nav>
       </Panel>
-      <Panel header="Schuladministration" toggleable collapsed>
+      <Panel header="Notengebung" toggleable collapsed>
+        <nav class="link-list" aria-label="Notengebung">
+          <RouterLink :to="{ name: 'notengebung' }">Klassenlisten</RouterLink>
+          <a href="/notenschluessel/Notenschluessel_30p.pdf" target="_blank" rel="noopener noreferrer">Notenschlüssel 30p</a>
+          <a href="/notenschluessel/Notenschluessel_40p.pdf" target="_blank" rel="noopener noreferrer">Notenschlüssel 40p</a>
+          <div class="correction-link">
+            <a href="/korrekturzeichen/Korrekturzeichen.png" target="_blank" rel="noopener noreferrer">Korrekturzeichen</a>
+            <a class="correction-download" href="/korrekturzeichen/Korrekturzeichen.png" download="Korrekturzeichen.png" aria-label="Korrekturzeichen herunterladen" title="Korrekturzeichen herunterladen"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3" /></svg></a>
+          </div>
+        </nav>
+      </Panel>
+      <Panel header="Administration" toggleable collapsed class="administration-panel">
+      <Panel header="Schuladministration" toggleable collapsed class="class-subpanel">
         <div class="admin-link"><a :href="schoolYearPlanUrl" target="_blank" rel="noopener noreferrer">Jahresplan CHS 2026/27 (PDF) ↗</a></div>
         <div class="admin-link"><a href="/schuladministration/Pausenaufsichten_2026-10-12.pdf" target="_blank" rel="noopener noreferrer">Pausenaufsichten (PDF) ↗</a></div>
         <div class="admin-link"><span>Sabine Heitmann</span><Button label="i" aria-label="Kontaktdaten von Sabine Heitmann" rounded outlined size="small" @click="sabineHeitmannInfo.toggle($event)" /></div>
@@ -191,51 +175,15 @@ const tgg12Dates = 5
         <Popover ref="sickLeaveInfo"><div class="webuntis-info"><strong>Krankmeldung</strong><p>Per E-Mail gerne auch schon früher krankmelden. Wenn möglich, Aufgaben an die Abteilungsleitung mitschicken, die die SuS bearbeiten könnten.</p><p>Bei TG-Beteiligung auch an der CES krankmelden.</p></div></Popover>
       </Panel>
 
-      <Panel header="Schulwiki" toggleable collapsed>
+      <Panel header="Schulwiki" toggleable collapsed class="class-subpanel">
         <nav class="link-list" aria-label="Schulwiki">
           <RouterLink :to="{ name: 'schulwiki-krank-bei-klassenarbeiten' }">Krank bei Klassenarbeiten</RouterLink>
         </nav>
       </Panel>
-      <Panel header="Lehrpläne" toggleable collapsed>
-        <nav class="link-list" aria-label="Lehrpläne">
-          <a href="/lehrplaene/Lehrplan_GMT.pdf" target="_blank" rel="noopener noreferrer">Lehrplan GMT (PDF) ↗</a>
-          <a href="/lehrplaene/Lehrplan_BKGD.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BKGD (PDF) ↗</a>
-          <a href="/lehrplaene/Lehrplan_BFS_Drucktechnik_Medientechnik.pdf" target="_blank" rel="noopener noreferrer">Lehrplan BFS – Drucktechnik / Medientechnik (PDF) ↗</a>
-        </nav>
-      </Panel>
-      <Panel header="Unterricht planen" toggleable collapsed>
-        <nav class="link-list" aria-label="Unterricht planen">
-          <RouterLink :to="{ name: 'unterrichtsbaukasten' }">Unterrichtsbaukasten</RouterLink>
-          <a href="/material/unterricht-planen/Vorlage_Langform.docx" download="Vorlage_Langform.docx">Vorlage Langform (Word)</a>
-        </nav>
-          <Panel header="Verlaufspläne" toggleable collapsed class="class-subpanel">
-            <nav class="link-list" aria-label="Verlaufspläne">
-              <RouterLink :to="{ name: 'verlaufsplan-repraesentationsformen-von-zeichen' }">Repräsentationsformen von Zeichen</RouterLink>
-              <RouterLink to="/verlaufsplaene/3d-druck">3D Druck</RouterLink>
-              <RouterLink to="/verlaufsplaene/gesetz-der-geschlossenheit">Gesetz der Geschlossenheit</RouterLink>
-              <RouterLink to="/verlaufsplaene/kopierstempel-in-photoshop">Kopierstempel in Photoshop</RouterLink>
-            </nav>
-          </Panel>
-          <Panel header="Designvorlagen" toggleable collapsed class="class-subpanel">
-            <Panel header="Klassenarbeiten" toggleable collapsed class="class-subpanel">
-              <nav class="link-list" aria-label="Designvorlagen für Klassenarbeiten">
-                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-grd' }">3BKGD1_1_GRD</RouterLink>
-                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg12' }">3TGG1/2</RouterLink>
-                <RouterLink :to="{ name: 'designvorlage-klassenarbeit-tgg2' }">3TGG2</RouterLink>
-              </nav>
-            </Panel>
-            <Panel header="Designvorlage A4" toggleable collapsed class="class-subpanel">
-              <nav class="link-list" aria-label="Designvorlage A4">
-                <RouterLink :to="{ name: 'designvorlage-a4-grd' }">3BKGD1_1_GRD</RouterLink>
-                <RouterLink :to="{ name: 'designvorlage-a4' }">3TGG1/2</RouterLink>
-                <RouterLink :to="{ name: 'designvorlage-a4-tgg2' }">3TGG2</RouterLink>
-                <RouterLink :to="{ name: 'designvorlage-a4-bpk' }">1BFD1 BPK</RouterLink>
-              </nav>
-            </Panel>
-          </Panel>
-      </Panel>
-      <Panel header="Prüfungen" toggleable collapsed>
+      <Panel header="Prüfungen" toggleable collapsed class="class-subpanel">
         <nav class="link-list" aria-label="Prüfungsunterlagen">
+          <RouterLink :to="{ name: 'pruefung-schulrecht' }">Prüfung Schulrecht und Schulorganisation</RouterLink>
+          <RouterLink :to="{ name: 'pruefung-paedagogik-psychologie' }">Prüfung Pädagogik und Pädagogische Psychologie</RouterLink>
           <a href="/pruefungen/Beratungsbesuche_Ausbildungsgespraeche.pdf" target="_blank" rel="noopener noreferrer">Beratungsbesuche und verbindliche Ausbildungsgespräche (PDF) ↗</a>
           <a href="/pruefungen/Terminplan_D25_Pruefungen.pdf" target="_blank" rel="noopener noreferrer">Terminplan D25 – Prüfungen (PDF) ↗</a>
           <a href="/pruefungen/D25_Pruefungsbestandteile.pdf" target="_blank" rel="noopener noreferrer">D25 – Prüfungsbestandteile (PDF) ↗</a>
@@ -245,20 +193,35 @@ const tgg12Dates = 5
           <a href="/pruefungen/Klassen_UBs.jpg" target="_blank" rel="noopener noreferrer">Klassenauswahl für die unterrichtspraktischen Prüfungen (JPG) ↗</a>
         </nav>
       </Panel>
-      <Panel header="Notengebung" toggleable collapsed>
-        <nav class="link-list" aria-label="Notengebung">
-          <RouterLink :to="{ name: 'notengebung' }">Klassenlisten</RouterLink>
-          <a href="/notenschluessel/Notenschluessel_30p.pdf" target="_blank" rel="noopener noreferrer">Notenschlüssel 30p</a>
-          <div class="correction-link">
-            <a href="/korrekturzeichen/Korrekturzeichen.png" target="_blank" rel="noopener noreferrer">Korrekturzeichen</a>
-            <a class="correction-download" href="/korrekturzeichen/Korrekturzeichen.png" download="Korrekturzeichen.png" aria-label="Korrekturzeichen herunterladen" title="Korrekturzeichen herunterladen"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3" /></svg></a>
-          </div>
+      </Panel>
+      <Panel header="Archiv" toggleable collapsed>
+        <nav class="link-list archive-links" aria-label="Archiv">
+          <Panel header="BKGD" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="BKGD">
+              <RouterLink :to="{ name: 'conversepage' }">Converse</RouterLink>
+              <RouterLink :to="{ name: 'bkgdpage' }">BKGD Plattform</RouterLink>
+              <RouterLink :to="{ name: 'variablefont' }">Variable Font</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="GMT" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="GMT">
+              <RouterLink :to="{ name: '3dprint' }">3DPrint</RouterLink>
+              <RouterLink :to="{ name: 'bridgepage' }">Paperbridge</RouterLink>
+              <RouterLink :to="{ name: 'chaos' }">Gesetz der Nähe</RouterLink>
+            </nav>
+          </Panel>
+          <Panel header="Privat" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" aria-label="Privat"><RouterLink :to="{ name: 'rally' }">Rally</RouterLink><RouterLink :to="{ name: 'free-creatures' }">FreeCreatures</RouterLink></nav>
+          </Panel>
         </nav>
       </Panel>
+      <RouterLink :to="{ name: 'style-kit' }" class="sidebar-link">Style-Kit</RouterLink>
     </aside>
     <div class="center-column">
-      <Panel class="calendar-column" header="Kalender" toggleable><SchoolCalendar :notes="calendarNotes" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" /></Panel>
-      <Panel class="plans-panel" header="Stoffverteilungspläne" toggleable collapsed><PlansOverview /></Panel>
+      <Panel v-model:collapsed="calendarCollapsed" class="calendar-column" header="Kalender" toggleable>
+        <template #header><div class="calendar-header"><span class="calendar-title">Kalender</span><div class="calendar-view-controls" @click.stop @keydown.stop><SelectButton v-model="calendarView" :options="calendarViews" option-label="label" option-value="value" :allow-empty="false" aria-label="Kalenderansicht" /><Button v-if="calendarView === 'week'" class="break-alarm-link" as="a" href="/pausenalarm" target="_blank" rel="noopener noreferrer" aria-label="Pausenalarm aktivieren" title="Pausenalarm aktivieren" size="small"><PhBell :size="19" aria-hidden="true" /></Button><Button label="Heute" text size="small" @click="calendarFocus = new Date()" /><div class="calendar-period"><Button label="‹" :aria-label="calendarView === 'week' ? 'Vorherige Woche' : 'Vorheriger Monat'" text @click="navigateCalendar(-1)" /><span aria-live="polite">{{ calendarTitle }}</span><Button label="›" :aria-label="calendarView === 'week' ? 'Nächste Woche' : 'Nächster Monat'" text @click="navigateCalendar(1)" /></div></div></div></template>
+        <SchoolCalendar :notes="calendarNotes" :view="calendarView" :focus="calendarFocus" @edit-note="upcomingNotes?.edit($event)" @delete-note="upcomingNotes?.askDelete($event)" />
+      </Panel>
       <Panel v-for="document in openDocuments" :id="documentId(document.src)" :key="document.src" class="document-panel" :header="document.title">
         <template #icons>
           <Button as="a" :href="document.src" target="_blank" rel="noopener noreferrer" text rounded class="document-open-tab" :aria-label="`${document.title} in neuem Tab öffnen`" title="In neuem Tab öffnen">
@@ -301,52 +264,98 @@ const tgg12Dates = 5
 </template>
 
 <style scoped>
-.school-home { background: #ffffff; box-sizing: border-box; min-height: 100vh; display: grid; align-content: start; grid-template-columns: minmax(230px, 1fr) minmax(0, 2.25fr) minmax(210px, 1fr); gap: 24px; width: 100%; margin: 0; padding: 40px 32px; color: #202622; font-family: 'Jost', sans-serif; }
-.class-services { grid-column: 1 / -1; background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; padding: 18px 20px; }
+.school-home { background: var(--school-background); box-sizing: border-box; min-height: 100vh; display: grid; align-content: start; grid-template-columns: minmax(185px, 0.78fr) minmax(0, 2.47fr) minmax(210px, 1fr); gap: 24px; width: 100%; margin: 0; padding: 40px 32px; color: var(--school-text); font-family: 'Jost', sans-serif; }
+.class-services { grid-column: 1 / -1; background: var(--school-surface); border: 1px solid var(--school-border); border-radius: var(--school-panel-radius); padding: 10px 16px; }
 .class-services :deep(.p-toolbar-start) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 24px; width: 100%; min-width: 0; }
 .service-group { min-width: 0; }
-.service-group + .service-group { border-left: 1px solid #d5dbd2; padding-left: 24px; }
-.service-group h2 { font-size: 20px; margin: 0 0 10px; }
-.service-links { display: flex; flex-wrap: wrap; gap: 8px 16px; }
-.service-links :deep(.p-button) { font-size: 15px; white-space: normal; text-align: left; justify-content: flex-start; }
+.service-group + .service-group { border-left: 1px solid var(--school-border); padding-left: 24px; }
+.service-group h2 { font-size: 17px; font-weight: 500; margin: 0 0 4px; }
+.service-links { display: flex; flex-wrap: wrap; gap: 8px 19.2px; }
+.service-links a, .service-unavailable { display: inline-block; padding: 4px 0; font-size: 15px; line-height: 1.5; }
+.service-links a { color: var(--school-primary); text-decoration: none; }
+.service-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.service-links a:focus-visible { outline: 2px solid var(--school-primary); outline-offset: 3px; }
+.service-unavailable { color: #84918b; }
 @media (max-width: 740px) {
   .class-services { order: -2; }
   .class-services :deep(.p-toolbar-start) { grid-template-columns: 1fr; gap: 16px; }
-  .service-group + .service-group { border-left: 0; padding-left: 0; border-top: 1px solid #d5dbd2; padding-top: 16px; }
+  .service-group + .service-group { border-left: 0; padding-left: 0; border-top: 1px solid var(--school-border); padding-top: 16px; }
 }
 .center-column > .p-panel { align-self: stretch; width: 100%; box-sizing: border-box; }
 .center-column { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-.document-panel { min-width: 0; scroll-margin-top: 20px; background: #f1f2ef; }
+.document-panel { min-width: 0; scroll-margin-top: 20px; background: var(--school-surface); }
 .document-panel :deep(.p-panel-title) { overflow-wrap: anywhere; }
 .document-close { font-size: 28px; flex-shrink: 0; }
 .document-open-tab { flex-shrink: 0; width: 2.5rem; height: 2.5rem; }
 .document-preview { display: block; width: 100%; height: 80vh; min-height: 480px; border: 1px solid #e2e5df; border-radius: 4px; background: white; }
-.plans-panel { min-width: 0; background: #f1f2ef; }
-.sidebar { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-.sidebar-link { display: block; padding: 20px; background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; color: inherit; font: 500 21px 'Jost', sans-serif; text-decoration: none; }
-.sidebar-link:hover { background: #e7ebe5; }
-.sidebar :deep(.p-panel), .calendar-column, .exams-column { background: #f1f2ef; border: 1px solid #e2e5df; border-radius: 10px; }
+.plans-panel { min-width: 0; background: var(--school-surface); }
+.sidebar { align-self: start; display: flex; flex-direction: column; gap: 0; min-width: 0; padding: 4px 8px; background: var(--school-surface); border: 1px solid var(--school-border); border-radius: var(--school-panel-radius); }
+.sidebar :deep(.p-panel-header) { padding: 10px 12px; gap: 6px; }
+.sidebar :deep(.p-panel-title) { font-size: 17px; }
+.sidebar :deep(.p-panel-content) { padding: 0 12px 12px; }
+.sidebar :deep(.p-panel-toggle-button.p-button) { width: 32px; height: 32px; min-width: 32px; padding: 0; color: var(--school-primary); }
+.sidebar :deep(.p-panel-toggle-button .p-button-icon) { width: 12px; height: 12px; }
+.sidebar :deep(.class-subpanel .p-panel-title) { font-size: 17px; }
+.sidebar :deep(.class-subpanel .p-panel-header) { padding: 7px 9px; }
+.sidebar :deep(.class-subpanel .p-panel-content) { padding: 0 9px 9px; }
+.sidebar .link-list { gap: 2px; }
+.sidebar .link-list a, .sidebar .link-list .class-unavailable { padding: 6px 0; font-size: 16px; }
+
+.sidebar-link { display: block; padding: 12px; background: transparent; border: 0; border-radius: 0; color: inherit; font: 500 17px 'Jost', sans-serif; text-decoration: none; }
+.sidebar-link:hover { color: var(--school-primary); text-decoration: underline; text-underline-offset: 4px; }
+.sidebar :deep(.p-panel) { background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.sidebar > :deep(.p-panel:not(:first-child)), .sidebar > .sidebar-link { border-top: 1px solid var(--school-border); }
+.calendar-column, .exams-column { background: var(--school-surface); border: 1px solid var(--school-border); border-radius: var(--school-panel-radius); }
 .school-home :deep(.p-panel-header) { padding: 20px; gap: 8px; }
-.school-home :deep(.p-panel-title) { font: 500 21px 'Jost', sans-serif; }
+.school-home :deep(.p-panel-title) { font: 500 17px 'Jost', sans-serif; }
 .school-home :deep(.p-panel-content) { padding: 0 20px 20px; }
 .class-subpanel :deep(.p-panel-title) { font-size: 17px; }
 .class-subpanel :deep(.p-panel-header) { padding: 10px 12px; }
 .class-subpanel :deep(.p-panel-content) { padding: 0 12px 12px; }
 .link-list { display: flex; flex-direction: column; gap: 6px; }
-.link-list a { padding: 10px 0; color: inherit; text-decoration: none; font-size: 17px; overflow-wrap: anywhere; }
+.link-list a, .link-list .class-unavailable { display: block; padding: 10px 0; font: inherit; font-size: 17px; line-height: 1.5; overflow-wrap: anywhere; }
+.link-list a { color: var(--school-primary); text-decoration: none; }
 .correction-link { display: flex; align-items: center; gap: 10px; }
 .link-list .correction-download { display: inline-flex; align-items: center; justify-content: center; padding: 8px; }
-.link-list a:hover { color: #176746; text-decoration: underline; text-underline-offset: 5px; }
-.link-list a:focus-visible { outline: 2px solid #176746; outline-offset: 4px; }
+.class-list .class-unavailable { color: #68736e; }
+.link-list a:hover { color: var(--school-primary); text-decoration: underline; text-underline-offset: 5px; }
+.link-list a:focus-visible { outline: 2px solid var(--school-primary); outline-offset: 4px; }
 .archive-links a { font-size: 17px; }
+.calendar-column :deep(.p-panel-header) { flex-wrap: wrap; }
+.calendar-header { flex: 1 1 0; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; min-width: 0; }
+.sidebar :deep(.p-panel-header) { padding: 10px 12px; }
+.sidebar :deep(.p-panel-title) { font-size: 17px; }
+.sidebar :deep(.p-panel-content) { padding: 0 12px 12px; }
+.sidebar :deep(.class-subpanel .p-panel-title) { font-size: 17px; }
+.sidebar :deep(.class-subpanel .p-panel-header) { padding: 7px 9px; }
+.sidebar :deep(.class-subpanel .p-panel-content) { padding: 0 9px 9px; }
+.sidebar .link-list a, .sidebar .link-list .class-unavailable { padding: 6px 0; font-size: 16px; }
+.calendar-period { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 15px; }
+.calendar-title { font: 500 17px 'Jost', sans-serif; }
+.calendar-view-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.calendar-view-controls :deep(.p-selectbutton) { display: inline-flex; padding: 3px; gap: 3px; border: 1px solid var(--school-border); border-radius: var(--school-panel-radius); background: var(--school-background); }
+.calendar-view-controls :deep(.p-togglebutton) { min-width: 74px; min-height: 36px; padding: 0; border: 1px solid transparent; border-radius: var(--school-panel-radius); background: transparent; color: var(--school-text); font-size: 14px; font-weight: 500; }
+.calendar-view-controls :deep(.p-togglebutton-content) { padding: 7px 12px; border-radius: inherit; }
+.calendar-view-controls :deep(.p-togglebutton.p-togglebutton-checked) { background: var(--school-surface); border-color: var(--school-border); color: var(--school-primary); }
+.calendar-view-controls :deep(.p-togglebutton-checked .p-togglebutton-content) { background: transparent; box-shadow: none; }
+.calendar-view-controls :deep(.p-togglebutton:focus-visible) { outline: 2px solid var(--school-primary); outline-offset: 2px; }
+.calendar-view-controls :deep(.p-button-text) { color: var(--school-primary); }
+.calendar-view-controls :deep(.break-alarm-link.p-button) { color: white; background: var(--school-primary); border-color: var(--school-primary); text-decoration: none; }
+.calendar-view-controls :deep(.break-alarm-link.p-button:hover) { background: color-mix(in srgb, var(--school-primary) 88%, black); border-color: var(--school-primary); }
 .calendar-column :deep(.p-panel-content-container), .calendar-column :deep(.p-panel-content) { min-width: 0; max-width: 100%; box-sizing: border-box; }
 .calendar-column, .exams-column { min-width: 0; align-self: start; }
 h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .exams-column ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 26px; font-size: 17px; overflow-wrap: anywhere; }
 .class-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .exam-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.exams-column :deep(.p-button.p-button-text:not(.p-button-secondary):not(.p-button-danger):not(.marked-appointment)) { color: var(--school-primary); }
+.exams-column :deep(.p-button.p-button-text:not(.p-button-secondary):not(.p-button-danger):not(.marked-appointment):hover) { background: color-mix(in srgb, var(--school-primary) 10%, transparent); }
 .exam-dates { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; font-size: 15px; }
-.admin-link + .admin-link { margin-top: 12px; }
+.administration-panel :deep(.p-panel-content > .class-subpanel + .class-subpanel) { margin-top: 8px; }
+.administration-panel .admin-link { margin: 0; padding: 5px 0; min-height: 32px; box-sizing: border-box; }
+.administration-panel .admin-link + .admin-link { margin-top: 0; }
+.administration-panel .admin-link :deep(.p-button.p-button-rounded) { width: 28px; height: 28px; min-width: 28px; padding: 0; }
+.administration-panel .admin-link a, .administration-panel .admin-link span:not(.copy-status) { font-size: 16px; line-height: 1.5; }
 .school-email { user-select: text; overflow-wrap: anywhere; min-width: 0; font-size: 17px; }
 .copy-status { font-size: 13px; color: #526257; }
 .admin-link { flex-wrap: wrap; display: flex; align-items: center; gap: 12px; }
@@ -356,6 +365,6 @@ h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .contact-details dd { margin: 0 0 8px; overflow-wrap: anywhere; }
 .webuntis-info { max-width: min(320px, calc(100vw - 64px)); font-size: 15px; line-height: 1.5; }
 .empty-note { margin: 0; color: #647168; }
-@media (max-width: 1150px) { .school-home { grid-template-columns: 240px minmax(0, 1fr); padding: 24px; } .exams-column { grid-column: 2; min-height: auto; } .sidebar { grid-row: span 2; } }
+@media (max-width: 1150px) { .school-home { grid-template-columns: 195px minmax(0, 1fr); padding: 24px; } .exams-column { grid-column: 2; min-height: auto; } .sidebar { grid-row: span 2; } }
 @media (max-width: 740px) { .school-home { display: flex; flex-direction: column; padding: 16px; gap: 16px; } .center-column { order: -1; } .calendar-column { min-height: auto; } .exams-column { min-height: auto; } .calendar-column, .exams-column { align-self: stretch; } }
 </style>

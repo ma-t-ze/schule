@@ -158,7 +158,9 @@ onMounted(load)
 </template>
 
 <style scoped>
-.upcoming { margin-top: 28px; border-top: 1px solid #dce3dd; padding-top: 18px; }
+.upcoming { margin-top: 28px; border-top: 1px solid var(--school-border); padding-top: 18px; }
+.upcoming-heading :deep(.p-button:not(.p-button-text)) { background: var(--school-primary); border-color: var(--school-primary); color: white; }
+.upcoming :deep(.p-button-text:not(.p-button-danger):not(.p-button-secondary)) { color: var(--school-primary); }
 .upcoming-heading, .actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 h3 { font-size: 19px; font-weight: 500; margin: 0; }
 h4 { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
