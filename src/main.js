@@ -51,6 +51,13 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/3tgg12_Admin',
+    name: '3tgg12-admin',
+    component: () => import('./components/views/TGG12/TGG12.vue'),
+    props: { admin: true },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/3bkgd1-1-met/korrekturvorschlaege-klassenarbeit-01',
     name: 'met-korrekturvorschlaege-klassenarbeit-01',
     component: () => import('./components/views/BKGD1MET/BewertungsentwuerfeKlassenarbeit01.vue'),

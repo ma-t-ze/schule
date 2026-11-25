@@ -1,0 +1,4 @@
+<?php
+return function (PDO $db) {
+    $db->exec('CREATE TABLE IF NOT EXISTS school_course_materials (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, topic VARCHAR(30) NOT NULL, title VARCHAR(200) NOT NULL, pdf_data MEDIUMBLOB NOT NULL, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, INDEX (topic, id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+};
