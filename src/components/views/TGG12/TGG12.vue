@@ -1,5 +1,7 @@
 <script setup>
 import Panel from 'primevue/panel'
+import Dialog from 'primevue/dialog'
+import Button from 'primevue/button'
 import PdfVorschau from './PdfVorschau.vue'
 import { onMounted, ref } from 'vue'
 const props = defineProps({ admin: { type: Boolean, default: false } })
@@ -8,6 +10,8 @@ const materialsEndpoint = import.meta.env.DEV ? '/site-auth/course-materials.php
 const uploadedMaterials = ref([])
 const uploadError = ref('')
 const uploadBusy = ref(false)
+const deleteTarget = ref(null)
+const deleteError = ref('')
 let uploadCsrf = ''
 async function loadMaterials() {
   try {
@@ -36,6 +40,22 @@ async function uploadPdf(event, topic) {
     uploadedMaterials.value.push(result.item)
   } catch (error) { uploadError.value = error.message || 'Das PDF konnte nicht hochgeladen werden.' }
   finally { uploadBusy.value = false; input.value = '' }
+}
+async function deleteMaterial() {
+  if (!deleteTarget.value || uploadBusy.value) return
+  uploadBusy.value = true
+  deleteError.value = ''
+  try {
+    if (!uploadCsrf) throw new Error('Bitte erneut anmelden und die Seite neu laden.')
+    const data = new FormData(); data.append('action', 'delete'); data.append('id', String(deleteTarget.value.id))
+    const response = await fetch(materialsEndpoint, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': uploadCsrf }, body: data })
+    const result = await response.json()
+    if (!response.ok) throw new Error(result.error || 'Das PDF konnte nicht gelöscht werden.')
+    if (selectedPdf.value?.href === `${materialsEndpoint}?id=${deleteTarget.value.id}`) selectedPdf.value = null
+    uploadedMaterials.value = uploadedMaterials.value.filter(item => item.id !== deleteTarget.value.id)
+    deleteTarget.value = null
+  } catch (error) { deleteError.value = error.message || 'Das PDF konnte nicht gelöscht werden.' }
+  finally { uploadBusy.value = false }
 }
 function selectMaterial(item) { selectedPdf.value = { title: item.title, href: `${materialsEndpoint}?id=${encodeURIComponent(item.id)}` } }
 onMounted(loadMaterials)
@@ -85,15 +105,16 @@ const groups = [
         <div class="topics-box">
         <Panel :header="props.admin ? 'BPE 2 · Grundlagen der visuellen Kommunikation' : 'Grundlagen der visuellen Kommunikation'" toggleable>
           <Panel v-for="group in groups" :key="group.id" :header="props.admin ? `${group.id} · ${group.title}` : group.title" toggleable collapsed class="class-subpanel">
-            <nav class="topic-links" :aria-label="`Materialien zu ${group.title}`"><template v-for="link in group.links" :key="link.number"><span v-if="link.inactive" class="topic-inactive" aria-disabled="true">#{{ link.number }} {{ link.title }} <small>· derzeit nicht verfügbar</small></span><button v-else-if="link.href" type="button" :aria-pressed="selectedPdf?.number === link.number" @click="selectedPdf = link">#{{ link.number }} {{ link.title }}</button><RouterLink v-else :to="link.to">#{{ link.number }} {{ link.title }} ↗</RouterLink></template><button v-for="item in uploadedMaterials.filter(material => material.topic === group.id)" :key="`upload-${item.id}`" type="button" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, group.id)" /></label></nav>
+            <nav class="topic-links" :aria-label="`Materialien zu ${group.title}`"><template v-for="link in group.links" :key="link.number"><span v-if="link.inactive" class="topic-inactive" aria-disabled="true">#{{ link.number }} {{ link.title }} <small>· derzeit nicht verfügbar</small></span><button v-else-if="link.href" type="button" :aria-pressed="selectedPdf?.number === link.number" @click="selectedPdf = link">#{{ link.number }} {{ link.title }}</button><RouterLink v-else :to="link.to">#{{ link.number }} {{ link.title }} ↗</RouterLink></template><div v-for="item in uploadedMaterials.filter(material => material.topic === group.id)" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, group.id)" /></label></nav>
           </Panel>
-          <Panel header="Rückblick" toggleable collapsed class="class-subpanel"><nav class="topic-links" aria-label="Rückblick"><button type="button" :aria-pressed="selectedPdf?.number === 8" @click="selectedPdf = { number: 8, title: 'Rückblick', href: '/material/3tgg12/Rueckblick.pdf' }">#8 Rückblick</button><button v-for="item in uploadedMaterials.filter(material => material.topic === 'rueckblick')" :key="item.id" type="button" @click="selectMaterial(item)">{{ item.title }}</button><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, 'rueckblick')" /></label></nav></Panel>
+          <Panel header="Rückblick" toggleable collapsed class="class-subpanel"><nav class="topic-links" aria-label="Rückblick"><button type="button" :aria-pressed="selectedPdf?.number === 8" @click="selectedPdf = { number: 8, title: 'Rückblick', href: '/material/3tgg12/Rueckblick.pdf' }">#8 Rückblick</button><div v-for="item in uploadedMaterials.filter(material => material.topic === 'rueckblick')" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, 'rueckblick')" /></label></nav></Panel>
         </Panel>
-        <Panel :header="props.admin ? 'BPE 8.1 · Technisches Zeichnen' : 'Technisches Zeichnen'" toggleable collapsed><nav class="topic-links" aria-label="Technisches Zeichnen"><RouterLink :to="{ name: '3tgg12-projektion-schritt', params: { step: 1 } }">#13 Projektion nach DIN ISO 5456 ↗</RouterLink><button v-for="item in uploadedMaterials.filter(material => material.topic === '8.1')" :key="item.id" type="button" @click="selectMaterial(item)">{{ item.title }}</button><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, '8.1')" /></label></nav></Panel>
+        <Panel :header="props.admin ? 'BPE 8.1 · Technisches Zeichnen' : 'Technisches Zeichnen'" toggleable collapsed><nav class="topic-links" aria-label="Technisches Zeichnen"><RouterLink :to="{ name: '3tgg12-projektion-schritt', params: { step: 1 } }">#13 Projektion nach DIN ISO 5456 ↗</RouterLink><div v-for="item in uploadedMaterials.filter(material => material.topic === '8.1')" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, '8.1')" /></label></nav></Panel>
         </div>
         <div v-if="props.admin" class="topics-box teacher-box"><Panel header="Lehreransicht" toggleable collapsed><nav class="topic-links" aria-label="Lehreransicht"><button v-for="item in teacherItems" :key="item.href" type="button" :aria-pressed="selectedPdf?.href === item.href" @click="selectedPdf = { ...item, teacher: true }">{{ item.title }}</button></nav></Panel></div>
       </aside>
     </div>
+    <Dialog :visible="!!deleteTarget" modal header="PDF löschen?" :style="{ width: 'min(440px, calc(100vw - 32px))' }" :closable="!uploadBusy" @update:visible="value => { if (!value && !uploadBusy) deleteTarget = null }"><p>„{{ deleteTarget?.title }}“ dauerhaft löschen? Das PDF verschwindet auch aus der Schüleransicht.</p><p v-if="deleteError" class="delete-error" role="alert">{{ deleteError }}</p><template #footer><Button label="Abbrechen" severity="secondary" outlined :disabled="uploadBusy" @click="deleteTarget = null" /><Button label="Löschen" severity="danger" :loading="uploadBusy" @click="deleteMaterial" /></template></Dialog>
   </main>
 </template>
 
@@ -137,6 +158,11 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 500; margin: 0; }
 .topic-links a:hover,.topic-links button:hover { text-decoration: underline; text-underline-offset: 4px; }
 .topic-links button[aria-pressed="true"] { font-weight: 600; }
 .topic-links a:focus-visible,.topic-links button:focus-visible,.qr-link:focus-visible { outline: 2px solid var(--school-primary); outline-offset: 3px; }
+.uploaded-row { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+.uploaded-row .uploaded-title { flex: 1; min-width: 0; }
+.topic-links .delete-material { flex: none; padding: 4px 8px; color: var(--school-text); font-size: 20px; line-height: 1; }
+.topic-links .delete-material:hover { color: #b42318; }
+.delete-error { color: #b42318; }
 .upload-link { color: var(--school-primary); cursor: pointer; padding: 6px 0; font-size: 16px; }
 .upload-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .upload-link:focus-within { outline: 2px solid var(--school-primary); outline-offset: 3px; }

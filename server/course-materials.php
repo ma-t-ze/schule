@@ -34,6 +34,14 @@ try {
         foreach ($items as &$item) $item['id'] = (int)$item['id'];
         respond(200, ['items' => $items, 'csrf' => $csrf]);
     }
+    if (($_POST['action'] ?? '') === 'delete') {
+        $id = filter_var($_POST['id'] ?? null, FILTER_VALIDATE_INT);
+        if (!$id || $id < 1) respond(422, ['error' => 'Ungültiges Material.']);
+        $query = $db->prepare('DELETE FROM school_course_materials WHERE id = ?');
+        $query->execute([$id]);
+        if ($query->rowCount() !== 1) respond(404, ['error' => 'Das Material wurde nicht gefunden.']);
+        respond(200, ['success' => true]);
+    }
     $topic = $_POST['topic'] ?? '';
     if (!is_string($topic) || !in_array($topic, ['2.1', '2.2', '2.3', '2.4', 'rueckblick', '8.1'], true)) respond(422, ['error' => 'Ungültiges Thema.']);
     $file = $_FILES['pdf'] ?? null;
