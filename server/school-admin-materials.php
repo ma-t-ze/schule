@@ -26,14 +26,18 @@ try {
     if ($method === 'GET') {
         $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
         if ($id !== false && $id !== null && $id > 0) {
-            $query = $db->prepare('SELECT pdf_data FROM school_admin_materials WHERE id = ?');
+            $query = $db->prepare('SELECT pdf_data, title, filename, mime_type FROM school_admin_materials WHERE id = ?');
             $query->execute([$id]); $row = $query->fetch();
-            if (!$row) respond(404, ['error' => 'PDF nicht gefunden.']);
-            header('Content-Type: application/pdf'); header('Content-Disposition: inline; filename="material.pdf"'); header('Content-Length: ' . strlen($row['pdf_data'])); echo $row['pdf_data']; exit;
+            if (!$row) respond(404, ['error' => 'Datei nicht gefunden.']);
+            $isPdf = ($row['mime_type'] ?? 'application/pdf') === 'application/pdf';
+            $filename = $row['filename'] ?: $row['title'] . '.pdf';
+            header('Content-Type: ' . ($isPdf ? 'application/pdf' : 'application/octet-stream'));
+            header('Content-Disposition: ' . ($isPdf ? 'inline' : 'attachment') . "; filename=\"download\"; filename*=UTF-8''" . rawurlencode($filename));
+            header('Content-Length: ' . strlen($row['pdf_data'])); echo $row['pdf_data']; exit;
         }
-        $items = $db->query('SELECT id, title, section FROM school_admin_materials ORDER BY id')->fetchAll();
+        $items = $db->query('SELECT id, title, section, filename, mime_type FROM school_admin_materials ORDER BY id')->fetchAll();
         foreach ($items as &$item) $item['id'] = (int)$item['id'];
-        respond(200, ['items' => $items, 'csrf' => $csrf, 'sections_supported' => true]);
+        respond(200, ['items' => $items, 'csrf' => $csrf, 'sections_supported' => true, 'files_supported' => true]);
     }
     if (($_POST['action'] ?? '') === 'delete') {
         $id = filter_var($_POST['id'] ?? null, FILTER_VALIDATE_INT);
@@ -45,14 +49,13 @@ try {
     }
     $section = $_POST['section'] ?? '';
     if (!is_string($section) || !in_array($section, ['schuladministration', 'schulwiki', 'pruefungen'], true)) respond(422, ['error' => 'Ungültiger Bereich.']);
-    $file = $_FILES['pdf'] ?? null;
-    if (!$file || $file['error'] !== UPLOAD_ERR_OK || $file['size'] < 1 || $file['size'] > 5 * 1024 * 1024 || !is_uploaded_file($file['tmp_name'])) respond(422, ['error' => 'PDF-Upload fehlgeschlagen. Maximal 5 MB.']);
-    if ((new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']) !== 'application/pdf') respond(422, ['error' => 'Bitte ein gültiges PDF auswählen.']);
-    $pdf = file_get_contents($file['tmp_name']);
-    if (substr($pdf, 0, 5) !== '%PDF-') respond(422, ['error' => 'Ungültige PDF-Datei.']);
-    $title = trim(preg_replace('/\.pdf$/i', '', basename($file['name'])));
-    if (!$title || !preg_match('//u', $title) || preg_match_all('/./us', $title) > 200) respond(422, ['error' => 'Bitte einen Dateinamen mit höchstens 200 Zeichen verwenden.']);
-    $query = $db->prepare('INSERT INTO school_admin_materials (title, pdf_data, section) VALUES (?, ?, ?)');
-    $query->execute([$title, $pdf, $section]);
-    respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $title, 'section' => $section]]);
+    $file = $_FILES['file'] ?? null;
+    if (!$file || $file['error'] !== UPLOAD_ERR_OK || $file['size'] < 1 || $file['size'] > 5 * 1024 * 1024 || !is_uploaded_file($file['tmp_name'])) respond(422, ['error' => 'Datei-Upload fehlgeschlagen. Maximal 5 MB.']);
+    $filename = trim(basename(str_replace('\\', '/', $file['name'])));
+    if (!$filename || !preg_match('//u', $filename) || preg_match('/[\x00-\x1f\x7f]/', $filename) || preg_match_all('/./us', $filename) > 200) respond(422, ['error' => 'Bitte einen Dateinamen mit höchstens 200 Zeichen verwenden.']);
+    $data = file_get_contents($file['tmp_name']);
+    $mime = ((new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']) === 'application/pdf' && substr($data, 0, 5) === '%PDF-') ? 'application/pdf' : 'application/octet-stream';
+    $query = $db->prepare('INSERT INTO school_admin_materials (title, pdf_data, section, filename, mime_type) VALUES (?, ?, ?, ?, ?)');
+    $query->execute([$filename, $data, $section, $filename, $mime]);
+    respond(201, ['item' => ['id' => (int)$db->lastInsertId(), 'title' => $filename, 'section' => $section, 'filename' => $filename, 'mime_type' => $mime]]);
 } catch (Throwable $error) { respond(503, ['error' => 'Die Materialspeicherung ist noch nicht verfügbar.']); }

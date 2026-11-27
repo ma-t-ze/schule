@@ -7,10 +7,10 @@ const emit = defineEmits(['upload', 'delete'])
 <template>
   <div class="admin-pdfs">
     <div v-for="item in items.filter(item => item.section === section)" :key="item.id" class="pdf-row">
-      <a :href="`${endpoint}?id=${item.id}`" target="_blank" rel="noopener noreferrer">{{ item.title }} (PDF) ↗</a>
-      <Button label="×" text rounded size="small" :disabled="busy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="emit('delete', item)" />
+      <a :href="`${endpoint}?id=${item.id}`" :download="item.mime_type && item.mime_type !== 'application/pdf' ? (item.filename || item.title) : undefined" target="_blank" rel="noopener noreferrer">{{ item.title }}{{ item.filename ? '' : ' (PDF)' }} ↗</a>
+      <Button label="×" text rounded size="small" :disabled="busy" :aria-label="`${item.title} löschen`" title="Datei löschen" @click="emit('delete', item)" />
     </div>
-    <label class="admin-upload">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="busy" @change="emit('upload', $event, section)" /></label>
+    <label class="admin-upload">＋ Datei hochladen<input type="file" :disabled="busy" @change="emit('upload', $event, section)" /></label>
     <p v-if="error" class="admin-upload-error" role="alert">{{ error }}</p>
   </div>
 </template>

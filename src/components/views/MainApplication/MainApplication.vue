@@ -84,6 +84,7 @@ const adminMaterialsBusy = ref(false)
 const adminDeleteTarget = ref(null)
 let adminMaterialsCsrf = ''
 let adminSectionsSupported = false
+let adminFilesSupported = false
 async function loadAdminMaterials() {
   try {
     const response = await fetch(adminMaterialsUrl, { credentials: 'include', cache: 'no-store' })
@@ -92,27 +93,29 @@ async function loadAdminMaterials() {
     adminMaterials.value = data.items.map(item => ({ ...item, section: item.section || 'schuladministration' }))
     adminMaterialsCsrf = data.csrf || ''
     adminSectionsSupported = data.sections_supported === true
+    adminFilesSupported = data.files_supported === true
     adminMaterialsError.value = ''
-  } catch (error) { adminMaterialsError.value = error.message || 'PDFs konnten nicht geladen werden.' }
+  } catch (error) { adminMaterialsError.value = error.message || 'Dateien konnten nicht geladen werden.' }
 }
 async function uploadAdminPdf(event, section) {
   const input = event.target
   const file = input.files?.[0]
   if (!file) return
-  if (!file.name.toLowerCase().endsWith('.pdf') || file.size > 5 * 1024 * 1024) { adminMaterialsError.value = 'Bitte ein PDF mit höchstens 5 MB auswählen.'; input.value = ''; return }
+  if (!file.size || file.size > 5 * 1024 * 1024) { adminMaterialsError.value = 'Bitte eine Datei mit höchstens 5 MB auswählen.'; input.value = ''; return }
   adminMaterialsBusy.value = true
   adminMaterialsError.value = ''
   try {
     if (!adminMaterialsCsrf) await loadAdminMaterials()
     if (!adminMaterialsCsrf) throw new Error('Bitte erneut anmelden und die Seite neu laden.')
     if (section !== 'schuladministration' && !adminSectionsSupported) throw new Error('Für diesen Bereich muss die PDF-Verwaltung auf dem Server aktualisiert werden.')
-    const body = new FormData(); body.append('pdf', file); body.append('section', section)
+    if (!adminFilesSupported) throw new Error('Für Datei-Uploads muss die Verwaltung auf dem Server aktualisiert werden.')
+    const body = new FormData(); body.append('file', file); body.append('section', section)
     const response = await fetch(adminMaterialsUrl, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': adminMaterialsCsrf }, body })
     const result = await response.json()
-    if (!response.ok) throw new Error(result.error || 'Das PDF konnte nicht hochgeladen werden.')
+    if (!response.ok) throw new Error(result.error || 'Die Datei konnte nicht hochgeladen werden.')
     if (!result.item || !result.item.id) throw new Error('Der Server hat keine gültige Bestätigung zurückgegeben. Bitte die Seite neu laden.')
     adminMaterials.value.push({ ...result.item, section: result.item.section || 'schuladministration' })
-  } catch (error) { adminMaterialsError.value = error.message || 'Das PDF konnte nicht hochgeladen werden.' }
+  } catch (error) { adminMaterialsError.value = error.message || 'Die Datei konnte nicht hochgeladen werden.' }
   finally { adminMaterialsBusy.value = false; input.value = '' }
 }
 async function deleteAdminPdf() {
@@ -123,12 +126,12 @@ async function deleteAdminPdf() {
     const body = new FormData(); body.append('action', 'delete'); body.append('id', String(adminDeleteTarget.value.id))
     const response = await fetch(adminMaterialsUrl, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': adminMaterialsCsrf }, body })
     const result = await response.json()
-    if (!response.ok) throw new Error(result.error || 'Das PDF konnte nicht gelöscht werden.')
+    if (!response.ok) throw new Error(result.error || 'Die Datei konnte nicht gelöscht werden.')
     const src = `${adminMaterialsUrl}?id=${adminDeleteTarget.value.id}`
     closeDocument(src)
     adminMaterials.value = adminMaterials.value.filter(item => item.id !== adminDeleteTarget.value.id)
     adminDeleteTarget.value = null
-  } catch (error) { adminMaterialsError.value = error.message || 'Das PDF konnte nicht gelöscht werden.' }
+  } catch (error) { adminMaterialsError.value = error.message || 'Die Datei konnte nicht gelöscht werden.' }
   finally { adminMaterialsBusy.value = false }
 }
 onMounted(loadAdminMaterials)
@@ -246,14 +249,13 @@ const tgg12Dates = 5
           <a href="/pruefungen/Beratungsbesuche_Ausbildungsgespraeche.pdf" target="_blank" rel="noopener noreferrer">Beratungsbesuche und verbindliche Ausbildungsgespräche (PDF) ↗</a>
           <a href="/pruefungen/Terminplan_D25_Pruefungen.pdf" target="_blank" rel="noopener noreferrer">Terminplan D25 – Prüfungen (PDF) ↗</a>
           <a href="/pruefungen/D25_Pruefungsbestandteile.pdf" target="_blank" rel="noopener noreferrer">D25 – Prüfungsbestandteile (PDF) ↗</a>
-          <a href="/pruefungen/Meldung_Kolloquien_Paed-PaedPsy_D.pdf" target="_blank" rel="noopener noreferrer">Meldung Kolloquien Päd-PädPsy D (PDF) ↗</a>
           <a href="/pruefungen/Pruefungsplan_PAED_PAEDPSYCH_D25_mit_Raum.pdf" target="_blank" rel="noopener noreferrer">Prüfungsplan PÄD + PÄDPSYCH D25 mit Raum (PDF) ↗</a>
           <a href="/pruefungen/Aerztliches_Zeugnis.pdf" target="_blank" rel="noopener noreferrer">Ärztliches Zeugnis (PDF) ↗</a>
           <a href="/pruefungen/Klassen_UBs.jpg" target="_blank" rel="noopener noreferrer">Klassenauswahl für die unterrichtspraktischen Prüfungen (JPG) ↗</a>
         </nav>
         <AdminPdfList section="pruefungen" :items="adminMaterials" :endpoint="adminMaterialsUrl" :busy="adminMaterialsBusy" :error="adminMaterialsError" @upload="uploadAdminPdf" @delete="adminDeleteTarget = $event" />
       </Panel>
-      <Dialog :visible="!!adminDeleteTarget" modal header="PDF löschen" @update:visible="value => { if (!value) adminDeleteTarget = null }"><p>„{{ adminDeleteTarget?.title }}“ wirklich löschen?</p><p v-if="adminMaterialsError" role="alert">{{ adminMaterialsError }}</p><template #footer><Button label="Abbrechen" text :disabled="adminMaterialsBusy" @click="adminDeleteTarget = null" /><Button label="Löschen" severity="danger" :loading="adminMaterialsBusy" @click="deleteAdminPdf" /></template></Dialog>
+      <Dialog :visible="!!adminDeleteTarget" modal header="Datei löschen" @update:visible="value => { if (!value) adminDeleteTarget = null }"><p>„{{ adminDeleteTarget?.title }}“ wirklich löschen?</p><p v-if="adminMaterialsError" role="alert">{{ adminMaterialsError }}</p><template #footer><Button label="Abbrechen" text :disabled="adminMaterialsBusy" @click="adminDeleteTarget = null" /><Button label="Löschen" severity="danger" :loading="adminMaterialsBusy" @click="deleteAdminPdf" /></template></Dialog>
       </Panel>
       <Panel header="Archiv" toggleable collapsed>
         <nav class="link-list archive-links" aria-label="Archiv">
