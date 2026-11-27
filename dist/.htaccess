@@ -11,6 +11,8 @@ Options -MultiViews
   RewriteRule ^3tgg12/semiotische-analyse/?$ /index.html [L]
   # This overview also shares its name with a public asset directory.
   RewriteRule ^medientechnik/?$ /index.html [L]
+  # The Figma overview shares a directory with its downloadable assets.
+  RewriteRule ^medientechnik/figma/?$ /index.html [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
