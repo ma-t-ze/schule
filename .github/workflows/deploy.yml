@@ -73,7 +73,7 @@ jobs:
       run: |
         set -euo pipefail
         mkdir -p "$RUNNER_TEMP/school-backend"
-        for file in login.php upcoming.php exam-checklists.php exam-accommodations.php seating.php course-materials.php migrate.php; do
+        for file in login.php upcoming.php exam-checklists.php exam-accommodations.php seating.php course-materials.php school-admin-materials.php migrate.php; do
           php -l "server/$file"
           cp "server/$file" "$RUNNER_TEMP/school-backend/"
         done

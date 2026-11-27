@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onActivated, ref } from 'vue'
+import { computed, nextTick, onActivated, onMounted, ref } from 'vue'
 import Panel from 'primevue/panel'
 import Button from 'primevue/button'
 import Popover from 'primevue/popover'
@@ -42,7 +42,7 @@ async function openDocument(event) {
   const link = event.target.closest('a[href]')
   if (!link || link.hasAttribute('download')) return
   const url = new URL(link.href, window.location.href)
-  if (url.origin !== window.location.origin || !/^\/(sitzplaene|designvorlagen|pruefungen|lehrplaene|korrekturzeichen|notenschluessel)(\/|$)/.test(url.pathname)) return
+  if (url.origin !== window.location.origin || !(/^\/(sitzplaene|designvorlagen|pruefungen|lehrplaene|korrekturzeichen|notenschluessel)(\/|$)/.test(url.pathname) || url.pathname.endsWith('/school-admin-materials.php'))) return
   event.preventDefault()
   event.stopPropagation()
   const src = url.pathname + url.search + url.hash
@@ -75,6 +75,40 @@ const neoInfo = ref(null)
 const paedmlInfo = ref(null)
 const teacherCodeInfo = ref(null)
 const internalAdminInfo = ref(null)
+const adminMaterialsUrl = import.meta.env.DEV ? '/site-auth/school-admin-materials.php' : '/school-admin-materials.php'
+const adminMaterials = ref([])
+const adminMaterialsError = ref('')
+const adminMaterialsBusy = ref(false)
+let adminMaterialsCsrf = ''
+async function loadAdminMaterials() {
+  try {
+    const response = await fetch(adminMaterialsUrl, { credentials: 'include', cache: 'no-store' })
+    const data = await response.json()
+    if (!response.ok || !Array.isArray(data.items)) throw new Error(data.error || 'PDFs konnten nicht geladen werden.')
+    adminMaterials.value = data.items
+    adminMaterialsCsrf = data.csrf || ''
+    adminMaterialsError.value = ''
+  } catch (error) { adminMaterialsError.value = error.message || 'PDFs konnten nicht geladen werden.' }
+}
+async function uploadAdminPdf(event) {
+  const input = event.target
+  const file = input.files?.[0]
+  if (!file) return
+  if (!file.name.toLowerCase().endsWith('.pdf') || file.size > 5 * 1024 * 1024) { adminMaterialsError.value = 'Bitte ein PDF mit höchstens 5 MB auswählen.'; input.value = ''; return }
+  adminMaterialsBusy.value = true
+  adminMaterialsError.value = ''
+  try {
+    if (!adminMaterialsCsrf) await loadAdminMaterials()
+    if (!adminMaterialsCsrf) throw new Error('Bitte erneut anmelden und die Seite neu laden.')
+    const body = new FormData(); body.append('pdf', file)
+    const response = await fetch(adminMaterialsUrl, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': adminMaterialsCsrf }, body })
+    const result = await response.json()
+    if (!response.ok) throw new Error(result.error || 'Das PDF konnte nicht hochgeladen werden.')
+    adminMaterials.value.push(result.item)
+  } catch (error) { adminMaterialsError.value = error.message || 'Das PDF konnte nicht hochgeladen werden.' }
+  finally { adminMaterialsBusy.value = false; input.value = '' }
+}
+onMounted(loadAdminMaterials)
 const sickLeaveInfo = ref(null)
 const repairInfo = ref(null)
 const sabineHeitmannInfo = ref(null)
@@ -141,6 +175,9 @@ const tgg12Dates = 5
       <Panel header="Schuladministration" toggleable collapsed class="class-subpanel">
         <div class="admin-link"><a :href="schoolYearPlanUrl" target="_blank" rel="noopener noreferrer">Jahresplan CHS 2026/27 (PDF) ↗</a></div>
         <div class="admin-link"><a href="/schuladministration/Pausenaufsichten_2026-10-12.pdf" target="_blank" rel="noopener noreferrer">Pausenaufsichten (PDF) ↗</a></div>
+        <div v-for="item in adminMaterials" :key="item.id" class="admin-link"><a :href="`${adminMaterialsUrl}?id=${item.id}`" target="_blank" rel="noopener noreferrer">{{ item.title }} (PDF) ↗</a></div>
+        <div class="admin-link"><label class="admin-upload">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="adminMaterialsBusy" @change="uploadAdminPdf" /></label></div>
+        <p v-if="adminMaterialsError" class="admin-upload-error" role="alert">{{ adminMaterialsError }}</p>
         <div class="admin-link"><span>Sabine Heitmann</span><Button label="i" aria-label="Kontaktdaten von Sabine Heitmann" rounded outlined size="small" @click="sabineHeitmannInfo.toggle($event)" /></div>
         <Popover ref="sabineHeitmannInfo">
           <div class="webuntis-info">
@@ -359,6 +396,11 @@ h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .school-email { user-select: text; overflow-wrap: anywhere; min-width: 0; font-size: 17px; }
 .copy-status { font-size: 13px; color: #526257; }
 .admin-link { flex-wrap: wrap; display: flex; align-items: center; gap: 12px; }
+.admin-upload { color: var(--school-primary, #2563eb); cursor: pointer; font-size: 16px; }
+.admin-upload:hover { text-decoration: underline; }
+.admin-upload input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.admin-upload:focus-within { outline: 2px solid currentColor; outline-offset: 2px; }
+.admin-upload-error { color: #b42318; font-size: 14px; margin: 4px 0; }
 .admin-link a { color: inherit; font-size: 17px; text-underline-offset: 4px; }
 .contact-details { display: grid; gap: 4px; }
 .contact-details dt { font-weight: 500; }

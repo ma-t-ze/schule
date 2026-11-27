@@ -1,0 +1,1 @@
+import{a7 as t,bL as r,as as s}from"./index-Cu8dNGyS.js";const c=["src","title"],a={__name:"PdfVorschau",props:{src:{type:String,required:!0},title:{type:String,required:!0}},setup(e){return(o,i)=>(r(),s("iframe",{src:e.src,title:`PDF: ${e.title}`,class:"pdf-viewer"},null,8,c))}},l=t(a,[["__scopeId","data-v-30c23814"]]);export{l as P};
