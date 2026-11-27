@@ -37,7 +37,7 @@ try {
         }
         $items = $db->query('SELECT id, title, section, filename, mime_type FROM school_admin_materials ORDER BY id')->fetchAll();
         foreach ($items as &$item) $item['id'] = (int)$item['id'];
-        respond(200, ['items' => $items, 'csrf' => $csrf, 'sections_supported' => true, 'files_supported' => true]);
+        respond(200, ['items' => $items, 'csrf' => $csrf, 'sections_supported' => true, 'files_supported' => true, 'class_sections_supported' => true]);
     }
     if (($_POST['action'] ?? '') === 'delete') {
         $id = filter_var($_POST['id'] ?? null, FILTER_VALIDATE_INT);
@@ -48,7 +48,7 @@ try {
         respond(200, ['success' => true]);
     }
     $section = $_POST['section'] ?? '';
-    if (!is_string($section) || !in_array($section, ['schuladministration', 'schulwiki', 'pruefungen'], true)) respond(422, ['error' => 'Ungültiger Bereich.']);
+    if (!is_string($section) || !in_array($section, ['schuladministration', 'schulwiki', 'pruefungen', 'klasse-3bkgd-met', 'klasse-3bkgd-grd', 'klasse-1bfd1-bpk', 'klasse-3tgg12', 'klasse-3tgg2'], true)) respond(422, ['error' => 'Ungültiger Bereich.']);
     $file = $_FILES['file'] ?? null;
     if (!$file || $file['error'] !== UPLOAD_ERR_OK || $file['size'] < 1 || $file['size'] > 5 * 1024 * 1024 || !is_uploaded_file($file['tmp_name'])) respond(422, ['error' => 'Datei-Upload fehlgeschlagen. Maximal 5 MB.']);
     $filename = trim(basename(str_replace('\\', '/', $file['name'])));

@@ -85,6 +85,7 @@ const adminDeleteTarget = ref(null)
 let adminMaterialsCsrf = ''
 let adminSectionsSupported = false
 let adminFilesSupported = false
+let classSectionsSupported = false
 async function loadAdminMaterials() {
   try {
     const response = await fetch(adminMaterialsUrl, { credentials: 'include', cache: 'no-store' })
@@ -94,6 +95,7 @@ async function loadAdminMaterials() {
     adminMaterialsCsrf = data.csrf || ''
     adminSectionsSupported = data.sections_supported === true
     adminFilesSupported = data.files_supported === true
+    classSectionsSupported = data.class_sections_supported === true
     adminMaterialsError.value = ''
   } catch (error) { adminMaterialsError.value = error.message || 'Dateien konnten nicht geladen werden.' }
 }
@@ -109,6 +111,7 @@ async function uploadAdminPdf(event, section) {
     if (!adminMaterialsCsrf) throw new Error('Bitte erneut anmelden und die Seite neu laden.')
     if (section !== 'schuladministration' && !adminSectionsSupported) throw new Error('Für diesen Bereich muss die PDF-Verwaltung auf dem Server aktualisiert werden.')
     if (!adminFilesSupported) throw new Error('Für Datei-Uploads muss die Verwaltung auf dem Server aktualisiert werden.')
+    if (section.startsWith('klasse-') && !classSectionsSupported) throw new Error('Für Klassen-Dateien muss die Verwaltung auf dem Server aktualisiert werden.')
     const body = new FormData(); body.append('file', file); body.append('section', section)
     const response = await fetch(adminMaterialsUrl, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': adminMaterialsCsrf }, body })
     const result = await response.json()
@@ -140,6 +143,13 @@ const repairInfo = ref(null)
 const sabineHeitmannInfo = ref(null)
 
 const classKeys = ['2026-27-3bkgd1-1-met', '2026-27-3bkgd1-1-grd', '2026-27-3tgg1-2', '2026-27-3tgg2', '2026-27-1bfd1-bpk']
+const classPanels = [
+  { title: '3BKGD1/1 MET', route: 'medientechnik', section: 'klasse-3bkgd-met' },
+  { title: '3BKGD1_1_GRD', section: 'klasse-3bkgd-grd' },
+  { title: '1BFD1 BPK', route: '1bfd1', section: 'klasse-1bfd1-bpk' },
+  { title: '3TGG1/2', route: '3tgg12', section: 'klasse-3tgg12' },
+  { title: '3TGG2', route: '3tgg2', section: 'klasse-3tgg2' }
+]
 const exams = ['3BKGD1/1 MET', '3BKGD1_1_GRD', '3TGG1/2', '3TGG2', '1BFD1 BPK']
 const serviceGroups = [{ key: 'teams', label: 'Teams' }, { key: 'figma', label: 'Figma' }]
 const metDatesOpen = ref(false)
@@ -172,13 +182,12 @@ const tgg12Dates = 5
     </Toolbar>
     <aside class="sidebar" aria-label="Unterricht und Organisation" @click.capture="openDocument">
       <Panel v-model:collapsed="classesCollapsed" header="Klassen 2026/27" toggleable>
-        <nav class="link-list class-list" aria-label="Klassen 2026/27">
-          <RouterLink :to="{ name: 'medientechnik' }">3BKGD1/1 MET</RouterLink>
-          <span class="class-unavailable" title="Für diese Klasse ist noch keine Schülerseite vorhanden">3BKGD1_1_GRD</span>
-          <RouterLink :to="{ name: '1bfd1' }">1BFD1 BPK</RouterLink>
-          <RouterLink :to="{ name: '3tgg12' }">3TGG1/2</RouterLink>
-          <RouterLink :to="{ name: '3tgg2' }">3TGG2</RouterLink>
-        </nav>
+        <div class="class-list" aria-label="Klassen 2026/27">
+          <Panel v-for="schoolClass in classPanels" :key="schoolClass.section" :header="schoolClass.title" toggleable collapsed class="class-subpanel">
+            <nav class="link-list" :aria-label="schoolClass.title"><RouterLink v-if="schoolClass.route" :to="{ name: schoolClass.route }">Plattform</RouterLink><span v-else class="class-unavailable" title="Für diese Klasse ist noch keine Schülerseite vorhanden">Plattform · noch nicht verfügbar</span></nav>
+            <AdminPdfList :section="schoolClass.section" :items="adminMaterials" :endpoint="adminMaterialsUrl" :busy="adminMaterialsBusy" :error="adminMaterialsError" @upload="uploadAdminPdf" @delete="adminDeleteTarget = $event" />
+          </Panel>
+        </div>
       </Panel>
       <Panel header="Unterricht planen" toggleable collapsed>
         <nav class="link-list" aria-label="Unterricht planen">
@@ -255,8 +264,8 @@ const tgg12Dates = 5
         </nav>
         <AdminPdfList section="pruefungen" :items="adminMaterials" :endpoint="adminMaterialsUrl" :busy="adminMaterialsBusy" :error="adminMaterialsError" @upload="uploadAdminPdf" @delete="adminDeleteTarget = $event" />
       </Panel>
-      <Dialog :visible="!!adminDeleteTarget" modal header="Datei löschen" @update:visible="value => { if (!value) adminDeleteTarget = null }"><p>„{{ adminDeleteTarget?.title }}“ wirklich löschen?</p><p v-if="adminMaterialsError" role="alert">{{ adminMaterialsError }}</p><template #footer><Button label="Abbrechen" text :disabled="adminMaterialsBusy" @click="adminDeleteTarget = null" /><Button label="Löschen" severity="danger" :loading="adminMaterialsBusy" @click="deleteAdminPdf" /></template></Dialog>
       </Panel>
+      <Dialog :visible="!!adminDeleteTarget" modal header="Datei löschen" @update:visible="value => { if (!value) adminDeleteTarget = null }"><p>„{{ adminDeleteTarget?.title }}“ wirklich löschen?</p><p v-if="adminMaterialsError" role="alert">{{ adminMaterialsError }}</p><template #footer><Button label="Abbrechen" text :disabled="adminMaterialsBusy" @click="adminDeleteTarget = null" /><Button label="Löschen" severity="danger" :loading="adminMaterialsBusy" @click="deleteAdminPdf" /></template></Dialog>
       <Panel header="Archiv" toggleable collapsed>
         <nav class="link-list archive-links" aria-label="Archiv">
           <Panel header="BKGD" toggleable collapsed class="class-subpanel">
