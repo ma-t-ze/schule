@@ -4,8 +4,11 @@ import Dialog from 'primevue/dialog'
 import Button from 'primevue/button'
 import PdfVorschau from './PdfVorschau.vue'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 const props = defineProps({ admin: { type: Boolean, default: false } })
 const selectedPdf = ref(null)
+const router = useRouter()
+function selectPage(item) { selectedPdf.value = { ...item, href: router.resolve(item.to).href, embeddedPage: true } }
 const materialsEndpoint = import.meta.env.DEV ? '/site-auth/course-materials.php' : '/course-materials.php'
 const uploadedMaterials = ref([])
 const uploadError = ref('')
@@ -59,7 +62,14 @@ async function deleteMaterial() {
 }
 function selectMaterial(item) { selectedPdf.value = { title: item.title, href: `${materialsEndpoint}?id=${encodeURIComponent(item.id)}` } }
 onMounted(loadMaterials)
+const spatialGroups = [
+  { id: '8.1', title: 'Technisches Zeichnen' },
+  { id: '8.2', title: 'Axonometrie' },
+  { id: '8.3', title: 'Fluchtpunktperspektive' },
+  { id: '8.4', title: 'Scribbles und Entwurfsskizzen' }
+]
 const teacherItems = [
+  { title: 'Räumliche Darstellung', href: '/3tgg12_Admin/raeumliche-darstellung' },
   { title: 'Klassenarbeit 01', href: '/3tgg12/klassenarbeit-01' },
   { title: 'Designvorlage Klassenarbeit', href: '/designvorlagen/klassenarbeiten/3tgg1-2' },
   { title: 'Designvorlage Arbeitsblatt (A4)', href: '/designvorlagen/a4' }
@@ -72,7 +82,6 @@ const groups = [
   ] },
   { id: '2.2', title: 'Farbwahrnehmung', description: 'Farbreiz; Farbvalenz; Farbempfindung; Farbeigenschaften: Farbton, Helligkeit, Sättigung; Farbwirkung', links: [
     { number: 6, title: 'Eine andere Geschichte des Farbensehens', href: '/material/3tgg12/Eine_andere_Geschichte_des_Farbensehens.pdf' },
-    { number: 11, title: 'Farbe', to: { name: '3tgg12-farbe' } },
     { number: 12, title: 'Helligkeit und Sättigung', to: { name: '3tgg12-helligkeit-und-saettigung' } }
   ] },
   { id: '2.3', title: 'Grafische Grundformen', description: 'Linie, Kontur, Fläche, Archetypen; visuelles Gewicht; Komposition', links: [
@@ -96,7 +105,7 @@ const groups = [
     <div class="course-layout">
       <section class="content-column" aria-label="Inhaltsvorschau">
         <header class="course-header"><div><p class="eyebrow">GESTALTUNGS- UND MEDIENTECHNIK</p><h1>{{ props.admin ? '3TGG1/2 · Admin' : '3TGG1/2' }}</h1><p class="intro">Unterrichtsinhalte und Materialien</p></div><a v-if="!props.admin" class="qr-link" href="https://visualizer.matthiasheckel.com/3tgg12" aria-label="3TGG1/2-Übersicht öffnen"><img src="/3tgg12/qr-code.svg" width="96" height="96" alt="QR-Code zur 3TGG1/2-Übersicht" /></a></header>
-        <Panel v-if="selectedPdf" class="preview-panel" :header="`${selectedPdf.number ? `#${selectedPdf.number} ` : ''}${selectedPdf.title}`"><template #icons><a :href="selectedPdf.href" target="_blank" rel="noopener noreferrer" class="open-link" aria-label="Inhalt in neuem Tab öffnen">↗</a><button class="close-preview" type="button" aria-label="Vorschau schließen" @click="selectedPdf = null">×</button></template><iframe v-if="selectedPdf.teacher" :key="selectedPdf.href" class="teacher-preview" :src="selectedPdf.href" :title="`Vorschau: ${selectedPdf.title}`" /><PdfVorschau v-else :src="selectedPdf.href" :title="selectedPdf.title" /></Panel>
+        <Panel v-if="selectedPdf" class="preview-panel" :header="`${selectedPdf.number ? `#${selectedPdf.number} ` : ''}${selectedPdf.title}`"><template #icons><a :href="selectedPdf.href" target="_blank" rel="noopener noreferrer" class="open-link" aria-label="Inhalt in neuem Tab öffnen">↗</a><button class="close-preview" type="button" aria-label="Vorschau schließen" @click="selectedPdf = null">×</button></template><iframe v-if="selectedPdf.teacher || selectedPdf.embeddedPage" :key="selectedPdf.href" class="teacher-preview" :src="selectedPdf.href" :title="`Vorschau: ${selectedPdf.title}`" /><PdfVorschau v-else :src="selectedPdf.href" :title="selectedPdf.title" /></Panel>
         <Panel v-else header="Materialien" class="preview-panel"><p class="empty-preview">Wähle links ein Thema aus. PDF-Dokumente werden hier angezeigt.</p></Panel>
       </section>
       <aside id="course-topics" class="topics-column" aria-label="Unterrichtsthemen">
@@ -105,11 +114,20 @@ const groups = [
         <div class="topics-box">
         <Panel :header="props.admin ? 'BPE 2 · Grundlagen der visuellen Kommunikation' : 'Grundlagen der visuellen Kommunikation'" toggleable>
           <Panel v-for="group in groups" :key="group.id" :header="props.admin ? `${group.id} · ${group.title}` : group.title" toggleable collapsed class="class-subpanel">
-            <nav class="topic-links" :aria-label="`Materialien zu ${group.title}`"><template v-for="link in group.links" :key="link.number"><span v-if="link.inactive" class="topic-inactive" aria-disabled="true">#{{ link.number }} {{ link.title }} <small>· derzeit nicht verfügbar</small></span><button v-else-if="link.href" type="button" :aria-pressed="selectedPdf?.number === link.number" @click="selectedPdf = link">#{{ link.number }} {{ link.title }}</button><RouterLink v-else :to="link.to">#{{ link.number }} {{ link.title }} ↗</RouterLink></template><div v-for="item in uploadedMaterials.filter(material => material.topic === group.id)" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, group.id)" /></label></nav>
+            <nav class="topic-links" :aria-label="`Materialien zu ${group.title}`"><template v-for="link in group.links" :key="link.number"><span v-if="link.inactive" class="topic-inactive" aria-disabled="true">#{{ link.number }} {{ link.title }} <small>· derzeit nicht verfügbar</small></span><button v-else-if="link.href" type="button" :aria-pressed="selectedPdf?.number === link.number" @click="selectedPdf = link">#{{ link.number }} {{ link.title }}</button><button v-else type="button" :aria-pressed="selectedPdf?.number === link.number" @click="selectPage(link)">#{{ link.number }} {{ link.title }}</button></template><div v-for="item in uploadedMaterials.filter(material => material.topic === group.id)" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, group.id)" /></label></nav>
           </Panel>
-          <Panel header="Rückblick" toggleable collapsed class="class-subpanel"><nav class="topic-links" aria-label="Rückblick"><button type="button" :aria-pressed="selectedPdf?.number === 8" @click="selectedPdf = { number: 8, title: 'Rückblick', href: '/material/3tgg12/Rueckblick.pdf' }">#8 Rückblick</button><div v-for="item in uploadedMaterials.filter(material => material.topic === 'rueckblick')" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, 'rueckblick')" /></label></nav></Panel>
+          <Panel header="Klausurvorbereitung" toggleable collapsed class="class-subpanel"><Panel header="Klassenarbeit 01" toggleable collapsed class="class-subpanel"><nav class="topic-links" aria-label="Klassenarbeit 01"><button type="button" :aria-pressed="selectedPdf?.number === 8" @click="selectedPdf = { number: 8, title: 'Klausurvorbereitung - Grundlagen der visuellen Gestaltung und Wahrnehmung', href: '/material/3tgg12/Rueckblick.pdf' }">#8 Klausurvorbereitung - Grundlagen der visuellen Gestaltung und Wahrnehmung</button><div v-for="item in uploadedMaterials.filter(material => material.topic === 'rueckblick')" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, 'rueckblick')" /></label></nav></Panel></Panel>
         </Panel>
-        <Panel :header="props.admin ? 'BPE 8.1 · Technisches Zeichnen' : 'Technisches Zeichnen'" toggleable collapsed><nav class="topic-links" aria-label="Technisches Zeichnen"><RouterLink :to="{ name: '3tgg12-projektion-schritt', params: { step: 1 } }">#13 Projektion nach DIN ISO 5456 ↗</RouterLink><div v-for="item in uploadedMaterials.filter(material => material.topic === '8.1')" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div><label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, '8.1')" /></label></nav></Panel>
+        <Panel :header="props.admin ? 'BPE 8 · Räumliche Darstellung' : 'Räumliche Darstellung'" toggleable collapsed>
+          <Panel v-for="group in spatialGroups" :key="group.id" :header="props.admin ? `${group.id} · ${group.title}` : group.title" toggleable collapsed class="class-subpanel">
+            <nav class="topic-links" :aria-label="group.title">
+              <button v-if="group.id === '8.1'" type="button" :aria-pressed="selectedPdf?.number === 13" @click="selectPage({ number: 13, title: 'Projektion nach DIN ISO 5456', to: { name: '3tgg12-projektion-schritt', params: { step: 1 } } })">#13 Projektion nach DIN ISO 5456</button>
+              <div v-for="item in uploadedMaterials.filter(material => material.topic === group.id)" :key="item.id" class="uploaded-row"><button type="button" class="uploaded-title" :aria-pressed="selectedPdf?.href === `${materialsEndpoint}?id=${item.id}`" @click="selectMaterial(item)">{{ item.title }}</button><button v-if="props.admin" type="button" class="delete-material" :disabled="uploadBusy" :aria-label="`${item.title} löschen`" title="PDF löschen" @click="deleteError = ''; deleteTarget = item">×</button></div>
+              <span v-if="group.id !== '8.1' && !uploadedMaterials.some(material => material.topic === group.id) && !props.admin" class="topic-inactive">Noch keine Materialien vorhanden.</span>
+              <label v-if="props.admin" class="upload-link">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="uploadBusy" @change="uploadPdf($event, group.id)" /></label>
+            </nav>
+          </Panel>
+        </Panel>
         </div>
         <div v-if="props.admin" class="topics-box teacher-box"><Panel header="Lehreransicht" toggleable collapsed><nav class="topic-links" aria-label="Lehreransicht"><button v-for="item in teacherItems" :key="item.href" type="button" :aria-pressed="selectedPdf?.href === item.href" @click="selectedPdf = { ...item, teacher: true }">{{ item.title }}</button></nav></Panel></div>
       </aside>

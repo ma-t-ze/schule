@@ -43,7 +43,7 @@ try {
         respond(200, ['success' => true]);
     }
     $topic = $_POST['topic'] ?? '';
-    if (!is_string($topic) || !in_array($topic, ['2.1', '2.2', '2.3', '2.4', 'rueckblick', '8.1'], true)) respond(422, ['error' => 'Ungültiges Thema.']);
+    if (!is_string($topic) || !in_array($topic, ['2.1', '2.2', '2.3', '2.4', 'rueckblick', '8.1', '8.2', '8.3', '8.4'], true)) respond(422, ['error' => 'Ungültiges Thema.']);
     $file = $_FILES['pdf'] ?? null;
     if (!$file || $file['error'] !== UPLOAD_ERR_OK || $file['size'] < 1 || $file['size'] > 5 * 1024 * 1024 || !is_uploaded_file($file['tmp_name'])) respond(422, ['error' => 'PDF-Upload fehlgeschlagen. Maximal 5 MB.']);
     if ((new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']) !== 'application/pdf') respond(422, ['error' => 'Bitte ein gültiges PDF auswählen.']);

@@ -21,6 +21,12 @@ app.use(PrimeVue, {
 
 const routes = [
   {
+    path: '/3tgg12_Admin/raeumliche-darstellung',
+    name: '3tgg12-admin-raeumliche-darstellung',
+    component: () => import('./components/views/TGG12/RaeumlicheDarstellung.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/designvorlagen/style-kit',
     name: 'style-kit',
     component: () => import('./components/views/StyleKit/StyleKit.vue'),
@@ -504,6 +510,20 @@ const routes = [
     path: '/medientechnik/figma/tutorial/1/:step([1-3])?',
     name: 'medientechnik-figma-tutorial-1',
     component: () => import('./components/views/Medientechnik/FigmaErsterSchritt.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/figma/tutorial/3/:step([1-9])?',
+    name: 'medientechnik-figma-tutorial-3',
+    component: () => import('./components/views/Medientechnik/FigmaDritterSchritt.vue'),
+    props: route => ({ step: Number(route.params.step || 1) }),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/medientechnik/figma/tutorial/4/:step([1-8])?',
+    name: 'medientechnik-figma-tutorial-4',
+    component: () => import('./components/views/Medientechnik/FigmaVierterSchritt.vue'),
     props: route => ({ step: Number(route.params.step || 1) }),
     meta: { requiresAuth: false }
   },
