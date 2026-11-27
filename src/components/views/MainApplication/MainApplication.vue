@@ -5,6 +5,8 @@ import Button from 'primevue/button'
 import Popover from 'primevue/popover'
 import Toolbar from 'primevue/toolbar'
 import SelectButton from 'primevue/selectbutton'
+import Dialog from 'primevue/dialog'
+import AdminPdfList from './AdminPdfList.vue'
 import { PhBell } from '@phosphor-icons/vue'
 import { classServiceUrls } from './classServiceUrls'
 import SchoolCalendar from './SchoolCalendar.vue'
@@ -79,18 +81,21 @@ const adminMaterialsUrl = import.meta.env.DEV ? '/site-auth/school-admin-materia
 const adminMaterials = ref([])
 const adminMaterialsError = ref('')
 const adminMaterialsBusy = ref(false)
+const adminDeleteTarget = ref(null)
 let adminMaterialsCsrf = ''
+let adminSectionsSupported = false
 async function loadAdminMaterials() {
   try {
     const response = await fetch(adminMaterialsUrl, { credentials: 'include', cache: 'no-store' })
     const data = await response.json()
     if (!response.ok || !Array.isArray(data.items)) throw new Error(data.error || 'PDFs konnten nicht geladen werden.')
-    adminMaterials.value = data.items
+    adminMaterials.value = data.items.map(item => ({ ...item, section: item.section || 'schuladministration' }))
     adminMaterialsCsrf = data.csrf || ''
+    adminSectionsSupported = data.sections_supported === true
     adminMaterialsError.value = ''
   } catch (error) { adminMaterialsError.value = error.message || 'PDFs konnten nicht geladen werden.' }
 }
-async function uploadAdminPdf(event) {
+async function uploadAdminPdf(event, section) {
   const input = event.target
   const file = input.files?.[0]
   if (!file) return
@@ -100,13 +105,31 @@ async function uploadAdminPdf(event) {
   try {
     if (!adminMaterialsCsrf) await loadAdminMaterials()
     if (!adminMaterialsCsrf) throw new Error('Bitte erneut anmelden und die Seite neu laden.')
-    const body = new FormData(); body.append('pdf', file)
+    if (section !== 'schuladministration' && !adminSectionsSupported) throw new Error('Für diesen Bereich muss die PDF-Verwaltung auf dem Server aktualisiert werden.')
+    const body = new FormData(); body.append('pdf', file); body.append('section', section)
     const response = await fetch(adminMaterialsUrl, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': adminMaterialsCsrf }, body })
     const result = await response.json()
     if (!response.ok) throw new Error(result.error || 'Das PDF konnte nicht hochgeladen werden.')
-    adminMaterials.value.push(result.item)
+    if (!result.item || !result.item.id) throw new Error('Der Server hat keine gültige Bestätigung zurückgegeben. Bitte die Seite neu laden.')
+    adminMaterials.value.push({ ...result.item, section: result.item.section || 'schuladministration' })
   } catch (error) { adminMaterialsError.value = error.message || 'Das PDF konnte nicht hochgeladen werden.' }
   finally { adminMaterialsBusy.value = false; input.value = '' }
+}
+async function deleteAdminPdf() {
+  if (!adminDeleteTarget.value || adminMaterialsBusy.value) return
+  adminMaterialsBusy.value = true
+  adminMaterialsError.value = ''
+  try {
+    const body = new FormData(); body.append('action', 'delete'); body.append('id', String(adminDeleteTarget.value.id))
+    const response = await fetch(adminMaterialsUrl, { method: 'POST', credentials: 'include', headers: { 'X-CSRF-Token': adminMaterialsCsrf }, body })
+    const result = await response.json()
+    if (!response.ok) throw new Error(result.error || 'Das PDF konnte nicht gelöscht werden.')
+    const src = `${adminMaterialsUrl}?id=${adminDeleteTarget.value.id}`
+    closeDocument(src)
+    adminMaterials.value = adminMaterials.value.filter(item => item.id !== adminDeleteTarget.value.id)
+    adminDeleteTarget.value = null
+  } catch (error) { adminMaterialsError.value = error.message || 'Das PDF konnte nicht gelöscht werden.' }
+  finally { adminMaterialsBusy.value = false }
 }
 onMounted(loadAdminMaterials)
 const sickLeaveInfo = ref(null)
@@ -175,9 +198,6 @@ const tgg12Dates = 5
       <Panel header="Schuladministration" toggleable collapsed class="class-subpanel">
         <div class="admin-link"><a :href="schoolYearPlanUrl" target="_blank" rel="noopener noreferrer">Jahresplan CHS 2026/27 (PDF) ↗</a></div>
         <div class="admin-link"><a href="/schuladministration/Pausenaufsichten_2026-10-12.pdf" target="_blank" rel="noopener noreferrer">Pausenaufsichten (PDF) ↗</a></div>
-        <div v-for="item in adminMaterials" :key="item.id" class="admin-link"><a :href="`${adminMaterialsUrl}?id=${item.id}`" target="_blank" rel="noopener noreferrer">{{ item.title }} (PDF) ↗</a></div>
-        <div class="admin-link"><label class="admin-upload">＋ PDF hochladen<input type="file" accept="application/pdf,.pdf" :disabled="adminMaterialsBusy" @change="uploadAdminPdf" /></label></div>
-        <p v-if="adminMaterialsError" class="admin-upload-error" role="alert">{{ adminMaterialsError }}</p>
         <div class="admin-link"><span>Sabine Heitmann</span><Button label="i" aria-label="Kontaktdaten von Sabine Heitmann" rounded outlined size="small" @click="sabineHeitmannInfo.toggle($event)" /></div>
         <Popover ref="sabineHeitmannInfo">
           <div class="webuntis-info">
@@ -210,12 +230,14 @@ const tgg12Dates = 5
         <Popover ref="repairInfo"><div class="webuntis-info"><strong>Reparaturschein EDV</strong><p>Du findest den Reparaturschein in Microsoft Teams im Team <strong>Alle-Lehrer_Kib</strong>, im ausgeblendeten Kanal <strong>„Reperaturschein EDV“</strong>.</p><p>Markiere im Reparaturschein direkt die zuständige Person mit einer <strong>@-Erwähnung</strong>:</p><ul><li><strong>PädML:</strong> @Hasenhündl, @Mossa, @Akyol</li><li><strong>Lehrernetz / Verwaltungsnetz:</strong> @rsc</li><li><strong>iMacs:</strong> @Tögel, @Akyol</li><li><strong>iPads und Apple TV:</strong> @Baier</li><li><strong>Allgemeine Fragen / sonstige Themen:</strong> @Akyol</li></ul><p><strong>Bei iMacs bitte den Mac-Namen angeben.</strong> Du findest ihn auch über den Gast-Account in den Systemeinstellungen im Bereich „Info“.</p></div></Popover>
         <div class="admin-link"><span>Bis 7:30 Uhr im Sekretariat krankmelden</span><Button label="i" aria-label="Hinweise zur Krankmeldung" rounded outlined size="small" @click="sickLeaveInfo.toggle($event)" /></div>
         <Popover ref="sickLeaveInfo"><div class="webuntis-info"><strong>Krankmeldung</strong><p>Per E-Mail gerne auch schon früher krankmelden. Wenn möglich, Aufgaben an die Abteilungsleitung mitschicken, die die SuS bearbeiten könnten.</p><p>Bei TG-Beteiligung auch an der CES krankmelden.</p></div></Popover>
+        <AdminPdfList section="schuladministration" :items="adminMaterials" :endpoint="adminMaterialsUrl" :busy="adminMaterialsBusy" :error="adminMaterialsError" @upload="uploadAdminPdf" @delete="adminDeleteTarget = $event" />
       </Panel>
 
       <Panel header="Schulwiki" toggleable collapsed class="class-subpanel">
         <nav class="link-list" aria-label="Schulwiki">
           <RouterLink :to="{ name: 'schulwiki-krank-bei-klassenarbeiten' }">Krank bei Klassenarbeiten</RouterLink>
         </nav>
+        <AdminPdfList section="schulwiki" :items="adminMaterials" :endpoint="adminMaterialsUrl" :busy="adminMaterialsBusy" :error="adminMaterialsError" @upload="uploadAdminPdf" @delete="adminDeleteTarget = $event" />
       </Panel>
       <Panel header="Prüfungen" toggleable collapsed class="class-subpanel">
         <nav class="link-list" aria-label="Prüfungsunterlagen">
@@ -229,7 +251,9 @@ const tgg12Dates = 5
           <a href="/pruefungen/Aerztliches_Zeugnis.pdf" target="_blank" rel="noopener noreferrer">Ärztliches Zeugnis (PDF) ↗</a>
           <a href="/pruefungen/Klassen_UBs.jpg" target="_blank" rel="noopener noreferrer">Klassenauswahl für die unterrichtspraktischen Prüfungen (JPG) ↗</a>
         </nav>
+        <AdminPdfList section="pruefungen" :items="adminMaterials" :endpoint="adminMaterialsUrl" :busy="adminMaterialsBusy" :error="adminMaterialsError" @upload="uploadAdminPdf" @delete="adminDeleteTarget = $event" />
       </Panel>
+      <Dialog :visible="!!adminDeleteTarget" modal header="PDF löschen" @update:visible="value => { if (!value) adminDeleteTarget = null }"><p>„{{ adminDeleteTarget?.title }}“ wirklich löschen?</p><p v-if="adminMaterialsError" role="alert">{{ adminMaterialsError }}</p><template #footer><Button label="Abbrechen" text :disabled="adminMaterialsBusy" @click="adminDeleteTarget = null" /><Button label="Löschen" severity="danger" :loading="adminMaterialsBusy" @click="deleteAdminPdf" /></template></Dialog>
       </Panel>
       <Panel header="Archiv" toggleable collapsed>
         <nav class="link-list archive-links" aria-label="Archiv">
@@ -396,11 +420,6 @@ h1, h2 { font-size: 25px; font-weight: 500; margin: 0 0 24px; }
 .school-email { user-select: text; overflow-wrap: anywhere; min-width: 0; font-size: 17px; }
 .copy-status { font-size: 13px; color: #526257; }
 .admin-link { flex-wrap: wrap; display: flex; align-items: center; gap: 12px; }
-.admin-upload { color: var(--school-primary, #2563eb); cursor: pointer; font-size: 16px; }
-.admin-upload:hover { text-decoration: underline; }
-.admin-upload input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.admin-upload:focus-within { outline: 2px solid currentColor; outline-offset: 2px; }
-.admin-upload-error { color: #b42318; font-size: 14px; margin: 4px 0; }
 .admin-link a { color: inherit; font-size: 17px; text-underline-offset: 4px; }
 .contact-details { display: grid; gap: 4px; }
 .contact-details dt { font-weight: 500; }
